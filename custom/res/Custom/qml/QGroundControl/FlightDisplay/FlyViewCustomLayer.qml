@@ -92,25 +92,30 @@ Item {
         Layout.fillWidth:   true
         spacing:            Theme.spacingUnit
 
-        QGCLabel {
+        // plain Text (არა QGCLabel) — ფერი/ზომა მხოლოდ Theme-დან, QGCLabel-ის
+        // default pointSize-სა და font.pixelSize-ს შორის Qt warning-ის გარეშე.
+        Text {
             text:               label
             color:              Theme.textSecondary
             font.pixelSize:     Theme.fontCaption
             font.family:        Theme.fontFamily
+            antialiasing:       true
         }
         Item { Layout.fillWidth: true }
-        QGCLabel {
+        Text {
             text:               fact ? fact.valueString : "—"
             color:              Theme.textPrimary
             font.pixelSize:     Theme.fontBody
             font.family:        Theme.fontFamily
+            antialiasing:       true
             horizontalAlignment: Text.AlignRight
         }
-        QGCLabel {
+        Text {
             text:               fact ? fact.units : ""
             color:              Theme.textDisabled
             font.pixelSize:     Theme.fontCaption
             font.family:        Theme.fontFamily
+            antialiasing:       true
             visible:            text.length > 0
         }
     }
