@@ -10,6 +10,29 @@ DroneHub GCS keeps one canonical Qt TS file: `translations/qgc_ka.ts` (~3267 str
 - Fresh strings from `./tools/qgc-lupdate.sh` (or CI `translations.yml` artifact)
 - Crowdin account with permission to create/manage a project
 
+
+## Fresh setup (credentials rotation)
+
+Use this when rotating tokens or setting up a new machine. DroneHub project ID: **909155**.
+
+1. **Revoke old tokens:** [crowdin.com](https://crowdin.com/) → **Account Settings** → **API** → revoke unused Personal Access Tokens.
+2. **Create a new token** with at least **Projects → Read, Write** (not an OAuth app secret).
+3. **Local shell** — either run the helper script (recommended) or add to `~/.zshrc`:
+   ```bash
+   export CROWDIN_PROJECT_ID="909155"
+   export CROWDIN_PERSONAL_TOKEN="<personal-access-token>"
+   ```
+4. **GitHub Actions** — repository secrets on `demna63/DroneHub-GCS`:
+   ```bash
+   gh secret set CROWDIN_PROJECT_ID --body "909155" --repo demna63/DroneHub-GCS
+   gh secret set CROWDIN_PERSONAL_TOKEN --body "<personal-access-token>" --repo demna63/DroneHub-GCS
+   ```
+   Or one step from repo root (sets both GitHub secret and `~/.zshrc`, then runs `crowdin status`):
+   ```bash
+   ./tools/crowdin-setup-secrets.sh "<personal-access-token>"
+   ```
+5. Verify: `crowdin info` or `crowdin status` from the repo root (requires `CROWDIN_*` env vars).
+
 ## 1. Create the Crowdin project
 
 1. Go to [crowdin.com](https://crowdin.com/) → **Create project**.
