@@ -81,15 +81,28 @@ cmake --build build
 
 ## 5. Roadmap (სრული GCS MVP)
 
-1. **F0 — Bootstrap**: fork, custom plugin compile, ka.ts skeleton, ფონტი → "Hello ქართულად".
-2. **F1 — Branding/Theme**: DroneHub პალიტრა, ლოგო, splash, toolbar redesign.
-3. **F2 — Fly View**: HUD + telemetry widget redesign, ქართული labels.
-4. **F3 — Plan View**: mission/survey UX დახვეწა.
-5. **F4 — Setup/Params**: firmware flash, param editor, full ka translation.
-6. **F5 — QA**: 4 platform build matrix (GitHub Actions), field test.
+| # | ფაზა | სტატუსი | მთავარი deliverable |
+|---|------|---------|---------------------|
+| F0 | Bootstrap | ✅ | fork, plugin compile, ka.ts skeleton, font hook |
+| F1 | Branding/Theme | ✅ | CustomPlugin (V5.0 API), `paletteOverride`, ლოგო, ფონტი+locale, Theme singleton |
+| F2 | Fly View HUD | ✅ | `FlyViewCustomLayer` override — ტელემეტრიის overlay |
+| F3 | Plan View | ◑ | offline-plan defaults (PX4/MultiRotor) + theme/ka *(upstream-ს Plan hook არ აქვს)* |
+| F4 | Setup/Params | ◑ | `tools/qgc-lupdate.sh` + SetupView ka seed *(full translation → Crowdin)* |
+| F5 | QA matrix | ◑ | `.github/workflows/build.yml` (Linux/Win/macOS) *(execution = push)* |
+
+> ⚠️ **Qt ვერსია:** CLAUDE.md პინავს 6.10.1-ს, upstream Stable_V5.0-ის CI კი 6.8.3-ს —
+> `build.yml` default = 6.8.3. გადასაწყვეტია.
 
 ---
 
-### შემდეგი ნაბიჯი
-ამ პაკეტში არის F0-ის scaffold (custom plugin, theme, ka.ts, font hook).
-თქმა — გავაგრძელო რომელი ფენით: **Theme/branding** თუ **Fly View HUD redesign**.
+### Verification
+ლოკალურად Qt არ არის საჭირო კოდის წასაკითხად, მაგრამ build-ისთვის:
+```bash
+./bootstrap.sh && cd qgroundcontrol \
+  && cmake -B build -G Ninja -DQGC_CUSTOM_BUILD=ON -DCMAKE_BUILD_TYPE=Release \
+  && cmake --build build
+```
+ან **push → GitHub Actions** (`.github/workflows/build.yml`) — 3 desktop platform-ის compile-verification.
+
+### დარჩენილი (გარე დამოკიდებულებები)
+push → CI · full ka translation (Crowdin) · field test (drone hardware).

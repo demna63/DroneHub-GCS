@@ -1,0 +1,23 @@
+<RCC>
+    <!-- ბრენდის სურათები — brandImageIndoor/Outdoor: "/custom/img/DroneHubLogo.svg" -->
+    <qresource prefix="/custom/img">
+        <file alias="DroneHubLogo.svg">res/DroneHubLogo.svg</file>
+    </qresource>
+
+    <!-- ქართული ფონტი — addApplicationFont(":/custom/fonts/NotoSansGeorgian.ttf") -->
+    <qresource prefix="/custom/fonts">
+        <file alias="NotoSansGeorgian.ttf">res/fonts/NotoSansGeorgian.ttf</file>
+    </qresource>
+
+    <!-- Custom.Theme singleton module. import path: "qrc:/Custom/imports" → import Custom -->
+    <qresource prefix="/Custom/imports/Custom">
+        <file alias="qmldir">res/Custom/qmldir</file>
+        <file alias="Theme.qml">res/Custom/Theme.qml</file>
+    </qresource>
+
+    <!-- QML view overrides. CustomOverrideInterceptor გადაამისამართებს core URL-ებს:
+         qrc:/qml/<path>  →  qrc:/Custom/qml/<path> (თუ აქ არსებობს). -->
+    <qresource prefix="/Custom/qml">
+        <file alias="QGroundControl/FlightDisplay/FlyViewCustomLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml</file>
+    </qresource>
+</RCC>

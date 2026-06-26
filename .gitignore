@@ -1,5 +1,7 @@
-qgroundcontrol/
-build/
+# QGC fork — root-anchored (თორემ case-insensitive FS-ზე ჩვენს custom override
+# path-ს custom/res/Custom/qml/QGroundControl/... იგნორირებს).
+/qgroundcontrol/
+/build/
 *.user
 .DS_Store
 custom/res/fonts/*.ttf

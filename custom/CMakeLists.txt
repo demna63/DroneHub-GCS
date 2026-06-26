@@ -1,34 +1,39 @@
-# DroneHub GCS — custom build module.
-# Picked up automatically when configured with -DQGC_CUSTOM_BUILD=ON.
+# DroneHub GCS — custom build module (QGC Stable_V5.0 API).
+#
+# QGC core detects custom/ და აკეთებს add_subdirectory(custom) (CMakeLists.txt:261)
+# და include(CustomOverrides) (CMakeLists.txt:27 ← custom/cmake/CustomOverrides.cmake).
+#
+# რეგისტრაცია: CUSTOMHEADER/CUSTOMCLASS compile-defs → core ქმნის CustomPlugin singleton-ს.
+# Sources/includes/resources გადაეცემა core target-ს (${CMAKE_PROJECT_NAME}) cache vars-ით
+# (იხ. core CMakeLists.txt:526-528, 270/299).
 
-set(QGC_APP_NAME            "DroneHub GCS"        CACHE STRING "" FORCE)
-set(QGC_ORG_NAME           "DroneHub Georgia"     CACHE STRING "" FORCE)
-set(QGC_ORG_DOMAIN         "dronehub.ge"          CACHE STRING "" FORCE)
-set(QGC_APP_DESCRIPTION    "DroneHub Ground Control Station" CACHE STRING "" FORCE)
+message(STATUS "QGC: Adding DroneHub Custom Plugin")
 
-target_sources(QGCResources INTERFACE)
-
-# Custom plugin sources merged into the QGC target.
-target_sources(${QGC_TARGET_NAME}
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.cc
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.cc
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.h
+# ჩვენი QGCCorePlugin subclass-ის რეგისტრაცია core-ში.
+set_property(DIRECTORY ${CMAKE_SOURCE_DIR}
+    APPEND PROPERTY COMPILE_DEFINITIONS
+        QGC_CUSTOM_BUILD
+        CUSTOMHEADER="CustomPlugin.h"
+        CUSTOMCLASS=CustomPlugin
 )
 
-target_include_directories(${QGC_TARGET_NAME}
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+# custom resources (logo, font, Theme module) → QGC_RESOURCES.
+list(APPEND CUSTOM_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/custom.qrc)
+set(QGC_RESOURCES ${QGC_RESOURCES} ${CUSTOM_RESOURCES} CACHE STRING "Paths to .qrc Resources" FORCE)
 
-# Resource override (logo, theme, fonts, QML view overrides).
-qt_add_resources(${QGC_TARGET_NAME} "custom_resources"
-    PREFIX "/"
-    FILES
-        res/DroneHubLogo.svg
-        res/fonts/NotoSansGeorgian.ttf
-        res/Custom/Theme.qml
+# custom plugin sources → core target.
+set(CUSTOM_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.h
+    CACHE INTERNAL "" FORCE
 )
 
-# Georgian translation compiled into the binary.
-qt_add_translations(${QGC_TARGET_NAME}
-    TS_FILES ${CMAKE_SOURCE_DIR}/translations/qgc_ka.ts)
+set(CUSTOM_INCLUDE_DIRECTORIES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src
+    CACHE INTERNAL "" FORCE
+)
+
+# ქართული თარგმანი (qgc_ka.ts) — core ავტომატურად glob-ავს translations/qgc_*.ts-ს
+# (core CMakeLists.txt:531). bootstrap.sh symlink-ავს ჩვენს qgc_ka.ts-ს იქ. აქ wiring საჭირო არ არის.

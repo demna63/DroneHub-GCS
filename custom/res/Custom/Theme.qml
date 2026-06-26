@@ -6,6 +6,10 @@ import QtQuick
 QtObject {
     id: theme
 
+    // ---- ბრენდი (asset paths — UI არასოდეს hardcode-ავს resource path-ს) ----
+    readonly property string logoSource:    "qrc:/custom/img/DroneHubLogo.svg"
+    readonly property string appName:       "DroneHub GCS"
+
     // ---- ბრენდის პალიტრა ----
     readonly property color brandPrimary:   "#0A84FF"   // DroneHub blue
     readonly property color brandAccent:    "#30D158"   // armed/ok green

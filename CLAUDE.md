@@ -42,7 +42,55 @@ cmake --build build
 - კომიტამდე: `./tools/qgc-lupdate.sh` თუ ახალი user-facing string დაამატე.
 
 ## Roadmap
-F0 bootstrap ✓ · F1 Theme/branding · F2 Fly View HUD · F3 Plan View · F4 Setup/Params · F5 QA matrix
+F0 bootstrap ✓ · F1 Theme/branding ✓ · F2 Fly View HUD ✓ · F3 Plan View ◑ · F4 Setup/Params ◑ · F5 QA matrix ◑ (desktop ✓)
+
+> 🟢 **Cross-platform compile-verified** — CI run 28231357555 (sha 47c255d): custom build
+> კომპაილდება+ლინკდება **Linux + Windows + macOS**-ზე (full build ~32წთ). PR #1.
+
+### F3 (Plan View) — scoped
+upstream-ს **არ აქვს** PlanView custom-layer hook (FlyView-ისგან განსხვავებით) → სრული
+PlanView.qml override fragile hard-fork იქნებოდა (აკრძალულია). სანქცირებული lever-ები:
+- `adjustSettingMetaData()` — offline Plan default = PX4 / MultiRotor (custom-example pattern).
+- Plan branding ავტომატურად მოდის `paletteOverride()`-დან (PlanView იყენებს QGCPalette).
+- Georgian: `qgc_ka.ts` PlanView context.
+
+### F4 (Setup/Params) — scoped
+- `tools/qgc-lupdate.sh` — **შეიქმნა** (CLAUDE.md რეფერენსავდა, არ არსებობდა). lupdate runner custom/-ზე.
+- `qgc_ka.ts` SetupView context — key terms seed.
+- ⚠️ "full ka translation" = Crowdin/human effort (ათასობით string) — tooling მზადაა, შიგთავსი არა.
+
+### F2 (Fly View HUD) — შესრულდა
+- `custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml` — DroneHub
+  ტელემეტრიის overlay (სიმაღლე/სიჩქარე/ვერტ./მანძილი/სატელიტი/ბატარეა), Theme tokens, armed indicator.
+- რეგისტრაცია: `custom.qrc` prefix `/Custom/qml` → `CustomOverrideInterceptor` გადაამისამართებს
+  core-ის `qrc:/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml`-ს.
+- insets სწორად — core კონტროლები პანელს არ ეფარება. Georgian → `qgc_ka.ts` `FlyViewCustomLayer` context.
+- vehicle facts ვერიფიცირებულია real tree-ზე: `vehicle.{altitudeRelative,groundSpeed,climbRate,flightDistance}`, `gps.count`, `batteries.get(0).percentRemaining`.
+
+### F5 (QA matrix) — desktop ✓
+- `.github/workflows/build.yml` — Linux/Win/macOS custom-build CI + `concurrency` (minutes-saver).
+  🟢 **GREEN** (run 28231357555). 6 იტერაცია დასჭირდა: app-name space, GStreamer toggle,
+  CustomOptions forward-decl. Build: GStreamer გათიშულია (custom plugin/QML verification).
+- დარჩა: **Android** (QGC `qt-android` composite action + keystore secrets + NDK — რთული),
+  **WASM** (upstream Stable_V5.0 CI-შიც არ არის — experimental). field test → hardware.
+
+### ⚠️ Qt ვერსიის გადასაწყვეტი
+upstream Stable_V5.0-ის **საკუთარი CI იყენებს Qt 6.8.3-ს**, CLAUDE.md კი პინავს 6.10.1-ს.
+CI default ამჟამად 6.8.3 (upstream-validated). 6.10.1 vs 6.8.3 — გუნდმა უნდა დაადასტუროს.
+
+### F1 (branding/theme) — შესრულდა
+custom/ scaffold **გადაკეთდა Stable_V5.0 API-ზე** (F0 ძველ QGCToolbox API-ს იყენებდა → არ აეწყობოდა):
+- რეგისტრაცია: `CUSTOMHEADER`/`CUSTOMCLASS` compile-defs (singleton `Q_APPLICATION_STATIC`).
+- CMake: `CUSTOM_SOURCES`/`CUSTOM_INCLUDE_DIRECTORIES`/`QGC_RESOURCES` cache vars (core target `${CMAKE_PROJECT_NAME}`).
+- `custom/cmake/CustomOverrides.cmake` (configure-time include — სავალდებულო) · `custom/custom.qrc`.
+- DroneHub branding: `DroneHubLogo.svg`, `paletteOverride()` (Theme→QGC palette), `brandImage*`, ქართული ფონტი+locale `init()`-ში.
+- QML override mechanism: `createQmlApplicationEngine` + `CustomOverrideInterceptor` (F2/F3-ისთვის) · `Custom.Theme` singleton.
+- ✅ ფონტი ჩამოტვირთულია (`NotoSansGeorgian.ttf`, gitignored).
+- ✅ **compile-verified CI-ით** (Linux/Win/macOS, run 28231357555). Qt 6.8.3.
 
 ## აქტიური ფოკუსი
-> შემდეგი: F1 (Theme/branding) ან F2 (Fly View HUD) — დასადასტურებელია.
+> F1–F4 implemented + desktop compile-verified (PR #1 GREEN). შემდეგი:
+> 1. PR #1 review/merge (billing fixed).
+> 2. Android/WASM CI jobs — ძვირი (NDK/composite action/secrets); user-greenlight საჭიროა.
+> 3. F4 full ka translation — Crowdin/human (`tools/qgc-lupdate.sh` მზადაა). field test — hardware.
+> Qt **6.10.1 (CLAUDE.md) vs 6.8.3 (CI)** გადასაწყვეტია.

@@ -1,0 +1,7 @@
+# DroneHub custom QML module — Theme design-token singleton.
+# import path "qrc:/Custom/imports" ემატება CustomPlugin::createQmlApplicationEngine-ში
+# (upstream main.cc-ის შეცვლის გარეშე — NO HARD-FORK). გამოყენება override QML-ში:
+#   import Custom
+#   ... color: Theme.brandPrimary
+module Custom
+singleton Theme 1.0 Theme.qml

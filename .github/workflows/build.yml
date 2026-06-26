@@ -1,0 +1,146 @@
+# DroneHub GCS — custom build CI (F5 foundation).
+#
+# რას აკეთებს: კლონავს QGC-ს (Stable_V5.0), ჩასვამს ჩვენს custom/ + translations/-ს,
+# და აეწყობს custom build-ს. ეს არის რეალური compile-verification ჩვენი custom plugin-ისა.
+#
+# მოდელირებულია upstream-ის `custom.yml`-ზე (qgroundcontrol/.github/workflows/custom.yml).
+# ⚠️ პირველ run-ზე დასავალიდირებელია (Qt ვერსია / system deps / kit).
+#
+# ⚠️ Qt ვერსიის შენიშვნა: CLAUDE.md პინავს 6.10.1-ს, მაგრამ upstream Stable_V5.0-ის
+#    საკუთარი CI იყენებს 6.8.3-ს. ქვემოთ default = 6.8.3 (upstream-validated);
+#    6.10.1-ზე გადასართავად შეცვალე QT_VERSION. შეუთავსებლობის შემთხვევაში გადაწყვეტა
+#    გუნდმა უნდა მიიღოს (იხ. CLAUDE.md "Build constraints").
+
+name: DroneHub Build
+
+on:
+  push:
+    branches: [master, main, 'Stable*']
+    tags: ['v*']
+  pull_request:
+    paths:
+      - 'custom/**'
+      - 'translations/**'
+      - 'bootstrap.sh'
+      - '.github/workflows/build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# ახალი push იმავე branch/PR-ზე აუქმებს მიმდინარე run-ს — CI minutes-ის დაზოგვა
+# (ერთ commit-ზე ორმაგი run-ის თავიდან აცილება).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QGC_TAG: Stable_V5.0
+  QT_VERSION: 6.8.3
+
+jobs:
+  desktop:
+    name: ${{ matrix.os }} (custom)
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            qt_host: linux
+            qt_arch: linux_gcc_64
+          - os: windows-latest
+            qt_host: windows
+            qt_arch: win64_msvc2022_64
+          - os: macos-latest
+            qt_host: mac
+            qt_arch: clang_64
+
+    steps:
+      - name: Checkout DroneHub
+        uses: actions/checkout@v4
+
+      - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
+        shell: bash
+        run: |
+          git clone --recursive --branch "$QGC_TAG" --depth 1 \
+            https://github.com/mavlink/qgroundcontrol.git qgroundcontrol
+          # ჩვენი custom/ + ka თარგმანი QGC tree-ში (symlink-ის ნაცვლად — CI-ში copy უსაფრთხოა)
+          rm -rf qgroundcontrol/custom
+          cp -R custom qgroundcontrol/custom
+          cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_ka.ts
+          if [ ! -f qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf ]; then
+            echo "::group::Fetch Georgian font (OFL)"
+            curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf" \
+              -o qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf
+            echo "::endgroup::"
+          fi
+
+      - name: Install platform build deps
+        shell: bash
+        # Use $RUNNER_OS env var (always set by GitHub Actions) rather than
+        # expression-based `if: runner.os == '...'` conditions which have been
+        # observed to be silently skipped on some hosted runner images.
+        # Stable_V5.0 cmake/Install.cmake requires create-dmg on macOS at
+        # configure time, so it must be present before the cmake step runs.
+        run: |
+          case "$RUNNER_OS" in
+            Linux)
+              sudo apt-get update
+              sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev \
+                libvulkan-dev libxcb-cursor0 libpulse-dev
+              ;;
+            macOS)
+              brew install create-dmg
+              echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+              ;;
+          esac
+
+      - name: Install Qt ${{ env.QT_VERSION }}
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: ${{ matrix.qt_host }}
+          target: desktop
+          arch: ${{ matrix.qt_arch }}
+          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          cache: true
+
+      - name: Set up MSVC (Windows)
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+
+      - name: Configure (custom build)
+        working-directory: qgroundcontrol
+        shell: bash
+        # GStreamer გათიშულია — CI ამოწმებს custom plugin/branding/QML-ს,
+        # არა video backend-ს (თავიდან ვიცილებთ GStreamer deps-ს 3 platform-ზე).
+        # production build-ში: -DQGC_ENABLE_GST_VIDEOSTREAMING=ON + GStreamer deps.
+        # install-qt-action exports QT_ROOT_DIR on every runner, so plain cmake
+        # can find Qt without relying on a platform-specific qt-cmake wrapper.
+        run: |
+          CMAKE_EXTRA_ARGS=()
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            command -v create-dmg || { echo "::error::create-dmg not found after brew install — check the 'Install platform build deps' step"; exit 1; }
+            CMAKE_EXTRA_ARGS+=("-DCREATE_DMG_PROGRAM=$(brew --prefix)/bin/create-dmg")
+            # ახალ macOS SDK-ებიდან 'AGL' framework ამოღებულია, QtQuick3D (Viewer3D) კი
+            # მას ლინკავს → link fail. Viewer3D-ს macOS CI-ზე ვთიშავთ (Linux/Win-ზე ON რჩება).
+            CMAKE_EXTRA_ARGS+=("-DQGC_VIEWER3D=OFF")
+          fi
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DQGC_CUSTOM_BUILD=ON \
+            -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
+            "${CMAKE_EXTRA_ARGS[@]}"
+
+      - name: Build
+        working-directory: qgroundcontrol
+        shell: bash
+        run: cmake --build build --config Release
+
+  # Android · Web(WASM) — ცალკე kit-ები; ჩონჩხი F5-ის გასაგრძელებლად.
+  # android: NDK toolchain (-DCMAKE_TOOLCHAIN_FILE=<ndk>) · web: qt-cmake WASM kit.
+  # იხ. upstream: qgroundcontrol/.github/workflows/{android-*,*wasm*}.yml

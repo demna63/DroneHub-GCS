@@ -1,16 +1,38 @@
 #pragma once
 
+#include <QtGui/QColor>
+
 #include "QGCOptions.h"
 
-/// DroneHub UI option overrides (toolbar, multi-vehicle, etc.).
+class CustomPlugin;
+class CustomOptions;
+
+/// Fly View behaviour tweaks for DroneHub single-vehicle field ops.
+class CustomFlyViewOptions : public QGCFlyViewOptions
+{
+public:
+    explicit CustomFlyViewOptions(CustomOptions* options, QObject* parent = nullptr);
+
+    // QGCFlyViewOptions overrides
+    bool showInstrumentPanel()  const final;
+    bool showMultiVehicleList() const final;
+};
+
+/// DroneHub UI option overrides (toolbar colors, calibration, fly-view).
+/// API ემთხვევა QGC Stable_V5.0-ს: ctor(CustomPlugin*, QObject*) + flyViewOptions().
 class CustomOptions : public QGCOptions
 {
-    Q_OBJECT
 public:
-    explicit CustomOptions(QGCCorePlugin* corePlugin, QObject* parent = nullptr);
+    explicit CustomOptions(CustomPlugin* plugin, QObject* parent = nullptr);
 
-    bool wifiReliableForCalibration() const override { return false; }
-    bool showFirmwareUpgrade()        const override { return true;  }
-    QColor toolbarBackgroundLight()   const override;
-    QColor toolbarBackgroundDark()    const override;
+    // QGCOptions overrides
+    bool                wifiReliableForCalibration() const final;
+    bool                showFirmwareUpgrade()        const final;
+    QGCFlyViewOptions*  flyViewOptions()             const final;
+    QColor              toolbarBackgroundLight()      const final;
+    QColor              toolbarBackgroundDark()       const final;
+
+private:
+    CustomPlugin*         _plugin         = nullptr;   // forward-declared above
+    CustomFlyViewOptions* _flyViewOptions = nullptr;
 };
