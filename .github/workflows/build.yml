@@ -81,7 +81,10 @@ jobs:
         if: runner.os == 'macOS'
         # Stable_V5.0 includes Install.cmake during configure on macOS and
         # errors out early when create-dmg is unavailable.
-        run: brew install create-dmg
+        run: |
+          brew install create-dmg
+          echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+          command -v create-dmg
 
       - name: Install Qt ${{ env.QT_VERSION }}
         uses: jurplel/install-qt-action@v4
