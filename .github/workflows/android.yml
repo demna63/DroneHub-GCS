@@ -1,0 +1,141 @@
+# DroneHub GCS — Android custom build CI (F5).
+#
+# აშენებს custom build-ს Android-ისთვის (arm64-v8a, unsigned) Linux host-ზე.
+# ცალკე workflow-ია (არა build.yml-ში) — Android-ის იტერაციაზე desktop matrix
+# არ ეშვება (CI minutes). მოდელირებულია upstream qt-android composite action-ზე
+# (qgroundcontrol/.github/actions/qt-android) — inline, რადგან composite ჩვენს
+# checkout-ში არ არის.
+#
+# unsigned APK (QT_ANDROID_SIGN_APK=OFF) — keystore secrets არ სჭირდება, verification-ს.
+
+name: DroneHub Android
+
+on:
+  push:
+    branches: [master, main]
+    tags: ['v*']
+  pull_request:
+    paths:
+      - 'custom/**'
+      - 'translations/**'
+      - '.github/workflows/android.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QGC_TAG: Stable_V5.0
+  QT_VERSION: 6.8.3
+  QT_ANDROID_ABIS: arm64-v8a
+
+jobs:
+  android:
+    name: android (arm64-v8a, unsigned)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout DroneHub
+        uses: actions/checkout@v4
+
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: false
+          large-packages: false
+
+      - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
+        shell: bash
+        run: |
+          git clone --recursive --branch "$QGC_TAG" --depth 1 \
+            https://github.com/mavlink/qgroundcontrol.git qgroundcontrol
+          rm -rf qgroundcontrol/custom
+          cp -R custom qgroundcontrol/custom
+          cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_ka.ts
+          if [ ! -f qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf ]; then
+            curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf" \
+              -o qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf
+          fi
+
+      - name: Setup Java (17)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 12266719
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
+          log-accepted-android-sdk-licenses: false
+
+      - name: Install Android NDK (r26b for Qt 6.8)
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r26b
+          add-to-path: false
+
+      - name: Export NDK env
+        shell: bash
+        run: |
+          echo "ANDROID_NDK_ROOT=${{ steps.setup-ndk.outputs.ndk-path }}" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK_HOME=${{ steps.setup-ndk.outputs.ndk-path }}" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK=${{ steps.setup-ndk.outputs.ndk-path }}" >> "$GITHUB_ENV"
+
+      - name: Install host Qt (linux_gcc_64)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          dir: ${{ runner.temp }}
+          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          setup-python: false
+          cache: true
+
+      - name: Install Android Qt (arm64_v8a)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: android
+          arch: android_arm64_v8a
+          dir: ${{ runner.temp }}
+          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          setup-python: false
+          cache: true
+
+      - name: Configure (Android custom build)
+        working-directory: qgroundcontrol
+        shell: bash
+        # QT_ROOT_DIR → ბოლო install-qt-action (android_arm64_v8a). host Qt გვერდითაა (../gcc_64).
+        run: |
+          "${QT_ROOT_DIR}/bin/qt-cmake" -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_WARN_DEPRECATED=FALSE \
+            -DQGC_CUSTOM_BUILD=ON \
+            -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
+            -DQT_ANDROID_ABIS="${QT_ANDROID_ABIS}" \
+            -DQT_ANDROID_BUILD_ALL_ABIS=OFF \
+            -DQT_HOST_PATH="${QT_ROOT_DIR}/../gcc_64" \
+            -DQT_ANDROID_SIGN_APK=OFF
+
+      - name: Build APK
+        working-directory: qgroundcontrol
+        shell: bash
+        run: cmake --build build --config Release
+
+      - name: Upload APK artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DroneHubGCS-android-arm64-v8a-unsigned
+          path: qgroundcontrol/build/android-build/**/*.apk
+          if-no-files-found: warn
