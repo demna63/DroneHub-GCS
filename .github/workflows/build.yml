@@ -84,7 +84,6 @@ jobs:
         run: |
           brew install create-dmg
           echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
-          command -v create-dmg
 
       - name: Install Qt ${{ env.QT_VERSION }}
         uses: jurplel/install-qt-action@v4
@@ -111,6 +110,9 @@ jobs:
         # install-qt-action exports QT_ROOT_DIR on every runner, so plain cmake
         # can find Qt without relying on a platform-specific qt-cmake wrapper.
         run: |
+          if [ "${{ runner.os }}" = "macOS" ]; then
+            command -v create-dmg
+          fi
           cmake -S . -B build -G Ninja \
             -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" \
             -DCMAKE_BUILD_TYPE=Release \
