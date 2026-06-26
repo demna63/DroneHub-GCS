@@ -1,0 +1,79 @@
+# DroneHub GCS — Crowdin sync (upload sources, download ka translations, open PR).
+#
+# Requires repository secrets: CROWDIN_PROJECT_ID, CROWDIN_PERSONAL_TOKEN
+# Setup: tools/CROWDIN.md
+#
+# upload_translations: false — do not overwrite Crowdin with stale local copies.
+# Seed existing repo translations once via: crowdin upload translations (local CLI).
+
+name: DroneHub Crowdin Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekly sync (after upstream-style lupdate cadence); adjust as needed.
+    - cron: '0 4 * * 0'
+  push:
+    branches: [master]
+    paths:
+      - 'translations/qgc_ka.ts'
+      - 'crowdin.yml'
+      - '.github/workflows/crowdin.yml'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: crowdin-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  crowdin:
+    name: sync qgc_ka.ts with Crowdin
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate qgc_ka.ts
+        run: |
+          python3 -c "
+          import xml.etree.ElementTree as ET
+          import sys
+          path = 'translations/qgc_ka.ts'
+          tree = ET.parse(path)
+          root = tree.getroot()
+          if root.tag != 'TS':
+              sys.exit('not a Qt TS file')
+          if root.get('sourcelanguage') != 'en':
+              sys.exit('expected sourcelanguage=en')
+          msgs = root.findall('.//message')
+          print(f'OK: {len(msgs)} messages, language={root.get(\"language\")}')
+          "
+
+      - name: Synchronize with Crowdin
+        uses: crowdin/github-action@v2
+        with:
+          config: crowdin.yml
+          upload_sources: true
+          upload_translations: false
+          download_translations: true
+          localization_branch_name: l10n/crowdin-ka
+          create_pull_request: true
+          pull_request_title: 'chore(l10n): Crowdin Georgian translations'
+          pull_request_body: |
+            Automated Crowdin download for `translations/qgc_ka.ts`.
+
+            Review for:
+            - Flight-mode / Roll-Pitch-Yaw strings remain English
+            - Placeholders (`%1`, `&apos;`, …) preserved
+            - UI terminology consistency
+
+            Synced by [crowdin/github-action](https://github.com/crowdin/github-action).
+          pull_request_base_branch_name: master
+          commit_message: 'chore(l10n): sync qgc_ka.ts from Crowdin'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
