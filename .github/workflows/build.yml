@@ -25,6 +25,9 @@ on:
       - '.github/workflows/build.yml'
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 env:
   QGC_TAG: Stable_V5.0
   QT_VERSION: 6.8.3
@@ -76,6 +79,8 @@ jobs:
 
       - name: Install macOS build deps
         if: runner.os == 'macOS'
+        # Stable_V5.0 includes Install.cmake during configure on macOS and
+        # errors out early when create-dmg is unavailable.
         run: brew install create-dmg
 
       - name: Install Qt ${{ env.QT_VERSION }}
@@ -100,6 +105,8 @@ jobs:
         # GStreamer გათიშულია — CI ამოწმებს custom plugin/branding/QML-ს,
         # არა video backend-ს (თავიდან ვიცილებთ GStreamer deps-ს 3 platform-ზე).
         # production build-ში: -DQGC_ENABLE_GST_VIDEOSTREAMING=ON + GStreamer deps.
+        # install-qt-action exports QT_ROOT_DIR on every runner, so plain cmake
+        # can find Qt without relying on a platform-specific qt-cmake wrapper.
         run: |
           cmake -S . -B build -G Ninja \
             -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" \
