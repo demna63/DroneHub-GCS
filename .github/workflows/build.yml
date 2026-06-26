@@ -70,20 +70,25 @@ jobs:
             echo "::endgroup::"
           fi
 
-      - name: Install Linux build deps
-        if: runner.os == 'Linux'
+      - name: Install platform build deps
+        shell: bash
+        # Use $RUNNER_OS env var (always set by GitHub Actions) rather than
+        # expression-based `if: runner.os == '...'` conditions which have been
+        # observed to be silently skipped on some hosted runner images.
+        # Stable_V5.0 cmake/Install.cmake requires create-dmg on macOS at
+        # configure time, so it must be present before the cmake step runs.
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev \
-            libvulkan-dev libxcb-cursor0 libpulse-dev
-
-      - name: Install macOS build deps
-        if: runner.os == 'macOS'
-        # Stable_V5.0 includes Install.cmake during configure on macOS and
-        # errors out early when create-dmg is unavailable.
-        run: |
-          brew install create-dmg
-          echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+          case "$RUNNER_OS" in
+            Linux)
+              sudo apt-get update
+              sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev \
+                libvulkan-dev libxcb-cursor0 libpulse-dev
+              ;;
+            macOS)
+              brew install create-dmg
+              echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+              ;;
+          esac
 
       - name: Install Qt ${{ env.QT_VERSION }}
         uses: jurplel/install-qt-action@v4
@@ -110,9 +115,6 @@ jobs:
         # install-qt-action exports QT_ROOT_DIR on every runner, so plain cmake
         # can find Qt without relying on a platform-specific qt-cmake wrapper.
         run: |
-          if [ "${{ runner.os }}" = "macOS" ]; then
-            command -v create-dmg
-          fi
           cmake -S . -B build -G Ninja \
             -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" \
             -DCMAKE_BUILD_TYPE=Release \
