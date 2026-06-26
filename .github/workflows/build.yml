@@ -115,11 +115,17 @@ jobs:
         # install-qt-action exports QT_ROOT_DIR on every runner, so plain cmake
         # can find Qt without relying on a platform-specific qt-cmake wrapper.
         run: |
+          CMAKE_EXTRA_ARGS=()
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            command -v create-dmg
+            CMAKE_EXTRA_ARGS+=("-DCREATE_DMG_PROGRAM=$(brew --prefix)/bin/create-dmg")
+          fi
           cmake -S . -B build -G Ninja \
             -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" \
             -DCMAKE_BUILD_TYPE=Release \
             -DQGC_CUSTOM_BUILD=ON \
-            -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF
+            -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
+            "${CMAKE_EXTRA_ARGS[@]}"
 
       - name: Build
         working-directory: qgroundcontrol
