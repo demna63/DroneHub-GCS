@@ -1,0 +1,20 @@
+# DroneHub GCS — Crowdin ↔ Qt Linguist (.ts) sync
+#
+# Canonical inventory: translations/qgc_ka.ts (English <source>, Georgian <translation>).
+# Upstream QGC pattern: mavlink/qgroundcontrol/crowdin.yml (qgc.ts + qgc-json.ts).
+# DroneHub uses a single ka file; JSON metadata strings are already merged into qgc_ka.ts via lupdate.
+#
+# Secrets (never commit): CROWDIN_PROJECT_ID, CROWDIN_PERSONAL_TOKEN
+# See tools/CROWDIN.md for project setup and CLI workflow.
+
+project_id_env: CROWDIN_PROJECT_ID
+api_token_env: CROWDIN_PERSONAL_TOKEN
+
+base_path: .
+preserve_hierarchy: true
+
+files:
+  - source: /translations/qgc_ka.ts
+    translation: /translations/qgc_%two_letters_code%.ts
+    # Crowdin file type: Qt TS (auto-detected). Existing finished translations upload on
+    # `crowdin upload translations` / CI upload_translations.
