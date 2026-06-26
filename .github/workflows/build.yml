@@ -93,10 +93,14 @@ jobs:
       - name: Configure (custom build)
         working-directory: qgroundcontrol
         shell: bash
+        # GStreamer გათიშულია — CI ამოწმებს custom plugin/branding/QML-ს,
+        # არა video backend-ს (თავიდან ვიცილებთ GStreamer deps-ს 3 platform-ზე).
+        # production build-ში: -DQGC_ENABLE_GST_VIDEOSTREAMING=ON + GStreamer deps.
         run: |
           qt-cmake -S . -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
-            -DQGC_CUSTOM_BUILD=ON
+            -DQGC_CUSTOM_BUILD=ON \
+            -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF
 
       - name: Build
         working-directory: qgroundcontrol
