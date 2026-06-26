@@ -117,6 +117,8 @@ Workflow: `.github/workflows/crowdin.yml`
 - **Scheduled:** weekly (Sunday 04:00 UTC) — uploads sources, downloads translations, opens PR
 - **On push to `master`:** when `translations/qgc_ka.ts` or `crowdin.yml` changes
 
+If sync succeeds but PR creation fails with **403**, enable **Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull requests**.
+
 The workflow uses `upload_translations: false` so translator edits in Crowdin are not overwritten by stale local copies. Re-run `crowdin upload translations` locally only when intentionally re-seeding Crowdin from git.
 
 ## 6. Day-to-day developer flow
