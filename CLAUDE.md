@@ -54,10 +54,13 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 - Plan branding ავტომატურად მოდის `paletteOverride()`-დან (PlanView იყენებს QGCPalette).
 - Georgian: `qgc_ka.ts` PlanView context.
 
-### F4 (Setup/Params) — scoped
-- `tools/qgc-lupdate.sh` — **შეიქმნა** (CLAUDE.md რეფერენსავდა, არ არსებობდა). lupdate runner custom/-ზე.
-- `qgc_ka.ts` SetupView context — key terms seed.
-- ⚠️ "full ka translation" = Crowdin/human effort (ათასობით string) — tooling მზადაა, შიგთავსი არა.
+### F4 (Setup/Params) — translation pipeline ✓
+- `tools/qgc-lupdate.sh` (local) + `.github/workflows/translations.yml` (CI `update_translations`)
+  — extraction automation. lupdate-მა გამოავლინა **3267 string / 340 context** (სწორი context-ებით).
+- `translations/qgc_ka.ts` = canonical full inventory; **185 high-value UI term თარგმნილი**
+  (ღილაკები/statuses/labels, app-wide). flight-mode names + attitude axes (Roll/Pitch/Yaw/Loiter/...)
+  **განზრახ English-ად** — safety-critical identifier-ები.
+- ⚠️ დარჩენილი ~3082 string = Crowdin/human (pipeline + canonical .ts მზადაა).
 
 ### F2 (Fly View HUD) — შესრულდა
 - `custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml` — DroneHub
