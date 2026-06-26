@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Validate qgc_ka.ts
         run: |
@@ -56,6 +56,8 @@ jobs:
         uses: crowdin/github-action@v2
         with:
           config: crowdin.yml
+          project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
+          token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
           upload_sources: true
           upload_translations: false
           download_translations: true

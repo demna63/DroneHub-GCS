@@ -18,6 +18,18 @@ DroneHub GCS keeps one canonical Qt TS file: `translations/qgc_ka.ts` (~3267 str
 4. **File format:** Qt TS (`.ts`) — usually auto-detected on first upload.
 5. Note the **Project ID**: Project → **Tools** → **API** → Project ID.
 
+## Troubleshooting CI auth
+
+If **DroneHub Crowdin Sync** fails with `Couldn't authorize. Check your 'api_token'`:
+
+1. Regenerate a **Personal Access Token** at [crowdin.com](https://crowdin.com/) → **Account Settings** → **API** (not an OAuth app secret).
+2. Token needs at least **Projects → Read, Write** (or **Full access** for small teams).
+3. Update repository secret `CROWDIN_PERSONAL_TOKEN` (Settings → Secrets and variables → Actions).
+4. Set `CROWDIN_PROJECT_ID` to the **numeric** Project ID (Project → Tools → API), with no quotes or spaces.
+5. Re-run the workflow after saving secrets.
+
+The Node.js 20 deprecation notice on `actions/checkout` is a warning only; sync failures are unrelated until Crowdin auth succeeds.
+
 ## 2. Configure credentials (local)
 
 Export env vars (do **not** commit these):
