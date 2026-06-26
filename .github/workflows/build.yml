@@ -74,6 +74,10 @@ jobs:
           sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev \
             libvulkan-dev libxcb-cursor0 libpulse-dev
 
+      - name: Install macOS build deps
+        if: runner.os == 'macOS'
+        run: brew install create-dmg
+
       - name: Install Qt ${{ env.QT_VERSION }}
         uses: jurplel/install-qt-action@v4
         with:
@@ -97,7 +101,8 @@ jobs:
         # არა video backend-ს (თავიდან ვიცილებთ GStreamer deps-ს 3 platform-ზე).
         # production build-ში: -DQGC_ENABLE_GST_VIDEOSTREAMING=ON + GStreamer deps.
         run: |
-          qt-cmake -S . -B build -G Ninja \
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" \
             -DCMAKE_BUILD_TYPE=Release \
             -DQGC_CUSTOM_BUILD=ON \
             -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF
