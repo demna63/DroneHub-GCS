@@ -1,0 +1,102 @@
+# DroneHub GCS — translation extraction (F4).
+#
+# უშვებs QGC-ის `update_translations` target-ს (qt_add_translations → lupdate),
+# რომ `translations/qgc_ka.ts` განახლდეს ყველა რეალური user-facing string-ით,
+# **სწორი context-ებით** (QML ფაილის სახელი / C++ კლასი). არსებულ თარგმანებს
+# ინარჩუნებს (lupdate merge), ახალს ცარიელად ამატებს.
+#
+# შედეგი (artifact) → Crowdin/Qt Linguist-ში ქართულად სათარგმნად.
+# არ ააგებს app-ს — მხოლოდ configure + lupdate (სწრაფი/იაფი).
+
+name: DroneHub Translations
+
+on:
+  pull_request:
+    paths:
+      - 'custom/**'
+      - 'translations/**'
+      - '.github/workflows/translations.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QGC_TAG: Stable_V5.0
+  QT_VERSION: 6.8.3
+
+jobs:
+  lupdate:
+    name: extract strings (lupdate)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout DroneHub
+        uses: actions/checkout@v4
+
+      - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
+        shell: bash
+        run: |
+          git clone --recursive --branch "$QGC_TAG" --depth 1 \
+            https://github.com/mavlink/qgroundcontrol.git qgroundcontrol
+          rm -rf qgroundcontrol/custom
+          cp -R custom qgroundcontrol/custom
+          cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_ka.ts
+          if [ ! -f qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf ]; then
+            curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf" \
+              -o qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf
+          fi
+
+      - name: Install Linux build deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev \
+            libvulkan-dev libxcb-cursor0 libpulse-dev
+
+      - name: Install Qt ${{ env.QT_VERSION }}
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          cache: true
+
+      - name: Configure (custom build, no compile)
+        working-directory: qgroundcontrol
+        shell: bash
+        # GStreamer/Viewer3D გათიშულია — lupdate-ს არ სჭირდება, configure ჩქარდება.
+        run: |
+          cmake -S . -B build -G Ninja \
+            -DCMAKE_PREFIX_PATH="${QT_ROOT_DIR}" \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DQGC_CUSTOM_BUILD=ON \
+            -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
+            -DQGC_VIEWER3D=OFF
+
+      - name: Run lupdate (update_translations)
+        working-directory: qgroundcontrol
+        shell: bash
+        run: cmake --build build --target update_translations
+
+      - name: Show string counts
+        working-directory: qgroundcontrol
+        shell: bash
+        run: |
+          echo "=== qgc_ka.ts summary ==="
+          grep -c "<message>" translations/qgc_ka.ts || true
+          echo "translated:"
+          grep -c "<translation>" translations/qgc_ka.ts || true
+          echo "unfinished:"
+          grep -c 'type="unfinished"' translations/qgc_ka.ts || true
+
+      - name: Upload canonical qgc_ka.ts (full string inventory)
+        uses: actions/upload-artifact@v4
+        with:
+          name: qgc_ka-ts-full
+          path: qgroundcontrol/translations/qgc_ka.ts
+          if-no-files-found: error
