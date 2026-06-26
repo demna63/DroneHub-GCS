@@ -33,6 +33,6 @@ public:
     QColor              toolbarBackgroundDark()       const final;
 
 private:
-    QGCCorePlugin*        _plugin         = nullptr;
+    CustomPlugin*         _plugin         = nullptr;   // forward-declared above
     CustomFlyViewOptions* _flyViewOptions = nullptr;
 };
