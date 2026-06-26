@@ -117,7 +117,7 @@ jobs:
         run: |
           CMAKE_EXTRA_ARGS=()
           if [ "$RUNNER_OS" = "macOS" ]; then
-            command -v create-dmg
+            command -v create-dmg || { echo "::error::create-dmg not found after brew install — check the 'Install platform build deps' step"; exit 1; }
             CMAKE_EXTRA_ARGS+=("-DCREATE_DMG_PROGRAM=$(brew --prefix)/bin/create-dmg")
           fi
           cmake -S . -B build -G Ninja \
