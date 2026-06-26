@@ -1,0 +1,5 @@
+qgroundcontrol/
+build/
+*.user
+.DS_Store
+custom/res/fonts/*.ttf
