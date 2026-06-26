@@ -3,7 +3,9 @@
 # (qgroundcontrol/CMakeLists.txt:27, CMAKE_MODULE_PATH-ში custom/cmake ემატება).
 # ↑ ეს ფაილი სავალდებულოა — მის გარეშე configure ჩავარდება.
 
-set(QGC_APP_NAME        "DroneHub GCS"                      CACHE STRING "App Name"        FORCE)
+# ⚠️ QGC_APP_NAME ხდება CMake target name-იც (core: project(${QGC_APP_NAME}) +
+#    qt_add_executable) — space აკრძალულია. spaced ბრენდი UI-ში Theme.appName-დან მოდის.
+set(QGC_APP_NAME        "DroneHubGCS"                       CACHE STRING "App Name"        FORCE)
 set(QGC_ORG_NAME        "DroneHub Georgia"                  CACHE STRING "Org Name"        FORCE)
 set(QGC_ORG_DOMAIN      "dronehub.ge"                       CACHE STRING "Org Domain"      FORCE)
 set(QGC_APP_DESCRIPTION "DroneHub Ground Control Station"   CACHE STRING "App Description" FORCE)
