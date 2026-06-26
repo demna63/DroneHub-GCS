@@ -78,6 +78,33 @@
     </message>
 </context>
 <context>
+    <name>FlyViewCustomLayer</name>
+    <message>
+        <source>Altitude</source>
+        <translation>სიმაღლე</translation>
+    </message>
+    <message>
+        <source>Ground Speed</source>
+        <translation>სიჩქარე</translation>
+    </message>
+    <message>
+        <source>Climb Rate</source>
+        <translation>ვერტ. სიჩქარე</translation>
+    </message>
+    <message>
+        <source>Distance</source>
+        <translation>მანძილი</translation>
+    </message>
+    <message>
+        <source>Satellites</source>
+        <translation>სატელიტი</translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation>ბატარეა</translation>
+    </message>
+</context>
+<context>
     <name>PlanView</name>
     <message>
         <source>Waypoint</source>
@@ -98,6 +125,57 @@
     <message>
         <source>Mission</source>
         <translation>მისია</translation>
+    </message>
+</context>
+<context>
+    <name>SetupView</name>
+    <message>
+        <source>Summary</source>
+        <translation>მიმოხილვა</translation>
+    </message>
+    <message>
+        <source>Firmware</source>
+        <translation>პროგრამული უზრუნველყოფა</translation>
+    </message>
+    <message>
+        <source>Airframe</source>
+        <translation>კონსტრუქცია</translation>
+    </message>
+    <message>
+        <source>Sensors</source>
+        <translation>სენსორები</translation>
+    </message>
+    <message>
+        <source>Radio</source>
+        <translation>რადიო</translation>
+    </message>
+    <message>
+        <source>Flight Modes</source>
+        <translation>ფრენის რეჟიმები</translation>
+    </message>
+    <message>
+        <source>Power</source>
+        <translation>კვება</translation>
+    </message>
+    <message>
+        <source>Motors</source>
+        <translation>ძრავები</translation>
+    </message>
+    <message>
+        <source>Safety</source>
+        <translation>უსაფრთხოება</translation>
+    </message>
+    <message>
+        <source>Tuning</source>
+        <translation>მართვის დაყენება</translation>
+    </message>
+    <message>
+        <source>Parameters</source>
+        <translation>პარამეტრები</translation>
+    </message>
+    <message>
+        <source>Calibrate</source>
+        <translation>კალიბრაცია</translation>
     </message>
 </context>
 </TS>

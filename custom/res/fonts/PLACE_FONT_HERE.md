@@ -7,8 +7,8 @@
 - ალტერნატივა: BPG фонтები (bpg-fonts), ან Fira GO (ქართულის მხარდაჭერით)
 
 ფაილის სახელი ზუსტად `NotoSansGeorgian.ttf` უნდა იყოს — ემთხვევა:
-- `custom/CMakeLists.txt` (qt_add_resources)
-- `custom/src/CustomPlugin.cc` (addApplicationFont)
+- `custom/custom.qrc` (prefix `/custom/fonts`)
+- `custom/src/CustomPlugin.cc` (addApplicationFont `:/custom/fonts/NotoSansGeorgian.ttf`)
 
-variable font-ის შემთხვევაში გამოიყენე static weight (Regular + Medium + Bold) ცალკე ფაილებად
-და დაარეგისტრირე სამივე.
+variable font (wght/wdth ღერძით) პირდაპირ მუშაობს — `addApplicationFont` არეგისტრირებს
+ერთ family-ს ყველა weight-ით. ცალკე static weight-ები სავალდებულო არ არის.

@@ -1,0 +1,17 @@
+# DroneHub GCS — configure-time overrides.
+# QGC core აკეთებს include(CustomOverrides)-ს custom/ აღმოჩენისთანავე
+# (qgroundcontrol/CMakeLists.txt:27, CMAKE_MODULE_PATH-ში custom/cmake ემატება).
+# ↑ ეს ფაილი სავალდებულოა — მის გარეშე configure ჩავარდება.
+
+set(QGC_APP_NAME        "DroneHub GCS"                      CACHE STRING "App Name"        FORCE)
+set(QGC_ORG_NAME        "DroneHub Georgia"                  CACHE STRING "Org Name"        FORCE)
+set(QGC_ORG_DOMAIN      "dronehub.ge"                       CACHE STRING "Org Domain"      FORCE)
+set(QGC_APP_DESCRIPTION "DroneHub Ground Control Station"   CACHE STRING "App Description" FORCE)
+
+# პლატფორმის icon-ები (არსებობისას) — ჯერ placeholder, F1-ის ბოლოს ჩაისმება.
+if(EXISTS ${CMAKE_SOURCE_DIR}/custom/deploy/windows/WindowsQGC.ico)
+    set(QGC_WINDOWS_ICON_PATH "${CMAKE_SOURCE_DIR}/custom/deploy/windows/WindowsQGC.ico" CACHE FILEPATH "Windows Icon Path" FORCE)
+endif()
+if(EXISTS ${CMAKE_SOURCE_DIR}/custom/res/macx.icns)
+    set(QGC_MACOS_ICON_PATH "${CMAKE_SOURCE_DIR}/custom/res" CACHE PATH "MacOS Icon Path" FORCE)
+endif()
