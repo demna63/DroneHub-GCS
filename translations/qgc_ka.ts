@@ -32,7 +32,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponent.qml" line="166"/>
         <source>Frame Type</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩარჩოს ტიპი</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponent.qml" line="209"/>
@@ -47,7 +47,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponent.h" line="35"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩარჩო</translation>
     </message>
 </context>
 <context>
@@ -68,12 +68,12 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponentSummary.qml" line="23"/>
         <source>Frame Class</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩარჩოს კლასი</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponentSummary.qml" line="29"/>
         <source>Frame Type</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩარჩოს ტიპი</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponentSummary.qml" line="35"/>
@@ -99,35 +99,35 @@
     <message>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="30"/>
         <source>- disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>— გათიშული</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="34"/>
         <source>Low Voltage Failsafe</source>
-        <translation type="unfinished"></translation>
+        <translation>დაბალი ძაბვის უსაფრთხოება</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="38"/>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="68"/>
         <source>Vehicle Action</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატის მოქმედება</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="45"/>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="75"/>
         <source>Voltage Trigger</source>
-        <translation type="unfinished"></translation>
+        <translation>ძაბვის ტრიგერი</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="54"/>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="84"/>
         <source>mAh Trigger</source>
-        <translation type="unfinished"></translation>
+        <translation>mAh ტრიგერი</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMBatteryIndicator.qml" line="64"/>
         <source>Critical Voltage Failsafe</source>
-        <translation type="unfinished"></translation>
+        <translation>კრიტიკული ძაბვის უსაფრთხოება</translation>
     </message>
 </context>
 <context>
@@ -458,7 +458,7 @@
     <message>
         <location filename="../src/FirmwarePlugin/APM/ArduCopterFirmwarePlugin.h" line="87"/>
         <source>Land</source>
-        <translation type="unfinished">დაშვება</translation>
+        <translation>დაშვება</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/APM/ArduCopterFirmwarePlugin.h" line="88"/>
@@ -766,7 +766,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMFlightModesComponent.h" line="32"/>
         <source>Flight Modes</source>
-        <translation type="unfinished">ფრენის რეჟიმები</translation>
+        <translation>ფრენის რეჟიმები</translation>
     </message>
 </context>
 <context>
@@ -895,7 +895,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMFollowComponent.qml" line="297"/>
         <source>Distance</source>
-        <translation type="unfinished">მანძილი</translation>
+        <translation>მანძილი</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMFollowComponent.qml" line="305"/>
@@ -1210,22 +1210,22 @@
     <message>
         <location filename="../src/UI/toolbar/APMMainStatusIndicatorContentItem.qml" line="28"/>
         <source>Ground Control Comm Loss Failsafe</source>
-        <translation type="unfinished"></translation>
+        <translation>სახმელეთის კონტროლის კავშირის დაკარგვის უსაფრთხოება</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMMainStatusIndicatorContentItem.qml" line="32"/>
         <source>Vehicle Action</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატის მოქმედება</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMMainStatusIndicatorContentItem.qml" line="40"/>
         <source>Loss Timeout</source>
-        <translation type="unfinished"></translation>
+        <translation>დაკარგვის ტაიმაუტი</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/APMMainStatusIndicatorContentItem.qml" line="47"/>
         <source>Failsafe Options</source>
-        <translation type="unfinished"></translation>
+        <translation>უსაფრთხოების ვარიანტები</translation>
     </message>
 </context>
 <context>
@@ -1233,7 +1233,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMMotorComponent.h" line="25"/>
         <source>Motors</source>
-        <translation type="unfinished">ძრავები</translation>
+        <translation>ძრავები</translation>
     </message>
 </context>
 <context>
@@ -1241,7 +1241,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMNotSupported.qml" line="17"/>
         <source>Not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>არ არის მხარდაჭერილი</translation>
     </message>
 </context>
 <context>
@@ -1309,7 +1309,7 @@
     <message>
         <location filename="../src/FirmwarePlugin/APM/ArduPlaneFirmwarePlugin.h" line="79"/>
         <source>Takeoff</source>
-        <translation type="unfinished">აფრენა</translation>
+        <translation>აფრენა</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/APM/ArduPlaneFirmwarePlugin.h" line="80"/>
@@ -1425,7 +1425,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMPowerComponent.qml" line="260"/>
         <source>Calibrate</source>
-        <translation type="unfinished">კალიბრაცია</translation>
+        <translation>კალიბრაცია</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMPowerComponent.qml" line="267"/>
@@ -1629,7 +1629,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMPowerComponent.h" line="33"/>
         <source>Power</source>
-        <translation type="unfinished">კვება</translation>
+        <translation>კვება</translation>
     </message>
 </context>
 <context>
@@ -1665,7 +1665,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRadioComponent.h" line="41"/>
         <source>Radio</source>
-        <translation type="unfinished">რადიო</translation>
+        <translation>რადიო</translation>
     </message>
 </context>
 <context>
@@ -1717,7 +1717,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRemoteSupportComponent.qml" line="54"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>დაკავშირება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRemoteSupportComponent.qml" line="63"/>
@@ -1942,7 +1942,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponent.qml" line="442"/>
         <source>Maximum Altitude</source>
-        <translation type="unfinished"></translation>
+        <translation>მაქსიმალური სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponent.qml" line="459"/>
@@ -2020,7 +2020,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponent.h" line="34"/>
         <source>Safety</source>
-        <translation type="unfinished">უსაფრთხოება</translation>
+        <translation>უსაფრთხოება</translation>
     </message>
 </context>
 <context>
@@ -2428,7 +2428,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponentSummary.qml" line="115"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponentSummary.qml" line="118"/>
@@ -2524,7 +2524,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponentSummaryCopter.qml" line="79"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponentSummaryCopter.qml" line="80"/>
@@ -3134,7 +3134,7 @@ Click Ok to start calibration.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSensorsComponent.h" line="35"/>
         <source>Sensors</source>
-        <translation type="unfinished">სენსორები</translation>
+        <translation>სენსორები</translation>
     </message>
 </context>
 <context>
@@ -3321,7 +3321,7 @@ Click Ok to start calibration.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponent.h" line="35"/>
         <source>Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩარჩო</translation>
     </message>
 </context>
 <context>
@@ -3329,7 +3329,7 @@ Click Ok to start calibration.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="44"/>
         <source>Frame Type</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩარჩოს ტიპი</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="49"/>
@@ -3465,7 +3465,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponent.h" line="33"/>
         <source>Tuning</source>
-        <translation type="unfinished">მართვის დაყენება</translation>
+        <translation>მართვის დაყენება</translation>
     </message>
 </context>
 <context>
@@ -3882,7 +3882,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/AirframeComponent.cc" line="20"/>
         <source>Airframe</source>
-        <translation type="unfinished">კონსტრუქცია</translation>
+        <translation>კონსტრუქცია</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/AirframeComponent.cc" line="32"/>
@@ -4078,7 +4078,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/Settings/AppSettings.h" line="107"/>
         <source>Parameters</source>
-        <translation type="unfinished">პარამეტრები</translation>
+        <translation>პარამეტრები</translation>
     </message>
     <message>
         <location filename="../src/Settings/AppSettings.h" line="108"/>
@@ -4121,12 +4121,12 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/UI/toolbar/ArmedIndicator.qml" line="24"/>
         <source>Armed</source>
-        <translation type="unfinished">აქტივირებული</translation>
+        <translation>აქტივირებული</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/ArmedIndicator.qml" line="24"/>
         <source>Disarmed</source>
-        <translation type="unfinished">დეაქტივირებული</translation>
+        <translation>დეაქტივირებული</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/ArmedIndicator.qml" line="25"/>
@@ -4152,7 +4152,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/AutoPilotPlugin.cc" line="74"/>
         <source>One or more vehicle components require setup prior to flight.</source>
-        <translation type="unfinished"></translation>
+        <translation>ფრენამდე ერთი ან მეტი კომპონენტის კონფიგურაციაა საჭირო.</translation>
     </message>
 </context>
 <context>
@@ -4281,7 +4281,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/BatteryIndicator.qml" line="224"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>სტატუსი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/BatteryIndicator.qml" line="238"/>
@@ -4389,7 +4389,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/BluetoothSettings.qml" line="31"/>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>მოწყობილობა</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/BluetoothSettings.qml" line="37"/>
@@ -4688,7 +4688,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/CameraSection.qml" line="70"/>
         <source>Distance</source>
-        <translation type="unfinished">მანძილი</translation>
+        <translation>მანძილი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/CameraSection.qml" line="87"/>
@@ -4721,7 +4721,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightMap/Widgets/CenterMapDropButton.qml" line="165"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FlightMap/Widgets/CenterMapDropButton.qml" line="177"/>
@@ -4764,7 +4764,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightMap/Widgets/CenterMapDropPanel.qml" line="32"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FlightMap/Widgets/CenterMapDropPanel.qml" line="43"/>
@@ -4885,7 +4885,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../custom/src/CustomPlugin.cc" line="68"/>
         <source>გაფართოებული რეჟიმი მხოლოდ გამოცდილი ოპერატორებისთვისაა და შეიცავს პარამეტრებს, რომლებიც ფრენის უსაფრთხოებაზე მოქმედებს. გავაგრძელო?</source>
-        <translation type="unfinished"></translation>
+        <translation>გაფართოებული რეჟიმი მხოლოდ გამოცდილი ოპერატორებისთვისაა და შეიცავს პარამეტრებს, რომლებიც ფრენის უსაფრთხოებაზე მოქმედებს. გავაგრძელო?</translation>
     </message>
 </context>
 <context>
@@ -5076,7 +5076,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/DefaultChecklist.qml" line="58"/>
         <source>Motors</source>
-        <translation type="unfinished">ძრავები</translation>
+        <translation>ძრავები</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/DefaultChecklist.qml" line="59"/>
@@ -5086,7 +5086,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/DefaultChecklist.qml" line="63"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/DefaultChecklist.qml" line="64"/>
@@ -5311,7 +5311,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/EditPositionDialog.qml" line="24"/>
         <source>Edit Position</source>
-        <translation type="unfinished"></translation>
+        <translation>პოზიციის რედაქტირება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/EditPositionDialog.qml" line="49"/>
@@ -5459,7 +5459,7 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/QmlControls/FWLandingPatternEditor.qml" line="79"/>
         <location filename="../src/QmlControls/FWLandingPatternEditor.qml" line="153"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/FWLandingPatternEditor.qml" line="89"/>
@@ -5490,7 +5490,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/FWLandingPatternEditor.qml" line="163"/>
         <source>Distance</source>
-        <translation type="unfinished">მანძილი</translation>
+        <translation>მანძილი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/FWLandingPatternEditor.qml" line="177"/>
@@ -5817,7 +5817,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/Vehicle/VehicleSetup/FirmwareUpgrade.qml" line="27"/>
         <source>Firmware</source>
-        <translation type="unfinished">პროგრამული უზრუნველყოფა</translation>
+        <translation>პროგრამული უზრუნველყოფა</translation>
     </message>
     <message>
         <location filename="../src/Vehicle/VehicleSetup/FirmwareUpgrade.qml" line="43"/>
@@ -6201,7 +6201,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FixedWingChecklist.qml" line="58"/>
         <source>Motors</source>
-        <translation type="unfinished">ძრავები</translation>
+        <translation>ძრავები</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FixedWingChecklist.qml" line="59"/>
@@ -6211,7 +6211,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FixedWingChecklist.qml" line="63"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FixedWingChecklist.qml" line="64"/>
@@ -6309,7 +6309,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/FlightModeIndicator.qml" line="222"/>
         <source>Flight Modes</source>
-        <translation type="unfinished">ფრენის რეჟიმები</translation>
+        <translation>ფრენის რეჟიმები</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/FlightModeIndicator.qml" line="223"/>
@@ -6355,7 +6355,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/FlightModesComponent.cc" line="25"/>
         <source>Flight Modes</source>
-        <translation type="unfinished">ფრენის რეჟიმები</translation>
+        <translation>ფრენის რეჟიმები</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/FlightModesComponent.cc" line="36"/>
@@ -6386,7 +6386,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FlyViewAdditionalActionsButton.qml" line="21"/>
         <source>Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>მოქმედებები</translation>
     </message>
 </context>
 <context>
@@ -6401,7 +6401,7 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="452"/>
         <source>Go here</source>
         <comment>Go to location waypoint</comment>
-        <translation type="unfinished"></translation>
+        <translation>გადასვლა აქ</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="592"/>
@@ -6413,7 +6413,7 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="619"/>
         <source>Orbit</source>
         <comment>Orbit waypoint</comment>
-        <translation type="unfinished"></translation>
+        <translation>ორბიტა</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="627"/>
@@ -6423,17 +6423,17 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="648"/>
         <source>Cancel ROI</source>
-        <translation type="unfinished"></translation>
+        <translation>ROI-ის გაუქმება</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="657"/>
         <source>Edit Position</source>
-        <translation type="unfinished"></translation>
+        <translation>პოზიციის რედაქტირება</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="682"/>
         <source>Go to location</source>
-        <translation type="unfinished"></translation>
+        <translation>გადასვლა ლოკაციაზე</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="699"/>
@@ -6448,7 +6448,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="720"/>
         <source>Set home here</source>
-        <translation type="unfinished"></translation>
+        <translation>სახლის დაყენება აქ</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="730"/>
@@ -6458,7 +6458,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="740"/>
         <source>Set Heading</source>
-        <translation type="unfinished"></translation>
+        <translation>კურსის დაყენება</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="750"/>
@@ -6476,7 +6476,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FlyViewMissionCompleteDialog.qml" line="62"/>
         <source>Flight Plan complete</source>
-        <translation type="unfinished"></translation>
+        <translation>საფრენო გეგმა დასრულდა</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMissionCompleteDialog.qml" line="78"/>
@@ -6514,7 +6514,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FlyViewPreFlightChecklistPopup.qml" line="21"/>
         <source>Pre-Flight Checklist</source>
-        <translation type="unfinished"></translation>
+        <translation>ფრენამდე ჩეკლისტი</translation>
     </message>
 </context>
 <context>
@@ -6532,12 +6532,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="61"/>
         <source>Use Preflight Checklist</source>
-        <translation type="unfinished"></translation>
+        <translation>ფრენამდე ჩეკლისტის გამოყენება</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="69"/>
         <source>Enforce Preflight Checklist</source>
-        <translation type="unfinished"></translation>
+        <translation>ფრენამდე ჩეკლისტის სავალდებულოება</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="78"/>
@@ -6572,12 +6572,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="126"/>
         <source>Minimum Altitude</source>
-        <translation type="unfinished"></translation>
+        <translation>მინიმალური სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="133"/>
         <source>Maximum Altitude</source>
-        <translation type="unfinished"></translation>
+        <translation>მაქსიმალური სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="140"/>
@@ -6617,7 +6617,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="195"/>
         <source>Virtual Joystick</source>
-        <translation type="unfinished"></translation>
+        <translation>ვირტუალური ჯოისტიკი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="200"/>
@@ -6638,7 +6638,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="224"/>
         <source>Instrument Panel</source>
-        <translation type="unfinished"></translation>
+        <translation>ინსტრუმენტების პანელი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="229"/>
@@ -6653,7 +6653,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="244"/>
         <source>3D View</source>
-        <translation type="unfinished"></translation>
+        <translation>3D ხედი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="267"/>
@@ -6668,7 +6668,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="296"/>
         <source>Select File</source>
-        <translation type="unfinished"></translation>
+        <translation>ფაილის არჩევა</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="310"/>
@@ -6696,17 +6696,17 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/FlyViewToolBar.qml" line="81"/>
         <source>Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>გათიშვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/FlyViewToolBar.qml" line="193"/>
         <source>Downloading</source>
-        <translation type="unfinished"></translation>
+        <translation>ჩამოტვირთვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/FlyViewToolBar.qml" line="201"/>
         <source>Click anywhere to hide</source>
-        <translation type="unfinished"></translation>
+        <translation>დამალვისთვის დააწკაპუნეთ ნებისმიერ ადგილას</translation>
     </message>
 </context>
 <context>
@@ -6715,12 +6715,12 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/FlightDisplay/FlyViewToolStripActionList.qml" line="27"/>
         <location filename="../src/FlightDisplay/FlyViewToolStripActionList.qml" line="43"/>
         <source>3D View</source>
-        <translation type="unfinished"></translation>
+        <translation>3D ხედი</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewToolStripActionList.qml" line="40"/>
         <source>Fly</source>
-        <translation type="unfinished">ფრენა</translation>
+        <translation>ფრენა</translation>
     </message>
 </context>
 <context>
@@ -6924,7 +6924,7 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/QmlControls/GPSIndicatorPage.qml" line="41"/>
         <location filename="../src/QmlControls/GPSIndicatorPage.qml" line="75"/>
         <source>Satellites</source>
-        <translation type="unfinished"></translation>
+        <translation>სატელიტები</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/GPSIndicatorPage.qml" line="46"/>
@@ -7079,7 +7079,7 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/UI/AppSettings/GeneralSettings.qml" line="206"/>
         <location filename="../src/UI/AppSettings/GeneralSettings.qml" line="242"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>დათვალიერება</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/GeneralSettings.qml" line="153"/>
@@ -7236,7 +7236,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/GeoFenceEditor.qml" line="342"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
 </context>
 <context>
@@ -7469,7 +7469,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/toolbar/GimbalIndicator.qml" line="67"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>ცენტრი</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/GimbalIndicator.qml" line="68"/>
@@ -7615,7 +7615,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="38"/>
         <source>Force Arm</source>
-        <translation type="unfinished"></translation>
+        <translation>იძულებითი აქტივაცია</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="39"/>
@@ -7630,12 +7630,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="41"/>
         <source>Return</source>
-        <translation type="unfinished">დაბრუნება</translation>
+        <translation>დაბრუნება</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="42"/>
         <source>Takeoff</source>
-        <translation type="unfinished">აფრენა</translation>
+        <translation>აფრენა</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="43"/>
@@ -7645,7 +7645,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="44"/>
         <source>Land</source>
-        <translation type="unfinished">დაშვება</translation>
+        <translation>დაშვება</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="45"/>
@@ -7700,7 +7700,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="55"/>
         <source>Orbit</source>
-        <translation type="unfinished"></translation>
+        <translation>ორბიტა</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/GuidedActionsController.qml" line="56"/>
@@ -8586,7 +8586,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/KMLOrSHPFileDialog.qml" line="19"/>
         <source>Select File</source>
-        <translation type="unfinished"></translation>
+        <translation>ფაილის არჩევა</translation>
     </message>
 </context>
 <context>
@@ -8620,17 +8620,17 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/Comms/LinkManager.cc" line="268"/>
         <source>Connect not allowed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>დაკავშირება აკრძალულია: %1</translation>
     </message>
     <message>
         <location filename="../src/Comms/LinkManager.cc" line="538"/>
         <source>Shutdown</source>
-        <translation type="unfinished"></translation>
+        <translation>გამორთვა</translation>
     </message>
     <message>
         <location filename="../src/Comms/LinkManager.cc" line="556"/>
         <source>Serial</source>
-        <translation type="unfinished"></translation>
+        <translation>სერიული</translation>
     </message>
     <message>
         <location filename="../src/Comms/LinkManager.cc" line="558"/>
@@ -8645,7 +8645,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/Comms/LinkManager.cc" line="561"/>
         <source>Bluetooth</source>
-        <translation type="unfinished"></translation>
+        <translation>ბლუთუზი</translation>
     </message>
     <message>
         <location filename="../src/Comms/LinkManager.cc" line="564"/>
@@ -8661,7 +8661,7 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/Comms/LinkManager.cc" line="569"/>
         <location filename="../src/Comms/LinkManager.cc" line="733"/>
         <source>Log Replay</source>
-        <translation type="unfinished"></translation>
+        <translation>ლოგის გადახეხვა</translation>
     </message>
     <message>
         <location filename="../src/Comms/LinkManager.cc" line="891"/>
@@ -8716,7 +8716,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="58"/>
         <source>Device</source>
-        <translation type="unfinished"></translation>
+        <translation>მოწყობილობა</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="71"/>
@@ -8746,12 +8746,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="114"/>
         <source>Links</source>
-        <translation type="unfinished"></translation>
+        <translation>კავშირები</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="169"/>
         <source>Delete Link</source>
-        <translation type="unfinished"></translation>
+        <translation>კავშირის წაშლა</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="170"/>
@@ -8761,18 +8761,18 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="178"/>
         <source>Disconnect</source>
-        <translation type="unfinished"></translation>
+        <translation>გათიშვა</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="178"/>
         <source>Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>დაკავშირება</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="191"/>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="205"/>
         <source>Add New Link</source>
-        <translation type="unfinished"></translation>
+        <translation>ახალი კავშირი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="192"/>
@@ -8782,22 +8782,22 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="205"/>
         <source>Edit Link</source>
-        <translation type="unfinished"></translation>
+        <translation>კავშირის რედაქტირება</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="233"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>სახელი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="238"/>
         <source>Enter name</source>
-        <translation type="unfinished"></translation>
+        <translation>შეიყვანეთ სახელი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="244"/>
         <source>Automatically Connect on Start</source>
-        <translation type="unfinished"></translation>
+        <translation>ავტომატური დაკავშირება გაშვებაზე</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LinkSettings.qml" line="251"/>
@@ -8869,7 +8869,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/AnalyzeView/LogDownloadPage.qml" line="99"/>
         <source>Status</source>
-        <translation type="unfinished"></translation>
+        <translation>სტატუსი</translation>
     </message>
     <message>
         <location filename="../src/AnalyzeView/LogDownloadPage.qml" line="117"/>
@@ -8889,7 +8889,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/AnalyzeView/LogDownloadPage.qml" line="132"/>
         <source>Download</source>
-        <translation type="unfinished">ჩამოტვირთვა</translation>
+        <translation>ჩამოტვირთვა</translation>
     </message>
     <message>
         <location filename="../src/AnalyzeView/LogDownloadPage.qml" line="144"/>
@@ -8958,7 +8958,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/LogReplaySettings.qml" line="34"/>
         <source>Browse</source>
-        <translation type="unfinished"></translation>
+        <translation>დათვალიერება</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/LogReplaySettings.qml" line="40"/>
@@ -8981,7 +8981,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/LogReplayStatusBar.qml" line="19"/>
         <source>Log Replay</source>
-        <translation type="unfinished"></translation>
+        <translation>ლოგის გადახეხვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/LogReplayStatusBar.qml" line="19"/>
@@ -9088,7 +9088,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/MAVLink/QGCMAVLink.cc" line="276"/>
         <source>GPS</source>
-        <translation type="unfinished">GPS</translation>
+        <translation>GPS</translation>
     </message>
     <message>
         <location filename="../src/MAVLink/QGCMAVLink.cc" line="277"/>
@@ -9188,7 +9188,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/MAVLink/QGCMAVLink.cc" line="296"/>
         <source>Battery</source>
-        <translation type="unfinished">ბატარეა</translation>
+        <translation>ბატარეა</translation>
     </message>
     <message>
         <location filename="../src/MAVLink/QGCMAVLink.cc" line="297"/>
@@ -9450,7 +9450,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/AnalyzeView/MAVLinkInspectorPage.qml" line="244"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>სახელი</translation>
     </message>
     <message>
         <location filename="../src/AnalyzeView/MAVLinkInspectorPage.qml" line="247"/>
@@ -9496,37 +9496,37 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="45"/>
         <source>Comms Lost</source>
-        <translation type="unfinished"></translation>
+        <translation>კავშირი დაკარგული</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="46"/>
         <source>Ready To Fly</source>
-        <translation type="unfinished"></translation>
+        <translation>მზად ფრენისთვის</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="47"/>
         <source>Not Ready</source>
-        <translation type="unfinished"></translation>
+        <translation>არ არის მზად</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="48"/>
         <source>Disconnected - Click to manually connect</source>
-        <translation type="unfinished"></translation>
+        <translation>გათირთული — დააწკაპუნეთ ხელით დასაკავშირებლად</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="49"/>
         <source>Armed</source>
-        <translation type="unfinished">აქტივირებული</translation>
+        <translation>აქტივირებული</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="50"/>
         <source>Flying</source>
-        <translation type="unfinished"></translation>
+        <translation>ფრენაში</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="51"/>
         <source>Landing</source>
-        <translation type="unfinished"></translation>
+        <translation>დაშვება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="153"/>
@@ -9546,7 +9546,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="194"/>
         <source>Force Arm</source>
-        <translation type="unfinished"></translation>
+        <translation>იძულებითი აქტივაცია</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="194"/>
@@ -9556,27 +9556,27 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="218"/>
         <source>Vehicle Messages</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატის შეტყობინებები</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="228"/>
         <source>Sensor Status</source>
-        <translation type="unfinished"></translation>
+        <translation>სენსორების სტატუსი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="251"/>
         <source>Overall Status</source>
-        <translation type="unfinished"></translation>
+        <translation>საერთო სტატუსი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="326"/>
         <source>Edit Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>პარამეტრის რედაქტირება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="360"/>
         <source>Vehicle Parameters</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატის პარამეტრები</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="362"/>
@@ -9587,7 +9587,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="369"/>
         <source>Vehicle Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატის კონფიგურაცია</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicator.qml" line="388"/>
@@ -9605,12 +9605,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MainStatusIndicatorOfflinePage.qml" line="43"/>
         <source>Select Link to Connect</source>
-        <translation type="unfinished"></translation>
+        <translation>აირჩიეთ კავშირი დასაკავშირებლად</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicatorOfflinePage.qml" line="46"/>
         <source>No Links Configured</source>
-        <translation type="unfinished"></translation>
+        <translation>კავშირები არ არის კონფიგურირებული</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicatorOfflinePage.qml" line="55"/>
@@ -9620,7 +9620,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MainStatusIndicatorOfflinePage.qml" line="75"/>
         <source>Communication Links</source>
-        <translation type="unfinished"></translation>
+        <translation>საკომუნიკაციო კავშირები</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicatorOfflinePage.qml" line="76"/>
@@ -9630,7 +9630,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MainStatusIndicatorOfflinePage.qml" line="79"/>
         <source>Comm Links</source>
-        <translation type="unfinished"></translation>
+        <translation>კავშირები</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MainStatusIndicatorOfflinePage.qml" line="86"/>
@@ -9674,25 +9674,25 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/UI/MainWindow.qml" line="137"/>
         <location filename="../src/UI/MainWindow.qml" line="356"/>
         <source>Analyze Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>ანალიზის ხელსაწყოები</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="141"/>
         <location filename="../src/UI/MainWindow.qml" line="371"/>
         <source>Vehicle Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატის კონფიგურაცია</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="158"/>
         <location filename="../src/UI/MainWindow.qml" line="385"/>
         <source>Application Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>აპლიკაციის პარამეტრები</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="215"/>
         <location filename="../src/UI/MainWindow.qml" line="401"/>
         <source>Close %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1-ის დახურვა</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="220"/>
@@ -9723,17 +9723,17 @@ Click Ok to start the auto-tuning process.
         <location filename="../src/UI/MainWindow.qml" line="291"/>
         <location filename="../src/UI/MainWindow.qml" line="303"/>
         <source>Advanced Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>გაფართოებული რეჟიმი</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="304"/>
         <source>Turn off Advanced Mode?</source>
-        <translation type="unfinished"></translation>
+        <translation>გავთიშოთ გაფართოებული რეჟიმი?</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="342"/>
         <source>Plan Flight</source>
-        <translation type="unfinished"></translation>
+        <translation>მისიის დაგეგმვა</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="418"/>
@@ -9743,12 +9743,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/MainWindow.qml" line="510"/>
         <source>Exit</source>
-        <translation type="unfinished"></translation>
+        <translation>გასვლა</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="591"/>
         <source>Vehicle Error</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატის შეცდომა</translation>
     </message>
     <message>
         <location filename="../src/UI/MainWindow.qml" line="615"/>
@@ -9799,7 +9799,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="62"/>
         <source>Provider</source>
-        <translation type="unfinished"></translation>
+        <translation>მიმწოდებელი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="78"/>
@@ -9814,7 +9814,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="106"/>
         <source>Offline Maps</source>
-        <translation type="unfinished"></translation>
+        <translation>ოფლაინ რუკები</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="107"/>
@@ -9839,7 +9839,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="128"/>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>იმპორტი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="138"/>
@@ -9849,7 +9849,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="139"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation>ექსპორტი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/MapSettings.qml" line="151"/>
@@ -10138,7 +10138,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MissionSettingsEditor.qml" line="42"/>
         <source>Firmware</source>
-        <translation type="unfinished">პროგრამული უზრუნველყოფა</translation>
+        <translation>პროგრამული უზრუნველყოფა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MissionSettingsEditor.qml" line="43"/>
@@ -10193,7 +10193,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/MissionSettingsEditor.qml" line="270"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/MissionSettingsEditor.qml" line="282"/>
@@ -10329,7 +10329,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/MockLinkSettings.qml" line="84"/>
         <source>Firmware</source>
-        <translation type="unfinished">პროგრამული უზრუნველყოფა</translation>
+        <translation>პროგრამული უზრუნველყოფა</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/MockLinkSettings.qml" line="88"/>
@@ -10448,7 +10448,7 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/MotorComponent.cc" line="14"/>
         <source>Motors</source>
-        <translation type="unfinished">ძრავები</translation>
+        <translation>ძრავები</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/MotorComponent.h" line="23"/>
@@ -10481,7 +10481,7 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/FlightDisplay/MultiRotorChecklist.qml" line="53"/>
         <source>Motors</source>
-        <translation type="unfinished">ძრავები</translation>
+        <translation>ძრავები</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/MultiRotorChecklist.qml" line="54"/>
@@ -10491,7 +10491,7 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/FlightDisplay/MultiRotorChecklist.qml" line="58"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/MultiRotorChecklist.qml" line="59"/>
@@ -10539,12 +10539,12 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/FlightDisplay/MultiVehicleList.qml" line="198"/>
         <source>Armed</source>
-        <translation type="unfinished">აქტივირებული</translation>
+        <translation>აქტივირებული</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/MultiVehicleList.qml" line="198"/>
         <source>Disarmed</source>
-        <translation type="unfinished">დეაქტივირებული</translation>
+        <translation>დეაქტივირებული</translation>
     </message>
 </context>
 <context>
@@ -10640,7 +10640,7 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/QmlControls/OfflineMapEditor.qml" line="340"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>კარგი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/OfflineMapEditor.qml" line="352"/>
@@ -10706,7 +10706,7 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/QmlControls/OfflineMapEditor.qml" line="705"/>
         <source>Download</source>
-        <translation type="unfinished">ჩამოტვირთვა</translation>
+        <translation>ჩამოტვირთვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/OfflineMapEditor.qml" line="745"/>
@@ -10850,7 +10850,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="46"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="47"/>
@@ -10870,7 +10870,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="50"/>
         <source>Takeoff</source>
-        <translation type="unfinished">აფრენა</translation>
+        <translation>აფრენა</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="51"/>
@@ -10880,17 +10880,17 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="52"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="53"/>
         <source>Return</source>
-        <translation type="unfinished">დაბრუნება</translation>
+        <translation>დაბრუნება</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="54"/>
         <source>Land</source>
-        <translation type="unfinished">დაშვება</translation>
+        <translation>დაშვება</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="55"/>
@@ -11314,7 +11314,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4RadioComponent.cc" line="17"/>
         <source>Radio</source>
-        <translation type="unfinished">რადიო</translation>
+        <translation>რადიო</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4RadioComponent.cc" line="28"/>
@@ -11903,7 +11903,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/QmlControls/ParameterDiffDialog.qml" line="75"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>სახელი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/ParameterDiffDialog.qml" line="81"/>
@@ -12525,7 +12525,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location filename="../src/QmlControls/PlanToolBarIndicators.qml" line="102"/>
         <source>Upload</source>
-        <translation type="unfinished">ატვირთვა</translation>
+        <translation>ატვირთვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanToolBarIndicators.qml" line="132"/>
@@ -12580,7 +12580,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location filename="../src/QmlControls/PlanToolBarIndicators.qml" line="221"/>
         <source>Battery</source>
-        <translation type="unfinished">ბატარეა</translation>
+        <translation>ბატარეა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanToolBarIndicators.qml" line="226"/>
@@ -12603,7 +12603,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="107"/>
         <source>Apply new altitude</source>
-        <translation type="unfinished"></translation>
+        <translation>ახალი სიმაღლის გამოყენება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="108"/>
@@ -12633,7 +12633,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="134"/>
         <source>Discard Unsaved Changes</source>
-        <translation type="unfinished"></translation>
+        <translation>შეუნახავი ცვლილებების გადაუდება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="135"/>
@@ -12643,12 +12643,12 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="136"/>
         <source>Load New Plan From Vehicle</source>
-        <translation type="unfinished"></translation>
+        <translation>ახალი მისიის ჩატვირთვა აპარატიდან</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="147"/>
         <source>Keep Current Plan</source>
-        <translation type="unfinished"></translation>
+        <translation>მიმდინარე მისიის შენარჩუნება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="148"/>
@@ -12688,7 +12688,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="207"/>
         <source>Send To Vehicle</source>
-        <translation type="unfinished"></translation>
+        <translation>აპარატზე გაგზავნა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="207"/>
@@ -12698,7 +12698,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="210"/>
         <source>Plan Upload</source>
-        <translation type="unfinished"></translation>
+        <translation>მისიის ატვირთვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="211"/>
@@ -12710,17 +12710,17 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="222"/>
         <source>Select Plan File</source>
-        <translation type="unfinished"></translation>
+        <translation>აირჩიეთ მისიის ფაილი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="232"/>
         <source>Save Plan</source>
-        <translation type="unfinished"></translation>
+        <translation>მისიის შენახვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="246"/>
         <source>Save KML</source>
-        <translation type="unfinished"></translation>
+        <translation>KML-ის შენახვა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="577"/>
@@ -12730,17 +12730,17 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="586"/>
         <source>Takeoff</source>
-        <translation type="unfinished">აფრენა</translation>
+        <translation>აფრენა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="598"/>
         <source>Rally Point</source>
-        <translation type="unfinished"></translation>
+        <translation>შეკრიბილების წერტილი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="605"/>
         <source>Cancel ROI</source>
-        <translation type="unfinished"></translation>
+        <translation>ROI-ის გაუქმება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="605"/>
@@ -12750,12 +12750,12 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="621"/>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>ნიმუში</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="635"/>
         <source>Return</source>
-        <translation type="unfinished">დაბრუნება</translation>
+        <translation>დაბრუნება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="637"/>
@@ -12765,23 +12765,23 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="638"/>
         <source>Land</source>
-        <translation type="unfinished">დაშვება</translation>
+        <translation>დაშვება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="648"/>
         <source>Center</source>
-        <translation type="unfinished"></translation>
+        <translation>ცენტრი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="711"/>
         <source>Fence</source>
-        <translation type="unfinished"></translation>
+        <translation>ღობე</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="715"/>
         <location filename="../src/QmlControls/PlanView.qml" line="728"/>
         <source>Rally</source>
-        <translation type="unfinished"></translation>
+        <translation>შეკრიბილება</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanView.qml" line="733"/>
@@ -12897,7 +12897,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/UI/AppSettings/PlanViewSettings.qml" line="29"/>
         <source>Default Mission Altitude</source>
-        <translation type="unfinished"></translation>
+        <translation>მისიის საგანვადო სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/PlanViewSettings.qml" line="36"/>
@@ -12925,12 +12925,12 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/QmlControls/PlanViewToolBar.qml" line="58"/>
         <source>Exit Plan</source>
-        <translation type="unfinished"></translation>
+        <translation>გეგმიდან გასვლა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanViewToolBar.qml" line="131"/>
         <source>Syncing Mission</source>
-        <translation type="unfinished"></translation>
+        <translation>მისიის სინქრონიზაცია</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/PlanViewToolBar.qml" line="138"/>
@@ -12940,7 +12940,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/QmlControls/PlanViewToolBar.qml" line="147"/>
         <source>Click anywhere to hide</source>
-        <translation type="unfinished"></translation>
+        <translation>დამალვისთვის დააწკაპუნეთ ნებისმიერ ადგილას</translation>
     </message>
 </context>
 <context>
@@ -12990,7 +12990,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PowerComponent.qml" line="125"/>
         <source>Calibrate</source>
-        <translation type="unfinished">კალიბრაცია</translation>
+        <translation>კალიბრაცია</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PowerComponent.qml" line="134"/>
@@ -13040,7 +13040,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PowerComponent.qml" line="211"/>
         <source>Battery </source>
-        <translation type="unfinished"></translation>
+        <translation>ბატარეა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PowerComponent.qml" line="255"/>
@@ -13220,7 +13220,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PowerComponent.cc" line="20"/>
         <source>Power</source>
-        <translation type="unfinished">კვება</translation>
+        <translation>კვება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PowerComponent.cc" line="31"/>
@@ -13261,7 +13261,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/FlightDisplay/PreFlightBatteryCheck.qml" line="18"/>
         <source>Battery</source>
-        <translation type="unfinished">ბატარეა</translation>
+        <translation>ბატარეა</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/PreFlightBatteryCheck.qml" line="19"/>
@@ -13321,7 +13321,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/FlightDisplay/PreFlightGPSCheck.qml" line="17"/>
         <source>GPS</source>
-        <translation type="unfinished">GPS</translation>
+        <translation>GPS</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/PreFlightGPSCheck.qml" line="20"/>
@@ -13362,7 +13362,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/FlightDisplay/PreFlightSensorsHealthCheck.qml" line="17"/>
         <source>Sensors</source>
-        <translation type="unfinished">სენსორები</translation>
+        <translation>სენსორები</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/PreFlightSensorsHealthCheck.qml" line="35"/>
@@ -13880,7 +13880,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/QmlControls/QGCPopupDialog.qml" line="131"/>
         <source>Ok</source>
-        <translation type="unfinished"></translation>
+        <translation>კარგი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/QGCPopupDialog.qml" line="134"/>
@@ -14352,7 +14352,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponent.qml" line="312"/>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponent.qml" line="315"/>
         <source>Calibrate</source>
-        <translation type="unfinished">კალიბრაცია</translation>
+        <translation>კალიბრაცია</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponent.qml" line="317"/>
@@ -14523,7 +14523,7 @@ Click Next to continue</source>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponentController.cc" line="796"/>
         <source>Calibrate</source>
-        <translation type="unfinished">კალიბრაცია</translation>
+        <translation>კალიბრაცია</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponentController.cc" line="826"/>
@@ -14564,7 +14564,7 @@ Click the Next button to upload calibration to board. Click Cancel if you don&ap
     <message>
         <location filename="../src/QmlControls/RallyPointItemEditor.qml" line="51"/>
         <source>Rally Point</source>
-        <translation type="unfinished"></translation>
+        <translation>შეკრიბილების წერტილი</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/RallyPointItemEditor.qml" line="74"/>
@@ -14818,7 +14818,7 @@ Click the Next button to upload calibration to board. Click Cancel if you don&ap
     <message>
         <location filename="../src/FlightDisplay/RoverChecklist.qml" line="53"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/RoverChecklist.qml" line="54"/>
@@ -15128,7 +15128,7 @@ Click the Next button to upload calibration to board. Click Cancel if you don&ap
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/SafetyComponent.cc" line="18"/>
         <source>Safety</source>
-        <translation type="unfinished">უსაფრთხოება</translation>
+        <translation>უსაფრთხოება</translation>
     </message>
 </context>
 <context>
@@ -15194,7 +15194,7 @@ Click the Next button to upload calibration to board. Click Cancel if you don&ap
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/SensorsComponent.cc" line="16"/>
         <source>Sensors</source>
-        <translation type="unfinished">სენსორები</translation>
+        <translation>სენსორები</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/SensorsComponent.cc" line="37"/>
@@ -15693,7 +15693,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/UI/AppSettings/SettingsPagesModel.qml" line="59"/>
         <source>Comm Links</source>
-        <translation type="unfinished"></translation>
+        <translation>კავშირები</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/SettingsPagesModel.qml" line="66"/>
@@ -15885,7 +15885,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/QmlControls/SimpleItemEditor.qml" line="77"/>
         <source>Takeoff</source>
-        <translation type="unfinished">აფრენა</translation>
+        <translation>აფრენა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/SimpleItemEditor.qml" line="78"/>
@@ -15930,7 +15930,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/QmlControls/SimpleItemEditor.qml" line="156"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/SimpleItemEditor.qml" line="182"/>
@@ -15958,12 +15958,12 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/MissionManager/SimpleMissionItem.cc" line="386"/>
         <source>Takeoff</source>
-        <translation type="unfinished">აფრენა</translation>
+        <translation>აფრენა</translation>
     </message>
     <message>
         <location filename="../src/MissionManager/SimpleMissionItem.cc" line="388"/>
         <source>Land</source>
-        <translation type="unfinished">დაშვება</translation>
+        <translation>დაშვება</translation>
     </message>
     <message>
         <location filename="../src/MissionManager/SimpleMissionItem.cc" line="390"/>
@@ -16218,7 +16218,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/FlightDisplay/SubChecklist.qml" line="58"/>
         <source>Motors</source>
-        <translation type="unfinished">ძრავები</translation>
+        <translation>ძრავები</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/SubChecklist.qml" line="59"/>
@@ -16228,7 +16228,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/FlightDisplay/SubChecklist.qml" line="63"/>
         <source>Mission</source>
-        <translation type="unfinished">მისია</translation>
+        <translation>მისია</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/SubChecklist.qml" line="64"/>
@@ -16258,7 +16258,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
         <location filename="../src/MissionManager/SurveyComplexItem.h" line="59"/>
         <location filename="../src/MissionManager/SurveyComplexItem.h" line="60"/>
         <source>Survey</source>
-        <translation type="unfinished">აგეგმვა</translation>
+        <translation>აგეგმვა</translation>
     </message>
     <message>
         <location filename="../src/MissionManager/SurveyComplexItem.cc" line="126"/>
@@ -16731,7 +16731,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/QmlControls/TransectStyleComplexItemEditor.qml" line="101"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/TransectStyleComplexItemEditor.qml" line="102"/>
@@ -17103,7 +17103,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
         <location filename="../src/QmlControls/VTOLLandingPatternEditor.qml" line="79"/>
         <location filename="../src/QmlControls/VTOLLandingPatternEditor.qml" line="141"/>
         <source>Altitude</source>
-        <translation type="unfinished">სიმაღლე</translation>
+        <translation>სიმაღლე</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/VTOLLandingPatternEditor.qml" line="88"/>
@@ -17191,7 +17191,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/QmlControls/VTOLLandingPatternMapVisual.qml" line="258"/>
         <source>Land</source>
-        <translation type="unfinished">დაშვება</translation>
+        <translation>დაშვება</translation>
     </message>
 </context>
 <context>
@@ -17463,7 +17463,7 @@ ROTATION_NONE indicates component points in direction of flight.</source>
     <message>
         <location filename="../src/QmlControls/VehicleMessageList.qml" line="76"/>
         <source>Edit Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>პარამეტრის რედაქტირება</translation>
     </message>
 </context>
 <context>

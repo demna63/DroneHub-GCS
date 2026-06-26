@@ -42,10 +42,9 @@ cmake --build build
 - კომიტამდე: `./tools/qgc-lupdate.sh` თუ ახალი user-facing string დაამატე.
 
 ## Roadmap
-F0 bootstrap ✓ · F1 Theme/branding ✓ · F2 Fly View HUD ✓ · F3 Plan View ◑ · F4 Setup/Params ◑ · F5 QA matrix ◑ (desktop ✓)
+F0 bootstrap ✓ · F1 Theme/branding ✓ · F2 Fly View HUD ✓ · F3 Plan View ◑ · F4 Setup/Params ◑ · F5 QA matrix ◑ (desktop ✓ · android ✓)
 
-> 🟢 **Cross-platform compile-verified** — CI run 28231357555 (sha 47c255d): custom build
-> კომპაილდება+ლინკდება **Linux + Windows + macOS**-ზე (full build ~32წთ). PR #1.
+> 🟢 **PRs #1–#3 merged** (master `9bd5fd2`): desktop CI (#1), Android CI (#2), translation extraction (#3).
 
 ### F3 (Plan View) — scoped
 upstream-ს **არ აქვს** PlanView custom-layer hook (FlyView-ისგან განსხვავებით) → სრული
@@ -57,10 +56,11 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 ### F4 (Setup/Params) — translation pipeline ✓
 - `tools/qgc-lupdate.sh` (local) + `.github/workflows/translations.yml` (CI `update_translations`)
   — extraction automation. lupdate-მა გამოავლინა **3267 string / 340 context** (სწორი context-ებით).
-- `translations/qgc_ka.ts` = canonical full inventory; **185 high-value UI term თარგმნილი**
-  (ღილაკები/statuses/labels, app-wide). flight-mode names + attitude axes (Roll/Pitch/Yaw/Loiter/...)
-  **განზრახ English-ად** — safety-critical identifier-ები.
-- ⚠️ დარჩენილი ~3082 string = Crowdin/human (pipeline + canonical .ts მზადაა).
+- `tools/apply-ka-batch2.py` + `tools/README.md` — batch UI chrome თარგმანი (safe, no flight modes).
+- `translations/qgc_ka.ts` = canonical full inventory; **390 high-value UI term თარგმნილი**
+  (ღილაკები/statuses/labels: FlyView, toolbar, MainWindow, PlanView, connection/status, Setup).
+  flight-mode names + attitude axes (Roll/Pitch/Yaw/Loiter/...) **განზრახ English-ად**.
+- ⚠️ დარჩენილი ~2877 string = Crowdin/human (pipeline + canonical .ts მზადაა).
 
 ### F2 (Fly View HUD) — შესრულდა
 - `custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml` — DroneHub
@@ -70,12 +70,11 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 - insets სწორად — core კონტროლები პანელს არ ეფარება. Georgian → `qgc_ka.ts` `FlyViewCustomLayer` context.
 - vehicle facts ვერიფიცირებულია real tree-ზე: `vehicle.{altitudeRelative,groundSpeed,climbRate,flightDistance}`, `gps.count`, `batteries.get(0).percentRemaining`.
 
-### F5 (QA matrix) — desktop ✓
+### F5 (QA matrix) — desktop ✓ · android ✓
 - `.github/workflows/build.yml` — Linux/Win/macOS custom-build CI + `concurrency` (minutes-saver).
-  🟢 **GREEN** (run 28231357555). 6 იტერაცია დასჭირდა: app-name space, GStreamer toggle,
-  CustomOptions forward-decl. Build: GStreamer გათიშულია (custom plugin/QML verification).
-- დარჩა: **Android** (QGC `qt-android` composite action + keystore secrets + NDK — რთული),
-  **WASM** (upstream Stable_V5.0 CI-შიც არ არის — experimental). field test → hardware.
+  🟢 **GREEN** (PR #1). GStreamer გათიშულია (custom plugin/QML verification).
+- `.github/workflows/android.yml` — Android custom-build CI (PR #2).
+- დარჩა: **WASM** (upstream Stable_V5.0 CI-შიც არ არის — experimental). **field test** → hardware.
 
 ### ⚠️ Qt ვერსიის გადასაწყვეტი
 upstream Stable_V5.0-ის **საკუთარი CI იყენებს Qt 6.8.3-ს**, CLAUDE.md კი პინავს 6.10.1-ს.
@@ -92,8 +91,9 @@ custom/ scaffold **გადაკეთდა Stable_V5.0 API-ზე** (F0 ძ�
 - ✅ **compile-verified CI-ით** (Linux/Win/macOS, run 28231357555). Qt 6.8.3.
 
 ## აქტიური ფოკუსი
-> F1–F4 implemented + desktop compile-verified (PR #1 GREEN). შემდეგი:
-> 1. PR #1 review/merge (billing fixed).
-> 2. Android/WASM CI jobs — ძვირი (NDK/composite action/secrets); user-greenlight საჭიროა.
-> 3. F4 full ka translation — Crowdin/human (`tools/qgc-lupdate.sh` მზადაა). field test — hardware.
-> Qt **6.10.1 (CLAUDE.md) vs 6.8.3 (CI)** გადასაწყვეტია.
+> F1–F4 implemented; PRs #1–#3 merged (desktop + Android + translations CI). **390/3267** ka UI chrome.
+> შემდეგი:
+> 1. F4 დარჩენილი ~2877 string — Crowdin/human (`tools/qgc-lupdate.sh` + batch scripts).
+> 2. Field test — hardware (SITL/real vehicle).
+> 3. Qt **6.10.1 (CLAUDE.md) vs 6.8.3 (CI)** — გუნდმა უნდა დაადასტუროს.
+> 4. WASM CI — experimental; user-greenlight საჭიროა.
