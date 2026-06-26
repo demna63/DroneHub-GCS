@@ -4,9 +4,14 @@
 # რას აკეთებს: სკანავს ჩვენს custom/ წყაროებს (QML qsTr() + C++ tr()) და
 # ანახლებს translations/qgc_ka.ts-ს ახალი/შეცვლილი source-ებით (თარგმანებს ინარჩუნებს).
 #
-# გაშვება ახალი user-facing string-ის დამატების შემდეგ:
-#   ./tools/qgc-lupdate.sh
-# შემდეგ ქართულად თარგმნა: Qt Linguist (linguist translations/qgc_ka.ts) ან Crowdin.
+# Contributor workflow (ახალი string-ის დამატება):
+#   1. QML: qsTr("…") · C++: tr("…") — არა hardcode ქართული UI-ში
+#   2. ./tools/qgc-lupdate.sh          # ამოიღებს source-ებს → qgc_ka.ts
+#   3. თარგმნა: linguist translations/qgc_ka.ts · ან tools/apply-ka-batch2.py (batch)
+#   4. PR → translations.yml CI ამოწმებს lupdate-ს (paths: custom/**, translations/**)
+#
+# სრული ინვენტარი (3267+ string) CI-ში: .github/workflows/translations.yml
+# დარჩენილი ბათჩები: Crowdin/human. flight-mode/attitude სახელები English-ად რჩება.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
