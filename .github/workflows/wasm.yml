@@ -66,6 +66,7 @@ jobs:
         with:
           version: ${{ env.EMSDK_VERSION }}
           actions-cache-folder: 'emsdk-cache'
+          no-cache: true
 
       - name: Verify emcc version
         shell: bash
