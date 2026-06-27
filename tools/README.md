@@ -6,7 +6,7 @@
 |--------------|---------|
 | `run-dhgcs.sh` | Open the canonical Release `DroneHubGCS.app` (avoids stale bundles) |
 | `rebuild-dhgcs.sh` | Rebuild Release target (`--open` to launch after build) |
-| `start-sitl-session.sh` | **GCS first** → wait UDP 14550 → PX4 (`none_iris` default) or simulator |
+| `start-sitl-session.sh` | **GCS first** → wait UDP 14550 → PX4 (`sihsim_quadx` default, live physics) or simulator |
 | `connect-checklist.sh` | Alias → `start-sitl-session.sh` |
 | `field-test.sh` | Alias → `start-sitl-session.sh` |
 | `px4-install-deps.sh` | Install PX4 Python deps on the correct interpreter (3.11) |
@@ -23,13 +23,16 @@
 Otherwise AutoConnect never sees the vehicle.
 
 ```bash
-./tools/start-sitl-session.sh              # GCS → PX4 none_iris (if built)
+./tools/start-sitl-session.sh              # GCS → PX4 sihsim_quadx, live HUD (if built)
 ./tools/start-sitl-session.sh --simulator  # GCS → pymavlink only (no PX4)
-PX4_SITL_TARGET=sihsim_quadx ./tools/start-sitl-session.sh --px4  # built-in physics sim
+PX4_SITL_TARGET=none_iris ./tools/start-sitl-session.sh --px4   # lighter no-physics link
+./tools/start-sitl-session.sh -y           # skip the "stops px4/GCS" confirmation
 ```
 
-Set `PX4_DIR` if PX4 is not at `~/Desktop/PX4-Autopilot`. Stop stale sessions with
-`killall px4 DroneHubGCS` before retrying.
+The default `sihsim_quadx` uses PX4's built-in physics, so the HUD shows live altitude/speed;
+`none_iris` only establishes the link (static telemetry). The session **stops any running
+px4 / DroneHubGCS first** — it prompts before doing so unless `-y` / `ASSUME_YES=1`.
+Set `PX4_DIR` if PX4 is not at `~/Desktop/PX4-Autopilot`.
 
 ### Adding user-facing strings
 
