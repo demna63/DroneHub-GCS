@@ -98,9 +98,8 @@ jobs:
       - name: Configure (WASM custom build)
         working-directory: qgroundcontrol
         shell: bash
-        # QT_ROOT_DIR მიუთითებს WASM Qt-ის საქაღალდეზე.
-        # QT_HOST_PATH მიუთითებს Linux host Qt-ის საქაღალდეზე (gcc_64).
         run: |
+          chmod +x "${QT_ROOT_DIR}/bin/qt-cmake"
           "${QT_ROOT_DIR}/bin/qt-cmake" -S . -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_WARN_DEPRECATED=FALSE \
@@ -108,7 +107,6 @@ jobs:
             -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
             -DQGC_NO_SERIAL_LINK=ON \
             -DQT_HOST_PATH="${QT_ROOT_DIR}/../gcc_64"
-
       - name: Build
         working-directory: qgroundcontrol
         shell: bash
