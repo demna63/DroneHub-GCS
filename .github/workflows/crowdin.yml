@@ -9,6 +9,10 @@
 name: DroneHub Crowdin Sync
 
 on:
+  # Weekly auto-sync: pull latest Georgian translations from Crowdin and open a PR.
+  # Cron is UTC; 03:00 Sun UTC ≈ 07:00 Sun Tbilisi. Scheduled runs use master.
+  schedule:
+    - cron: '0 3 * * 0'
   workflow_dispatch:
     inputs:
       ref:
@@ -32,7 +36,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          ref: ${{ github.event.inputs.ref }}
+          ref: ${{ github.event.inputs.ref || 'master' }}
 
       - name: Validate qgc_ka.ts
         run: |
