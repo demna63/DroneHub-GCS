@@ -5,7 +5,9 @@
 | Script / doc | Purpose |
 |--------------|---------|
 | `run-dhgcs.sh` | Open the canonical Release `DroneHubGCS.app` (avoids stale bundles) |
-| `field-test.sh` | Launch GCS + SITL / field-test checklist |
+| `rebuild-dhgcs.sh` | Rebuild Release target (`--open` to launch after build) |
+| `field-test.sh` | Launch GCS + field-test checklist (prints absolute paths) |
+| `simulate-mavlink-udp.py` | Lightweight UDP simulator for HUD tests without PX4 |
 | `qgc-lupdate.sh` | Extract new/changed strings from `custom/` into `translations/qgc_ka.ts` |
 | `apply-ka-batch2.py` | Apply curated Georgian UI translations (safe chrome only) |
 | `CROWDIN.md` | Crowdin project setup, CLI sync, GitHub Action secrets |

@@ -20,6 +20,7 @@
          qrc:/qml/<path>  →  qrc:/Custom/qml/<path> (თუ აქ არსებობს). -->
     <qresource prefix="/Custom/qml">
         <file alias="QGroundControl/FlightDisplay/FlyViewCustomLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml</file>
+        <file alias="QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml</file>
         <file alias="QGroundControl/Controls/FlyViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml</file>
     </qresource>
 </RCC>

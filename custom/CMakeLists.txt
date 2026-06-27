@@ -45,13 +45,19 @@ set(DRONEHUB_FLYVIEW_TOOLBAR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml")
 set(DRONEHUB_FLYVIEW_TOOLBAR_DST
     "${CMAKE_SOURCE_DIR}/src/QmlControls/FlyViewToolBar.qml")
+set(DRONEHUB_TOOLSTRIP_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml")
+set(DRONEHUB_TOOLSTRIP_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewToolStripActionList.qml")
 
 add_custom_target(DroneHubSyncFlyViewLayer ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_LAYER_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_DST}"
-    DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_TOOLSTRIP_DST}"
+    DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}"
     COMMENT "Sync DroneHub custom QML into QGC qmlcache sources"
     VERBATIM
 )
@@ -65,7 +71,7 @@ if(TARGET ${CMAKE_PROJECT_NAME})
     add_dependencies(${CMAKE_PROJECT_NAME} DroneHubSyncFlyViewLayer)
 endif()
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}")
+    "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}")
 
 # ქართული თარგმანი (qgc_ka.ts) — core ავტომატურად glob-ავს translations/qgc_*.ts-ს
 # (core CMakeLists.txt:531). bootstrap.sh symlink-ავს ჩვენს qgc_ka.ts-ს იქ. აქ wiring საჭირო არ არის.

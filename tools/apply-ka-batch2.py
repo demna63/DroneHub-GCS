@@ -62,6 +62,10 @@ BATCH2: dict[str, str] = {
     "Click anywhere to hide": "დამალვისთვის დააწკაპუნეთ ნებისმიერ ადგილას",
     "3D View": "3D ხედი",
     "Fly": "ფრენა",
+    "Plan": "გეგმა",
+    "Setup": "გამართვა",
+    "Analyze": "ანალიზი",
+    "Settings": "პარამეტრები",
     "Start": "დაწყება",
     # Main menu (MainWindow)
     "Analyze Tools": "ანალიზის ხელსაწყოები",

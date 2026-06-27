@@ -1,39 +1,53 @@
 #!/usr/bin/env bash
 # DroneHub GCS — field / SITL smoke test helper (macOS/Linux).
-# Launches the app and prints connection steps for PX4 SITL over UDP.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-RUN="$ROOT/tools/run-dhgcs.sh"
+QGC="$ROOT/qgroundcontrol"
+APP="$QGC/build/Release/DroneHubGCS.app"
+SIM="$ROOT/tools/simulate-mavlink-udp.py"
+PX4="${PX4_DIR:-$HOME/Desktop/PX4-Autopilot}"
 
 echo "==> DroneHub GCS field test"
+echo "    project: $ROOT"
 echo ""
-echo "1) Launch GCS"
-if [[ -x "$RUN" ]]; then
-  "$RUN"
+
+echo "1) Rebuild (only if you changed C++ / qmlcache sources)"
+echo "   cd $QGC"
+echo "   cmake --build build --config Release --target DroneHubGCS"
+echo ""
+
+echo "2) Launch GCS"
+if [[ -d "$APP" ]]; then
+  open "$APP"
+  echo "   opened: $APP"
 else
-  echo "   run-dhgcs.sh not found — open Release .app manually"
+  echo "   !! Release app missing — run rebuild step above"
 fi
 
 echo ""
-echo "2) PX4 SITL (separate terminal, if PX4-Autopilot is installed)"
-echo "   cd ~/PX4-Autopilot   # or your clone path"
-echo "   make px4_sitl gz_x500"
+echo "3) Simulate vehicle (no PX4 install needed)"
+echo "   pip3 install pymavlink    # once"
+echo "   python3 $SIM"
+echo "   (separate terminal, keep running; QGC AutoConnect UDP → port 14550)"
 echo ""
-echo "3) QGC connection"
-echo "   DroneHubGCS auto-connects UDP (port 14550) when AutoConnect is enabled."
-echo "   Settings → General → AutoConnect → UDP should be ON (default in Daily.ini)."
+
+if [[ -d "$PX4" ]]; then
+  echo "4) Or real PX4 SITL (found at $PX4)"
+  echo "   cd $PX4"
+  echo "   make px4_sitl gz_x500"
+else
+  echo "4) PX4 SITL (optional — not installed)"
+  echo "   git clone https://github.com/PX4/PX4-Autopilot.git $PX4"
+  echo "   cd $PX4 && make px4_sitl gz_x500"
+  echo "   (large download + build; see docs.px4.io dev setup)"
+fi
+
 echo ""
-echo "4) Fly View checks"
-echo "   - Toolbar status shows connected vehicle (Georgian strings)"
-echo "   - Bottom HUD: altitude, speed, battery update (not em-dash)"
-echo "   - Expand: secondary telemetry rows"
-echo "   - Clean map: satellite toggle"
+echo "5) Fly View checks"
+echo "   - Toolbar: connected status (Georgian)"
+echo "   - HUD: live altitude / speed / battery (not —)"
+echo "   - Expand / Clean map toggles"
 echo ""
-echo "5) Plan View (offline, no vehicle)"
-echo "   - Left nav → Plan"
-echo "   - Waypoint tool → click map → numbered waypoints"
-echo "   - Offline defaults: PX4 / MultiRotor (CustomPlugin)"
-echo ""
-echo "No PX4? Install: https://docs.px4.io/main/en/dev_setup/building_px4.html"
-echo "Or connect a real vehicle via USB radio / Wi‑Fi telemetry."
+echo "6) Plan View offline (no simulator needed)"
+echo "   Left nav → Plan → Waypoint tool → click map"

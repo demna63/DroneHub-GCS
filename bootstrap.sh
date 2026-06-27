@@ -38,6 +38,8 @@ ln -sf "$ROOT/translations/qgc_ka.ts" "$QGC_DIR/translations/qgc_source_ka.ts"
 # Qt 6 qmlcache compiles custom QML from QGC src paths — sync before build.
 ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml" \
        "$QGC_DIR/src/FlightDisplay/FlyViewCustomLayer.qml"
+ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml" \
+       "$QGC_DIR/src/FlightDisplay/FlyViewToolStripActionList.qml"
 ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml" \
        "$QGC_DIR/src/QmlControls/FlyViewToolBar.qml"
 
