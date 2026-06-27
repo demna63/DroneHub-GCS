@@ -19,11 +19,10 @@ standard build commands see `README.md` §4 / `.github/workflows/build.yml`.
 - The Georgian font `custom/res/fonts/NotoSansGeorgian.ttf` is git-ignored; the update
   script fetches it. Without it the build still works but Georgian glyphs render as boxes.
 
-### Qt version note
-- The codebase docs (`CLAUDE.md`/`README.md`) pin **Qt 6.10.1**, but upstream `Stable_V5.0`
-  and the repo CI use **6.8.3**. This environment uses **6.8.3** (the CI-validated version,
-  builds GREEN). If you must reproduce the 6.10.1 path, install that Qt version separately;
-  do not assume 6.10.1 is present.
+### Qt version (canonical)
+- **Qt 6.8.3 LTS** is the project pin — matches upstream `Stable_V5.0`, all CI workflows,
+  and local macOS field tests. Stay on 6.8.3 until upstream QGC validates a newer LTS/stable
+  release and DroneHub CI/QA pass on it. Do not use 6.10.x ad-hoc.
 
 ### Build / run (after the update script has run)
 ```bash

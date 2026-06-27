@@ -6,10 +6,8 @@
 # მოდელირებულია upstream-ის `custom.yml`-ზე (qgroundcontrol/.github/workflows/custom.yml).
 # ⚠️ პირველ run-ზე დასავალიდირებელია (Qt ვერსია / system deps / kit).
 #
-# ⚠️ Qt ვერსიის შენიშვნა: CLAUDE.md პინავს 6.10.1-ს, მაგრამ upstream Stable_V5.0-ის
-#    საკუთარი CI იყენებს 6.8.3-ს. ქვემოთ default = 6.8.3 (upstream-validated);
-#    6.10.1-ზე გადასართავად შეცვალე QT_VERSION. შეუთავსებლობის შემთხვევაში გადაწყვეტა
-#    გუნდმა უნდა მიიღოს (იხ. CLAUDE.md "Build constraints").
+# Qt 6.8.3 LTS — canonical pin (upstream Stable_V5.0 + DroneHub CI).
+# Upgrade only when upstream validates a newer LTS/stable Qt and CI/QA pass.
 
 name: DroneHub Build
 

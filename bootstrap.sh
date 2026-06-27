@@ -58,8 +58,11 @@ cat <<EOF
 
 ==> მზადაა. შემდეგ:
     cd qgroundcontrol
-    cmake -B build -G Ninja -DQGC_CUSTOM_BUILD=ON -DCMAKE_BUILD_TYPE=Release
+    cmake -B build -G Ninja \\
+      -DCMAKE_PREFIX_PATH="\$HOME/Qt/6.8.3/macos" \\
+      -DQGC_CUSTOM_BUILD=ON -DCMAKE_BUILD_TYPE=Release \\
+      -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF
     cmake --build build
 
-    Qt 6.10.1 ზუსტად. (Android: NDK toolchain; Web: qt-cmake WASM kit.)
+    Qt 6.8.3 LTS (upstream Stable_V5.0 pin). (Android: NDK toolchain; Web: qt-cmake WASM kit.)
 EOF
