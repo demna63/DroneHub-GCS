@@ -62,10 +62,10 @@ jobs:
           fi
 
       - name: Setup Emscripten SDK (${{ env.EMSDK_VERSION }})
-        uses: mymindstorm/setup-emsdk@v13
+        uses: emscripten-core/setup-emsdk@v11
         with:
           version: ${{ env.EMSDK_VERSION }}
-          actions-cache-folder: 'emsdk-cache'
+          no-cache: true
 
       - name: Verify emcc version
         shell: bash
