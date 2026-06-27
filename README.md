@@ -114,10 +114,11 @@ cmake --build build
 ### SITL smoke test (PX4 / simulator)
 
 ```bash
-./tools/start-sitl-session.sh   # opens GCS first, then PX4 or simulator
+./tools/start-sitl-session.sh   # opens GCS first, then PX4 (sihsim_quadx, live HUD) or simulator
 ```
 
-See `tools/README.md` for `--simulator`, `PX4_DIR`, and `PX4_SITL_TARGET` options.
+Stops any running px4 / DroneHubGCS first (prompts unless `-y`). See `tools/README.md`
+for `--simulator`, `PX4_DIR`, and `PX4_SITL_TARGET` options.
 
 ### დარჩენილი (გარე დამოკიდებულებები)
 push → CI · full ka translation (Crowdin) · field test (drone hardware).

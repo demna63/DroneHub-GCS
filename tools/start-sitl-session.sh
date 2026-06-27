@@ -1,27 +1,34 @@
 #!/usr/bin/env bash
 # Start DroneHub GCS first, wait for UDP 14550, then launch vehicle (PX4 SITL or simulator).
 #
+# WARNING: this stops any running px4 / DroneHubGCS and launches a fresh session.
+#
 # Usage:
-#   ./tools/start-sitl-session.sh              # PX4 none_iris if built, else simulator
+#   ./tools/start-sitl-session.sh              # PX4 sihsim_quadx (live physics) if built, else simulator
 #   ./tools/start-sitl-session.sh --simulator  # pymavlink only (no PX4)
-#   ./tools/start-sitl-session.sh --px4        # force PX4 none_iris
+#   ./tools/start-sitl-session.sh --px4        # force PX4 (sihsim_quadx)
+#   ./tools/start-sitl-session.sh -y           # skip the confirmation prompt
+#
+# Env: PX4_DIR, PX4_SITL_TARGET (default sihsim_quadx), GCS_WAIT_SEC (default 90), ASSUME_YES=1
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 GCS_APP="$ROOT/qgroundcontrol/build/Release/DroneHubGCS.app"
 PX4="${PX4_DIR:-$HOME/Desktop/PX4-Autopilot}"
 PX4_BIN="$PX4/build/px4_sitl_default/bin/px4"
-PX4_TARGET="${PX4_SITL_TARGET:-none_iris}"
+PX4_TARGET="${PX4_SITL_TARGET:-sihsim_quadx}"
 SIM="$ROOT/tools/simulate-mavlink-udp.py"
 GCS_WAIT_SEC="${GCS_WAIT_SEC:-90}"
+ASSUME_YES="${ASSUME_YES:-0}"
 MODE="auto"
 
 for arg in "$@"; do
   case "$arg" in
     --simulator) MODE="simulator" ;;
     --px4)       MODE="px4" ;;
+    -y|--yes)    ASSUME_YES=1 ;;
     -h|--help)
-      sed -n '2,6p' "$0"
+      sed -n '2,12p' "$0"
       exit 0
       ;;
     *)
@@ -51,6 +58,16 @@ fi
 echo "==> DroneHub SITL session (GCS first, then vehicle)"
 echo "    mode: $MODE"
 echo ""
+
+# This is destructive (killall px4 / DroneHubGCS). Confirm when interactive,
+# unless -y/--yes or ASSUME_YES=1. Non-interactive (no TTY) proceeds silently.
+if [[ "$ASSUME_YES" != "1" && -t 0 ]]; then
+  read -r -p "This stops running px4 / DroneHubGCS and starts a new session. Continue? [y/N] " reply
+  case "$reply" in
+    [yY]|[yY][eE][sS]) ;;
+    *) die "aborted" ;;
+  esac
+fi
 
 echo "[1/4] Stop stale px4 / GCS instances..."
 killall px4 2>/dev/null || true
@@ -86,7 +103,7 @@ fi
 echo "[4/4] Start vehicle..."
 if [[ "$MODE" == "px4" ]]; then
   echo "    PX4 ${PX4_TARGET} → MAVLink to localhost:14550"
-  echo "    (override: PX4_SITL_TARGET=sihsim_quadx for built-in physics sim)"
+  echo "    (sihsim_quadx = built-in physics → live HUD; PX4_SITL_TARGET=none_iris for a lighter no-physics link)"
   echo "    Ctrl+C stops PX4 (GCS keeps running)"
   echo ""
   cd "$PX4"
