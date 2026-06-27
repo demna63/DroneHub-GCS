@@ -91,7 +91,7 @@ jobs:
           target: wasm
           arch: wasm_singlethread
           dir: ${{ runner.temp }}
-          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          modules: qtcharts qtspeech qt5compat qtmultimedia qtimageformats qtshadertools qtquick3d
           setup-python: false
           cache: true
 
