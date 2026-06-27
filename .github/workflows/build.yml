@@ -18,6 +18,11 @@ on:
         description: 'Branch or tag to build'
         required: false
         default: 'master'
+      include_macos:
+        description: 'Also build on macOS (10× cost — leave off unless needed)'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: read
@@ -33,27 +38,23 @@ env:
 
 jobs:
   desktop:
-    name: ${{ matrix.os }} (custom)
-    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.config.os }} (custom)
+    runs-on: ${{ matrix.config.os }}
     strategy:
       fail-fast: false
+      # macOS runners cost 10× Actions minutes, so they are opt-in via the
+      # include_macos input. Default builds Linux (1×) + Windows (2×) only.
       matrix:
-        include:
-          - os: ubuntu-latest
-            qt_host: linux
-            qt_arch: linux_gcc_64
-          - os: windows-latest
-            qt_host: windows
-            qt_arch: win64_msvc2022_64
-          - os: macos-latest
-            qt_host: mac
-            qt_arch: clang_64
+        config: >-
+          ${{ fromJSON(github.event.inputs.include_macos == 'true'
+          && '[{"os":"ubuntu-latest","qt_host":"linux","qt_arch":"linux_gcc_64"},{"os":"windows-latest","qt_host":"windows","qt_arch":"win64_msvc2022_64"},{"os":"macos-latest","qt_host":"mac","qt_arch":"clang_64"}]'
+          || '[{"os":"ubuntu-latest","qt_host":"linux","qt_arch":"linux_gcc_64"},{"os":"windows-latest","qt_host":"windows","qt_arch":"win64_msvc2022_64"}]') }}
 
     steps:
       - name: Checkout DroneHub
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.ref }}
+          ref: ${{ github.event.inputs.ref || 'master' }}
 
       - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
         shell: bash
@@ -95,9 +96,9 @@ jobs:
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
-          host: ${{ matrix.qt_host }}
+          host: ${{ matrix.config.qt_host }}
           target: desktop
-          arch: ${{ matrix.qt_arch }}
+          arch: ${{ matrix.config.qt_arch }}
           modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
           cache: true
 
