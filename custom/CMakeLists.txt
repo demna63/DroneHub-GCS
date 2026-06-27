@@ -35,6 +35,28 @@ set(CUSTOM_INCLUDE_DIRECTORIES
     CACHE INTERNAL "" FORCE
 )
 
+# Qt 6 qt_add_qml_module precompiles src/FlightDisplay/FlyViewCustomLayer.qml via qmlcache.
+# CustomOverrideInterceptor does not replace module types — copy our layer before each build.
+set(DRONEHUB_FLYVIEW_LAYER_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml")
+set(DRONEHUB_FLYVIEW_LAYER_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewCustomLayer.qml")
+
+add_custom_target(DroneHubSyncFlyViewLayer ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_LAYER_DST}"
+    DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}"
+    COMMENT "Sync DroneHub FlyViewCustomLayer.qml into QGC FlightDisplay (qmlcache source)"
+    VERBATIM
+)
+if(TARGET FlightDisplayModule)
+    add_dependencies(FlightDisplayModule DroneHubSyncFlyViewLayer)
+endif()
+if(TARGET ${CMAKE_PROJECT_NAME})
+    add_dependencies(${CMAKE_PROJECT_NAME} DroneHubSyncFlyViewLayer)
+endif()
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}")
+
 # ქართული თარგმანი (qgc_ka.ts) — core ავტომატურად glob-ავს translations/qgc_*.ts-ს
 # (core CMakeLists.txt:531). bootstrap.sh symlink-ავს ჩვენს qgc_ka.ts-ს იქ. აქ wiring საჭირო არ არის.
 
