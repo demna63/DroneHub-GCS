@@ -5,6 +5,23 @@ Target: **Windows · Linux · macOS · Android · Web (Qt WASM)** — ერთ�
 
 ---
 
+## 0. ჩამოტვირთვა / Install
+
+მზა installer-ები (tag release-ის შემდეგ): [**Releases**](../../releases/latest).
+build-ის წყაროდან გასაშენებლად → [§4 Build](#4-build-qt-683).
+
+> ⚠️ სანამ code-signing სერტიფიკატები დაემატება, installer-ები **ხელმოუწერელია** —
+> ქვემოთ მოცემულია OS-ის გაფრთხილების გვერდის ავლა. იხ. `docs/RELEASE.md`.
+
+| Platform | ფაილი | Install |
+|----------|-------|---------|
+| **Windows** | `DroneHubGCS-*.exe` | გაუშვი installer. SmartScreen-ზე → **More info → Run anyway**. |
+| **macOS** | `DroneHubGCS-*.dmg` | გახსენი, ჩაათრიე Applications-ში. „unidentified developer" → **System Settings → Privacy & Security → Open Anyway** (ან `xattr -dr com.apple.quarantine /Applications/DroneHubGCS.app`). |
+| **Linux** | `DroneHubGCS-*.AppImage` | `chmod +x DroneHubGCS-*.AppImage && ./DroneHubGCS-*.AppImage` |
+| **Android** | `*.apk` (unsigned) | ჩართე *Install unknown apps* → გახსენი APK. |
+
+---
+
 ## 1. სტრატეგია: Fork ≠ Hard-fork
 
 **არ** ვცვლით upstream კოდს. ვიყენებთ QGC-ის ოფიციალურ `custom/` build mechanism-ს:
