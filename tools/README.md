@@ -4,6 +4,8 @@
 
 | Script / doc | Purpose |
 |--------------|---------|
+| `run-dhgcs.sh` | Open the canonical Release `DroneHubGCS.app` (avoids stale bundles) |
+| `field-test.sh` | Launch GCS + SITL / field-test checklist |
 | `qgc-lupdate.sh` | Extract new/changed strings from `custom/` into `translations/qgc_ka.ts` |
 | `apply-ka-batch2.py` | Apply curated Georgian UI translations (safe chrome only) |
 | `CROWDIN.md` | Crowdin project setup, CLI sync, GitHub Action secrets |

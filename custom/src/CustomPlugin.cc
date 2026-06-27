@@ -117,13 +117,13 @@ void CustomPlugin::paletteOverride(const QString& colorName, QGCPalette::Palette
     } else if (colorName == QStringLiteral("windowShadeDark")) {
         set(QColor("#080A0F"), QColor("#080A0F"), QColor("#E9ECEF"), QColor("#D9D9D9"));
     } else if (colorName == QStringLiteral("text")) {
-        set(QColor("#F2F4F8"), QColor("#5A6473"), QColor("#212529"), QColor("#9D9D9D"));        // textPrimary/Disabled
+        set(QColor("#FFFFFF"), QColor("#9AA6B8"), QColor("#212529"), QColor("#9D9D9D"));
     } else if (colorName == QStringLiteral("warningText")) {
         set(QColor("#FF453A"), QColor("#FF453A"), QColor("#CC0808"), QColor("#CC0808"));        // danger
     } else if (colorName == QStringLiteral("button")) {
         set(QColor("#1E2530"), QColor("#1E2530"), QColor("#FFFFFF"), QColor("#FFFFFF"));        // bgElevated
     } else if (colorName == QStringLiteral("buttonText")) {
-        set(QColor("#F2F4F8"), QColor("#5A6473"), QColor("#212529"), QColor("#9D9D9D"));
+        set(QColor("#FFFFFF"), QColor("#9AA6B8"), QColor("#212529"), QColor("#9D9D9D"));
     } else if (colorName == QStringLiteral("buttonHighlight")) {
         set(QColor("#0A84FF"), QColor("#2A323F"), QColor("#0A84FF"), QColor("#E4E4E4"));        // brandPrimary
     } else if (colorName == QStringLiteral("buttonHighlightText")) {
