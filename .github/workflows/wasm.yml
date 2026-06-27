@@ -33,7 +33,7 @@ env:
 
 jobs:
   wasm:
-    name: WebAssembly (WASM, singlethread)
+    name: WebAssembly (WASM, multithread)
     runs-on: ubuntu-latest
     steps:
       - name: Checkout DroneHub
@@ -83,13 +83,13 @@ jobs:
           setup-python: false
           cache: true
 
-      - name: Install WASM Qt (wasm_singlethread)
+      - name: Install WASM Qt (wasm_multithread)
         uses: jurplel/install-qt-action@v4
         with:
           version: ${{ env.QT_VERSION }}
           host: all_os
           target: wasm
-          arch: wasm_singlethread
+          arch: wasm_multithread
           dir: ${{ runner.temp }}
           modules: qtcharts qtspeech qt5compat qtmultimedia qtimageformats qtshadertools qtquick3d
           setup-python: false
