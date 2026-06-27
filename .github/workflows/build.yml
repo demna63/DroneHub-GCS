@@ -23,6 +23,11 @@ on:
         type: boolean
         required: false
         default: false
+      sign:
+        description: 'Code-sign artifacts (needs signing secrets; use to test the signing pipeline)'
+        type: boolean
+        required: false
+        default: false
   # Reusable: release.yml calls this with include_macos+sign=true and secrets: inherit.
   workflow_call:
     inputs:
