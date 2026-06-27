@@ -1,0 +1,87 @@
+# DroneHub GCS — release pipeline.
+#
+# Trigger: push a semver tag (vX.Y.Z) → builds signed desktop installers on all
+# three platforms (macOS included) and publishes a GitHub Release with the
+# matching CHANGELOG section as notes.
+#
+#   git tag v1.0.0 && git push origin v1.0.0
+#
+# Or run manually (workflow_dispatch) with an existing tag.
+#
+# Signing activates automatically when the signing secrets exist (see docs/RELEASE.md);
+# without them the build still publishes UNSIGNED installers.
+
+name: DroneHub Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to release (e.g. v1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.event.inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  # Reuse the desktop build workflow: macOS on (release needs it) + signing on.
+  build:
+    uses: ./.github/workflows/build.yml
+    with:
+      ref: ${{ github.event.inputs.tag || github.ref_name }}
+      include_macos: true
+      sign: true
+    secrets: inherit
+
+  publish:
+    name: Publish GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (for CHANGELOG)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref_name }}
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Extract release notes from CHANGELOG.md
+        id: notes
+        shell: bash
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          VERSION="${TAG#v}"
+          OUT="$RUNNER_TEMP/release-notes.md"
+          if [ -f CHANGELOG.md ] && awk -v v="$VERSION" '
+              $0 ~ "^## \\[" v "\\]" {grab=1; next}
+              grab && /^## \[/ {exit}
+              grab {print}
+            ' CHANGELOG.md > "$OUT" && [ -s "$OUT" ]; then
+            echo "Using CHANGELOG section for $VERSION"
+          else
+            echo "No CHANGELOG entry for $VERSION — using a generic note." | tee "$OUT"
+            echo "DroneHub GCS $TAG." > "$OUT"
+          fi
+          echo "path=$OUT" >> "$GITHUB_OUTPUT"
+
+      - name: Create / update GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: DroneHub GCS ${{ github.event.inputs.tag || github.ref_name }}
+          body_path: ${{ steps.notes.outputs.path }}
+          draft: false
+          prerelease: ${{ contains(github.event.inputs.tag || github.ref_name, '-') }}
+          files: dist/**/*
+          fail_on_unmatched_files: false
