@@ -77,8 +77,10 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 - vehicle facts ვერიფიცირებულია real tree-ზე: `vehicle.{altitudeRelative,groundSpeed,climbRate,flightDistance}`, `gps.count`, `batteries.get(0).percentRemaining`.
 
 ### F5 (QA matrix) — desktop ✓ · android ✓
-- `.github/workflows/build.yml` — Linux/Win/macOS custom-build CI + `concurrency` (minutes-saver). **Manual-only** (`workflow_dispatch`).
-  🟢 **GREEN** (PR #1). GStreamer გათიშულია (custom plugin/QML verification).
+- `.github/workflows/build.yml` — Linux/Win/macOS custom-build CI + `concurrency` (minutes-saver). **Manual-only** (`workflow_dispatch`) + **reusable** (`workflow_call`).
+  🟢 **GREEN** (PR #1). GStreamer გათიშულია (custom plugin/QML verification). macOS **opt-in** (`include_macos`, 10× cost).
+  ახლა აგრევე: CPack `package` → installer artifacts (.dmg/.exe/.AppImage) + secret-gated signing (`sign` input).
+- `.github/workflows/release.yml` — **tag-triggered** (`v*`) release: calls build.yml (macOS+sign on) → GitHub Release + CHANGELOG notes. იხ. `docs/RELEASE.md`. ⚠️ signing secrets ჯერ არ არის → unsigned installers.
 - `.github/workflows/android.yml` — Android custom-build CI (PR #2). **Manual-only**.
 - `.github/workflows/translations.yml` — **manual-only** (no push/PR/schedule triggers; saves CI billing).
 - `.github/workflows/crowdin.yml` — **weekly** (`cron: '0 3 * * 0'`, Sun 03:00 UTC) + manual; pulls Crowdin ka, opens `chore(l10n)` PR.

@@ -23,6 +23,24 @@ on:
         type: boolean
         required: false
         default: false
+  # Reusable: release.yml calls this with include_macos+sign=true and secrets: inherit.
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Branch or tag to build'
+        required: false
+        type: string
+        default: 'master'
+      include_macos:
+        description: 'Also build on macOS'
+        required: false
+        type: boolean
+        default: false
+      sign:
+        description: 'Code-sign / notarize artifacts (needs signing secrets)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -46,7 +64,7 @@ jobs:
       # include_macos input. Default builds Linux (1×) + Windows (2×) only.
       matrix:
         config: >-
-          ${{ fromJSON(github.event.inputs.include_macos == 'true'
+          ${{ fromJSON(inputs.include_macos
           && '[{"os":"ubuntu-latest","qt_host":"linux","qt_arch":"linux_gcc_64"},{"os":"windows-latest","qt_host":"windows","qt_arch":"win64_msvc2022_64"},{"os":"macos-latest","qt_host":"mac","qt_arch":"clang_64"}]'
           || '[{"os":"ubuntu-latest","qt_host":"linux","qt_arch":"linux_gcc_64"},{"os":"windows-latest","qt_host":"windows","qt_arch":"win64_msvc2022_64"}]') }}
 
@@ -54,7 +72,7 @@ jobs:
       - name: Checkout DroneHub
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.ref || 'master' }}
+          ref: ${{ inputs.ref || 'master' }}
 
       - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
         shell: bash
@@ -136,6 +154,92 @@ jobs:
         working-directory: qgroundcontrol
         shell: bash
         run: cmake --build build --config Release
+
+      # CPack `package` target is registered by QGC's include(CPack); it produces the
+      # platform installer (macOS .dmg / Windows NSIS .exe / Linux .AppImage) as QGC
+      # configures it. Best-effort: never fail the build — the broad upload glob below
+      # still ships whatever was produced (installer or raw build output).
+      # ⚠️ First release run should be validated (deploy tooling availability per host).
+      - name: Package installer
+        working-directory: qgroundcontrol
+        shell: bash
+        run: |
+          cmake --build build --config Release --target package \
+            || echo "::warning::package target failed on $RUNNER_OS — uploading raw build output instead"
+          echo "Artifacts produced:"
+          find build -maxdepth 2 \( -name '*.dmg' -o -name '*.exe' -o -name '*.AppImage' \
+            -o -name '*.zip' -o -name '*.tar.gz' -o -name '*.deb' \) -print 2>/dev/null || true
+
+      # --- Signing / notarization (opt-in via the `sign` input AND signing secrets) ---
+      # Steps no-op when sign=false or the relevant secret is absent, so the workflow
+      # stays green before certificates are provisioned. See docs/RELEASE.md.
+      - name: Sign & notarize (macOS)
+        if: inputs.sign && runner.os == 'macOS' && env.MACOS_CERT_P12 != ''
+        working-directory: qgroundcontrol
+        shell: bash
+        env:
+          MACOS_CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+          MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          MACOS_SIGN_IDENTITY: ${{ secrets.MACOS_SIGN_IDENTITY }}
+          MACOS_NOTARY_APPLE_ID: ${{ secrets.MACOS_NOTARY_APPLE_ID }}
+          MACOS_NOTARY_TEAM_ID: ${{ secrets.MACOS_NOTARY_TEAM_ID }}
+          MACOS_NOTARY_PASSWORD: ${{ secrets.MACOS_NOTARY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          KEYCHAIN="$RUNNER_TEMP/dronehub-signing.keychain-db"
+          KEYCHAIN_PWD="$(openssl rand -base64 24)"
+          security create-keychain -p "$KEYCHAIN_PWD" "$KEYCHAIN"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN"
+          security unlock-keychain -p "$KEYCHAIN_PWD" "$KEYCHAIN"
+          echo "$MACOS_CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$KEYCHAIN" -P "$MACOS_CERT_PASSWORD" \
+            -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PWD" "$KEYCHAIN" >/dev/null
+          security list-keychains -d user -s "$KEYCHAIN" $(security list-keychains -d user | tr -d '"')
+          APP="$(find build -maxdepth 3 -name '*.app' -type d | head -n1)"
+          [ -n "$APP" ] && codesign --force --deep --options runtime --timestamp \
+            --sign "$MACOS_SIGN_IDENTITY" "$APP"
+          DMG="$(find build -maxdepth 2 -name '*.dmg' | head -n1)"
+          if [ -n "$DMG" ]; then
+            codesign --force --timestamp --sign "$MACOS_SIGN_IDENTITY" "$DMG"
+            xcrun notarytool submit "$DMG" --apple-id "$MACOS_NOTARY_APPLE_ID" \
+              --team-id "$MACOS_NOTARY_TEAM_ID" --password "$MACOS_NOTARY_PASSWORD" --wait
+            xcrun stapler staple "$DMG"
+          fi
+          security delete-keychain "$KEYCHAIN"
+
+      - name: Sign (Windows)
+        if: inputs.sign && runner.os == 'Windows' && env.WINDOWS_CERT_PFX != ''
+        working-directory: qgroundcontrol
+        shell: pwsh
+        env:
+          WINDOWS_CERT_PFX: ${{ secrets.WINDOWS_CERT_PFX }}
+          WINDOWS_CERT_PASSWORD: ${{ secrets.WINDOWS_CERT_PASSWORD }}
+        run: |
+          $pfx = "$env:RUNNER_TEMP\dronehub.pfx"
+          [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($env:WINDOWS_CERT_PFX))
+          $signtool = Get-ChildItem "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\signtool.exe" |
+            Sort-Object FullName -Descending | Select-Object -First 1
+          Get-ChildItem -Recurse build -Include *.exe |
+            ForEach-Object {
+              & $signtool.FullName sign /f $pfx /p $env:WINDOWS_CERT_PASSWORD `
+                /fd SHA256 /tr http://timestamp.digicert.com /td SHA256 $_.FullName
+            }
+          Remove-Item $pfx -Force
+
+      - name: Upload desktop artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DroneHubGCS-${{ matrix.config.os }}
+          path: |
+            qgroundcontrol/build/*.dmg
+            qgroundcontrol/build/*.exe
+            qgroundcontrol/build/*.AppImage
+            qgroundcontrol/build/*.zip
+            qgroundcontrol/build/*.tar.gz
+            qgroundcontrol/build/*.deb
+          if-no-files-found: warn
 
   # Android · Web(WASM) — ცალკე kit-ები; ჩონჩხი F5-ის გასაგრძელებლად.
   # android: NDK toolchain (-DCMAKE_TOOLCHAIN_FILE=<ndk>) · web: qt-cmake WASM kit.
