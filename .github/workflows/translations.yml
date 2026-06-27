@@ -11,12 +11,12 @@
 name: DroneHub Translations
 
 on:
-  pull_request:
-    paths:
-      - 'custom/**'
-      - 'translations/**'
-      - '.github/workflows/translations.yml'
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or tag to extract strings from'
+        required: false
+        default: 'master'
 
 permissions:
   contents: read
@@ -36,6 +36,8 @@ jobs:
     steps:
       - name: Checkout DroneHub
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
 
       - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
         shell: bash

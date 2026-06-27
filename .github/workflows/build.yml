@@ -14,22 +14,17 @@
 name: DroneHub Build
 
 on:
-  push:
-    branches: [master, main, 'Stable*']
-    tags: ['v*']
-  pull_request:
-    paths:
-      - 'custom/**'
-      - 'translations/**'
-      - 'bootstrap.sh'
-      - '.github/workflows/build.yml'
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or tag to build'
+        required: false
+        default: 'master'
 
 permissions:
   contents: read
 
-# ახალი push იმავე branch/PR-ზე აუქმებს მიმდინარე run-ს — CI minutes-ის დაზოგვა
-# (ერთ commit-ზე ორმაგი run-ის თავიდან აცილება).
+# Manual-only workflow — concurrent runs on the same ref cancel in progress (CI minutes).
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -59,6 +54,8 @@ jobs:
     steps:
       - name: Checkout DroneHub
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
 
       - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
         shell: bash
