@@ -1,6 +1,6 @@
 # Crowdin — Georgian (`ka`) translations
 
-DroneHub GCS keeps one canonical Qt TS file: `translations/qgc_ka.ts` (~3267 strings, English source → Georgian target). Crowdin is the recommended path for the remaining ~2877 unfinished strings.
+DroneHub GCS keeps one canonical Qt TS file: `translations/qgc_ka.ts` (~3287 strings, English source → Georgian target). **~2990** entries have Georgian text (batch 2+3 + Crowdin). Crowdin is the recommended path for the remaining **~115 flight-mode names** (intentionally English) and **~90 acronym/brand** strings (GPS, KML, GeoFence, …).
 
 **Safety rule (do not translate in Crowdin):** flight-mode names and attitude axes (Roll, Pitch, Yaw, Loiter, …) stay English. See `apply-ka-batch2.py` `SKIP_SOURCES` / `SKIP_CONTEXT_RE`.
 
