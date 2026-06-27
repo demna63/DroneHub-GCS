@@ -7,6 +7,8 @@
 | `run-dhgcs.sh` | Open the canonical Release `DroneHubGCS.app` (avoids stale bundles) |
 | `rebuild-dhgcs.sh` | Rebuild Release target (`--open` to launch after build) |
 | `field-test.sh` | Launch GCS + field-test checklist (prints absolute paths) |
+| `connect-checklist.sh` | GCS-first connection steps + troubleshooting |
+| `px4-install-deps.sh` | Install PX4 Python deps on the correct interpreter (3.11) |
 | `simulate-mavlink-udp.py` | Lightweight UDP simulator for HUD tests without PX4 |
 | `qgc-lupdate.sh` | Extract new/changed strings from `custom/` into `translations/qgc_ka.ts` |
 | `apply-ka-batch2.py` | Apply curated Georgian UI translations (safe chrome only) |

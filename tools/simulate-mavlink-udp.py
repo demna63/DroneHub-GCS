@@ -31,6 +31,10 @@ def main() -> int:
         f"udpout:{HOST}:{PORT}", source_system=SYSTEM_ID, source_component=COMPONENT_ID
     )
 
+    print("Tip: start DroneHubGCS BEFORE this script (GCS listens on UDP 14550).")
+    print("     If PX4 SITL is running, do NOT run this simulator at the same time.")
+    print()
+
     boot_time = time.time()
     seq = 0
 
