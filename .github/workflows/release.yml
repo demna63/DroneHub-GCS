@@ -50,6 +50,8 @@ jobs:
     uses: ./.github/workflows/android.yml
     with:
       ref: ${{ github.event.inputs.tag || github.ref_name }}
+      sign: true
+    secrets: inherit
 
   # Experimental — opt-in via dispatch input; never runs on a plain tag push.
   wasm:

@@ -17,6 +17,11 @@ on:
         description: 'Branch or tag to build'
         required: false
         default: 'master'
+      sign:
+        description: 'Sign the APK (needs ANDROID_KEYSTORE_BASE64 secret)'
+        type: boolean
+        required: false
+        default: false
   workflow_call:
     inputs:
       ref:
@@ -24,6 +29,11 @@ on:
         required: false
         type: string
         default: 'master'
+      sign:
+        description: 'Sign the APK (needs keystore secrets)'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -118,10 +128,35 @@ jobs:
           setup-python: false
           cache: true
 
+      # Decode the keystore only when signing is requested AND the secret exists,
+      # then export the env vars Qt's androiddeployqt reads during the build.
+      # GITHUB_ENV persists these to later steps. No-op otherwise → unsigned APK.
+      - name: Prepare Android signing
+        if: inputs.sign && env.ANDROID_KEYSTORE_BASE64 != ''
+        shell: bash
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_ALIAS: ${{ secrets.ANDROID_KEYSTORE_ALIAS }}
+          ANDROID_KEYSTORE_STORE_PASS: ${{ secrets.ANDROID_KEYSTORE_STORE_PASS }}
+          ANDROID_KEYSTORE_KEY_PASS: ${{ secrets.ANDROID_KEYSTORE_KEY_PASS }}
+        run: |
+          set -euo pipefail
+          KS="$RUNNER_TEMP/dronehub.keystore"
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > "$KS"
+          {
+            echo "QT_ANDROID_KEYSTORE_PATH=$KS"
+            echo "QT_ANDROID_KEYSTORE_ALIAS=$ANDROID_KEYSTORE_ALIAS"
+            echo "QT_ANDROID_KEYSTORE_STORE_PASS=$ANDROID_KEYSTORE_STORE_PASS"
+            echo "QT_ANDROID_KEYSTORE_KEY_PASS=${ANDROID_KEYSTORE_KEY_PASS:-$ANDROID_KEYSTORE_STORE_PASS}"
+            echo "DRONEHUB_SIGN_APK=ON"
+          } >> "$GITHUB_ENV"
+          echo "Android signing enabled."
+
       - name: Configure (Android custom build)
         working-directory: qgroundcontrol
         shell: bash
         # QT_ROOT_DIR → ბოლო install-qt-action (android_arm64_v8a). host Qt გვერდითაა (../gcc_64).
+        # SIGN_APK ON მხოლოდ მაშინ, თუ "Prepare Android signing" step-მა keystore გაშალა.
         run: |
           "${QT_ROOT_DIR}/bin/qt-cmake" -S . -B build -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
@@ -131,7 +166,7 @@ jobs:
             -DQT_ANDROID_ABIS="${QT_ANDROID_ABIS}" \
             -DQT_ANDROID_BUILD_ALL_ABIS=OFF \
             -DQT_HOST_PATH="${QT_ROOT_DIR}/../gcc_64" \
-            -DQT_ANDROID_SIGN_APK=OFF
+            -DQT_ANDROID_SIGN_APK="${DRONEHUB_SIGN_APK:-OFF}"
 
       - name: Build APK
         working-directory: qgroundcontrol
@@ -142,6 +177,6 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v4
         with:
-          name: DroneHubGCS-android-arm64-v8a-unsigned
+          name: DroneHubGCS-android-arm64-v8a
           path: qgroundcontrol/build/android-build/**/*.apk
           if-no-files-found: warn

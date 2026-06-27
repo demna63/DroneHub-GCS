@@ -56,18 +56,29 @@ Without these, the pipeline still publishes **unsigned** installers (macOS shows
 | `WINDOWS_CERT_PFX` | base64 of your code-signing `.pfx` |
 | `WINDOWS_CERT_PASSWORD` | password for the `.pfx` |
 
+### Android (APK signing)
+
+| Secret | What it is |
+|---|---|
+| `ANDROID_KEYSTORE_BASE64` | base64 of your keystore (`base64 -i my.keystore`) |
+| `ANDROID_KEYSTORE_ALIAS` | key alias inside the keystore |
+| `ANDROID_KEYSTORE_STORE_PASS` | keystore password |
+| `ANDROID_KEYSTORE_KEY_PASS` | key password (PKCS12: same as store pass) |
+
+> ⚠️ **Keep the Android keystore forever.** Play Store rejects updates signed with a
+> different key — losing it means you can never update the app. Generate it once and
+> back it up. A PKCS12 keystore works with `keytool` or `openssl pkcs12 -export`.
+
 The signing steps are gated on both `sign: true` **and** the relevant secret being
 present, so the workflow stays green before certificates are provisioned.
 
 ## What the release includes
 
 - **Desktop** installers (`.dmg` / `.exe` / `.AppImage`) — signed if secrets present.
-- **Android** APK — currently **unsigned** (see follow-up below).
+- **Android** APK — signed when the `ANDROID_KEYSTORE_*` secrets are present (else unsigned).
 - **WASM** experimental bundle — **opt-in only** via the `include_wasm` dispatch input
   (never built on a plain tag push); attached as `DroneHubGCS-WASM-experimental.zip`.
 
 ## Follow-ups not yet wired into the release
 
-- Android APK **signing** (`android.yml` builds with `QT_ANDROID_SIGN_APK=OFF`; needs a
-  keystore + `ANDROID_KEYSTORE*` secrets and `QT_ANDROID_SIGN_APK=ON`).
 - Hardware field test sign-off before a public (non-prerelease) tag.
