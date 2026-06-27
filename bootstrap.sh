@@ -33,6 +33,11 @@ rm -rf "$QGC_DIR/custom"
 ln -s "$ROOT/custom" "$QGC_DIR/custom"
 ln -sf "$ROOT/translations/qgc_ka.ts" "$QGC_DIR/translations/qgc_ka.ts"
 
+# 3b. Copy custom application icon into deploy folders
+if [ -f "$ROOT/custom/res/icons/macx.icns" ]; then
+  cp "$ROOT/custom/res/icons/macx.icns" "$QGC_DIR/deploy/macos/macx.icns"
+fi
+
 # 4. font sanity check
 if [ ! -f "$ROOT/custom/res/fonts/NotoSansGeorgian.ttf" ]; then
   echo "!!  ფონტი არ მოიძებნა: custom/res/fonts/NotoSansGeorgian.ttf"

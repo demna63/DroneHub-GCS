@@ -7,7 +7,7 @@ QtObject {
     id: theme
 
     // ---- ბრენდი (asset paths — UI არასოდეს hardcode-ავს resource path-ს) ----
-    readonly property string logoSource:    "qrc:/custom/img/DroneHubLogo.svg"
+    readonly property string logoSource:    "qrc:/custom/img/dggcs-logo-original.png"
     readonly property string appName:       "DroneHub GCS"
 
     // ---- ბრენდის პალიტრა ----

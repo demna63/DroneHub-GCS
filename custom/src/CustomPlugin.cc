@@ -55,12 +55,12 @@ QGCOptions* CustomPlugin::options()
 
 QString CustomPlugin::brandImageIndoor() const
 {
-    return QStringLiteral("/custom/img/DroneHubLogo.svg");
+    return QStringLiteral("/custom/img/dggcs-logo-original.png");
 }
 
 QString CustomPlugin::brandImageOutdoor() const
 {
-    return QStringLiteral("/custom/img/DroneHubLogo.svg");
+    return QStringLiteral("/custom/img/dggcs-logo-original.png");
 }
 
 QString CustomPlugin::showAdvancedUIMessage() const
