@@ -31,7 +31,7 @@ SKIP_CONTEXT_RE = re.compile(
 BATCH2: dict[str, str] = {
     # FlyView / HUD telemetry (FlyViewCustomLayer when extracted)
     "Altitude": "სიმაღლე",
-    "Ground Speed": "სახმელეთის სიჩქარე",
+    "Ground Speed": "სიჩქარე",
     "Climb Rate": "ასვლის სიჩქარე",
     "Distance": "მანძილი",
     "Satellites": "სატელიტები",
