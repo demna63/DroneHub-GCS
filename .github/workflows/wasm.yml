@@ -1,0 +1,123 @@
+# DroneHub GCS — WebAssembly (WASM) custom build CI (F5).
+#
+# აშენებს custom build-ს WebAssembly-სთვის Linux host-ზე Emscripten-ით.
+# გამოიყენება Qt 6.8.3 for WebAssembly და Emscripten 3.1.56 (ოფიციალური თავსებადი ვერსია).
+#
+# ბრაუზერის უსაფრთხოების შეზღუდვების გამო:
+# 1. GStreamer ვიდეო სტრიმინგი გათიშულია (-DQGC_ENABLE_GST_VIDEOSTREAMING=OFF).
+# 2. სერიული პორტები გათიშულია (-DQGC_NO_SERIAL_LINK=ON).
+#
+# ბილდი ექსპერიმენტულია და პირველ ეტაპზე დაგვეხმარება კომპილაციის შეცდომების პოვნაში.
+
+name: DroneHub WASM
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or tag to build'
+        required: false
+        default: 'master'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  QGC_TAG: Stable_V5.0
+  QT_VERSION: 6.8.3
+  EMSDK_VERSION: 3.1.56
+
+jobs:
+  wasm:
+    name: WebAssembly (WASM, singlethread)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout DroneHub
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
+
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: false
+          android: false
+          large-packages: false
+
+      - name: Clone QGroundControl (${{ env.QGC_TAG }}) + wire custom/
+        shell: bash
+        run: |
+          git clone --recursive --branch "$QGC_TAG" --depth 1 \
+            https://github.com/mavlink/qgroundcontrol.git qgroundcontrol
+          rm -rf qgroundcontrol/custom
+          cp -R custom qgroundcontrol/custom
+          cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_ka.ts
+          if [ ! -f qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf ]; then
+            curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf" \
+              -o qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf
+          fi
+
+      - name: Setup Emscripten SDK (${{ env.EMSDK_VERSION }})
+        uses: mymindstorm/setup-emsdk@v13
+        with:
+          version: ${{ env.EMSDK_VERSION }}
+          actions-cache-folder: 'emsdk-cache'
+
+      - name: Verify emcc version
+        shell: bash
+        run: emcc --version
+
+      - name: Install host Qt (linux_gcc_64)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: linux
+          target: desktop
+          arch: linux_gcc_64
+          dir: ${{ runner.temp }}
+          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          setup-python: false
+          cache: true
+
+      - name: Install WASM Qt (wasm_singlethread)
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: ${{ env.QT_VERSION }}
+          host: all_os
+          target: wasm
+          arch: wasm_singlethread
+          dir: ${{ runner.temp }}
+          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          setup-python: false
+          cache: true
+
+      - name: Configure (WASM custom build)
+        working-directory: qgroundcontrol
+        shell: bash
+        # QT_ROOT_DIR მიუთითებს WASM Qt-ის საქაღალდეზე.
+        # QT_HOST_PATH მიუთითებს Linux host Qt-ის საქაღალდეზე (gcc_64).
+        run: |
+          "${QT_ROOT_DIR}/bin/qt-cmake" -S . -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_WARN_DEPRECATED=FALSE \
+            -DQGC_CUSTOM_BUILD=ON \
+            -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
+            -DQGC_NO_SERIAL_LINK=ON \
+            -DQT_HOST_PATH="${QT_ROOT_DIR}/../gcc_64"
+
+      - name: Build
+        working-directory: qgroundcontrol
+        shell: bash
+        run: cmake --build build --config Release
+
+      - name: Upload WASM artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: DroneHubGCS-WASM
+          path: qgroundcontrol/build/**/*
+          if-no-files-found: warn
