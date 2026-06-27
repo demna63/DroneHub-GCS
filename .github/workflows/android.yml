@@ -11,15 +11,12 @@
 name: DroneHub Android
 
 on:
-  push:
-    branches: [master, main]
-    tags: ['v*']
-  pull_request:
-    paths:
-      - 'custom/**'
-      - 'translations/**'
-      - '.github/workflows/android.yml'
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch or tag to build'
+        required: false
+        default: 'master'
 
 permissions:
   contents: read
@@ -40,6 +37,8 @@ jobs:
     steps:
       - name: Checkout DroneHub
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
 
       - name: Free disk space
         uses: jlumbroso/free-disk-space@main

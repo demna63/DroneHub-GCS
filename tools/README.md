@@ -13,12 +13,14 @@
 1. Use `qsTr()` in QML and `tr()` in C++ — never hardcode Georgian in source.
 2. Run `./tools/qgc-lupdate.sh` after adding strings.
 3. Translate in **Crowdin** (preferred for bulk work), Qt Linguist, or `apply-ka-batch2.py` for curated batches.
-4. Open a PR; `.github/workflows/translations.yml` runs lupdate when `custom/**` or `translations/**` change.
+4. Run `./tools/qgc-lupdate.sh` locally, or trigger **DroneHub Translations** manually in Actions.
+
+**CI note:** All workflows are manual-only (`workflow_dispatch`) — no automatic runs on push/PR.
 
 ### Crowdin (remaining ~2877 strings)
 
 1. `./tools/qgc-lupdate.sh` — refresh `translations/qgc_ka.ts`
-2. Follow **`tools/CROWDIN.md`** — create project, `crowdin upload sources`, translator workflow, `crowdin download` or CI PR
-3. Root config: `crowdin.yml` · CI: `.github/workflows/crowdin.yml` (needs `CROWDIN_PROJECT_ID` + `CROWDIN_PERSONAL_TOKEN` secrets)
+2. Follow **`tools/CROWDIN.md`** — create project, `crowdin upload sources`, translator workflow, `crowdin download` or manual Crowdin sync workflow
+3. Root config: `crowdin.yml` · CI: `.github/workflows/crowdin.yml` (manual; needs `CROWDIN_PROJECT_ID` + `CROWDIN_PERSONAL_TOKEN` secrets)
 
 **Safety rule:** flight-mode names and attitude axes (Roll/Pitch/Yaw/Loiter/…) stay English.

@@ -54,7 +54,7 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 - Georgian: `qgc_ka.ts` PlanView context.
 
 ### F4 (Setup/Params) — translation pipeline ✓
-- `tools/qgc-lupdate.sh` (local) + `.github/workflows/translations.yml` (CI `update_translations`)
+- `tools/qgc-lupdate.sh` (local) + `.github/workflows/translations.yml` (manual `update_translations`)
   — extraction automation. lupdate-მა გამოავლინა **3267 string / 340 context** (სწორი context-ებით).
 - `tools/apply-ka-batch2.py` + `tools/README.md` — batch UI chrome თარგმანი (safe, no flight modes).
 - `translations/qgc_ka.ts` = canonical full inventory; **390 high-value UI term თარგმნილი**
@@ -71,9 +71,10 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 - vehicle facts ვერიფიცირებულია real tree-ზე: `vehicle.{altitudeRelative,groundSpeed,climbRate,flightDistance}`, `gps.count`, `batteries.get(0).percentRemaining`.
 
 ### F5 (QA matrix) — desktop ✓ · android ✓
-- `.github/workflows/build.yml` — Linux/Win/macOS custom-build CI + `concurrency` (minutes-saver).
+- `.github/workflows/build.yml` — Linux/Win/macOS custom-build CI + `concurrency` (minutes-saver). **Manual-only** (`workflow_dispatch`).
   🟢 **GREEN** (PR #1). GStreamer გათიშულია (custom plugin/QML verification).
-- `.github/workflows/android.yml` — Android custom-build CI (PR #2).
+- `.github/workflows/android.yml` — Android custom-build CI (PR #2). **Manual-only**.
+- `.github/workflows/translations.yml`, `crowdin.yml` — **manual-only** (no push/PR/schedule triggers; saves CI billing).
 - დარჩა: **WASM** (upstream Stable_V5.0 CI-შიც არ არის — experimental). **field test** → hardware.
 
 ### ⚠️ Qt ვერსიის გადასაწყვეტი

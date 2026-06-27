@@ -7,7 +7,7 @@ DroneHub GCS keeps one canonical Qt TS file: `translations/qgc_ka.ts` (~3267 str
 ## Prerequisites
 
 - [Crowdin CLI](https://crowdin.github.io/crowdin-cli/installation) (`crowdin` on `PATH`)
-- Fresh strings from `./tools/qgc-lupdate.sh` (or CI `translations.yml` artifact)
+- Fresh strings from `./tools/qgc-lupdate.sh` (or manual CI **DroneHub Translations** artifact)
 - Crowdin account with permission to create/manage a project
 
 
@@ -113,9 +113,8 @@ Add repository secrets:
 
 Workflow: `.github/workflows/crowdin.yml`
 
-- **Manual:** Actions → **DroneHub Crowdin Sync** → **Run workflow**
-- **Scheduled:** weekly (Sunday 04:00 UTC) — uploads sources, downloads translations, opens PR
-- **On push to `master`:** when `translations/qgc_ka.ts` or `crowdin.yml` changes
+- **Manual only:** Actions → **DroneHub Crowdin Sync** → **Run workflow** (optional `ref`, default `master`)
+- All GitHub Actions in this repo are manual-only (`workflow_dispatch`) to save CI billing — no push/PR/schedule triggers
 
 If sync succeeds but PR creation fails with **403**, enable **Settings → Actions → General → Workflow permissions → Allow GitHub Actions to create and approve pull requests**.
 
@@ -126,13 +125,13 @@ The workflow uses `upload_translations: false` so translator edits in Crowdin ar
 ```
 edit custom/ (qsTr / tr)
     → ./tools/qgc-lupdate.sh
-    → crowdin upload sources   (or wait for CI)
+    → crowdin upload sources   (or run **DroneHub Translations** / **DroneHub Crowdin Sync** manually)
     → translators in Crowdin
     → crowdin download / Crowdin PR
     → merge PR
 ```
 
-CI `translations.yml` still runs `lupdate` on PRs touching `custom/**` or `translations/**` — keep `qgc_ka.ts` in sync before uploading to Crowdin.
+Run `./tools/qgc-lupdate.sh` locally after editing `custom/**` or `translations/**`, or trigger **DroneHub Translations** manually in Actions before uploading to Crowdin.
 
 ## 7. Validate `qgc_ka.ts` before upload
 
@@ -152,5 +151,5 @@ Expected: `language=ka_GE`, `sourcelanguage=en` in the file header.
 ## Reference
 
 - Repo config: `crowdin.yml`
-- String extraction: `tools/qgc-lupdate.sh`, `.github/workflows/translations.yml`
+- String extraction: `tools/qgc-lupdate.sh`, `.github/workflows/translations.yml` (manual)
 - Upstream QGC: [crowdin.yml](https://github.com/mavlink/qgroundcontrol/blob/master/crowdin.yml), [translations README](https://github.com/mavlink/qgroundcontrol/tree/master/translations)

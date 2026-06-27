@@ -10,15 +10,11 @@ name: DroneHub Crowdin Sync
 
 on:
   workflow_dispatch:
-  schedule:
-    # Weekly sync (after upstream-style lupdate cadence); adjust as needed.
-    - cron: '0 4 * * 0'
-  push:
-    branches: [master]
-    paths:
-      - 'translations/qgc_ka.ts'
-      - 'crowdin.yml'
-      - '.github/workflows/crowdin.yml'
+    inputs:
+      ref:
+        description: 'Branch to sync with Crowdin'
+        required: false
+        default: 'master'
 
 permissions:
   contents: write
@@ -35,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.inputs.ref }}
 
       - name: Validate qgc_ka.ts
         run: |
