@@ -37,3 +37,39 @@ set(CUSTOM_INCLUDE_DIRECTORIES
 
 # ქართული თარგმანი (qgc_ka.ts) — core ავტომატურად glob-ავს translations/qgc_*.ts-ს
 # (core CMakeLists.txt:531). bootstrap.sh symlink-ავს ჩვენს qgc_ka.ts-ს იქ. აქ wiring საჭირო არ არის.
+
+if(APPLE)
+    message(STATUS "DroneHub GCS: Removing missing AGL framework from Qt6 targets to prevent link failure on modern macOS SDKs")
+    set(qt_targets_to_patch
+        Qt6::Gui
+        Qt6::OpenGL
+        Qt6::Quick
+        Qt6::QuickWidgets
+        Qt6::QuickControls2
+        Qt6::QuickTemplates2
+        Qt6::Core
+        Qt6::Widgets
+        Qt6::Location
+        Qt6::Positioning
+    )
+    foreach(qt_target ${qt_targets_to_patch})
+        if(TARGET ${qt_target})
+            get_target_property(link_libs ${qt_target} INTERFACE_LINK_LIBRARIES)
+            if(link_libs)
+                set(new_link_libs "")
+                set(patched FALSE)
+                foreach(lib ${link_libs})
+                    if(lib MATCHES "AGL")
+                        set(patched TRUE)
+                    else()
+                        list(APPEND new_link_libs "${lib}")
+                    endif()
+                endforeach()
+                if(patched)
+                    message(STATUS "  Patched ${qt_target} to remove AGL dependency")
+                    set_target_properties(${qt_target} PROPERTIES INTERFACE_LINK_LIBRARIES "${new_link_libs}")
+                endif()
+            endif()
+        endif()
+    endforeach()
+endif()
