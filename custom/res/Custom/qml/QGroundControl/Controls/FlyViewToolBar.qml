@@ -58,11 +58,6 @@ Rectangle {
                 fillMode:           Image.PreserveAspectFit
                 anchors.centerIn:   parent
             }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked:  mainWindow.showToolSelectDialog()
-            }
         }
 
         Rectangle {
