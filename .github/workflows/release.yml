@@ -1,12 +1,12 @@
 # DroneHub GCS — release pipeline.
 #
 # Trigger: push a semver tag (vX.Y.Z) → builds signed desktop installers on all
-# three platforms (macOS included) and publishes a GitHub Release with the
-# matching CHANGELOG section as notes.
+# three platforms (macOS included) + Android APK, and publishes a GitHub Release
+# with the matching CHANGELOG section as notes.
 #
 #   git tag v1.0.0 && git push origin v1.0.0
 #
-# Or run manually (workflow_dispatch) with an existing tag.
+# Or run manually (workflow_dispatch) with an existing tag; WASM is opt-in there.
 #
 # Signing activates automatically when the signing secrets exist (see docs/RELEASE.md);
 # without them the build still publishes UNSIGNED installers.
@@ -23,6 +23,11 @@ on:
         description: 'Existing tag to release (e.g. v1.0.0)'
         required: true
         type: string
+      include_wasm:
+        description: 'Also build & attach the experimental WASM bundle'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -32,7 +37,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Reuse the desktop build workflow: macOS on (release needs it) + signing on.
+  # Desktop: reuse build.yml with macOS on (release needs it) + signing on.
   build:
     uses: ./.github/workflows/build.yml
     with:
@@ -41,9 +46,23 @@ jobs:
       sign: true
     secrets: inherit
 
+  android:
+    uses: ./.github/workflows/android.yml
+    with:
+      ref: ${{ github.event.inputs.tag || github.ref_name }}
+
+  # Experimental — opt-in via dispatch input; never runs on a plain tag push.
+  wasm:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.include_wasm }}
+    uses: ./.github/workflows/wasm.yml
+    with:
+      ref: ${{ github.event.inputs.tag || github.ref_name }}
+
   publish:
     name: Publish GitHub Release
-    needs: build
+    needs: [build, android, wasm]
+    # Publish as long as the required builds passed; WASM is optional (may be skipped).
+    if: ${{ !cancelled() && needs.build.result == 'success' && needs.android.result == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (for CHANGELOG)
@@ -55,6 +74,21 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: dist
+
+      - name: Assemble release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p release
+          # Desktop installers + Android APK → attached raw.
+          find dist -type f \( -name '*.dmg' -o -name '*.exe' -o -name '*.AppImage' \
+            -o -name '*.deb' -o -name '*.tar.gz' -o -name '*.apk' \) -exec cp -v {} release/ \;
+          # WASM (many files) → single experimental zip, if it was built.
+          if [ -d dist/DroneHubGCS-WASM ]; then
+            ( cd dist/DroneHubGCS-WASM && zip -qr "$GITHUB_WORKSPACE/release/DroneHubGCS-WASM-experimental.zip" . )
+            echo "packaged WASM bundle"
+          fi
+          echo "=== release assets ===" && ls -la release
 
       - name: Extract release notes from CHANGELOG.md
         id: notes
@@ -70,7 +104,6 @@ jobs:
             ' CHANGELOG.md > "$OUT" && [ -s "$OUT" ]; then
             echo "Using CHANGELOG section for $VERSION"
           else
-            echo "No CHANGELOG entry for $VERSION — using a generic note." | tee "$OUT"
             echo "DroneHub GCS $TAG." > "$OUT"
           fi
           echo "path=$OUT" >> "$GITHUB_OUTPUT"
@@ -83,5 +116,5 @@ jobs:
           body_path: ${{ steps.notes.outputs.path }}
           draft: false
           prerelease: ${{ contains(github.event.inputs.tag || github.ref_name, '-') }}
-          files: dist/**/*
+          files: release/*
           fail_on_unmatched_files: false

@@ -17,6 +17,13 @@ on:
         description: 'Branch or tag to build'
         required: false
         default: 'master'
+  workflow_call:
+    inputs:
+      ref:
+        description: 'Branch or tag to build'
+        required: false
+        type: string
+        default: 'master'
 
 permissions:
   contents: read
@@ -38,7 +45,7 @@ jobs:
       - name: Checkout DroneHub
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.ref }}
+          ref: ${{ inputs.ref || 'master' }}
 
       - name: Free disk space
         uses: jlumbroso/free-disk-space@main
