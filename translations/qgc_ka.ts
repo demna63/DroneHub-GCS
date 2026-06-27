@@ -17779,4 +17779,87 @@ ROTATION_NONE indicates component points in direction of flight.</translation>
       <translation type="unfinished">Herelink Hotspot</translation>
     </message>
   </context>
+  <context>
+    <name>FlyViewCustomLayer</name>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Altitude</source>
+      <translation>სიმაღლე</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Ground Speed</source>
+      <translation>სახმელეთის სიჩქარე</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Battery</source>
+      <translation>ბატარეა</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Distance</source>
+      <translation>მანძილი</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Climb Rate</source>
+      <translation>ასვლის სიჩქარე</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Flight Time</source>
+      <translation>ფრენის დრო</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Air Speed</source>
+      <translation>სისრული სიჩქარე</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Temperature</source>
+      <translation>ტემპერატურა</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>AMSL</source>
+      <translation>AMSL</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Current</source>
+      <translation>დენი</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Satellites</source>
+      <translation>სატელიტები</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Wind</source>
+      <translation>ქარი</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Clean map</source>
+      <translation>სუფთა რუკა</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Standard map</source>
+      <translation>სტანდარტული რუკა</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Expand</source>
+      <translation>გაშლა</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Collapse</source>
+      <translation>ჩაკეცვა</translation>
+    </message>
+  </context>
 </TS>

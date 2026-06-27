@@ -6,6 +6,7 @@
  *   → qrc:/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml).
  *
  * კონტრაქტი (არ ვცვლით): property parentToolInsets / totalToolInsets / mapControl.
+ * სტატუსი — მხოლოდ QGC toolbar-ში (dedup); HUD აჩვენებს მხოლოდ ტელემეტრიას.
  ****************************************************************************/
 
 import QtQuick
@@ -29,545 +30,637 @@ Item {
     property var  _activeVehicle:   QGroundControl.multiVehicleManager.activeVehicle
     property var  _battery:         (_activeVehicle && _activeVehicle.batteries.count > 0)
                                         ? _activeVehicle.batteries.get(0) : null
+    property bool _hasVehicle:      _activeVehicle !== null
+    property bool _hudExpanded:     false
+    property bool _cleanMapActive:  false
+    property string _storedMapProvider: ""
+    property string _storedMapType:     ""
     property real _margin:          ScreenTools.defaultFontPixelHeight
+    property real _bottomSafe:      _margin + (Qt.platform.os === "osx" ? _margin * 0.75 : 0)
+    property real _instrumentSize:  _hudExpanded ? Theme.instrumentSizeExpanded : Theme.instrumentSizeCompact
 
-    // Helper to calculate heading direction letter
+    function _factValue(fact) {
+        if (!fact || fact.rawValue === undefined) {
+            return Theme.emptyValue
+        }
+        return fact.valueString
+    }
+
+    function _factWithUnit(fact, unit) {
+        var value = _factValue(fact)
+        return value === Theme.emptyValue ? value : value + unit
+    }
+
     function getHeadingLetter(heading) {
-        var directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-        var index = Math.round(((heading % 360) / 45)) % 8;
-        return directions[index];
+        if (heading === undefined || isNaN(heading)) {
+            return Theme.emptyValue
+        }
+        var directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+        var index = Math.round(((heading % 360) / 45)) % 8
+        return directions[index]
     }
 
-    // Dynamic status text logic
-    function getVehicleStatusText() {
-        if (!_activeVehicle) {
-            return qsTr("DISCONNECTED");
+    function _headingNumber() {
+        if (!_activeVehicle || _activeVehicle.vehicle.heading.rawValue === undefined) {
+            return Theme.emptyValue
         }
-        if (_activeVehicle.vehicleLinkManager.communicationLost) {
-            return qsTr("COMMS LOST");
+        return Math.round(_activeVehicle.vehicle.heading.rawValue)
+    }
+
+    function _valueColor(hasData) {
+        if (!_hasVehicle || !hasData) {
+            return Theme.textDisabled
         }
-        if (_activeVehicle.armed) {
-            var modeStr = _activeVehicle.flightMode.toUpperCase();
-            if (_activeVehicle.flying) {
-                return qsTr("FLYING") + " | " + modeStr;
+        return Theme.textPrimary
+    }
+
+    function _findSatelliteMapType(fms) {
+        if (!fms || !fms.mapType) {
+            return ""
+        }
+        var types = fms.mapType.enumStrings
+        for (var i = 0; i < types.length; i++) {
+            var name = types[i]
+            var lower = name.toLowerCase()
+            if (lower.indexOf("satellite") >= 0
+                    && lower.indexOf("hybrid") < 0
+                    && lower.indexOf("street") < 0
+                    && lower.indexOf("road") < 0) {
+                return name
             }
-            if (_activeVehicle.landing) {
-                return qsTr("LANDING") + " | " + modeStr;
+        }
+        for (var j = 0; j < types.length; j++) {
+            if (types[j].toLowerCase().indexOf("imagery") >= 0) {
+                return types[j]
             }
-            return qsTr("ARMED") + " | " + modeStr;
         }
-        if (_activeVehicle.readyToFly) {
-            return qsTr("READY TO FLY") + " | " + _activeVehicle.flightMode.toUpperCase();
-        }
-        return qsTr("NOT READY") + " | " + _activeVehicle.flightMode.toUpperCase();
+        return ""
     }
 
-    // Dynamic status color logic
-    function getVehicleStatusColor() {
-        if (!_activeVehicle) {
-            return "#FF453A"; // Red
+    function _applyCleanMap(enabled) {
+        var fms = QGroundControl.settingsManager.flightMapSettings
+        if (!fms) {
+            return
         }
-        if (_activeVehicle.vehicleLinkManager.communicationLost) {
-            return "#FF453A"; // Red
+
+        if (enabled) {
+            if (!_cleanMapActive) {
+                _storedMapProvider = fms.mapProvider.rawValue
+                _storedMapType = fms.mapType.rawValue
+            }
+
+            var satelliteType = _findSatelliteMapType(fms)
+            if (satelliteType !== "") {
+                fms.mapType.rawValue = satelliteType
+            }
+
+            var providers = fms.mapProvider.enumStrings
+            for (var p = 0; p < providers.length; p++) {
+                if (providers[p].indexOf("Esri") >= 0) {
+                    fms.mapProvider.rawValue = providers[p]
+                    var esriTypes = fms.mapType.enumStrings
+                    for (var e = 0; e < esriTypes.length; e++) {
+                        if (esriTypes[e].indexOf("Imagery") >= 0) {
+                            fms.mapType.rawValue = esriTypes[e]
+                            break
+                        }
+                    }
+                    break
+                }
+            }
+            _cleanMapActive = true
+        } else {
+            if (_storedMapProvider !== "") {
+                fms.mapProvider.rawValue = _storedMapProvider
+            }
+            if (_storedMapType !== "") {
+                fms.mapType.rawValue = _storedMapType
+            }
+            _cleanMapActive = false
         }
-        if (_activeVehicle.armed) {
-            return "#30D158"; // Green
+
+        if (mapControl && typeof mapControl.updateActiveMapType === "function") {
+            mapControl.updateActiveMapType()
         }
-        if (_activeVehicle.readyToFly) {
-            return "#30D158"; // Green
-        }
-        return "#FF9F0A"; // Orange/Yellow
     }
 
-    // Fallbacks for Mock UI/UX preview
-    function getMockStatusText() {
-        if (_activeVehicle) {
-            return getVehicleStatusText();
-        }
-        return "READY TO FLY | HOLD"; // Default mock status matching screenshot
-    }
-
-    function getMockStatusColor() {
-        if (_activeVehicle) {
-            return getVehicleStatusColor();
-        }
-        return "#30D158"; // Green
-    }
-
-    // ---- Reusable Minimalist Vector Icon Component ----
+    // ---- Reusable HUD components ----
     component HudIcon: Canvas {
         property string iconType: ""
-        property color  iconColor: "#A0AAB8"
-        
-        width:          16
-        height:         16
-        
+        property color  iconColor: Theme.textSecondary
+
+        width:  16
+        height: 16
+
+        onIconColorChanged: requestPaint()
+        onIconTypeChanged: requestPaint()
+
         onPaint: {
-            var ctx = getContext("2d");
-            ctx.reset();
-            ctx.strokeStyle = iconColor;
-            ctx.fillStyle = iconColor;
-            ctx.lineWidth = 1.5;
-            ctx.lineCap = "round";
-            ctx.lineJoin = "round";
-            
+            var ctx = getContext("2d")
+            ctx.reset()
+            ctx.strokeStyle = iconColor
+            ctx.fillStyle = iconColor
+            ctx.lineWidth = 1.5
+            ctx.lineCap = "round"
+            ctx.lineJoin = "round"
+
             if (iconType === "home") {
-                ctx.beginPath();
-                ctx.moveTo(8, 2);
-                ctx.lineTo(14, 8);
-                ctx.lineTo(11, 8);
-                ctx.lineTo(11, 14);
-                ctx.lineTo(5, 14);
-                ctx.lineTo(5, 8);
-                ctx.lineTo(2, 8);
-                ctx.closePath();
-                ctx.stroke();
+                ctx.beginPath()
+                ctx.moveTo(8, 2)
+                ctx.lineTo(14, 8)
+                ctx.lineTo(11, 8)
+                ctx.lineTo(11, 14)
+                ctx.lineTo(5, 14)
+                ctx.lineTo(5, 8)
+                ctx.lineTo(2, 8)
+                ctx.closePath()
+                ctx.stroke()
             } else if (iconType === "speed") {
-                ctx.beginPath();
-                ctx.arc(8, 9, 5, Math.PI, 2*Math.PI);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(8, 9);
-                ctx.lineTo(11, 6);
-                ctx.stroke();
+                ctx.beginPath()
+                ctx.arc(8, 9, 5, Math.PI, 2 * Math.PI)
+                ctx.stroke()
+                ctx.beginPath()
+                ctx.moveTo(8, 9)
+                ctx.lineTo(11, 6)
+                ctx.stroke()
             } else if (iconType === "clock") {
-                ctx.beginPath();
-                ctx.arc(8, 8, 5, 0, 2*Math.PI);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(8, 8);
-                ctx.lineTo(8, 4);
-                ctx.moveTo(8, 8);
-                ctx.lineTo(11, 8);
-                ctx.stroke();
+                ctx.beginPath()
+                ctx.arc(8, 8, 5, 0, 2 * Math.PI)
+                ctx.stroke()
+                ctx.beginPath()
+                ctx.moveTo(8, 8)
+                ctx.lineTo(8, 4)
+                ctx.moveTo(8, 8)
+                ctx.lineTo(11, 8)
+                ctx.stroke()
             } else if (iconType === "battery") {
-                ctx.strokeRect(3, 4, 8, 10);
-                ctx.fillRect(6, 2, 2, 2);
-                ctx.fillRect(5, 7, 4, 6);
+                ctx.strokeRect(3, 4, 8, 10)
+                ctx.fillRect(6, 2, 2, 2)
+                ctx.fillRect(5, 7, 4, 6)
             } else if (iconType === "temp") {
-                ctx.beginPath();
-                ctx.arc(8, 11, 2.5, 0, 2*Math.PI);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.moveTo(6.5, 9);
-                ctx.lineTo(6.5, 4);
-                ctx.arc(8, 4, 1.5, Math.PI, 2*Math.PI);
-                ctx.lineTo(9.5, 9);
-                ctx.stroke();
+                ctx.beginPath()
+                ctx.arc(8, 11, 2.5, 0, 2 * Math.PI)
+                ctx.fill()
+                ctx.beginPath()
+                ctx.moveTo(6.5, 9)
+                ctx.lineTo(6.5, 4)
+                ctx.arc(8, 4, 1.5, Math.PI, 2 * Math.PI)
+                ctx.lineTo(9.5, 9)
+                ctx.stroke()
             } else if (iconType === "height") {
-                ctx.beginPath();
-                ctx.moveTo(8, 2);
-                ctx.lineTo(8, 14);
-                ctx.moveTo(5, 5);
-                ctx.lineTo(8, 2);
-                ctx.lineTo(11, 5);
-                ctx.moveTo(5, 11);
-                ctx.lineTo(8, 14);
-                ctx.lineTo(11, 11);
-                ctx.stroke();
+                ctx.beginPath()
+                ctx.moveTo(8, 2)
+                ctx.lineTo(8, 14)
+                ctx.moveTo(5, 5)
+                ctx.lineTo(8, 2)
+                ctx.lineTo(11, 5)
+                ctx.moveTo(5, 11)
+                ctx.lineTo(8, 14)
+                ctx.lineTo(11, 11)
+                ctx.stroke()
             } else if (iconType === "mountain") {
-                ctx.beginPath();
-                ctx.moveTo(2, 14);
-                ctx.lineTo(7, 5);
-                ctx.lineTo(12, 14);
-                ctx.moveTo(5, 14);
-                ctx.lineTo(9, 8);
-                ctx.lineTo(13, 14);
-                ctx.stroke();
+                ctx.beginPath()
+                ctx.moveTo(2, 14)
+                ctx.lineTo(7, 5)
+                ctx.lineTo(12, 14)
+                ctx.moveTo(5, 14)
+                ctx.lineTo(9, 8)
+                ctx.lineTo(13, 14)
+                ctx.stroke()
             } else if (iconType === "radar") {
-                ctx.beginPath();
-                ctx.arc(8, 12, 1, 0, 2*Math.PI);
-                ctx.fill();
-                ctx.beginPath();
-                ctx.arc(8, 12, 4, 1.25*Math.PI, 1.75*Math.PI);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.arc(8, 12, 7, 1.25*Math.PI, 1.75*Math.PI);
-                ctx.stroke();
+                ctx.beginPath()
+                ctx.arc(8, 12, 1, 0, 2 * Math.PI)
+                ctx.fill()
+                ctx.beginPath()
+                ctx.arc(8, 12, 4, 1.25 * Math.PI, 1.75 * Math.PI)
+                ctx.stroke()
+                ctx.beginPath()
+                ctx.arc(8, 12, 7, 1.25 * Math.PI, 1.75 * Math.PI)
+                ctx.stroke()
+            } else if (iconType === "satellite") {
+                ctx.beginPath()
+                ctx.arc(8, 8, 2, 0, 2 * Math.PI)
+                ctx.fill()
+                ctx.beginPath()
+                ctx.moveTo(8, 2)
+                ctx.lineTo(8, 5)
+                ctx.moveTo(8, 11)
+                ctx.lineTo(8, 14)
+                ctx.moveTo(2, 8)
+                ctx.lineTo(5, 8)
+                ctx.moveTo(11, 8)
+                ctx.lineTo(14, 8)
+                ctx.stroke()
             }
         }
-        
+
         Component.onCompleted: requestPaint()
     }
 
-    // ---- Central bottom HUD Pane ----
+    component HeroMetric: ColumnLayout {
+        property string label: ""
+        property string valueText: Theme.emptyValue
+
+        spacing: Theme.spacingUnit * 0.5
+        Layout.preferredWidth: 96
+
+        Text {
+            text: label
+            color: Theme.textSecondary
+            font.pixelSize: Theme.fontCaption
+            font.family: Theme.fontFamily
+            horizontalAlignment: Text.AlignHCenter
+            Layout.fillWidth: true
+        }
+        Text {
+            text: valueText
+            color: valueText === Theme.emptyValue ? Theme.textDisabled : Theme.textPrimary
+            font.pixelSize: _root._hudExpanded ? Theme.fontHero : Theme.fontBody
+            font.bold: true
+            font.family: Theme.fontFamily
+            horizontalAlignment: Text.AlignHCenter
+            Layout.fillWidth: true
+            style: Text.Outline
+            styleColor: Qt.rgba(0, 0, 0, 0.45)
+        }
+    }
+
+    component MetricRow: RowLayout {
+        property string label: ""
+        property string valueText: Theme.emptyValue
+        property color  valueColor: _root._valueColor(valueText !== Theme.emptyValue)
+        property string iconType: ""
+        property color  iconColor: Theme.textSecondary
+        property bool   alignRight: false
+
+        Layout.alignment: alignRight ? Qt.AlignRight : Qt.AlignLeft
+        spacing: Theme.spacingUnit
+
+        HudIcon {
+            visible: iconType !== "" && !alignRight
+            iconType: parent.iconType
+            iconColor: parent.iconColor
+        }
+        ColumnLayout {
+            spacing: 1
+            Layout.alignment: alignRight ? Qt.AlignRight : Qt.AlignLeft
+            Text {
+                text: label
+                color: Theme.textSecondary
+                font.pixelSize: Theme.fontMicro
+                font.family: Theme.fontFamily
+                horizontalAlignment: alignRight ? Text.AlignRight : Text.AlignLeft
+            }
+            Text {
+                text: valueText
+                color: valueColor
+                font.pixelSize: Theme.fontCaption
+                font.bold: true
+                font.family: Theme.fontFamily
+                horizontalAlignment: alignRight ? Text.AlignRight : Text.AlignLeft
+                style: Text.Outline
+                styleColor: Qt.rgba(0, 0, 0, 0.35)
+            }
+        }
+        HudIcon {
+            visible: iconType !== "" && alignRight
+            iconType: parent.iconType
+            iconColor: parent.iconColor
+        }
+    }
+
+    component HudToolButton: Rectangle {
+        id:     toolButton
+        property string label: ""
+        property bool   toggled: false
+        signal clicked()
+
+        radius:         Theme.radiusSm
+        color:          toggled ? Theme.hudControlActive : "transparent"
+        border.width:   toggled ? 1 : 0
+        border.color:   Theme.hudControlBorder
+        implicitHeight: toolLabel.implicitHeight + Theme.spacingUnit
+        implicitWidth:  toolLabel.implicitWidth + Theme.spacingUnit * 2
+
+        Text {
+            id:             toolLabel
+            anchors.centerIn: parent
+            text:           toolButton.label
+            color:          toolButton.toggled ? Theme.brandPrimary : Theme.textSecondary
+            font.pixelSize: Theme.fontMicro
+            font.family:    Theme.fontFamily
+        }
+
+        MouseArea {
+            anchors.fill:   parent
+            onClicked:      toolButton.clicked()
+        }
+    }
+
+    component CompassDial: Rectangle {
+        id:             compassRoot
+        property real  dialSize: _root._instrumentSize
+
+        width:          dialSize
+        height:         dialSize
+        radius:         width / 2
+        color:          Theme.instrumentBackground
+        border.width:   1.5
+        border.color:   Theme.instrumentBorder
+        opacity:        _hasVehicle ? 1.0 : 0.45
+
+        Repeater {
+            model: 12
+            Rectangle {
+                width:  1.5
+                height: (index % 3 === 0) ? 8 : 4
+                color:  Theme.textSecondary
+                x:      compassRoot.width / 2 - width / 2
+                y:      2
+                transformOrigin: Item.Bottom
+                transform: Rotation {
+                    angle: index * 30
+                    origin.x: width / 2
+                    origin.y: compassRoot.height / 2 - 2
+                }
+            }
+        }
+
+        Text {
+            text: "N"
+            color: Theme.textPrimary
+            font.bold: true
+            font.pixelSize: Theme.fontCaption
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 8
+        }
+        Text {
+            text: "S"
+            color: Theme.textPrimary
+            font.bold: true
+            font.pixelSize: Theme.fontCaption
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 8
+        }
+        Text {
+            text: "W"
+            color: Theme.textPrimary
+            font.bold: true
+            font.pixelSize: Theme.fontCaption
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            anchors.leftMargin: 8
+        }
+        Text {
+            text: "E"
+            color: Theme.textPrimary
+            font.bold: true
+            font.pixelSize: Theme.fontCaption
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            anchors.rightMargin: 8
+        }
+
+        Canvas {
+            id:                 arrowCanvas
+            anchors.centerIn:   parent
+            width:              compassRoot.dialSize * 0.22
+            height:             width
+            rotation:           (_activeVehicle
+                                 && _activeVehicle.vehicle.heading.rawValue !== undefined)
+                                ? _activeVehicle.vehicle.heading.rawValue : 0
+
+            onPaint: {
+                var ctx = getContext("2d")
+                var cx = width / 2
+                var cy = height / 2
+                ctx.reset()
+                ctx.fillStyle = Theme.textPrimary
+                ctx.beginPath()
+                ctx.moveTo(cx, 2)
+                ctx.lineTo(width - 2, height - 2)
+                ctx.lineTo(cx, cy)
+                ctx.lineTo(2, height - 2)
+                ctx.closePath()
+                ctx.fill()
+                ctx.strokeStyle = Theme.bgSurface
+                ctx.lineWidth = 1.5
+                ctx.stroke()
+            }
+
+            Connections {
+                target: _activeVehicle ? _activeVehicle.vehicle.heading : null
+                function onRawValueChanged() { arrowCanvas.requestPaint() }
+            }
+
+            Component.onCompleted: requestPaint()
+        }
+
+        Text {
+            text:               _root._headingNumber()
+            color:              Theme.textPrimary
+            font.bold:          true
+            font.pixelSize:     Theme.fontBody
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom:     parent.bottom
+            anchors.bottomMargin: compassRoot.height * 0.22
+            style: Text.Outline
+            styleColor: Qt.rgba(0, 0, 0, 0.4)
+        }
+
+        Text {
+            text:               _root.getHeadingLetter(
+                                      _activeVehicle
+                                      ? _activeVehicle.vehicle.heading.rawValue
+                                      : undefined)
+            color:              Theme.textSecondary
+            font.pixelSize:     Theme.fontMicro
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom:     parent.bottom
+            anchors.bottomMargin: compassRoot.height * 0.12
+        }
+    }
+
+    // ---- Central bottom HUD pane ----
     Rectangle {
         id:                     hudPanel
-        width:                  hudLayout.width + 40
-        height:                 hudLayout.height + 24
+        width:                  Math.min(hudColumn.width + Theme.spacingUnit * 5, _root.width - _margin * 2)
+        height:                 hudColumn.height + Theme.spacingUnit * 3
         radius:                 Theme.radiusMd
-        
-        // Translucent background color (ARGB) for high readability while being transparent
-        color:                  "#990B0E14" // ~60% opacity dark slate
+        color:                  _hasVehicle ? Theme.hudBackground : Theme.hudBackgroundIdle
         border.width:           1
-        border.color:           "#40FFFFFF" // subtle semi-transparent white border
-        
+        border.color:           Theme.hudBorder
+        opacity:                _hasVehicle ? 1.0 : 0.72
         anchors.bottom:         parent.bottom
-        anchors.bottomMargin:   _margin
+        anchors.bottomMargin:   _bottomSafe
         anchors.horizontalCenter: parent.horizontalCenter
         visible:                !ScreenTools.isMobile
 
-        RowLayout {
-            id:                 hudLayout
+        ColumnLayout {
+            id:                 hudColumn
             anchors.centerIn:   parent
-            spacing:            25
+            spacing:            Theme.spacingUnit * 1.5
 
-            // ================= LEFT COLUMN =================
-            ColumnLayout {
-                spacing:        8
-                Layout.alignment: Qt.AlignVCenter
+            // ---- HUD controls ----
+            RowLayout {
+                Layout.alignment: Qt.AlignRight
+                spacing: Theme.spacingUnit
 
-                // 1. Home Distance
-                RowLayout {
-                    Layout.alignment: Qt.AlignRight
-                    spacing:    8
-                    Text {
-                        text:   (_activeVehicle && _activeVehicle.vehicle.distanceToHome.rawValue !== undefined)
-                                    ? _activeVehicle.vehicle.distanceToHome.valueString + " m"
-                                    : "64.5m"
-                        color:  "#FFFFFF"
-                        font.pixelSize: 13
-                        font.bold: true
-                        font.family: Theme.fontFamily
+                HudToolButton {
+                    label: _cleanMapActive ? qsTr("Standard map") : qsTr("Clean map")
+                    toggled: _cleanMapActive
+                    onClicked: _root._applyCleanMap(!_cleanMapActive)
+                }
+                HudToolButton {
+                    label: _hudExpanded ? qsTr("Collapse") : qsTr("Expand")
+                    onClicked: _hudExpanded = !_hudExpanded
+                }
+            }
+
+            // ---- Tier 1: critical flight metrics ----
+            RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+                spacing: Theme.spacingUnit * (_hudExpanded ? 4 : 2)
+
+                HeroMetric {
+                    label: qsTr("Altitude")
+                    valueText: _root._factWithUnit(
+                        _activeVehicle ? _activeVehicle.vehicle.altitudeRelative : null, " m")
+                }
+                HeroMetric {
+                    label: qsTr("Ground Speed")
+                    valueText: _root._factWithUnit(
+                        _activeVehicle ? _activeVehicle.vehicle.groundSpeed : null, " m/s")
+                }
+                HeroMetric {
+                    label: qsTr("Battery")
+                    valueText: {
+                        var pct = _root._factValue(_battery ? _battery.percentRemaining : null)
+                        return pct === Theme.emptyValue ? pct : pct + "%"
                     }
-                    HudIcon {
+                }
+
+                QGCAttitudeWidget {
+                    size:           _instrumentSize
+                    vehicle:        _activeVehicle
+                    showHeading:    false
+                    opacity:        _hasVehicle ? 1.0 : 0.45
+                    Layout.alignment: Qt.AlignVCenter
+                }
+
+                CompassDial {
+                    Layout.alignment: Qt.AlignVCenter
+                }
+            }
+
+            Rectangle {
+                visible:            _hudExpanded
+                Layout.fillWidth: true
+                Layout.preferredWidth: hudColumn.width - Theme.spacingUnit * 2
+                height:             visible ? 1 : 0
+                color:              Theme.divider
+            }
+
+            RowLayout {
+                visible:            _hudExpanded
+                Layout.alignment:   Qt.AlignHCenter
+                spacing:            Theme.spacingUnit * 3
+
+                ColumnLayout {
+                    spacing: Theme.spacingUnit
+                    Layout.alignment: Qt.AlignVCenter
+                    Layout.preferredWidth: 130
+
+                    MetricRow {
+                        alignRight: true
+                        label: qsTr("Distance")
+                        valueText: _root._factWithUnit(
+                            _activeVehicle ? _activeVehicle.vehicle.distanceToHome : null, " m")
                         iconType: "home"
-                        iconColor: "#A0AAB8"
                     }
-                }
-
-                // 2. Speeds (Ground & Air)
-                RowLayout {
-                    Layout.alignment: Qt.AlignRight
-                    spacing:    8
-                    ColumnLayout {
-                        spacing: 1
-                        Text {
-                            text: "g: " + ((_activeVehicle && _activeVehicle.vehicle.groundSpeed.rawValue !== undefined)
-                                      ? _activeVehicle.vehicle.groundSpeed.valueString + " m/s"
-                                      : "0.1m/s")
-                            color: "#FFFFFF"
-                            font.pixelSize: 11
-                            font.family: Theme.fontFamily
-                        }
-                        Text {
-                            text: "a: " + ((_activeVehicle && _activeVehicle.vehicle.airSpeed.rawValue !== undefined)
-                                      ? _activeVehicle.vehicle.airSpeed.valueString + " m/s"
-                                      : "0.1m/s")
-                            color: "#FFFFFF"
-                            font.pixelSize: 11
-                            font.family: Theme.fontFamily
-                        }
-                    }
-                    HudIcon {
-                        iconType: "speed"
-                        iconColor: "#A0AAB8"
-                    }
-                }
-
-                // 3. Flight Time (Red!)
-                RowLayout {
-                    Layout.alignment: Qt.AlignRight
-                    spacing:    8
-                    Text {
-                        text:   (_activeVehicle && _activeVehicle.vehicle.flightTime.rawValue !== undefined)
-                                    ? _activeVehicle.vehicle.flightTime.valueString
-                                    : "08:50"
-                        color:  "#FF453A"
-                        font.pixelSize: 14
-                        font.bold: true
-                        font.family: Theme.fontFamily
-                    }
-                    HudIcon {
-                        iconType: "clock"
-                        iconColor: "#FF453A"
-                    }
-                }
-
-                // 4. Battery & Wind
-                RowLayout {
-                    Layout.alignment: Qt.AlignRight
-                    spacing:    8
-                    RowLayout {
-                        spacing: 6
-                        Text {
-                            text: (_battery && _battery.percentRemaining.rawValue !== undefined)
-                                      ? _battery.percentRemaining.valueString + "%"
-                                      : "28%"
-                            color: "#FFFFFF"
-                            font.pixelSize: 11
-                            font.bold: true
-                            font.family: Theme.fontFamily
-                        }
-                        HudIcon {
-                            iconType: "battery"
-                            iconColor: "#A0AAB8"
-                            width: 12
-                            height: 12
-                        }
-                        Text {
-                            text: (_activeVehicle && _activeVehicle.wind.speed.rawValue !== undefined)
-                                      ? _activeVehicle.wind.speed.valueString + " m/s"
-                                      : "0.0m/s"
-                            color: "#FFFFFF"
-                            font.pixelSize: 11
-                            font.family: Theme.fontFamily
-                        }
-                        HudIcon {
-                            iconType: "radar"
-                            iconColor: "#A0AAB8"
-                            width: 12
-                            height: 12
-                        }
-                    }
-                }
-            }
-
-            // ================= CENTRAL INSTRUMENTATION SECTION =================
-            ColumnLayout {
-                spacing:        8
-                Layout.alignment: Qt.AlignVCenter
-
-                // Status Badge Pill
-                Rectangle {
-                    Layout.alignment: Qt.AlignHCenter
-                    height:         18
-                    width:          statusTextItem.contentWidth + 16
-                    radius:         9
-                    // Transparent color glow: append hex "1C" (11% alpha) to color code
-                    color:          getMockStatusColor() + "1C"
-                    border.width:   1
-                    border.color:   getMockStatusColor()
-                    
-                    Text {
-                        id:             statusTextItem
-                        text:           getMockStatusText()
-                        color:          getMockStatusColor()
-                        font.bold:      true
-                        font.pixelSize: 9
-                        font.family:    Theme.fontFamily
-                        anchors.centerIn: parent
-                    }
-                }
-
-                // Instruments Row (Artificial Horizon next to Compass)
-                RowLayout {
-                    spacing:    15
-                    Layout.alignment: Qt.AlignHCenter
-
-                    // QGC Attitude Widget (Artificial Horizon showing side roll and pitch)
-                    QGCAttitudeWidget {
-                        id:             attitudeIndicator
-                        size:           130
-                        vehicle:        _activeVehicle
-                        showHeading:    false
-                        Layout.alignment: Qt.AlignVCenter
-                    }
-
-                    // Compass Dial
-                    Rectangle {
-                        id:             compassDial
-                        width:          130
-                        height:         130
-                        radius:         width / 2
-                        color:          "#99151A22"
-                        border.width:   1.5
-                        border.color:   "#40FFFFFF"
-                        Layout.alignment: Qt.AlignVCenter
-
-                        // Compass ticks (every 30 degrees)
-                        Repeater {
-                            model: 12
-                            Rectangle {
-                                width:  1.5
-                                height: (index % 3 === 0) ? 8 : 4
-                                color:  "#A0AAB8"
-                                x:      compassDial.width / 2 - width / 2
-                                y:      2
-                                transformOrigin: Item.Bottom
-                                transform: Rotation {
-                                    angle: index * 30
-                                    origin.x: width / 2
-                                    origin.y: compassDial.height / 2 - 2
-                                }
-                            }
-                        }
-
-                        // Cardinal Letters
-                        Text { text: "N"; color: "#FFFFFF"; font.bold: true; font.pixelSize: 12; anchors.horizontalCenter: parent.horizontalCenter; anchors.top: parent.top; anchors.topMargin: 8 }
-                        Text { text: "S"; color: "#FFFFFF"; font.bold: true; font.pixelSize: 12; anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: parent.bottom; anchors.bottomMargin: 8 }
-                        Text { text: "W"; color: "#FFFFFF"; font.bold: true; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter; anchors.left: parent.left; anchors.leftMargin: 8 }
-                        Text { text: "E"; color: "#FFFFFF"; font.bold: true; font.pixelSize: 12; anchors.verticalCenter: parent.verticalCenter; anchors.right: parent.right; anchors.rightMargin: 8 }
-
-                        // Intermediate Degrees
-                        Text { text: "60"; color: "#A0AAB8"; font.pixelSize: 9; x: compassDial.width * 0.72; y: compassDial.height * 0.22 }
-                        Text { text: "120"; color: "#A0AAB8"; font.pixelSize: 9; x: compassDial.width * 0.72; y: compassDial.height * 0.70 }
-                        Text { text: "240"; color: "#A0AAB8"; font.pixelSize: 9; x: compassDial.width * 0.16; y: compassDial.height * 0.70 }
-                        Text { text: "300"; color: "#A0AAB8"; font.pixelSize: 9; x: compassDial.width * 0.16; y: compassDial.height * 0.22 }
-
-                        // Rotating Arrow Canvas (representing drone heading)
-                        Canvas {
-                            id:                 arrowCanvas
-                            anchors.centerIn:   parent
-                            width:              30
-                            height:             30
-                            rotation:           _activeVehicle ? _activeVehicle.vehicle.heading.rawValue : 0
-                            
-                            onPaint: {
-                                var ctx = getContext("2d");
-                                ctx.reset();
-                                ctx.fillStyle = "#FFFFFF";
-                                ctx.beginPath();
-                                ctx.moveTo(15, 2);   // Top point of chevron
-                                ctx.lineTo(26, 25);  // Bottom right
-                                ctx.lineTo(15, 18);  // Inner center indent
-                                ctx.lineTo(4, 25);   // Bottom left
-                                ctx.closePath();
-                                ctx.fill();
-                                
-                                // Thin dark border outline for separation
-                                ctx.strokeStyle = "#151A22";
-                                ctx.lineWidth = 1.5;
-                                ctx.stroke();
-                            }
-
-                            // Keep canvas rotation updated dynamically
-                            Connections {
-                                target: _activeVehicle ? _activeVehicle.vehicle.heading : null
-                                function onRawValueChanged() { arrowCanvas.requestPaint(); }
-                            }
-                            
-                            Component.onCompleted: requestPaint()
-                        }
-
-                        // Heading Number
-                        Text {
-                            text:               Math.round(_activeVehicle ? _activeVehicle.vehicle.heading.rawValue : 276)
-                            color:              "#FFFFFF"
-                            font.bold:          true
-                            font.pixelSize:     14
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom:     parent.bottom
-                            anchors.bottomMargin: compassDial.height * 0.22
-                        }
-
-                        // Heading Letter
-                        Text {
-                            text:               getHeadingLetter(_activeVehicle ? _activeVehicle.vehicle.heading.rawValue : 276)
-                            color:              "#A0AAB8"
-                            font.pixelSize:     11
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.bottom:     parent.bottom
-                            anchors.bottomMargin: compassDial.height * 0.12
-                        }
-                    }
-                }
-            }
-
-            // ================= RIGHT COLUMN =================
-            ColumnLayout {
-                spacing:        8
-                Layout.alignment: Qt.AlignVCenter
-
-                // 1. Thermometer / Battery Temp (Cyan!)
-                RowLayout {
-                    Layout.alignment: Qt.AlignLeft
-                    spacing:    8
-                    HudIcon {
-                        iconType: "temp"
-                        iconColor: "#64D2FF"
-                    }
-                    Text {
-                        text:   (_battery && _battery.temperature.rawValue !== undefined)
-                                    ? _battery.temperature.valueString + "°C"
-                                    : "45.63°C"
-                        color:  "#64D2FF"
-                        font.pixelSize: 13
-                        font.bold: true
-                        font.family: Theme.fontFamily
-                    }
-                }
-
-                // 2. Relative Height (H 44m & Climb Rate)
-                RowLayout {
-                    Layout.alignment: Qt.AlignLeft
-                    spacing:    8
-                    HudIcon {
+                    MetricRow {
+                        alignRight: true
+                        label: qsTr("Climb Rate")
+                        valueText: _root._factWithUnit(
+                            _activeVehicle ? _activeVehicle.vehicle.climbRate : null, " m/s")
                         iconType: "height"
-                        iconColor: "#A0AAB8"
                     }
-                    RowLayout {
-                        spacing: 6
-                        Text {
-                            text: "H " + ((_activeVehicle && _activeVehicle.vehicle.altitudeRelative.rawValue !== undefined)
-                                      ? _activeVehicle.vehicle.altitudeRelative.valueString + "m"
-                                      : "44m")
-                            color: "#FFFFFF"
-                            font.pixelSize: 11
-                            font.bold: true
-                            font.family: Theme.fontFamily
-                        }
-                        Text {
-                            text: (_activeVehicle && _activeVehicle.vehicle.climbRate.rawValue !== undefined)
-                                      ? _activeVehicle.vehicle.climbRate.valueString + " m/s"
-                                      : "-0.1m/s"
-                            color: "#FFFFFF"
-                            font.pixelSize: 11
-                            font.family: Theme.fontFamily
-                        }
+                    MetricRow {
+                        alignRight: true
+                        label: qsTr("Flight Time")
+                        valueText: _root._factValue(
+                            _activeVehicle ? _activeVehicle.vehicle.flightTime : null)
+                        valueColor: _root._valueColor(
+                            _activeVehicle && _activeVehicle.vehicle.flightTime
+                            && _activeVehicle.vehicle.flightTime.rawValue !== undefined)
+                        iconType: "clock"
+                        iconColor: Theme.textSecondary
+                    }
+                    MetricRow {
+                        alignRight: true
+                        label: qsTr("Air Speed")
+                        valueText: _root._factWithUnit(
+                            _activeVehicle ? _activeVehicle.vehicle.airSpeed : null, " m/s")
+                        iconType: "speed"
                     }
                 }
 
-                // 3. Sea Level Alt & Current Draw (Green!)
-                RowLayout {
-                    Layout.alignment: Qt.AlignLeft
-                    spacing:    8
-                    HudIcon {
+                ColumnLayout {
+                    spacing: Theme.spacingUnit
+                    Layout.alignment: Qt.AlignVCenter
+                    Layout.preferredWidth: 130
+
+                    MetricRow {
+                        label: qsTr("Temperature")
+                        valueText: {
+                            var t = _root._factValue(_battery ? _battery.temperature : null)
+                            return t === Theme.emptyValue ? t : t + "°C"
+                        }
+                        valueColor: {
+                            if (!_hasVehicle || !_battery || _battery.temperature.rawValue === undefined) {
+                                return Theme.textDisabled
+                            }
+                            return Theme.telemetryAccent
+                        }
+                        iconType: "temp"
+                        iconColor: Theme.telemetryAccent
+                    }
+                    MetricRow {
+                        label: qsTr("AMSL")
+                        valueText: _root._factWithUnit(
+                            _activeVehicle ? _activeVehicle.vehicle.altitudeAMSL : null, " m")
                         iconType: "mountain"
-                        iconColor: "#A0AAB8"
                     }
-                    RowLayout {
-                        spacing: 6
-                        Text {
-                            text: (_activeVehicle && _activeVehicle.vehicle.altitudeAMSL.rawValue !== undefined)
-                                      ? _activeVehicle.vehicle.altitudeAMSL.valueString + "m"
-                                      : "47m"
-                            color: "#FFFFFF"
-                            font.pixelSize: 11
-                            font.family: Theme.fontFamily
+                    MetricRow {
+                        label: qsTr("Current")
+                        valueText: {
+                            var a = _root._factValue(_battery ? _battery.current : null)
+                            return a === Theme.emptyValue ? a : a + " A"
                         }
-                        Text {
-                            text: (_battery && _battery.current.rawValue !== undefined)
-                                      ? _battery.current.valueString + "A"
-                                      : "0.0A"
-                            color: "#30D158"
-                            font.pixelSize: 11
-                            font.bold: true
-                            font.family: Theme.fontFamily
-                        }
+                        valueColor: _root._valueColor(
+                            _battery && _battery.current
+                            && _battery.current.rawValue !== undefined)
+                        iconType: "battery"
                     }
-                }
-
-                // 4. AGL / GL (Radar)
-                RowLayout {
-                    Layout.alignment: Qt.AlignLeft
-                    spacing:    8
-                    HudIcon {
+                    MetricRow {
+                        label: qsTr("Satellites")
+                        valueText: _root._factValue(
+                            _activeVehicle ? _activeVehicle.gps.count : null)
+                        iconType: "satellite"
+                    }
+                    MetricRow {
+                        label: qsTr("Wind")
+                        valueText: _root._factWithUnit(
+                            _activeVehicle ? _activeVehicle.wind.speed : null, " m/s")
                         iconType: "radar"
-                        iconColor: "#A0AAB8"
-                    }
-                    Text {
-                        text:   "AGL: 41.8  GL: 2.2"
-                        color:  "#FFFFFF"
-                        font.pixelSize: 11
-                        font.family: Theme.fontFamily
                     }
                 }
             }
         }
     }
 
-    // ---- insets: push core controls up so they don't overlap our HUD ----
     QGCToolInsets {
         id:                     _toolInsets
         leftEdgeTopInset:       parentToolInsets.leftEdgeTopInset
@@ -581,7 +674,7 @@ Item {
         topEdgeRightInset:      parentToolInsets.topEdgeRightInset
         bottomEdgeLeftInset:    parentToolInsets.bottomEdgeLeftInset
         bottomEdgeCenterInset:  hudPanel.visible
-                                    ? hudPanel.height + (_margin * 2)
+                                    ? hudPanel.height + (_bottomSafe * 2)
                                     : parentToolInsets.bottomEdgeCenterInset
         bottomEdgeRightInset:   parentToolInsets.bottomEdgeRightInset
     }

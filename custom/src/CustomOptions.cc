@@ -13,10 +13,10 @@ bool CustomFlyViewOptions::showMultiVehicleList() const
     return false;
 }
 
-// Standard instrument panel stays visible (no custom panel yet).
+// DroneHub custom HUD replaces the upstream instrument strip.
 bool CustomFlyViewOptions::showInstrumentPanel() const
 {
-    return true;
+    return false;
 }
 
 /*===========================================================================*/
