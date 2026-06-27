@@ -80,7 +80,8 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 - `.github/workflows/build.yml` — Linux/Win/macOS custom-build CI + `concurrency` (minutes-saver). **Manual-only** (`workflow_dispatch`).
   🟢 **GREEN** (PR #1). GStreamer გათიშულია (custom plugin/QML verification).
 - `.github/workflows/android.yml` — Android custom-build CI (PR #2). **Manual-only**.
-- `.github/workflows/translations.yml`, `crowdin.yml` — **manual-only** (no push/PR/schedule triggers; saves CI billing).
+- `.github/workflows/translations.yml` — **manual-only** (no push/PR/schedule triggers; saves CI billing).
+- `.github/workflows/crowdin.yml` — **weekly** (`cron: '0 3 * * 0'`, Sun 03:00 UTC) + manual; pulls Crowdin ka, opens `chore(l10n)` PR.
 - დარჩა: **WASM** (upstream Stable_V5.0 CI-შიც არ არის — experimental). **field test** → hardware.
 
 ### Qt ვერსია — ✓ გადაწყვეტილი
