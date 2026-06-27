@@ -59,9 +59,15 @@ Without these, the pipeline still publishes **unsigned** installers (macOS shows
 The signing steps are gated on both `sign: true` **and** the relevant secret being
 present, so the workflow stays green before certificates are provisioned.
 
+## What the release includes
+
+- **Desktop** installers (`.dmg` / `.exe` / `.AppImage`) — signed if secrets present.
+- **Android** APK — currently **unsigned** (see follow-up below).
+- **WASM** experimental bundle — **opt-in only** via the `include_wasm` dispatch input
+  (never built on a plain tag push); attached as `DroneHubGCS-WASM-experimental.zip`.
+
 ## Follow-ups not yet wired into the release
 
-- Android APK signing + attaching the `.apk` to the release (`android.yml` currently
-  uploads an unsigned APK as a CI artifact only).
-- WASM bundle publishing.
+- Android APK **signing** (`android.yml` builds with `QT_ANDROID_SIGN_APK=OFF`; needs a
+  keystore + `ANDROID_KEYSTORE*` secrets and `QT_ANDROID_SIGN_APK=ON`).
 - Hardware field test sign-off before a public (non-prerelease) tag.
