@@ -5,6 +5,28 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 QGC_DIR="${1:-$ROOT/qgroundcontrol}"
 PATCHES_DIR="$ROOT/custom/patches"
+if [ ! -d "$PATCHES_DIR" ] && [ -d "${QGC_DIR}/custom/patches" ]; then
+  PATCHES_DIR="${QGC_DIR}/custom/patches"
+fi
+
+# Git for Windows ships patch in usr/bin (not always on PATH when CMake spawns bash).
+if [[ "${OS:-}" == "Windows_NT" ]] || [[ "$(uname -s 2>/dev/null)" == MINGW* ]]; then
+  for _patch_dir in \
+      "/c/Program Files/Git/usr/bin" \
+      "/c/Program Files (x86)/Git/usr/bin" \
+      "${ProgramFiles:-/c/Program Files}/Git/usr/bin"; do
+    if [[ -x "${_patch_dir}/patch.exe" ]]; then
+      PATH="${_patch_dir}:${PATH}"
+      export PATH
+      break
+    fi
+  done
+fi
+
+if ! command -v patch >/dev/null 2>&1; then
+  echo "apply-qgc-patches: patch command not found (install Git for Windows or patch)" >&2
+  exit 1
+fi
 
 if [ ! -f "$QGC_DIR/src/QGCApplication.cc" ]; then
   echo "apply-qgc-patches: QGC sources not found at $QGC_DIR" >&2

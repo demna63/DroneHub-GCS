@@ -10,13 +10,34 @@
 message(STATUS "QGC: Adding DroneHub Custom Plugin")
 
 # Upstream Stable_V5.0 patches (e.g. macOS Quit null-guard in QGCApplication::event).
+# Windows: CMake cannot execute .sh directly — invoke via Git Bash.
+set(_dronehub_patch_script "${CMAKE_CURRENT_SOURCE_DIR}/../tools/apply-qgc-patches.sh")
+if(NOT EXISTS "${_dronehub_patch_script}")
+    set(_dronehub_patch_script "${CMAKE_SOURCE_DIR}/../tools/apply-qgc-patches.sh")
+endif()
+if(WIN32)
+    find_program(DRONEHUB_BASH NAMES bash bash.exe
+        PATHS "$ENV{ProgramFiles}/Git/bin" "C:/Program Files/Git/bin"
+        NO_DEFAULT_PATH
+    )
+    if(NOT DRONEHUB_BASH)
+        find_program(DRONEHUB_BASH NAMES bash bash.exe)
+    endif()
+else()
+    find_program(DRONEHUB_BASH NAMES bash)
+endif()
+if(NOT DRONEHUB_BASH)
+    message(FATAL_ERROR "DroneHub: bash not found (required for apply-qgc-patches.sh)")
+endif()
 execute_process(
-    COMMAND "${CMAKE_SOURCE_DIR}/../tools/apply-qgc-patches.sh" "${CMAKE_SOURCE_DIR}"
+    COMMAND "${DRONEHUB_BASH}" "${_dronehub_patch_script}" "${CMAKE_SOURCE_DIR}"
     WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
     RESULT_VARIABLE _dronehub_patch_result
+    OUTPUT_VARIABLE _dronehub_patch_output
+    ERROR_VARIABLE _dronehub_patch_error
 )
 if(NOT _dronehub_patch_result EQUAL 0)
-    message(FATAL_ERROR "DroneHub: apply-qgc-patches.sh failed (${_dronehub_patch_result})")
+    message(FATAL_ERROR "DroneHub: apply-qgc-patches.sh failed (${_dronehub_patch_result}):\n${_dronehub_patch_error}\n${_dronehub_patch_output}")
 endif()
 
 # ჩვენი QGCCorePlugin subclass-ის რეგისტრაცია core-ში.
