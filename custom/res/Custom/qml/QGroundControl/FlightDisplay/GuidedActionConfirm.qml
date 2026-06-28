@@ -13,6 +13,8 @@ import QGroundControl.Controls
 import QGroundControl.Palette
 import QGroundControl.UTMSP
 
+import Custom
+
 Rectangle {
     id:         _root
     width:      Math.min(
@@ -42,13 +44,13 @@ Rectangle {
     property bool   utmspSliderTrigger
     property bool   _utmspEnabled: QGroundControl.utmspSupported
 
-    readonly property color _brandPrimary:   "#0A84FF"
-    readonly property color _cardFill:       Qt.rgba(0.08, 0.11, 0.14, 0.92)
-    readonly property color _cardBorder:     "#55FFFFFF"
-    readonly property color _textPrimary:      "#FFFFFF"
-    readonly property color _textSecondary:  "#D0D8E4"
-    readonly property real  _radiusLg:       ScreenTools.defaultFontPixelWidth * 0.9
-    readonly property string _fontFamily:    "Noto Sans Georgian"
+    readonly property color _brandPrimary:   Theme.brandPrimary
+    readonly property color _cardFill:       Theme.toastFill
+    readonly property color _cardBorder:     Theme.toastBorder
+    readonly property color _textPrimary:    Theme.textPrimary
+    readonly property color _textSecondary:  Theme.textSecondary
+    readonly property real  _radiusLg:       Theme.toastRadius
+    readonly property string _fontFamily:    Theme.fontFamily
     readonly property real  _trackHeight:  ScreenTools.defaultFontPixelHeight * 2.5
     readonly property string _slideHint:     ScreenTools.isMobile
                                                 ? qsTr("Slide to confirm")
@@ -175,9 +177,9 @@ Rectangle {
                 height:             _trackHeight
                 width:              height
                 radius:             height / 2
-                color:              _emergencyAction ? "#FF453A" : _brandPrimary
+                color:              _emergencyAction ? Theme.danger : Theme.brandPrimary
                 border.width:       1
-                border.color:       Qt.rgba(1, 1, 1, 0.25)
+                border.color:       Theme.sliderThumbBorder
 
                 QGCColoredImage {
                     anchors.margins:    parent.height / 4

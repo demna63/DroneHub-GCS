@@ -23,10 +23,18 @@
         <file alias="QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml</file>
         <file alias="QGroundControl/FlightDisplay/GuidedActionConfirm.qml">res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml</file>
         <file alias="QGroundControl/Controls/FlyViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml</file>
+        <file alias="QGroundControl/Controls/QGCPopupDialog.qml">res/Custom/qml/QGroundControl/Controls/QGCPopupDialog.qml</file>
+        <file alias="QGroundControl/Controls/DropPanel.qml">res/Custom/qml/QGroundControl/Controls/DropPanel.qml</file>
+        <file alias="QGroundControl/Controls/SettingsGroupLayout.qml">res/Custom/qml/QGroundControl/Controls/SettingsGroupLayout.qml</file>
         <file alias="QGroundControl/Controls/SliderSwitch.qml">res/Custom/qml/QGroundControl/Controls/SliderSwitch.qml</file>
         <file alias="QGroundControl/Controls/ToolStrip.qml">res/Custom/qml/QGroundControl/Controls/ToolStrip.qml</file>
         <file alias="QGroundControl/Controls/ToolStripHoverButton.qml">res/Custom/qml/QGroundControl/Controls/ToolStripHoverButton.qml</file>
         <file alias="QGroundControl/Controls/GPSIndicator.qml">res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml</file>
         <file alias="QGroundControl/Controls/BatteryIndicator.qml">res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml</file>
+        <file alias="QGroundControl/Controls/ToolStripDropPanel.qml">res/Custom/qml/QGroundControl/Controls/ToolStripDropPanel.qml</file>
+        <file alias="QGroundControl/Controls/PlanViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml</file>
+        <file alias="QGroundControl/Controls/AppSettings.qml">res/Custom/qml/QGroundControl/Controls/AppSettings.qml</file>
+        <file alias="QGroundControl/Controls/ToolIndicatorPage.qml">res/Custom/qml/QGroundControl/Controls/ToolIndicatorPage.qml</file>
+        <file alias="QGroundControl/MainWindow/MainWindow.qml">res/Custom/qml/QGroundControl/MainWindow/MainWindow.qml</file>
     </qresource>
 </RCC>

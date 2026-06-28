@@ -30,13 +30,14 @@ Item {
     readonly property QtObject _t: QtObject {
         readonly property color brandPrimary:       "#0A84FF"
         readonly property color telemetryAccent:    "#64D2FF"
-        readonly property color hudGlass:           "#28000000"
-        readonly property color hudGlassStrong:   "#44000000"
-        readonly property color hudBorder:          "#55FFFFFF"
-        readonly property color instrumentGlass:    "#18000000"
-        readonly property color instrumentBorder:   "#66FFFFFF"
-        readonly property color hudControlActive:   "#660A84FF"
-        readonly property color hudControlBorder:   "#990A84FF"
+        readonly property color hudGlass:           "#4A000000"
+        readonly property color hudGlassStrong:     "#66000000"
+        readonly property color hudMetricPlate:     "#58151820"
+        readonly property color hudBorder:          "#00000000"
+        readonly property color instrumentGlass:    "#32000000"
+        readonly property color instrumentBorder:   "#44FFFFFF"
+        readonly property color hudControlActive:   "#880A84FF"
+        readonly property color hudControlBorder:   "#00000000"
         readonly property color textPrimary:        "#FFFFFF"
         readonly property color textSecondary:      "#D0D8E4"
         readonly property color textDisabled:       "#9AA6B8"
@@ -366,8 +367,16 @@ Item {
         property color  valueColor: valueText === _t.emptyValue ? _t.textDisabled : _t.textPrimary
         property real   valueSize: _root._hudExpanded ? _t.fontHero : _t.fontBody + 4
 
-        implicitWidth: metricCol.implicitWidth
-        implicitHeight: metricCol.implicitHeight
+        implicitWidth: metricCol.implicitWidth + _t.spacingUnit * 1.5
+        implicitHeight: metricCol.implicitHeight + _t.spacingUnit * 1.2
+
+        Rectangle {
+            anchors.fill: metricCol
+            anchors.margins: -_t.spacingUnit * 0.75
+            radius: _t.radiusSm
+            color: _t.hudMetricPlate
+            z: -1
+        }
 
         ColumnLayout {
             id: metricCol
@@ -407,8 +416,7 @@ Item {
 
         radius:         height / 2
         color:          toggled ? _t.hudControlActive : _t.hudGlass
-        border.width:   1
-        border.color:   toggled ? _t.hudControlBorder : _t.hudBorder
+        border.width:   0
         implicitHeight: pillLabel.implicitHeight + _t.spacingUnit * 1.1
         implicitWidth:  pillLabel.implicitWidth + _t.spacingUnit * 2.2
 
@@ -603,54 +611,6 @@ Item {
     }
 
     // ---- Transparent OSD layer (UniGCS-style) ----
-    RowLayout {
-        id:                     osdControls
-        visible:                osRoot.visible
-        anchors.right:          parent.right
-        anchors.rightMargin:    _margin
-        anchors.top:            parent.top
-        anchors.topMargin:      _topChromeInset + _t.spacingUnit
-        spacing:                _t.spacingUnit
-        z:                      2
-
-        GlassPill {
-            label: _cleanMapActive ? qsTr("Standard map") : qsTr("Clean map")
-            toggled: _cleanMapActive
-            onClicked: _root._applyCleanMap(!_cleanMapActive)
-        }
-        GlassPill {
-            label: _hudExpanded ? qsTr("Collapse") : qsTr("Expand")
-            toggled: _hudExpanded
-            onClicked: _hudExpanded = !_hudExpanded
-        }
-    }
-
-    FloatingMetric {
-        id:                     topLeftAlt
-        visible:                osRoot.visible
-        anchors.left:           parent.left
-        anchors.leftMargin:     _margin + (parentToolInsets ? parentToolInsets.leftEdgeCenterInset : 0)
-        anchors.top:            osdControls.bottom
-        anchors.topMargin:      _t.spacingUnit * 2
-        z:                      2
-        label: qsTr("Altitude")
-        valueText: _root._factWithUnit(
-            _activeVehicle ? _activeVehicle.altitudeRelative : null, " m")
-    }
-
-    FloatingMetric {
-        id:                     topRightSpeed
-        visible:                osRoot.visible
-        anchors.right:          parent.right
-        anchors.rightMargin:    _margin
-        anchors.top:            osdControls.bottom
-        anchors.topMargin:      _t.spacingUnit * 2
-        z:                      2
-        label: qsTr("Ground Speed")
-        valueText: _root._factWithUnit(
-            _activeVehicle ? _activeVehicle.groundSpeed : null, " m/s")
-    }
-
     Item {
         id:                     osRoot
         anchors.bottom:         parent.bottom
@@ -667,8 +627,36 @@ Item {
             spacing:            _t.spacingUnit * 1.25
 
             RowLayout {
+                Layout.alignment: Qt.AlignHCenter
+                spacing:          _t.spacingUnit
+
+                GlassPill {
+                    label: _cleanMapActive ? qsTr("Standard map") : qsTr("Clean map")
+                    toggled: _cleanMapActive
+                    onClicked: _root._applyCleanMap(!_cleanMapActive)
+                }
+                GlassPill {
+                    label: _hudExpanded ? qsTr("Collapse") : qsTr("Expand")
+                    toggled: _hudExpanded
+                    onClicked: _hudExpanded = !_hudExpanded
+                }
+            }
+
+            RowLayout {
                 Layout.alignment:       Qt.AlignHCenter
                 spacing:                _t.spacingUnit * (_hudExpanded ? 3 : 2)
+
+                FloatingMetric {
+                    label: qsTr("Altitude")
+                    valueText: _root._factWithUnit(
+                        _activeVehicle ? _activeVehicle.altitudeRelative : null, " m")
+                }
+
+                FloatingMetric {
+                    label: qsTr("Ground Speed")
+                    valueText: _root._factWithUnit(
+                        _activeVehicle ? _activeVehicle.groundSpeed : null, " m/s")
+                }
 
                 FloatingMetric {
                     label: qsTr("Battery")
@@ -729,8 +717,7 @@ Item {
                 Layout.preferredHeight: expandedStrip.implicitHeight + _t.spacingUnit * 2
                 radius:             _t.radiusLg
                 color:              _t.hudGlassStrong
-                border.width:       1
-                border.color:       _t.hudBorder
+                border.width:       0
 
                 RowLayout {
                     id:             expandedStrip
@@ -835,8 +822,8 @@ Item {
         gradient: Gradient {
             orientation: Gradient.Vertical
             GradientStop { position: 0.0; color: "#00000000" }
-            GradientStop { position: 0.65; color: "#33000000" }
-            GradientStop { position: 1.0; color: "#88000000" }
+            GradientStop { position: 0.55; color: "#44000000" }
+            GradientStop { position: 1.0; color: "#99000000" }
         }
     }
 

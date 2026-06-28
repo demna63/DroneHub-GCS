@@ -152,6 +152,12 @@ void CustomPlugin::paletteOverride(const QString& colorName, QGCPalette::Palette
         set(QColor("#9DBE2F"), QColor("#799F26"), QColor("#9DBE2F"), QColor("#799F26"));
     } else if (colorName == QStringLiteral("hoverColor")) {
         set(QColor("#0A84FF"), QColor("#33C494"), QColor("#AEEBD0"), QColor("#464F5A"));
+    } else if (colorName == QStringLiteral("alertBackground")) {
+        set(QColor("#1E2530"), QColor("#151A23"), QColor("#1E2530"), QColor("#151A23"));        // toast surface
+    } else if (colorName == QStringLiteral("alertBorder")) {
+        set(QColor("#FF453A"), QColor("#88FF453A"), QColor("#FF453A"), QColor("#88FF453A"));  // danger accent
+    } else if (colorName == QStringLiteral("alertText")) {
+        set(QColor("#FFFFFF"), QColor("#D0D8E4"), QColor("#FFFFFF"), QColor("#D0D8E4"));
     }
     // დანარჩენი palette tokens — QGC default-ზე რჩება.
 }

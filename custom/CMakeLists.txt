@@ -9,6 +9,16 @@
 
 message(STATUS "QGC: Adding DroneHub Custom Plugin")
 
+# Upstream Stable_V5.0 patches (e.g. macOS Quit null-guard in QGCApplication::event).
+execute_process(
+    COMMAND "${CMAKE_SOURCE_DIR}/../tools/apply-qgc-patches.sh" "${CMAKE_SOURCE_DIR}"
+    WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}"
+    RESULT_VARIABLE _dronehub_patch_result
+)
+if(NOT _dronehub_patch_result EQUAL 0)
+    message(FATAL_ERROR "DroneHub: apply-qgc-patches.sh failed (${_dronehub_patch_result})")
+endif()
+
 # ჩვენი QGCCorePlugin subclass-ის რეგისტრაცია core-ში.
 set_property(DIRECTORY ${CMAKE_SOURCE_DIR}
     APPEND PROPERTY COMPILE_DEFINITIONS
@@ -73,6 +83,38 @@ set(DRONEHUB_BATTERY_INDICATOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml")
 set(DRONEHUB_BATTERY_INDICATOR_DST
     "${CMAKE_SOURCE_DIR}/src/QmlControls/BatteryIndicator.qml")
+set(DRONEHUB_POPUP_DIALOG_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/QGCPopupDialog.qml")
+set(DRONEHUB_POPUP_DIALOG_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/QGCPopupDialog.qml")
+set(DRONEHUB_DROP_PANEL_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/DropPanel.qml")
+set(DRONEHUB_DROP_PANEL_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/DropPanel.qml")
+set(DRONEHUB_SETTINGS_GROUP_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/SettingsGroupLayout.qml")
+set(DRONEHUB_SETTINGS_GROUP_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/SettingsGroupLayout.qml")
+set(DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/ToolStripDropPanel.qml")
+set(DRONEHUB_TOOLSTRIP_DROP_PANEL_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/ToolStripDropPanel.qml")
+set(DRONEHUB_PLAN_TOOLBAR_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml")
+set(DRONEHUB_PLAN_TOOLBAR_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/PlanViewToolBar.qml")
+set(DRONEHUB_APP_SETTINGS_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/AppSettings.qml")
+set(DRONEHUB_APP_SETTINGS_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/AppSettings.qml")
+set(DRONEHUB_TOOL_INDICATOR_PAGE_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/ToolIndicatorPage.qml")
+set(DRONEHUB_TOOL_INDICATOR_PAGE_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/ToolIndicatorPage.qml")
+set(DRONEHUB_MAIN_WINDOW_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/MainWindow/MainWindow.qml")
+set(DRONEHUB_MAIN_WINDOW_DST
+    "${CMAKE_SOURCE_DIR}/src/UI/MainWindow.qml")
 
 add_custom_target(DroneHubSyncFlyViewLayer ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -93,11 +135,31 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
             "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_GPS_INDICATOR_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_BATTERY_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_POPUP_DIALOG_SRC}" "${DRONEHUB_POPUP_DIALOG_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_DROP_PANEL_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_SETTINGS_GROUP_SRC}" "${DRONEHUB_SETTINGS_GROUP_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_DROP_PANEL_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_PLAN_TOOLBAR_SRC}" "${DRONEHUB_PLAN_TOOLBAR_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_APP_SETTINGS_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_MAIN_WINDOW_SRC}" "${DRONEHUB_MAIN_WINDOW_DST}"
     DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
             "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_GUIDED_CONFIRM_SRC}"
             "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_TOOLSTRIP_PANEL_SRC}"
             "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}" "${DRONEHUB_GPS_INDICATOR_SRC}"
-            "${DRONEHUB_BATTERY_INDICATOR_SRC}"
+            "${DRONEHUB_BATTERY_INDICATOR_SRC}" "${DRONEHUB_POPUP_DIALOG_SRC}"
+            "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_SETTINGS_GROUP_SRC}"
+            "${DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC}" "${DRONEHUB_PLAN_TOOLBAR_SRC}"
+            "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}"
+            "${DRONEHUB_MAIN_WINDOW_SRC}"
     COMMENT "Sync DroneHub custom QML into QGC qmlcache sources"
     VERBATIM
 )
@@ -107,14 +169,32 @@ endif()
 if(TARGET QGroundControlControlsModule)
     add_dependencies(QGroundControlControlsModule DroneHubSyncFlyViewLayer)
 endif()
+if(TARGET MainWindowModule)
+    add_dependencies(MainWindowModule DroneHubSyncFlyViewLayer)
+endif()
 if(TARGET ${CMAKE_PROJECT_NAME})
     add_dependencies(${CMAKE_PROJECT_NAME} DroneHubSyncFlyViewLayer)
+endif()
+
+# macOS: one Finder-visible .app (build/DroneHubGCS.app → Release/DroneHubGCS.app).
+if(APPLE)
+    add_custom_target(DroneHubSyncAppBundle ALL
+        COMMAND "${CMAKE_SOURCE_DIR}/../tools/sync-dhgcs-app.sh" "${CMAKE_BINARY_DIR}"
+        COMMENT "Symlink build/DroneHubGCS.app to Release bundle"
+        VERBATIM
+    )
+    if(TARGET ${CMAKE_PROJECT_NAME})
+        add_dependencies(DroneHubSyncAppBundle ${CMAKE_PROJECT_NAME})
+    endif()
 endif()
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
     "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
     "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_SLIDER_SWITCH_SRC}"
     "${DRONEHUB_TOOLSTRIP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}"
-    "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_SRC}")
+    "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_SRC}"
+    "${DRONEHUB_POPUP_DIALOG_SRC}" "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_SETTINGS_GROUP_SRC}"
+    "${DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC}" "${DRONEHUB_PLAN_TOOLBAR_SRC}"
+    "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}" "${DRONEHUB_MAIN_WINDOW_SRC}")
 
 # ქართული თარგმანი (qgc_ka.ts) — core ავტომატურად glob-ავს translations/qgc_*.ts-ს
 # (core CMakeLists.txt:531). bootstrap.sh symlink-ავს ჩვენს qgc_ka.ts-ს იქ. აქ wiring საჭირო არ არის.

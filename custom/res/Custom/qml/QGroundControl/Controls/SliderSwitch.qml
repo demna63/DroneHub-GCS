@@ -9,6 +9,8 @@ import QtQuick.Layouts
 import QGroundControl.ScreenTools
 import QGroundControl.Palette
 
+import Custom
+
 Item {
     id:             _root
     implicitWidth:  track.width
@@ -20,11 +22,11 @@ Item {
     property alias  fontPointSize: hintText.font.pointSize
     property real   trackHeight: ScreenTools.defaultFontPixelHeight * 2.5
 
-    readonly property color _brandPrimary:  "#0A84FF"
-    readonly property color _trackFill:     "#442A323F"
-    readonly property color _trackBorder:   "#44FFFFFF"
-    readonly property color _hintText:      "#B8C4D4"
-    readonly property color _thumbText:     "#FFFFFF"
+    readonly property color _brandPrimary:  Theme.brandPrimary
+    readonly property color _trackFill:     Theme.sliderTrackFill
+    readonly property color _trackBorder:   Theme.sliderTrackBorder
+    readonly property color _hintText:      Theme.textSecondary
+    readonly property color _thumbText:     Theme.textPrimary
 
     property real spacing: ScreenTools.defaultFontPixelHeight * 0.35
     property real _border: 4
@@ -55,7 +57,7 @@ Item {
             wrapMode:               Text.WordWrap
             horizontalAlignment:    Text.AlignHCenter
             color:                  _hintText
-            font.family:            "Noto Sans Georgian"
+            font.family:            Theme.fontFamily
             font.pixelSize:         ScreenTools.defaultFontPointSize * 0.9
             font.weight:            Font.Medium
             style:                  Text.Outline
@@ -86,7 +88,7 @@ Item {
                 radius:     track._diameter / 2
                 color:      _brandPrimary
                 border.width: 1
-                border.color: Qt.rgba(1, 1, 1, 0.2)
+                border.color: Theme.sliderThumbBorder
 
                 QGCColoredImage {
                     anchors.centerIn:       parent
@@ -128,6 +130,8 @@ Item {
                 drag.minimumX:      track._dragStartX
                 drag.maximumX:      track._dragStopX
                 preventStealing:    true
+
+                property bool dragActive: drag.active
 
                 onDragActiveChanged: {
                     if (!sliderDragArea.drag.active) {
