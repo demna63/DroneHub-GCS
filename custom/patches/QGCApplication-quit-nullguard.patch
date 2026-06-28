@@ -1,0 +1,27 @@
+--- a/src/QGCApplication.cc
++++ b/src/QGCApplication.cc
+@@ -722,17 +722,21 @@ bool QGCApplication::compressEvent(QEvent *event, QObject *receiver, QPostEven
+ 
+ bool QGCApplication::event(QEvent *e)
+ {
+     if (e->type() == QEvent::Quit) {
++        QQuickWindow *const window = mainRootWindow();
++        if (!window) {
++            return QApplication::event(e);
++        }
+         // On OSX if the user selects Quit from the menu (or Command-Q) the ApplicationWindow does not signal closing. Instead you get a Quit event here only.
+         // This in turn causes the standard QGC shutdown sequence to not run. So in this case we close the window ourselves such that the
+         // signal is sent and the normal shutdown sequence runs.
+-        const bool forceClose = _mainRootWindow->property("_forceClose").toBool();
++        const bool forceClose = window->property("_forceClose").toBool();
+         qCDebug(QGCApplicationLog) << "Quit event" << forceClose;
+         // forceClose
+         //  true:   Standard QGC shutdown sequence is complete. Let the app quit normally by falling through to the base class processing.
+         //  false:  QGC shutdown sequence has not been run yet. Don't let this event close the app yet. Close the main window to kick off the normal shutdown.
+         if (!forceClose) {
+             //
+-            _mainRootWindow->close();
++            window->close();
+             e->ignore();
+             return true;
+         }

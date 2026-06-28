@@ -55,6 +55,9 @@ ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml" \
 ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml" \
        "$QGC_DIR/src/QmlControls/BatteryIndicator.qml"
 
+# 3a. Upstream Stable_V5.0 patches (macOS Cmd+Q quit crash, etc.)
+"$ROOT/tools/apply-qgc-patches.sh" "$QGC_DIR"
+
 # 3b. Copy custom application icon into deploy folders
 if [ -f "$ROOT/custom/res/icons/macx.icns" ]; then
   cp "$ROOT/custom/res/icons/macx.icns" "$QGC_DIR/deploy/macos/macx.icns"
