@@ -1,27 +1,33 @@
 #!/usr/bin/env bash
-# Run DroneHub GCS from the canonical Release build (avoids stale .app bundles).
+# Run DroneHub GCS (build/DroneHubGCS.app symlinks to Release after each build).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 QGC="$ROOT/qgroundcontrol"
-APP="$QGC/build/Release/DroneHubGCS.app"
+APP="$QGC/build/DroneHubGCS.app"
+RELEASE_APP="$QGC/build/Release/DroneHubGCS.app"
 
 if [[ ! -d "$QGC" ]]; then
   echo "error: qgroundcontrol/ missing — run ./bootstrap.sh first" >&2
   exit 1
 fi
 
-if [[ ! -d "$APP" ]]; then
-  echo "error: Release app not found at:" >&2
-  echo "  $APP" >&2
+if [[ ! -d "$RELEASE_APP" ]]; then
+  echo "error: app not built yet:" >&2
+  echo "  $RELEASE_APP" >&2
   echo "Build with:" >&2
   echo "  $ROOT/tools/rebuild-dhgcs.sh" >&2
   exit 1
 fi
 
-STALE="$QGC/build/DroneHubGCS.app"
-if [[ -d "$STALE" ]]; then
-  echo "note: ignoring stale bundle (use Release only): $STALE" >&2
+"$ROOT/tools/sync-dhgcs-app.sh" "$QGC/build"
+
+if [[ ! -d "$RELEASE_APP" ]]; then
+  echo "error: could not prepare Release bundle at $RELEASE_APP" >&2
+  exit 1
 fi
 
-exec open "$APP"
+killall DroneHubGCS 2>/dev/null || true
+sleep 0.5
+
+exec open "$RELEASE_APP"
