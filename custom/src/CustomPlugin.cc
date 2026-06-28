@@ -146,6 +146,10 @@ void CustomPlugin::paletteOverride(const QString& colorName, QGCPalette::Palette
         set(QColor("#0A84FF"), QColor("#0A84FF"), QColor("#1A72FF"), QColor("#1A72FF"));        // brandPrimary
     } else if (colorName == QStringLiteral("colorGrey")) {
         set(QColor("#A0AAB8"), QColor("#A0AAB8"), QColor("#808080"), QColor("#808080"));        // textSecondary
+    } else if (colorName == QStringLiteral("colorYellow")) {
+        set(QColor("#FF9F0A"), QColor("#B45D04"), QColor("#B95604"), QColor("#B95604"));        // warning
+    } else if (colorName == QStringLiteral("colorYellowGreen")) {
+        set(QColor("#9DBE2F"), QColor("#799F26"), QColor("#9DBE2F"), QColor("#799F26"));
     } else if (colorName == QStringLiteral("hoverColor")) {
         set(QColor("#0A84FF"), QColor("#33C494"), QColor("#AEEBD0"), QColor("#464F5A"));
     }

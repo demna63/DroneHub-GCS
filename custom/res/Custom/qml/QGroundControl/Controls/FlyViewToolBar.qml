@@ -98,48 +98,6 @@ Rectangle {
         FlyViewToolBarIndicators { id: toolIndicators }
     }
 
-    Image {
-        anchors.right:          parent.right
-        anchors.top:            parent.top
-        anchors.bottom:         parent.bottom
-        anchors.margins:        ScreenTools.defaultFontPixelHeight * 0.66
-        visible:                _activeVehicle && !_communicationLost && x > (toolsFlickable.x + toolsFlickable.contentWidth + ScreenTools.defaultFontPixelWidth)
-        fillMode:               Image.PreserveAspectFit
-        source:                 _outdoorPalette ? _brandImageOutdoor : _brandImageIndoor
-        mipmap:                 true
-
-        property bool   _outdoorPalette:        qgcPal.globalTheme === QGCPalette.Light
-        property bool   _corePluginBranding:    QGroundControl.corePlugin.brandImageIndoor.length != 0
-        property string _userBrandImageIndoor:  QGroundControl.settingsManager.brandImageSettings.userBrandImageIndoor.value
-        property string _userBrandImageOutdoor: QGroundControl.settingsManager.brandImageSettings.userBrandImageOutdoor.value
-        property bool   _userBrandingIndoor:    QGroundControl.settingsManager.brandImageSettings.visible && _userBrandImageIndoor.length != 0
-        property bool   _userBrandingOutdoor:   QGroundControl.settingsManager.brandImageSettings.visible && _userBrandImageOutdoor.length != 0
-        property string _brandImageIndoor:      brandImageIndoor()
-        property string _brandImageOutdoor:     brandImageOutdoor()
-
-        function brandImageIndoor() {
-            if (_userBrandingIndoor) {
-                return _userBrandImageIndoor
-            } else if (_userBrandingOutdoor) {
-                return _userBrandImageOutdoor
-            } else if (_corePluginBranding) {
-                return QGroundControl.corePlugin.brandImageIndoor
-            }
-            return _activeVehicle ? _activeVehicle.brandImageIndoor : ""
-        }
-
-        function brandImageOutdoor() {
-            if (_userBrandingOutdoor) {
-                return _userBrandImageOutdoor
-            } else if (_userBrandingIndoor) {
-                return _userBrandImageIndoor
-            } else if (_corePluginBranding) {
-                return QGroundControl.corePlugin.brandImageOutdoor
-            }
-            return _activeVehicle ? _activeVehicle.brandImageOutdoor : ""
-        }
-    }
-
     Rectangle {
         anchors.bottom: parent.bottom
         height:         _root.height * 0.05

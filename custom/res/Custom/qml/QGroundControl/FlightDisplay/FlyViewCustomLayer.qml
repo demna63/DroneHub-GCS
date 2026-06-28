@@ -40,6 +40,9 @@ Item {
         readonly property color textPrimary:        "#FFFFFF"
         readonly property color textSecondary:      "#D0D8E4"
         readonly property color textDisabled:       "#9AA6B8"
+        readonly property color safeOk:             "#30D158"
+        readonly property color safeWarn:           "#FF9F0A"
+        readonly property color safeCrit:           "#FF453A"
         readonly property color textOutline:        "#CC000000"
         readonly property real  radiusSm:           6
         readonly property real  radiusMd:           12
@@ -106,6 +109,72 @@ Item {
             return _t.textDisabled
         }
         return _t.textPrimary
+    }
+
+    function _batteryPercent() {
+        if (!_battery || _battery.percentRemaining.rawValue === undefined
+                || isNaN(_battery.percentRemaining.rawValue)) {
+            return NaN
+        }
+        return _battery.percentRemaining.rawValue
+    }
+
+    function _batteryColor() {
+        var pct = _batteryPercent()
+        if (!_hasVehicle || isNaN(pct)) {
+            return _t.textDisabled
+        }
+        if (_battery.chargeState && !isNaN(_battery.chargeState.rawValue)) {
+            var cs = _battery.chargeState.rawValue
+            if (cs === 3) {
+                return _t.safeWarn
+            }
+            if (cs >= 4) {
+                return _t.safeCrit
+            }
+        }
+        if (pct > 50) {
+            return _t.safeOk
+        }
+        if (pct > 25) {
+            return _t.safeWarn
+        }
+        return _t.safeCrit
+    }
+
+    function _gpsSatCount() {
+        if (!_activeVehicle || _activeVehicle.gps.count.rawValue === undefined
+                || isNaN(_activeVehicle.gps.count.rawValue)) {
+            return NaN
+        }
+        return _activeVehicle.gps.count.rawValue
+    }
+
+    function _gpsLock() {
+        if (!_activeVehicle || _activeVehicle.gps.lock.rawValue === undefined) {
+            return 0
+        }
+        return _activeVehicle.gps.lock.rawValue
+    }
+
+    function _gpsColor() {
+        if (!_hasVehicle) {
+            return _t.textDisabled
+        }
+        var lock = _gpsLock()
+        var count = _gpsSatCount()
+        if (lock <= 1 || (!isNaN(count) && count < 4)) {
+            return _t.safeCrit
+        }
+        if (lock === 2 || (!isNaN(count) && count < 8)) {
+            return _t.safeWarn
+        }
+        if (_activeVehicle.gps.hdop
+                && !isNaN(_activeVehicle.gps.hdop.rawValue)
+                && _activeVehicle.gps.hdop.rawValue > 2.0) {
+            return _t.safeWarn
+        }
+        return _t.safeOk
     }
 
     function _findSatelliteMapType(fms) {
@@ -294,6 +363,7 @@ Item {
     component FloatingMetric: Item {
         property string label: ""
         property string valueText: _t.emptyValue
+        property color  valueColor: valueText === _t.emptyValue ? _t.textDisabled : _t.textPrimary
         property real   valueSize: _root._hudExpanded ? _t.fontHero : _t.fontBody + 4
 
         implicitWidth: metricCol.implicitWidth
@@ -305,18 +375,17 @@ Item {
             spacing: 2
 
             Text {
-                text: label.toUpperCase()
+                text: label
                 color: _t.textSecondary
                 font.pixelSize: _t.fontMicro
                 font.family: _t.fontFamily
                 font.weight: Font.Medium
-                font.letterSpacing: 0.6
                 horizontalAlignment: Text.AlignHCenter
                 Layout.fillWidth: true
             }
             Text {
                 text: valueText
-                color: valueText === _t.emptyValue ? _t.textDisabled : _t.textPrimary
+                color: valueColor
                 font.pixelSize: valueSize
                 font.bold: true
                 font.family: _t.fontFamilyNumeric
@@ -607,6 +676,15 @@ Item {
                         var pct = _root._factValue(_battery ? _battery.percentRemaining : null)
                         return pct === _t.emptyValue ? pct : pct + "%"
                     }
+                    valueColor: _root._batteryColor()
+                }
+
+                FloatingMetric {
+                    label: qsTr("Satellites")
+                    visible: !_hudExpanded
+                    valueText: _root._factValue(
+                        _activeVehicle ? _activeVehicle.gps.count : null)
+                    valueColor: _root._gpsColor()
                 }
 
                 Item {
@@ -641,6 +719,7 @@ Item {
                     label: qsTr("Satellites")
                     valueText: _root._factValue(
                         _activeVehicle ? _activeVehicle.gps.count : null)
+                    valueColor: _root._gpsColor()
                 }
             }
 

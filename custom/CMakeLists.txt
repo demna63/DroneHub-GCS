@@ -49,6 +49,30 @@ set(DRONEHUB_TOOLSTRIP_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml")
 set(DRONEHUB_TOOLSTRIP_DST
     "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewToolStripActionList.qml")
+set(DRONEHUB_GUIDED_CONFIRM_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml")
+set(DRONEHUB_GUIDED_CONFIRM_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/GuidedActionConfirm.qml")
+set(DRONEHUB_SLIDER_SWITCH_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/SliderSwitch.qml")
+set(DRONEHUB_SLIDER_SWITCH_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/SliderSwitch.qml")
+set(DRONEHUB_TOOLSTRIP_PANEL_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/ToolStrip.qml")
+set(DRONEHUB_TOOLSTRIP_PANEL_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/ToolStrip.qml")
+set(DRONEHUB_TOOLSTRIP_BUTTON_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/ToolStripHoverButton.qml")
+set(DRONEHUB_TOOLSTRIP_BUTTON_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/ToolStripHoverButton.qml")
+set(DRONEHUB_GPS_INDICATOR_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml")
+set(DRONEHUB_GPS_INDICATOR_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/GPSIndicator.qml")
+set(DRONEHUB_BATTERY_INDICATOR_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml")
+set(DRONEHUB_BATTERY_INDICATOR_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/BatteryIndicator.qml")
 
 add_custom_target(DroneHubSyncFlyViewLayer ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -57,7 +81,23 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
             "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_TOOLSTRIP_DST}"
-    DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_GUIDED_CONFIRM_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_SLIDER_SWITCH_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_TOOLSTRIP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_PANEL_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}" "${DRONEHUB_TOOLSTRIP_BUTTON_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_GPS_INDICATOR_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_BATTERY_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_DST}"
+    DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
+            "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_GUIDED_CONFIRM_SRC}"
+            "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_TOOLSTRIP_PANEL_SRC}"
+            "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}" "${DRONEHUB_GPS_INDICATOR_SRC}"
+            "${DRONEHUB_BATTERY_INDICATOR_SRC}"
     COMMENT "Sync DroneHub custom QML into QGC qmlcache sources"
     VERBATIM
 )
@@ -71,7 +111,10 @@ if(TARGET ${CMAKE_PROJECT_NAME})
     add_dependencies(${CMAKE_PROJECT_NAME} DroneHubSyncFlyViewLayer)
 endif()
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}")
+    "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
+    "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_SLIDER_SWITCH_SRC}"
+    "${DRONEHUB_TOOLSTRIP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}"
+    "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_SRC}")
 
 # ქართული თარგმანი (qgc_ka.ts) — core ავტომატურად glob-ავს translations/qgc_*.ts-ს
 # (core CMakeLists.txt:531). bootstrap.sh symlink-ავს ჩვენს qgc_ka.ts-ს იქ. აქ wiring საჭირო არ არის.

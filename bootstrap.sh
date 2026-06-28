@@ -40,8 +40,20 @@ ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLa
        "$QGC_DIR/src/FlightDisplay/FlyViewCustomLayer.qml"
 ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml" \
        "$QGC_DIR/src/FlightDisplay/FlyViewToolStripActionList.qml"
+ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml" \
+       "$QGC_DIR/src/FlightDisplay/GuidedActionConfirm.qml"
 ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml" \
        "$QGC_DIR/src/QmlControls/FlyViewToolBar.qml"
+ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/SliderSwitch.qml" \
+       "$QGC_DIR/src/QmlControls/SliderSwitch.qml"
+ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/ToolStrip.qml" \
+       "$QGC_DIR/src/QmlControls/ToolStrip.qml"
+ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/ToolStripHoverButton.qml" \
+       "$QGC_DIR/src/QmlControls/ToolStripHoverButton.qml"
+ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml" \
+       "$QGC_DIR/src/QmlControls/GPSIndicator.qml"
+ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml" \
+       "$QGC_DIR/src/QmlControls/BatteryIndicator.qml"
 
 # 3b. Copy custom application icon into deploy folders
 if [ -f "$ROOT/custom/res/icons/macx.icns" ]; then
