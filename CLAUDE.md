@@ -63,10 +63,11 @@ PlanView.qml override fragile hard-fork იქნებოდა (აკრძ�
 - `tools/qgc-lupdate.sh` (local) + `.github/workflows/translations.yml` (manual `update_translations`)
   — extraction automation. lupdate-მა გამოავლინა **3267 string / 340 context** (სწორი context-ებით).
 - `tools/apply-ka-batch2.py` + `tools/README.md` — batch UI chrome თარგმანი (safe, no flight modes).
-- `translations/qgc_ka.ts` = canonical full inventory; **~2990 UI strings თარგმნილი** (batch 2+3:
-  FlyView, toolbar, MainWindow, PlanView, connection/status, Setup, Safety, Links).
-  flight-mode names + attitude axes (Roll/Pitch/Yaw/Loiter/...) **განზრახ English-ად**.
-- ⚠️ დარჩენილი ~115 flight-mode + ~90 acronym/brand = Crowdin/human (pipeline + canonical .ts მზადაა).
+- `translations/qgc_ka.ts` = canonical full inventory; **Crowdin-ში 100% translated + approved**.
+  Crowdin = source of truth → weekly sync (`crowdin.yml`) ჩამოიტანს `qgc_ka.ts`-ში.
+- ⚠️ **პოლიტიკის ცვლილება:** flight-mode names ახლა **ქართულად** ითარგმნა Crowdin-ში
+  (`Guided`→მართვადი, `RTL`→დაბრუნება, `Loiter`→პოზიციონირება, `Altitude Hold`→სიმაღლის შენარჩუნება).
+  ანუ ძველი "flight modes intentionally English" წესი **გაუქმდა** — acronyms (GPS/EKF/PX4/...) რჩება English.
 
 ### F2 (Fly View HUD) — შესრულდა
 - `custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml` — DroneHub
@@ -101,8 +102,9 @@ custom/ scaffold **გადაკეთდა Stable_V5.0 API-ზე** (F0 ძ�
 - ✅ **compile-verified CI-ით** (Linux/Win/macOS, run 28231357555). Qt 6.8.3.
 
 ## აქტიური ფოკუსი
-> F1–F4 implemented; PRs #1–#3 merged. **~2990/3287** ka UI strings (batch 3: Setup/Safety/Links).
-> შემდეგი:
-> 1. F4 დარჩენილი ~115 flight-mode + ~90 acronym/brand string — Crowdin/human (pipeline მზადაა).
-> 2. Field test — hardware (SITL ✓).
-> 3. WASM CI — experimental; user-greenlight საჭიროა.
+> F1–F5 implemented. ka თარგმანი **Crowdin-ში 100%** (flight modes ქართულად). release pipeline
+> wired (desktop installers + signing + Android APK; Windows signing test-cert-ით ვალიდირებული).
+> შემდეგი (კოდის გარეთ, user action):
+> 1. Real signing certs — Apple Developer ($99/წ) + Windows CA/Azure + dedicated Android keystore.
+> 2. GitHub billing — spending limit/reset (macOS release job-ისთვის).
+> 3. Field test — hardware (SITL ✓). WASM — experimental, opt-in.
