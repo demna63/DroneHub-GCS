@@ -1,26 +1,24 @@
 /****************************************************************************
- * DroneHub GCS — slide-to-confirm control (guided actions).
+ * DroneHub GCS — slide-to-confirm track (optional hint above track).
  ****************************************************************************/
 
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts
 
 import QGroundControl.ScreenTools
 import QGroundControl.Palette
 
-Rectangle {
+Item {
     id:             _root
-    implicitWidth:  label.contentWidth + (_diameter * 2.5) + (_border * 4)
-    implicitHeight: Math.max(label.height * 2.5, ScreenTools.defaultFontPixelHeight * 2.4)
-    radius:         height / 2
-    color:          _trackFill
-    border.width:   1
-    border.color:   _trackBorder
+    implicitWidth:  track.width
+    implicitHeight: (hintText.visible ? hintText.implicitHeight + spacing : 0) + track.height
 
     signal accept
 
-    property string confirmText
-    property alias  fontPointSize: label.font.pointSize
+    property string confirmText: ""
+    property alias  fontPointSize: hintText.font.pointSize
+    property real   trackHeight: ScreenTools.defaultFontPixelHeight * 2.5
 
     readonly property color _brandPrimary:  "#0A84FF"
     readonly property color _trackFill:     "#442A323F"
@@ -28,10 +26,8 @@ Rectangle {
     readonly property color _hintText:      "#B8C4D4"
     readonly property color _thumbText:     "#FFFFFF"
 
-    property real _border:   4
-    property real _diameter: height - (_border * 2)
-    property real _dragStartX: _border
-    property real _dragStopX:  _root.width - (_diameter + _border)
+    property real spacing: ScreenTools.defaultFontPixelHeight * 0.35
+    property real _border: 4
 
     Keys.onSpacePressed: (event) => {
         if (visible && event.modifiers === Qt.NoModifier && !sliderDragArea.drag.active) {
@@ -43,89 +39,104 @@ Rectangle {
     Keys.onReleased: (event) => {
         if (visible && event.key === Qt.Key_Space && !event.isAutoRepeat) {
             event.accepted = true
-            resetSpaceBarSliding()
+            slider.reset()
         }
     }
 
-    function resetSpaceBarSliding() {
-        slider.reset()
-    }
+    ColumnLayout {
+        anchors.fill: parent
+        spacing: _root.spacing
 
-    Text {
-        id:                         label
-        x:                          _diameter + _border + 4
-        width:                      parent.width - x - _border
-        anchors.verticalCenter:     parent.verticalCenter
-        horizontalAlignment:        Text.AlignHCenter
-        text:                       confirmText
-        color:                      _hintText
-        font.family:                "Noto Sans Georgian"
-        font.pixelSize:             ScreenTools.smallFontPointSize
-        font.weight:                Font.Medium
-        style:                      Text.Outline
-        styleColor:                 "#88000000"
-    }
-
-    Rectangle {
-        id:         slider
-        x:          _border
-        y:          _border
-        height:     _diameter
-        width:      _diameter
-        radius:     _diameter / 2
-        color:      _brandPrimary
-        border.width: 1
-        border.color: Qt.rgba(1, 1, 1, 0.2)
-
-        QGCColoredImage {
-            anchors.centerIn:       parent
-            width:                  parent.width * 0.42
-            height:                 parent.height * 0.42
-            sourceSize.height:        height
-            fillMode:               Image.PreserveAspectFit
-            smooth:                 true
-            color:                  _thumbText
-            cache:                  false
-            source:                 "/res/ArrowRight.svg"
+        Text {
+            id:                     hintText
+            Layout.fillWidth:       true
+            visible:                confirmText !== ""
+            text:                   confirmText
+            wrapMode:               Text.WordWrap
+            horizontalAlignment:    Text.AlignHCenter
+            color:                  _hintText
+            font.family:            "Noto Sans Georgian"
+            font.pixelSize:         ScreenTools.defaultFontPointSize * 0.9
+            font.weight:            Font.Medium
+            style:                  Text.Outline
+            styleColor:             "#88000000"
         }
 
-        PropertyAnimation on x {
-            id:         sliderAnimation
-            duration:   1500
-            from:       _dragStartX
-            to:         _dragStopX
-            running:    false
+        Rectangle {
+            id:                 track
+            Layout.fillWidth:   true
+            height:             _root.trackHeight
+            radius:             height / 2
+            color:              _trackFill
+            border.width:       1
+            border.color:       _trackBorder
 
-            onFinished: {
-                slider.reset()
-                _root.accept()
-            }
-        }
+            property real _diameter: height - (_root._border * 2)
+            property real _dragStartX: _root._border
+            property real _dragStopX:  Math.max(_root._border, width - (_diameter + _root._border))
 
-        function reset() {
-            slider.x = _border
-            sliderAnimation.stop()
-        }
-    }
+            onWidthChanged: slider.x = Math.min(slider.x, _dragStopX)
 
-    QGCMouseArea {
-        id:                 sliderDragArea
-        anchors.leftMargin: -ScreenTools.defaultFontPixelWidth * 15
-        fillItem:           slider
-        drag.target:        slider
-        drag.axis:          Drag.XAxis
-        drag.minimumX:      _dragStartX
-        drag.maximumX:      _dragStopX
-        preventStealing:    true
+            Rectangle {
+                id:         slider
+                x:          track._dragStartX
+                y:          _root._border
+                height:     track._diameter
+                width:      track._diameter
+                radius:     track._diameter / 2
+                color:      _brandPrimary
+                border.width: 1
+                border.color: Qt.rgba(1, 1, 1, 0.2)
 
-        property bool dragActive: drag.active
-
-        onDragActiveChanged: {
-            if (!sliderDragArea.drag.active) {
-                if (slider.x > _dragStopX - _border) {
-                    _root.accept()
+                QGCColoredImage {
+                    anchors.centerIn:       parent
+                    width:                  parent.width * 0.42
+                    height:                 parent.height * 0.42
+                    sourceSize.height:      height
+                    fillMode:               Image.PreserveAspectFit
+                    smooth:                 true
+                    color:                  _thumbText
+                    cache:                  false
+                    source:                 "/res/ArrowRight.svg"
                 }
-                slider.reset()
+
+                PropertyAnimation on x {
+                    id:         sliderAnimation
+                    duration:   1500
+                    from:       track._dragStartX
+                    to:         track._dragStopX
+                    running:    false
+
+                    onFinished: {
+                        slider.reset()
+                        _root.accept()
+                    }
+                }
+
+                function reset() {
+                    slider.x = track._dragStartX
+                    sliderAnimation.stop()
+                }
+            }
+
+            QGCMouseArea {
+                id:                 sliderDragArea
+                anchors.leftMargin: -ScreenTools.defaultFontPixelWidth * 15
+                fillItem:           slider
+                drag.target:        slider
+                drag.axis:          Drag.XAxis
+                drag.minimumX:      track._dragStartX
+                drag.maximumX:      track._dragStopX
+                preventStealing:    true
+
+                onDragActiveChanged: {
+                    if (!sliderDragArea.drag.active) {
+                        if (slider.x >= track._dragStopX - _root._border) {
+                            _root.accept()
+                        }
+                        slider.reset()
+                    }
+                }
             }
         }
     }

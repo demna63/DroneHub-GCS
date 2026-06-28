@@ -15,13 +15,15 @@ import QGroundControl.UTMSP
 
 Rectangle {
     id:         _root
-    width:      Math.min(ScreenTools.defaultFontPixelWidth * 42, parent ? parent.width * 0.72 : 520)
-    height:     mainLayout.height + (_margins * 2.5)
+    width:      Math.min(
+                    Math.max(ScreenTools.defaultFontPixelWidth * 54, mainLayout.implicitWidth + (_margins * 2)),
+                    parent ? parent.width * 0.88 : 680)
+    height:     mainLayout.implicitHeight + (_margins * 2)
     radius:     _radiusLg
     color:      _cardFill
     border.width: 1
     border.color: _cardBorder
-    visible:    _utmspEnabled === true ? utmspSliderTrigger : false
+    visible:    false
 
     property var    guidedController
     property var    guidedValueSlider
@@ -34,7 +36,7 @@ Rectangle {
     property alias  optionText:         optionCheckBox.text
     property alias  optionChecked:      optionCheckBox.checked
 
-    property real _margins:         ScreenTools.defaultFontPixelWidth * 0.85
+    property real _margins:         ScreenTools.defaultFontPixelWidth * 1.15
     property bool _emergencyAction: action === guidedController.actionEmergencyStop
 
     property bool   utmspSliderTrigger
@@ -47,6 +49,10 @@ Rectangle {
     readonly property color _textSecondary:  "#D0D8E4"
     readonly property real  _radiusLg:       ScreenTools.defaultFontPixelWidth * 0.9
     readonly property string _fontFamily:    "Noto Sans Georgian"
+    readonly property real  _trackHeight:  ScreenTools.defaultFontPixelHeight * 2.5
+    readonly property string _slideHint:     ScreenTools.isMobile
+                                                ? qsTr("Slide to confirm")
+                                                : qsTr("Slide or hold spacebar")
 
     Component.onCompleted: guidedController.confirmDialog = this
 
@@ -90,19 +96,21 @@ Rectangle {
 
     ColumnLayout {
         id:                 mainLayout
-        anchors.centerIn:   parent
-        width:              parent.width - (_margins * 2)
-        spacing:            _margins * 1.1
+        anchors.fill:       parent
+        anchors.margins:    _margins
+        spacing:            _margins * 0.85
 
         Text {
             id:                     messageText
             Layout.fillWidth:       true
+            Layout.minimumWidth:    ScreenTools.defaultFontPixelWidth * 48
             horizontalAlignment:    Text.AlignHCenter
             wrapMode:               Text.WordWrap
             color:                  _textPrimary
-            font.family:             _fontFamily
-            font.pixelSize:         ScreenTools.defaultFontPointSize * 1.05
+            font.family:            _fontFamily
+            font.pixelSize:         ScreenTools.defaultFontPointSize * 1.15
             font.bold:              true
+            lineHeight:             1.3
             style:                  Text.Outline
             styleColor:             "#99000000"
         }
@@ -114,17 +122,30 @@ Rectangle {
             visible:            text !== ""
         }
 
+        Text {
+            Layout.fillWidth:       true
+            Layout.topMargin:       _margins * 0.15
+            text:                   _slideHint
+            wrapMode:               Text.WordWrap
+            horizontalAlignment:    Text.AlignHCenter
+            color:                  _textSecondary
+            font.family:            _fontFamily
+            font.pixelSize:         ScreenTools.defaultFontPointSize * 0.95
+            style:                  Text.Outline
+            styleColor:             "#88000000"
+        }
+
         RowLayout {
             Layout.fillWidth:   true
-            spacing:            ScreenTools.defaultFontPixelWidth * 0.75
+            Layout.topMargin:   _margins * 0.25
+            spacing:            ScreenTools.defaultFontPixelWidth
 
             SliderSwitch {
                 id:                 slider
-                confirmText:        ScreenTools.isMobile
-                                        ? qsTr("Slide to confirm")
-                                        : qsTr("Slide or hold spacebar")
+                confirmText:        ""
+                trackHeight:        _trackHeight
                 Layout.fillWidth:   true
-                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight * 2.6
+                Layout.preferredWidth: ScreenTools.defaultFontPixelWidth * 38
                 enabled:            _utmspEnabled === true ? utmspSliderTrigger : true
                 opacity:            _utmspEnabled ? (utmspSliderTrigger === true ? 1 : 0.5) : 1
 
@@ -150,12 +171,13 @@ Rectangle {
             }
 
             Rectangle {
-                height: Math.max(slider.height * 0.78, ScreenTools.defaultFontPixelHeight * 2.2)
-                width:  height
-                radius: height / 2
-                color:  _emergencyAction ? "#FF453A" : _brandPrimary
-                border.width: 1
-                border.color: Qt.rgba(1, 1, 1, 0.25)
+                Layout.alignment:   Qt.AlignVCenter
+                height:             _trackHeight
+                width:              height
+                radius:             height / 2
+                color:              _emergencyAction ? "#FF453A" : _brandPrimary
+                border.width:       1
+                border.color:       Qt.rgba(1, 1, 1, 0.25)
 
                 QGCColoredImage {
                     anchors.margins:    parent.height / 4

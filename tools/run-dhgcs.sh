@@ -15,8 +15,13 @@ if [[ ! -d "$APP" ]]; then
   echo "error: Release app not found at:" >&2
   echo "  $APP" >&2
   echo "Build with:" >&2
-  echo "  cd $QGC && cmake --build build --config Release --target DroneHubGCS" >&2
+  echo "  $ROOT/tools/rebuild-dhgcs.sh" >&2
   exit 1
+fi
+
+STALE="$QGC/build/DroneHubGCS.app"
+if [[ -d "$STALE" ]]; then
+  echo "note: ignoring stale bundle (use Release only): $STALE" >&2
 fi
 
 exec open "$APP"

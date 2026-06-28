@@ -7630,7 +7630,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/FlightDisplay/GuidedActionConfirm.qml" line="118"/>
       <source>Slide or hold spacebar</source>
-      <translation>გაასრიალეთ ან გააჩერეთ spacebar</translation>
+      <translation>გაასრიალეთ ან დააჭირეთ Space-ს</translation>
     </message>
   </context>
   <context>

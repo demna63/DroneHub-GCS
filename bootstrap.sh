@@ -60,21 +60,31 @@ if [ -f "$ROOT/custom/res/icons/macx.icns" ]; then
   cp "$ROOT/custom/res/icons/macx.icns" "$QGC_DIR/deploy/macos/macx.icns"
 fi
 
-# 4. font sanity check
+# 4. Georgian font (gitignored — fetch if missing)
 if [ ! -f "$ROOT/custom/res/fonts/NotoSansGeorgian.ttf" ]; then
-  echo "!!  ფონტი არ მოიძებნა: custom/res/fonts/NotoSansGeorgian.ttf"
-  echo "    ჩასვი ფონტი (იხ. custom/res/fonts/PLACE_FONT_HERE.md) build-მდე."
+  if ! "$ROOT/tools/fetch-georgian-font.sh"; then
+    echo "!!  bootstrap გაგრძელდება ფონტის გარეშე."
+  fi
 fi
+
+# Platform hint for Qt path
+case "$(uname -s)" in
+  Darwin) QT_CMAKE_PREFIX='$HOME/Qt/6.8.3/macos' ;;
+  *)      QT_CMAKE_PREFIX='$HOME/Qt/6.8.3/gcc_64' ;;
+esac
 
 cat <<EOF
 
 ==> მზადაა. შემდეგ:
     cd qgroundcontrol
     cmake -B build -G Ninja \\
-      -DCMAKE_PREFIX_PATH="\$HOME/Qt/6.8.3/macos" \\
+      -DCMAKE_PREFIX_PATH="${QT_CMAKE_PREFIX}" \\
       -DQGC_CUSTOM_BUILD=ON -DCMAKE_BUILD_TYPE=Release \\
       -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF
     cmake --build build
+
+    Canonical app (macOS): qgroundcontrol/build/Release/DroneHubGCS.app
+    Run: $ROOT/tools/run-dhgcs.sh
 
     Qt 6.8.3 LTS (upstream Stable_V5.0 pin). (Android: NDK toolchain; Web: qt-cmake WASM kit.)
 EOF
