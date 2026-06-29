@@ -29,8 +29,13 @@ Item {
     Settings {
         id: _flyViewPrefs
         category: "DroneHub/FlyView"
-        property bool flyHudExpanded: false
+        property bool   flyHudExpanded: false
+        // Operator-configurable compact HUD row — comma-separated metric keys
+        // (see _metricCatalog). Edited in-place via the HUD pencil button.
+        property string compactMetricKeys: "altitude,groundSpeed,battery,satellites"
     }
+
+    property bool _hudEditMode: false
 
     // Inline tokens — FlyViewCustomLayer compiles into FlightDisplayModule (qmlcache);
     // must not import Custom module (loads before engine import paths are ready).
@@ -333,7 +338,193 @@ Item {
         return _t.safeOk
     }
 
+    // ---- Configurable compact HUD metrics ----
+    // Catalog of metrics the operator can place in the compact row. Each value
+    // reuses the telemetry helpers above; label is shown in the cell + picker.
+    readonly property var _metricCatalog: [
+        { key: "altitude",       label: qsTr("Altitude") },
+        { key: "amsl",           label: qsTr("AMSL") },
+        { key: "groundSpeed",    label: qsTr("Speed") },
+        { key: "airSpeed",       label: qsTr("Air Speed") },
+        { key: "climbRate",      label: qsTr("Climb Rate") },
+        { key: "distanceToHome", label: qsTr("Distance") },
+        { key: "flightTime",     label: qsTr("Flight Time") },
+        { key: "heading",        label: qsTr("Heading") },
+        { key: "battery",        label: qsTr("Battery") },
+        { key: "voltage",        label: qsTr("Voltage") },
+        { key: "current",        label: qsTr("Current") },
+        { key: "timeRemaining",  label: qsTr("Time Remaining") },
+        { key: "temperature",    label: qsTr("Temperature") },
+        { key: "wind",           label: qsTr("Wind") },
+        { key: "satellites",     label: qsTr("Satellites") },
+        { key: "hdop",           label: qsTr("HDOP") }
+    ]
+    readonly property var _catalogLabels: _metricCatalog.map(function(m) { return m.label })
+
+    function _splitKeys(s) { return (s && s.length) ? s.split(",") : [] }
+    property var _compactKeys: _splitKeys(_flyViewPrefs.compactMetricKeys)
+
+    function _catalogIndexOf(key) {
+        for (var i = 0; i < _metricCatalog.length; ++i) {
+            if (_metricCatalog[i].key === key) return i
+        }
+        return 0
+    }
+    function _metricLabel(key) { return _metricCatalog[_catalogIndexOf(key)].label }
+
+    function _metricValue(key) {
+        var v = _activeVehicle
+        switch (key) {
+        case "altitude":       return _factWithUnit(v ? v.altitudeRelative : null, " m")
+        case "amsl":           return _factWithUnit(v ? v.altitudeAMSL : null, " m")
+        case "groundSpeed":    return _factWithUnit(v ? v.groundSpeed : null, " m/s")
+        case "airSpeed":       return _factWithUnit(v ? v.airSpeed : null, " m/s")
+        case "climbRate":      return _factWithUnit(v ? v.climbRate : null, " m/s")
+        case "distanceToHome": return _factWithUnit(v ? v.distanceToHome : null, " m")
+        case "flightTime":     return _factValue(v ? v.flightTime : null)
+        case "heading":        return _trueHeadingLabel()
+        case "battery": {
+            var p = _factValue(_battery ? _battery.percentRemaining : null)
+            return p === _t.emptyValue ? p : p + "%"
+        }
+        case "voltage":        return _batteryVoltageText()
+        case "current": {
+            var a = _factValue(_battery ? _battery.current : null)
+            return a === _t.emptyValue ? a : a + " A"
+        }
+        case "timeRemaining":  return _batteryTimeRemainingText()
+        case "temperature": {
+            var t = _factValue(_battery ? _battery.temperature : null)
+            return t === _t.emptyValue ? t : t + "°C"
+        }
+        case "wind":           return _windText()
+        case "satellites":     return _factValue(v ? v.gps.count : null)
+        case "hdop":           return _hdopText()
+        }
+        return _t.emptyValue
+    }
+
+    function _metricColor(key) {
+        switch (key) {
+        case "battery":
+        case "voltage":
+        case "timeRemaining":
+            return _batteryColor()
+        case "satellites":
+        case "hdop":
+            return _gpsColor()
+        case "temperature":
+            return (_hasVehicle && _battery && _battery.temperature.rawValue !== undefined)
+                    ? _t.telemetryAccent : _t.textDisabled
+        }
+        return _valueColor(_metricValue(key) !== _t.emptyValue)
+    }
+
+    function _setCompactKey(index, key) {
+        var arr = _compactKeys.slice()
+        arr[index] = key
+        _flyViewPrefs.compactMetricKeys = arr.join(",")
+    }
+    function _addCompactSlot() {
+        var arr = _compactKeys.slice()
+        if (arr.length < 6) {
+            arr.push("airSpeed")
+            _flyViewPrefs.compactMetricKeys = arr.join(",")
+        }
+    }
+    function _removeCompactSlot(index) {
+        var arr = _compactKeys.slice()
+        if (arr.length > 1) {
+            arr.splice(index, 1)
+            _flyViewPrefs.compactMetricKeys = arr.join(",")
+        }
+    }
+
     // ---- Reusable HUD components ----
+
+    // Dark-themed combo for the HUD metric picker (default style is light).
+    component HudComboBox: ComboBox {
+        id: combo
+        font.family:    _t.fontFamily
+        font.pixelSize: _t.fontCaption
+        implicitHeight: _t.spacingUnit * 4
+
+        background: Rectangle {
+            radius:       _t.radiusSm
+            color:        _t.hudMetricPlate
+            border.width: 1
+            border.color: (combo.pressed || combo.popup.visible) ? _t.brandPrimary : _t.hudBorder
+        }
+
+        contentItem: Text {
+            leftPadding:        _t.spacingUnit * 0.6
+            rightPadding:       combo.indicator.width + _t.spacingUnit * 0.4
+            text:               combo.displayText
+            color:              _t.textPrimary
+            font:               combo.font
+            elide:              Text.ElideRight
+            verticalAlignment:  Text.AlignVCenter
+        }
+
+        indicator: Canvas {
+            x:      combo.width - width - _t.spacingUnit * 0.5
+            y:      (combo.height - height) / 2
+            width:  9
+            height: 6
+            Connections { target: combo; function onPressedChanged() { combo.indicator.requestPaint() } }
+            onPaint: {
+                var ctx = getContext("2d")
+                ctx.reset()
+                ctx.fillStyle = _t.textSecondary
+                ctx.beginPath()
+                ctx.moveTo(0, 0)
+                ctx.lineTo(width, 0)
+                ctx.lineTo(width / 2, height)
+                ctx.closePath()
+                ctx.fill()
+            }
+        }
+
+        popup: Popup {
+            y:              combo.height + 2
+            // Wider than the (narrow) cell so the full metric labels are readable.
+            width:          Math.max(combo.width, _metricCellWidth * 1.7)
+            implicitHeight: Math.min(contentItem.implicitHeight + 2, 280)
+            padding:        1
+
+            background: Rectangle {
+                radius:       _t.radiusSm
+                color:        _t.hudGlassStrong
+                border.width: 1
+                border.color: _t.hudBorder
+            }
+
+            contentItem: ListView {
+                clip:           true
+                implicitHeight: contentHeight
+                model:          combo.popup.visible ? combo.delegateModel : null
+                currentIndex:   combo.highlightedIndex
+                ScrollIndicator.vertical: ScrollIndicator { }
+            }
+        }
+
+        delegate: ItemDelegate {
+            width:          ListView.view ? ListView.view.width : combo.width
+            height:         _t.spacingUnit * 3.5
+            highlighted:    combo.highlightedIndex === index
+            contentItem: Text {
+                text:               modelData
+                color:              _t.textPrimary
+                font:               combo.font
+                elide:              Text.ElideRight
+                verticalAlignment:  Text.AlignVCenter
+            }
+            background: Rectangle {
+                color: highlighted ? "#330A84FF" : "transparent"
+            }
+        }
+    }
+
     component HudIcon: Canvas {
         property string iconType: ""
         property color  iconColor: _t.textSecondary
@@ -808,48 +999,110 @@ Item {
                 }
             }
 
-            GridLayout {
-                Layout.alignment:   Qt.AlignHCenter   // keep the row compact + centered (same size in both HUD states)
+            Item {
+                id:                 compactContainer
+                Layout.alignment:   Qt.AlignHCenter
                 Layout.topMargin:   _t.spacingUnit   // clear the compass Mag/True readout above
-                columns:            4
-                columnSpacing:      _metricColumnGap
-                rowSpacing:         0
+                implicitWidth:      compactRow.implicitWidth
+                implicitHeight:     compactRow.implicitHeight
 
-                FloatingMetric {
-                    Layout.preferredWidth:   _metricCellWidth
-                    Layout.alignment:        Qt.AlignVCenter
-                    togglesExpand:          true
-                    label:                  qsTr("Altitude")
-                    valueText:              _root._factWithUnit(
-                        _activeVehicle ? _activeVehicle.altitudeRelative : null, " m")
-                }
-                FloatingMetric {
-                    Layout.preferredWidth:   _metricCellWidth
-                    Layout.alignment:        Qt.AlignVCenter
-                    togglesExpand:          true
-                    label:                  qsTr("Speed")
-                    valueText:              _root._factWithUnit(
-                        _activeVehicle ? _activeVehicle.groundSpeed : null, " m/s")
-                }
-                FloatingMetric {
-                    Layout.preferredWidth:   _metricCellWidth
-                    Layout.alignment:        Qt.AlignVCenter
-                    togglesExpand:          true
-                    label:                  qsTr("Battery")
-                    valueText: {
-                        var pct = _root._factValue(_battery ? _battery.percentRemaining : null)
-                        return pct === _t.emptyValue ? pct : pct + "%"
+                // Operator-configurable telemetry cells (centered).
+                RowLayout {
+                    id:                 compactRow
+                    anchors.centerIn:   parent
+                    spacing:            _metricColumnGap
+
+                    Repeater {
+                        model: _compactKeys
+                        delegate: Item {
+                            id:                     cell
+                            property string _key:   modelData
+                            property int    _idx:   index
+                            Layout.preferredWidth:  _metricCellWidth
+                            Layout.alignment:       Qt.AlignVCenter
+                            implicitWidth:          _metricCellWidth
+                            implicitHeight:         _hudEditMode ? editCol.implicitHeight : viewMetric.implicitHeight
+
+                            FloatingMetric {
+                                id:             viewMetric
+                                width:          parent.width
+                                visible:        !_hudEditMode
+                                togglesExpand:  true
+                                label:          _root._metricLabel(cell._key)
+                                valueText:      _root._metricValue(cell._key)
+                                valueColor:     _root._metricColor(cell._key)
+                            }
+
+                            ColumnLayout {
+                                id:         editCol
+                                width:      parent.width
+                                visible:    _hudEditMode
+                                spacing:    _t.spacingUnit * 0.4
+
+                                HudComboBox {
+                                    Layout.fillWidth:   true
+                                    model:              _root._catalogLabels
+                                    currentIndex:       _root._catalogIndexOf(cell._key)
+                                    onActivated:        _root._setCompactKey(cell._idx, _root._metricCatalog[currentIndex].key)
+                                }
+                                Text {
+                                    Layout.alignment:   Qt.AlignHCenter
+                                    visible:            _root._compactKeys.length > 1
+                                    text:               qsTr("✕ remove")
+                                    color:              _t.safeCrit
+                                    font.family:        _t.fontFamily
+                                    font.pixelSize:     _t.fontMicro
+                                    MouseArea {
+                                        anchors.fill:   parent
+                                        cursorShape:    Qt.PointingHandCursor
+                                        onClicked:      _root._removeCompactSlot(cell._idx)
+                                    }
+                                }
+                            }
+                        }
                     }
-                    valueColor:             _root._batteryColor()
+
+                    // Add a metric slot (edit mode only)
+                    Rectangle {
+                        visible:                _hudEditMode && _root._compactKeys.length < 6
+                        Layout.alignment:       Qt.AlignVCenter
+                        Layout.preferredWidth:  _t.spacingUnit * 4
+                        Layout.preferredHeight: _t.spacingUnit * 4
+                        radius:                 width / 2
+                        color:                  _t.hudMetricPlate
+                        border.width:           1
+                        border.color:           _t.hudBorder
+                        Text { anchors.centerIn: parent; text: "+"; color: _t.textPrimary; font.pixelSize: _t.fontBody }
+                        MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addCompactSlot() }
+                    }
                 }
-                FloatingMetric {
-                    Layout.preferredWidth:   _metricCellWidth
-                    Layout.alignment:        Qt.AlignVCenter
-                    togglesExpand:          true
-                    label:                  qsTr("Satellites")
-                    valueText:              _root._factValue(
-                        _activeVehicle ? _activeVehicle.gps.count : null)
-                    valueColor:             _root._gpsColor()
+
+                // Edit / Done toggle — overlaid at the right so the cells stay
+                // centered; revealed on hover (or while editing) to stay unobtrusive.
+                Rectangle {
+                    id:                     hudEditButton
+                    anchors.left:           compactRow.right
+                    anchors.leftMargin:     _t.spacingUnit
+                    anchors.verticalCenter: compactRow.verticalCenter
+                    opacity:                _hudEditMode ? 1.0 : 0.5
+                    width:                  _hudEditMode ? _t.spacingUnit * 6 : _t.spacingUnit * 3.5
+                    height:                 _t.spacingUnit * 3.5
+                    radius:                 _t.radiusSm
+                    color:                  _hudEditMode ? "#660A84FF" : _t.hudMetricPlate
+                    border.width:           1
+                    border.color:           _hudEditMode ? _t.brandPrimary : _t.hudBorder
+                    Text {
+                        anchors.centerIn:   parent
+                        text:               _hudEditMode ? qsTr("Done") : "✎"
+                        color:              _t.textPrimary
+                        font.family:        _t.fontFamily
+                        font.pixelSize:     _hudEditMode ? _t.fontMicro : _t.fontCaption
+                    }
+                    MouseArea {
+                        anchors.fill:   parent
+                        cursorShape:    Qt.PointingHandCursor
+                        onClicked:      _root._hudEditMode = !_root._hudEditMode
+                    }
                 }
             }
 
