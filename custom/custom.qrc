@@ -33,6 +33,8 @@
         <file alias="QGroundControl/Controls/FlyViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml</file>
         <file alias="QGroundControl/Controls/FlyViewToolBarIndicators.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBarIndicators.qml</file>
         <file alias="QGroundControl/Toolbar/RCRSSIIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/RCRSSIIndicator.qml</file>
+        <file alias="QGroundControl/Toolbar/VehicleHealthIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/VehicleHealthIndicator.qml</file>
+        <file alias="QGroundControl/Toolbar/VideoStatusIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/VideoStatusIndicator.qml</file>
         <file alias="QGroundControl/Controls/QGCPopupDialog.qml">res/Custom/qml/QGroundControl/Controls/QGCPopupDialog.qml</file>
         <file alias="QGroundControl/Controls/DropPanel.qml">res/Custom/qml/QGroundControl/Controls/DropPanel.qml</file>
         <file alias="QGroundControl/Controls/SettingsGroupLayout.qml">res/Custom/qml/QGroundControl/Controls/SettingsGroupLayout.qml</file>

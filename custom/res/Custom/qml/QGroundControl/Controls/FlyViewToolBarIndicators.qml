@@ -17,12 +17,14 @@ Row {
     property var  _activeVehicle:           QGroundControl.multiVehicleManager.activeVehicle
     property real _toolIndicatorMargins:    ScreenTools.defaultFontPixelHeight * 0.66
 
-    // Primary status chips in field-ops order: mode → GPS → RC link → battery → extras.
+    // Primary status chips in field-ops order: health → mode → GPS → RC link → battery → extras.
     readonly property var _primaryVehicleIndicators: [
+        "qrc:/qml/QGroundControl/Toolbar/VehicleHealthIndicator.qml",
         "qrc:/qml/QGroundControl/Controls/FlightModeIndicator.qml",
         "qrc:/qml/QGroundControl/Toolbar/VehicleGPSIndicator.qml",
         "qrc:/qml/QGroundControl/Toolbar/RCRSSIIndicator.qml",
         "qrc:/qml/QGroundControl/Controls/BatteryIndicator.qml",
+        "qrc:/qml/QGroundControl/Toolbar/VideoStatusIndicator.qml",
         "qrc:/qml/QGroundControl/Toolbar/TelemetryRSSIIndicator.qml",
         "qrc:/qml/QGroundControl/Toolbar/RemoteIDIndicator.qml",
         "qrc:/qml/QGroundControl/Toolbar/GimbalIndicator.qml"

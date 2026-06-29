@@ -4,3 +4,5 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 python3 "$ROOT/apply-ka-batch2.py" "$@"
 python3 "$ROOT/apply-ka-batch3.py" "$@"
+python3 "$ROOT/apply-ka-batch4.py" "$@"
+python3 "$ROOT/apply-ka-batch5.py" "$@"

@@ -168,7 +168,7 @@ def process_context(context_name: str, body: str) -> tuple[str, int, int, int]:
             cleared_empty += 1
             return block.replace(tr_m.group(0), new_tr, 1)
 
-        if is_unfinished and existing.strip():
+        if is_unfinished and existing.strip() and existing != source:
             new_tr = f"<translation>{existing}</translation>"
             fixed_partial += 1
             return block.replace(tr_m.group(0), new_tr, 1)

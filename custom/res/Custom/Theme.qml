@@ -1,19 +1,32 @@
 pragma Singleton
 import QtQuick
+import Qt.labs.settings 1.0
 
 /// DroneHub design tokens — ერთადერთი წყარო ფერებისა და spacing-ისთვის.
-QtObject {
+/// Item root — QtObject-ს default property არ აქვს; Settings შვილი მხოლოდ Item-ში.
+Item {
     id: theme
+
+    Settings {
+        id: _flyViewUi
+        category: "DroneHub/FlyView"
+        property bool flyToolStripExpanded:     true
+        property bool flyCameraPanelExpanded:   true
+        property bool flyHudExpanded:           false
+    }
 
     readonly property string logoSource:           "qrc:/custom/img/dggcs-logo-original.png"
     readonly property string videoPlaceholderLogo: "qrc:/custom/img/dhg-logo.png"
     readonly property string appName:       "DroneHub GCS"
 
-    /// Fly View მარცხენა tool strip — ლოგოზე დაჭერით იკეცება/იშლება.
-    property bool flyToolStripExpanded:     true
+    /// Fly View მარცხენა tool strip — ლოგოზე დაჭერით იკეცება/იშლება (persisted).
+    property alias flyToolStripExpanded:     _flyViewUi.flyToolStripExpanded
 
-    /// Fly View მარჯვენა კამერის პანელი — ზედა პანელის კამერის ხატულაზე დაჭერით.
-    property bool flyCameraPanelExpanded:   true
+    /// Fly View მარჯვენა კამერის პანელი — ზედა პანელის კამერის ხატულაზე დაჭერით (persisted).
+    property alias flyCameraPanelExpanded:   _flyViewUi.flyCameraPanelExpanded
+
+    /// Fly View HUD secondary metrics — ცენტრალურ მეტრიკაზე დაჭერით (persisted).
+    property alias flyHudExpanded:           _flyViewUi.flyHudExpanded
 
     /// Toolbar ლოგო — master artwork-ის ცარიელი ველის კომპენსაცია (წაკითხვადობა).
     readonly property real toolbarLogoVisualScale: 1.32

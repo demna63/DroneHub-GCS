@@ -14,7 +14,16 @@
 | `qgc-lupdate.sh` | Extract new/changed strings from `custom/` into `translations/qgc_ka.ts` |
 | `apply-ka-batch2.py` | Apply curated Georgian UI translations — batch 2 (Fly/Plan/toolbar) |
 | `apply-ka-batch3.py` | Apply batch 3 (Setup/Safety/Links/Analyze chrome) |
-| `apply-ka-translations.sh` | Run batch 2 + batch 3 |
+| `apply-ka-batch4.py` | Apply batch 4 (HUD, MAVLink confirm UI, Phase 1/2 cleanup) |
+| `apply-ka-batch5.py` | Apply batch 5 (Phase 4 health panel, Plan toolbar, operator UX) |
+| `apply-ka-translations.sh` | Run batch 2 + batch 3 + batch 4 + batch 5 |
+| `check-hud-tokens.py` | Verify `Theme.qml` HUD tokens match `FlyViewCustomLayer` inline `_t` |
+| `check-qml-override-drift.py` | Detect drift between custom QML and qmlcache sync targets |
+| `check-dronehub-stability.sh` | Run HUD token + QML drift checks (Phase 2) |
+| `check-translation-stats.py` | Summary of `qgc_ka.ts` coverage (fails if unfinished remain) |
+| `check-video-build.sh` | Verify GStreamer/video compile flags in local build |
+| `smoke-runtime.sh` | Phase 3 smoke: stability + translations + video + optional `--live` SITL |
+| `export-field-logs.sh` | Field support bundle (.tar.gz) — settings, logs, telemetry snapshot |
 | `CROWDIN.md` | Crowdin project setup, CLI sync, GitHub Action secrets |
 
 ### SITL / field test (macOS)
@@ -37,15 +46,16 @@ Set `PX4_DIR` if PX4 is not at `~/Desktop/PX4-Autopilot`.
 ### Adding user-facing strings
 
 1. Use `qsTr()` in QML and `tr()` in C++ — never hardcode Georgian in source.
-2. Run `./tools/qgc-lupdate.sh` after adding strings.
+2. Run `./tools/qgc-lupdate.sh` after adding strings (uses full `update_translations` when `qgroundcontrol/build` exists).
 3. Translate in **Crowdin** (preferred for bulk work), Qt Linguist, or `./tools/apply-ka-translations.sh` for curated batches.
-4. Run `./tools/qgc-lupdate.sh` locally, or trigger **DroneHub Translations** manually in Actions.
+4. Run `./tools/check-translation-stats.py` — must show `Unfinished: 0` before merge.
+5. Run `./tools/check-dronehub-stability.sh` after HUD/QML sync changes.
 
 **CI note:** All workflows are manual-only (`workflow_dispatch`) — no automatic runs on push/PR.
 
 ### Crowdin (remaining strings)
 
-**Status (batch 3 applied):** ~2990 / 3287 entries have Georgian text. Remaining ~115 are flight-mode names (intentionally English). ~90 are acronyms/brands (GPS, KML, AMSL, GeoFence, …).
+**Status (batch 4 applied):** ~3040 / 3300 active entries have Georgian text. Remaining ~246 are intentional English (flight modes, acronyms, brands). Run `./tools/check-translation-stats.py` for current counts.
 
 1. `./tools/qgc-lupdate.sh` — refresh `translations/qgc_ka.ts`
 2. `./tools/apply-ka-translations.sh` — apply safe curated batches locally

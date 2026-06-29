@@ -1,189 +1,192 @@
 {
     "version": 1,
     "fileType": "MavlinkActions",
+    "bundleVersion": 2,
     "actions": [
         {
-            "label": "შეიაღწიე",
-            "description": "დრონის შეიაღწმა (MAV_CMD_COMPONENT_ARM_DISARM)",
+            "label": "შეიარაღება",
+            "description": "ფრენა · დრონის შეიარაღება (MAV_CMD_COMPONENT_ARM_DISARM)",
             "mavCmd": 400,
             "param1": 1
         },
         {
-            "label": "გაუქმება",
-            "description": "დრონის გაუქმება / disarm (MAV_CMD_COMPONENT_ARM_DISARM)",
+            "label": "განიარაღება",
+            "description": "ფრენა · დრონის განიარაღება (MAV_CMD_COMPONENT_ARM_DISARM)",
             "mavCmd": 400,
             "param1": 0
         },
         {
-            "label": "აყვანა",
-            "description": "ავტომატური აყვანა 10 მ სიმაღლეზე (MAV_CMD_NAV_TAKEOFF)",
+            "label": "აფრენა",
+            "description": "ფრენა · ავტომატური აფრენა 10 მ სიმაღლეზე (MAV_CMD_NAV_TAKEOFF)",
             "mavCmd": 22,
             "param7": 10
         },
         {
-            "label": "დაფრენა",
-            "description": "დაფრენის დაწყება (MAV_CMD_NAV_LAND)",
+            "label": "დაშვება",
+            "description": "ფრენა · დაშვების დაწყება (MAV_CMD_NAV_LAND)",
             "mavCmd": 21
         },
         {
             "label": "დაბრუნება სახლში",
-            "description": "RTL — დაბრუნება home პოზიციაზე (MAV_CMD_NAV_RETURN_TO_LAUNCH)",
+            "description": "ფრენა · დაბრუნება home პოზიციაზე (MAV_CMD_NAV_RETURN_TO_LAUNCH)",
             "mavCmd": 20
         },
         {
             "label": "მისიის დაწყება",
-            "description": "აქტიური მისიის გაშვება (MAV_CMD_MISSION_START)",
+            "description": "ფრენა · აქტიური მისიის გაშვება (MAV_CMD_MISSION_START)",
             "mavCmd": 300
         },
         {
             "label": "PX4 — პოზიცია",
-            "description": "PX4 POSCTL რეჟიმი (MAV_CMD_DO_SET_MODE, custom_mode=3)",
+            "description": "ფრენა · PX4 POSCTL რეჟიმი (MAV_CMD_DO_SET_MODE, custom_mode=3)",
             "mavCmd": 176,
             "param1": 1,
             "param2": 3
         },
         {
             "label": "PX4 — ლოიტერი",
-            "description": "PX4 AUTO LOITER (MAV_CMD_DO_SET_MODE, custom_mode=5)",
+            "description": "ფრენა · PX4 AUTO LOITER (MAV_CMD_DO_SET_MODE, custom_mode=5)",
             "mavCmd": 176,
             "param1": 1,
             "param2": 5
         },
         {
             "label": "PX4 — RTL",
-            "description": "PX4 AUTO RTL რეჟიმი (MAV_CMD_DO_SET_MODE, custom_mode=6)",
+            "description": "ფრენა · PX4 AUTO RTL რეჟიმი (MAV_CMD_DO_SET_MODE, custom_mode=6)",
             "mavCmd": 176,
             "param1": 1,
             "param2": 6
         },
         {
             "label": "სიჩქარე 5 m/s",
-            "description": "საჰაერო სიჩქარის დაყენება 5 m/s-ზე (MAV_CMD_DO_CHANGE_SPEED)",
+            "description": "ფრენა · საჰაერო სიჩქარის დაყენება 5 m/s-ზე (MAV_CMD_DO_CHANGE_SPEED)",
             "mavCmd": 178,
             "param1": 1,
-            "param2": 5
+            "param2": 5,
+            "requiresConfirm": false
         },
         {
             "label": "Home — აქ",
-            "description": "მიმდინარე პოზიციის home-ად მონიშვნა (MAV_CMD_DO_SET_HOME)",
+            "description": "ფრენა · მიმდინარე პოზიციის home-ად მონიშვნა (MAV_CMD_DO_SET_HOME)",
             "mavCmd": 179,
             "param1": 1
         },
         {
             "label": "ფოტო",
-            "description": "ერთი ფოტოს გადაღება (MAV_CMD_IMAGE_START_CAPTURE)",
+            "description": "ტვირთი · ერთი ფოტოს გადაღება (MAV_CMD_IMAGE_START_CAPTURE)",
             "mavCmd": 2000,
             "param2": 1
         },
         {
             "label": "ფოტო — სერია",
-            "description": "ფოტოს სერიის დაწყება (MAV_CMD_IMAGE_START_CAPTURE)",
+            "description": "ტვირთი · ფოტოს სერიის დაწყება (MAV_CMD_IMAGE_START_CAPTURE)",
             "mavCmd": 2000,
             "param2": 0
         },
         {
             "label": "ფოტო — გაჩერება",
-            "description": "ფოტოს სერიის გაჩერება (MAV_CMD_IMAGE_STOP_CAPTURE)",
+            "description": "ტვირთი · ფოტოს სერიის გაჩერება (MAV_CMD_IMAGE_STOP_CAPTURE)",
             "mavCmd": 2001
         },
         {
             "label": "ვიდეო — დაწყება",
-            "description": "ვიდეო ჩაწერის დაწყება (MAV_CMD_VIDEO_START_CAPTURE)",
+            "description": "ტვირთი · ვიდეო ჩაწერის დაწყება (MAV_CMD_VIDEO_START_CAPTURE)",
             "mavCmd": 2500
         },
         {
             "label": "ვიდეო — გაჩერება",
-            "description": "ვიდეო ჩაწერის გაჩერება (MAV_CMD_VIDEO_STOP_CAPTURE)",
+            "description": "ტვირთი · ვიდეო ჩაწერის გაჩერება (MAV_CMD_VIDEO_STOP_CAPTURE)",
             "mavCmd": 2501
         },
         {
             "label": "კამერა — ტრიგერი",
-            "description": "კამერის ტრიგერი (MAV_CMD_DO_DIGICAM_CONTROL)",
+            "description": "ტვირთი · კამერის ტრიგერი (MAV_CMD_DO_DIGICAM_CONTROL)",
             "mavCmd": 203,
             "param1": 1
         },
         {
             "label": "გიმბალი — ცენტრი",
-            "description": "გიმბალის ნეიტრალური პოზიცია (MAV_CMD_DO_MOUNT_CONTROL)",
+            "description": "ტვირთი · გიმბალის ნეიტრალური პოზიცია (MAV_CMD_DO_MOUNT_CONTROL)",
             "mavCmd": 205
         },
         {
             "label": "გიმბალი — ქვემოთ",
-            "description": "გიმბალი 45° ქვემოთ (MAV_CMD_DO_MOUNT_CONTROL)",
+            "description": "ტვირთი · გიმბალი 45° ქვემოთ (MAV_CMD_DO_MOUNT_CONTROL)",
             "mavCmd": 205,
             "param2": -45
         },
         {
             "label": "გრიპერი — დაჭერა",
-            "description": "გრიპერის დაჭერა (MAV_CMD_DO_GRIPPER)",
+            "description": "ტვირთი · გრიპერის დაჭერა (MAV_CMD_DO_GRIPPER)",
             "mavCmd": 211,
             "param1": 1
         },
         {
             "label": "გრიპერი — გაშვება",
-            "description": "გრიპერის გაშვება (MAV_CMD_DO_GRIPPER)",
+            "description": "ტვირთი · გრიპერის გაშვება (MAV_CMD_DO_GRIPPER)",
             "mavCmd": 211,
             "param1": 0
         },
         {
             "label": "პარაშუტი — გამოშვება",
-            "description": "პარაშუტის გამოშვება (MAV_CMD_DO_PARACHUTE) — გამოიყენე ფრთხილად",
+            "description": "უსაფრთხოება · პარაშუტის გამოშვება (MAV_CMD_DO_PARACHUTE)",
             "mavCmd": 208,
             "param1": 2
         },
         {
             "label": "რელე 1 — ჩართვა",
-            "description": "რელე 1 ჩართვა (MAV_CMD_DO_SET_RELAY)",
+            "description": "ტვირთი · რელე 1 ჩართვა (MAV_CMD_DO_SET_RELAY)",
             "mavCmd": 181,
             "param1": 0,
             "param2": 1
         },
         {
             "label": "რელე 1 — გამორთვა",
-            "description": "რელე 1 გამორთვა (MAV_CMD_DO_SET_RELAY)",
+            "description": "ტვირთი · რელე 1 გამორთვა (MAV_CMD_DO_SET_RELAY)",
             "mavCmd": 181,
             "param1": 0,
             "param2": 0
         },
         {
             "label": "სერვო — ჩართვა",
-            "description": "სერვო 1 მაქს. პოზიცია (MAV_CMD_DO_SET_SERVO)",
+            "description": "ტვირთი · სერვო 1 მაქს. პოზიცია (MAV_CMD_DO_SET_SERVO)",
             "mavCmd": 183,
             "param1": 1,
             "param2": 2000
         },
         {
             "label": "სერვო — გამორთვა",
-            "description": "სერვო 1 მინ. პოზიცია (MAV_CMD_DO_SET_SERVO)",
+            "description": "ტვირთი · სერვო 1 მინ. პოზიცია (MAV_CMD_DO_SET_SERVO)",
             "mavCmd": 183,
             "param1": 1,
             "param2": 1000
         },
         {
             "label": "ღობე — ჩართვა",
-            "description": "გეოღობის ჩართვა (MAV_CMD_DO_FENCE_ENABLE)",
+            "description": "უსაფრთხოება · გეოღობის ჩართვა (MAV_CMD_DO_FENCE_ENABLE)",
             "mavCmd": 207,
-            "param1": 1
+            "param1": 1,
+            "requiresConfirm": false
         },
         {
             "label": "ღობე — გამორთვა",
-            "description": "გეოღობის გამორთვა (MAV_CMD_DO_FENCE_ENABLE)",
+            "description": "უსაფრთხოება · გეოღობის გამორთვა (MAV_CMD_DO_FENCE_ENABLE)",
             "mavCmd": 207,
             "param1": 0
         },
         {
             "label": "ლოგი — დაწყება",
-            "description": "ბორტის ლოგირების დაწყება (MAV_CMD_LOGGING_START)",
+            "description": "ლოგირება · ბორტის ლოგირების დაწყება (MAV_CMD_LOGGING_START)",
             "mavCmd": 2510
         },
         {
             "label": "ლოგი — გაჩერება",
-            "description": "ბორტის ლოგირების გაჩერება (MAV_CMD_LOGGING_STOP)",
+            "description": "ლოგირება · ბორტის ლოგირების გაჩერება (MAV_CMD_LOGGING_STOP)",
             "mavCmd": 2511
         },
         {
             "label": "რებუთი FC",
-            "description": "ავტოპილოტის გადატვირთვა (MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN)",
+            "description": "უსაფრთხოება · ავტოპილოტის გადატვირთვა (MAV_CMD_PREFLIGHT_REBOOT_SHUTDOWN)",
             "mavCmd": 246,
             "param1": 1
         }

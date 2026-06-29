@@ -1,5 +1,6 @@
 #include "CustomPlugin.h"
 #include "CustomOptions.h"
+#include "geo/geo_mag_declination.h"
 
 #include "QGCLoggingCategory.h"
 #include "BrandImageSettings.h"
@@ -11,6 +12,8 @@
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QJsonDocument>
+#include <QtCore/QJsonObject>
 #include <QtCore/QApplicationStatic>
 #include <QtCore/QLocale>
 #include <QtGui/QFont>
@@ -177,6 +180,16 @@ void CustomPlugin::paletteOverride(const QString& colorName, QGCPalette::Palette
     // დანარჩენი palette tokens — QGC default-ზე რჩება.
 }
 
+double CustomPlugin::magneticDeclination(double latitude, double longitude) const
+{
+    if (!qIsFinite(latitude) || !qIsFinite(longitude)) {
+        return qQNaN();
+    }
+
+    return static_cast<double>(get_mag_declination_degrees(
+        static_cast<float>(latitude), static_cast<float>(longitude)));
+}
+
 // QQmlApplicationEngine-ის override: ვამატებთ Custom.Theme module-ის import path-ს
 // და QML override interceptor-ს (F2/F3 view override-ებისთვის).
 QQmlApplicationEngine* CustomPlugin::createQmlApplicationEngine(QObject* parent)
@@ -213,6 +226,19 @@ void CustomPlugin::_installDefaultMavlinkActions()
 {
     static const QString kFlyViewFile = QStringLiteral("DroneHub-flyview-actions.json");
     static const QString kJoystickFile = QStringLiteral("DroneHub-joystick-actions.json");
+    constexpr int kBundledMavlinkActionsVersion = 2;
+
+    const auto readBundleVersion = [](const QString& filePath) -> int {
+        QFile file(filePath);
+        if (!file.open(QIODevice::ReadOnly)) {
+            return 0;
+        }
+        const QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
+        if (!doc.isObject()) {
+            return 0;
+        }
+        return doc.object().value(QStringLiteral("bundleVersion")).toInt(0);
+    };
 
     SettingsManager* settingsManager = SettingsManager::instance();
     if (!settingsManager || !settingsManager->appSettings() || !settingsManager->mavlinkActionsSettings()) {
@@ -233,13 +259,22 @@ void CustomPlugin::_installDefaultMavlinkActions()
 
     const auto installBundled = [&](const QString& fileName) {
         const QString destPath = QDir(destDir).filePath(fileName);
-        if (QFile::exists(destPath)) {
-            return;
-        }
         const QString resourcePath = QStringLiteral(":/custom/mavlink-actions/") + fileName;
         if (!QFile::exists(resourcePath)) {
             qCWarning(CustomPluginLog) << "MAVLink actions: bundled resource missing:" << resourcePath;
             return;
+        }
+        if (QFile::exists(destPath)) {
+            const int destVer = readBundleVersion(destPath);
+            if (destVer >= kBundledMavlinkActionsVersion) {
+                return;
+            }
+            if (!QFile::remove(destPath)) {
+                qCWarning(CustomPluginLog) << "MAVLink actions: failed to replace outdated file:" << destPath;
+                return;
+            }
+            qCDebug(CustomPluginLog) << "MAVLink actions: upgrading" << destPath
+                                     << "from bundleVersion" << destVer << "to" << kBundledMavlinkActionsVersion;
         }
         if (!QFile::copy(resourcePath, destPath)) {
             qCWarning(CustomPluginLog) << "MAVLink actions: failed to copy" << resourcePath << "to" << destPath;

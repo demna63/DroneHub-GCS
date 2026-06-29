@@ -7,18 +7,24 @@ QGC="$ROOT/qgroundcontrol"
 OPEN_APP=false
 WITH_VIDEO=false
 RECONFIGURE=false
+STABILITY_ONLY=false
 
 for arg in "$@"; do
   case "$arg" in
     --open) OPEN_APP=true ;;
     --with-video) WITH_VIDEO=true; RECONFIGURE=true ;;
     --reconfigure) RECONFIGURE=true ;;
+    --check-stability) STABILITY_ONLY=true ;;
   esac
 done
 
 if [[ ! -d "$QGC" ]]; then
   echo "error: $QGC missing — run $ROOT/bootstrap.sh first" >&2
   exit 1
+fi
+
+if $STABILITY_ONLY; then
+  exec "$ROOT/tools/check-dronehub-stability.sh"
 fi
 
 QT_PREFIX="${QT_PREFIX:-$HOME/Qt/6.8.3/macos}"
@@ -54,6 +60,7 @@ if $RECONFIGURE || [[ ! -f "$QGC/build/CMakeCache.txt" ]]; then
 fi
 
 echo "==> Rebuilding DroneHubGCS (Release)"
+"$ROOT/tools/check-dronehub-stability.sh"
 cd "$QGC"
 cmake --build build --config Release --target DroneHubGCS
 

@@ -1,64 +1,34 @@
 {
     "version": 1,
     "fileType": "MavlinkActions",
+    "bundleVersion": 2,
     "actions": [
         {
             "label": "ფოტო",
-            "description": "ერთი ფოტოს გადაღება",
+            "description": "ტვირთი · ერთი ფოტოს გადაღება",
             "mavCmd": 2000,
             "param2": 1
         },
         {
-            "label": "ვიდეო დაწყება",
-            "description": "ვიდეო ჩაწერის დაწყება",
+            "label": "ვიდეო — დაწყება",
+            "description": "ტვირთი · ვიდეო ჩაწერის დაწყება",
             "mavCmd": 2500
         },
         {
-            "label": "ვიდეო გაჩერება",
-            "description": "ვიდეო ჩაწერის გაჩერება",
+            "label": "ვიდეო — გაჩერება",
+            "description": "ტვირთი · ვიდეო ჩაწერის გაჩერება",
             "mavCmd": 2501
         },
         {
-            "label": "კამერა ტრიგერი",
-            "description": "კამერის ტრიგერი",
+            "label": "კამერა — ტრიგერი",
+            "description": "ტვირთი · კამერის ტრიგერი",
             "mavCmd": 203,
             "param1": 1
         },
         {
-            "label": "გიმბალი ცენტრი",
-            "description": "გიმბალის ნეიტრალური პოზიცია",
+            "label": "გიმბალი — ცენტრი",
+            "description": "ტვირთი · გიმბალის ნეიტრალური პოზიცია",
             "mavCmd": 205
-        },
-        {
-            "label": "გრიპერი დაჭერა",
-            "description": "გრიპერის დაჭერა",
-            "mavCmd": 211,
-            "param1": 1
-        },
-        {
-            "label": "გრიპერი გაშვება",
-            "description": "გრიპერის გაშვება",
-            "mavCmd": 211,
-            "param1": 0
-        },
-        {
-            "label": "რელე ჩართვა",
-            "description": "რელე 1 ჩართვა (განათება/payload)",
-            "mavCmd": 181,
-            "param1": 0,
-            "param2": 1
-        },
-        {
-            "label": "რელე გამორთვა",
-            "description": "რელე 1 გამორთვა",
-            "mavCmd": 181,
-            "param1": 0,
-            "param2": 0
-        },
-        {
-            "label": "RTL",
-            "description": "დაბრუნება home პოზიციაზე",
-            "mavCmd": 20
         }
     ]
 }

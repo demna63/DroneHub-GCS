@@ -34,14 +34,13 @@ Rectangle {
     
     QGCPalette { id: qgcPal }
 
-    /// Bottom single pixel divider
+    /// Bottom divider (matches Fly View toolbar).
     Rectangle {
         anchors.left:   parent.left
         anchors.right:  parent.right
         anchors.bottom: parent.bottom
         height:         1
-        color:          "black"
-        visible:        qgcPal.globalTheme === QGCPalette.Light
+        color:          Theme.divider
     }
 
     RowLayout {
@@ -53,12 +52,14 @@ Rectangle {
 
         QGCLabel {
             font.pointSize: ScreenTools.largeFontPointSize
-            text:           "<"
+            text:           "‹"
+            color:          Theme.brandPrimary
         }
 
         QGCLabel {
             text:           qsTr("Exit Plan")
             font.pointSize: ScreenTools.largeFontPointSize
+            color:          Theme.textPrimary
         }
     }
 

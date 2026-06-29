@@ -41,10 +41,12 @@ fi
 
 for patch in "${patches[@]}"; do
   name="$(basename "$patch")"
-  if patch -p1 --dry-run -d "$QGC_DIR" -i "$patch" >/dev/null 2>&1; then
-    patch -p1 -d "$QGC_DIR" -i "$patch"
+  if patch -p1 --forward --dry-run -d "$QGC_DIR" -i "$patch" >/dev/null 2>&1; then
+    patch -p1 --forward -d "$QGC_DIR" -i "$patch"
     echo "Applied $name"
+  elif patch -p1 --reverse --dry-run -d "$QGC_DIR" -i "$patch" >/dev/null 2>&1; then
+    echo "Skipped $name (already applied)"
   else
-    echo "Skipped $name (already applied or not applicable)"
+    echo "Skipped $name (not applicable)"
   fi
 done

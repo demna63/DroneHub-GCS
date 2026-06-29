@@ -43,6 +43,9 @@ public:
                                             QGCPalette::PaletteColorInfo_t& colorInfo)       final;
     QQmlApplicationEngine*  createQmlApplicationEngine(QObject* parent)                      final;
 
+    /// WMM declination (degrees, east positive) — PX4 world_magnetic_model lookup, same as FC geo_lookup.
+    Q_INVOKABLE double magneticDeclination(double latitude, double longitude) const;
+
 private:
     /// არეგისტრირებს bundled ქართულ ფონტს და pin-ავს default locale-ს ka-ზე.
     void _applyGeorgianLocaleAndFont();

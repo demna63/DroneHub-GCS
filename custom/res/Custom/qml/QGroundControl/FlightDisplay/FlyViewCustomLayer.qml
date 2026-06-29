@@ -12,6 +12,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import Qt.labs.settings 1.0
 
 import QGroundControl
 import QGroundControl.Controls
@@ -24,6 +25,12 @@ Item {
     property var parentToolInsets
     property var totalToolInsets:   _toolInsets
     property var mapControl
+
+    Settings {
+        id: _flyViewPrefs
+        category: "DroneHub/FlyView"
+        property bool flyHudExpanded: false
+    }
 
     // Inline tokens — FlyViewCustomLayer compiles into FlightDisplayModule (qmlcache);
     // must not import Custom module (loads before engine import paths are ready).
@@ -72,7 +79,7 @@ Item {
                                         ? globals.planMasterControllerFlyView.missionController
                                         : null
     property bool _hasVehicle:      _activeVehicle !== null
-    property bool _hudExpanded:     false
+    property bool _hudExpanded:     _flyViewPrefs.flyHudExpanded
     property real _margin:          ScreenTools.defaultFontPixelHeight
     property real _bottomSafe:      _margin + (Qt.platform.os === "osx" ? _margin * 0.75 : 0)
     property real _topChromeInset:  parentToolInsets
@@ -119,38 +126,46 @@ Item {
         return isNaN(deg) ? _t.emptyValue : (deg + "°")
     }
 
-    function _magneticHeadingDeg() {
+    /// MAVLink attitude yaw — true heading (NED / geographic north), not magnetic.
+    function _trueHeadingDeg() {
         return _headingRounded(_activeVehicle ? _activeVehicle.heading : null)
     }
 
-    function _magneticDeclinationDeg(lat, lon) {
-        var φ = lat * Math.PI / 180
-        var λ = lon * Math.PI / 180
-        // WMM2020-era approximation for HUD declination (display only, ±~1.5°).
-        return 5.6 * Math.sin(φ)
-                + 0.94 * Math.sin(2 * φ) * Math.cos(λ)
-                - 0.03 * Math.cos(φ) * Math.sin(λ)
-                + 0.18 * Math.cos(φ) * Math.cos(λ)
-                + 0.06 * Math.sin(φ) * Math.sin(λ)
-                + 0.002 * lat * Math.sin(λ)
-    }
-
-    function _trueHeadingDeg() {
+    /// WMM declination via CustomPlugin (PX4 world_magnetic_model — same tables as FC geo_lookup).
+    function _declinationDeg() {
         if (!_activeVehicle) {
             return NaN
         }
-        var gs = _activeVehicle.groundSpeed.rawValue
-        var cog = _activeVehicle.gps.courseOverGround
-        if (!isNaN(gs) && gs >= 0.5 && cog && !isNaN(cog.rawValue)) {
-            return Math.round(_normalizeHeading(cog.rawValue))
-        }
-        var mag = _magneticHeadingDeg()
         var lat = _activeVehicle.gps.lat.rawValue
         var lon = _activeVehicle.gps.lon.rawValue
-        if (isNaN(mag) || isNaN(lat) || isNaN(lon)) {
+        if (isNaN(lat) || isNaN(lon)) {
             return NaN
         }
-        return Math.round(_normalizeHeading(mag + _magneticDeclinationDeg(lat, lon)))
+        var dec = QGroundControl.corePlugin.magneticDeclination(lat, lon)
+        return (dec === undefined || isNaN(dec)) ? NaN : dec
+    }
+
+    /// Magnetic heading = true heading − declination (east-positive WMM convention).
+    function _magneticHeadingDeg() {
+        var trueH = _trueHeadingDeg()
+        var dec = _declinationDeg()
+        if (isNaN(trueH)) {
+            return NaN
+        }
+        if (isNaN(dec)) {
+            return trueH
+        }
+        return Math.round(_normalizeHeading(trueH - dec))
+    }
+
+    function _magneticHeadingLabel() {
+        var deg = _magneticHeadingDeg()
+        return isNaN(deg) ? _t.emptyValue : (deg + "°")
+    }
+
+    function _trueHeadingLabel() {
+        var deg = _trueHeadingDeg()
+        return isNaN(deg) ? _t.emptyValue : (deg + "°")
     }
 
     function _mgrsText() {
@@ -489,7 +504,7 @@ Item {
             hoverEnabled:       togglesExpand
             cursorShape:        togglesExpand ? Qt.PointingHandCursor : Qt.ArrowCursor
             preventStealing:    true
-            onClicked:          _root._hudExpanded = !_root._hudExpanded
+            onClicked:          _flyViewPrefs.flyHudExpanded = !_flyViewPrefs.flyHudExpanded
         }
     }
 
@@ -678,6 +693,14 @@ Item {
                 target: _activeVehicle ? _activeVehicle.heading : null
                 function onRawValueChanged() { arrowCanvas.requestPaint() }
             }
+            Connections {
+                target: _activeVehicle ? _activeVehicle.gps.lat : null
+                function onRawValueChanged() { arrowCanvas.requestPaint() }
+            }
+            Connections {
+                target: _activeVehicle ? _activeVehicle.gps.lon : null
+                function onRawValueChanged() { arrowCanvas.requestPaint() }
+            }
 
             Component.onCompleted: requestPaint()
         }
@@ -690,8 +713,7 @@ Item {
 
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text:               qsTr("Mag") + " " + _root._headingLabel(
-                                          _activeVehicle ? _activeVehicle.heading : null)
+                text:               qsTr("Mag") + " " + _root._magneticHeadingLabel()
                 color:              _t.textPrimary
                 font.bold:          true
                 font.pixelSize:     _t.fontCaption
@@ -701,9 +723,7 @@ Item {
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text:               qsTr("True") + " " + (isNaN(_root._trueHeadingDeg())
-                                          ? _t.emptyValue
-                                          : (_root._trueHeadingDeg() + "°"))
+                text:               qsTr("True") + " " + _root._trueHeadingLabel()
                 color:              _t.telemetryAccent
                 font.bold:          true
                 font.pixelSize:     _t.fontCaption
@@ -719,7 +739,7 @@ Item {
         anchors.fill:   parent
         visible:        _hudExpanded && osRoot.visible
         z:              QGroundControl.zOrderWidgets + 1
-        onClicked:      _hudExpanded = false
+        onClicked:      _flyViewPrefs.flyHudExpanded = false
     }
 
     // ---- Central HUD panel (screenshot reference layout) ----

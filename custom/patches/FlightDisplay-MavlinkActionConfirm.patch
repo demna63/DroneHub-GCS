@@ -1,0 +1,10 @@
+--- a/src/FlightDisplay/CMakeLists.txt
++++ b/src/FlightDisplay/CMakeLists.txt
+@@ -33,6 +33,7 @@ qt_add_qml_module(FlightDisplayModule
+         FlyViewWidgetLayer.qml
+         GripperMenu.qml
+         GuidedActionConfirm.qml
++        MavlinkActionConfirm.qml
+         GuidedActionGripper.qml
+         GuidedActionLand.qml
+         GuidedActionPause.qml

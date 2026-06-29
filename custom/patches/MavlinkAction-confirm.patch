@@ -1,0 +1,138 @@
+diff --git a/src/Joystick/Joystick.cc b/src/Joystick/Joystick.cc
+index 23a35c1..877cb69 100644
+--- a/src/Joystick/Joystick.cc
++++ b/src/Joystick/Joystick.cc
+@@ -16,6 +16,7 @@
+ #include "GimbalController.h"
+ #include "MultiVehicleManager.h"
+ #include "QGCCorePlugin.h"
++#include "QGCApplication.h"
+ #include "QGCLoggingCategory.h"
+ #include "QmlObjectListModel.h"
+ #include "SettingsManager.h"
+@@ -1123,6 +1124,12 @@ void Joystick::_executeButtonAction(const QString &action, bool buttonDown)
+             for (int i = 0; i<_mavlinkActionManager->actions()->count(); i++) {
+                 MavlinkAction *const mavlinkAction = _mavlinkActionManager->actions()->value<MavlinkAction*>(i);
+                 if (action == mavlinkAction->label()) {
++                    if (mavlinkAction->requiresConfirm()) {
++                        qgcApp()->showAppMessage(tr(
++                            "Action \"%1\" requires slide confirmation. Use Fly View → Actions."
++                        ).arg(mavlinkAction->label()));
++                        return;
++                    }
+                     mavlinkAction->sendTo(_activeVehicle);
+                     return;
+                 }
+diff --git a/src/QmlControls/MavlinkAction.cc b/src/QmlControls/MavlinkAction.cc
+index 8d19dfa..a8f4f33 100644
+--- a/src/QmlControls/MavlinkAction.cc
++++ b/src/QmlControls/MavlinkAction.cc
+@@ -31,6 +31,7 @@ MavlinkAction::MavlinkAction(
+     float param5,
+     float param6,
+     float param7,
++    bool requiresConfirm,
+     QObject *parent
+ ) : QObject(parent)
+     , _label(label)
+@@ -38,6 +39,7 @@ MavlinkAction::MavlinkAction(
+     , _mavCmd(mavCmd)
+     , _compId(compId)
+     , _params{ param1, param2, param3, param4, param5, param6, param7 }
++    , _requiresConfirm(requiresConfirm)
+ {
+     // qCDebug(MavlinkActionLog) << Q_FUNC_INFO << this;
+ };
+diff --git a/src/QmlControls/MavlinkAction.h b/src/QmlControls/MavlinkAction.h
+index 3579744..f2295a8 100644
+--- a/src/QmlControls/MavlinkAction.h
++++ b/src/QmlControls/MavlinkAction.h
+@@ -26,6 +26,8 @@ class MavlinkAction: public QObject
+     Q_MOC_INCLUDE("Vehicle.h")
+     Q_PROPERTY(QString label READ label CONSTANT)
+     Q_PROPERTY(QString description READ description CONSTANT)
++    Q_PROPERTY(int mavCmd READ mavCmdInt CONSTANT)
++    Q_PROPERTY(bool requiresConfirm READ requiresConfirm CONSTANT)
+ 
+ public:
+     explicit MavlinkAction(QObject *parent = nullptr);
+@@ -41,6 +43,7 @@ class MavlinkAction: public QObject
+         float param5,
+         float param6,
+         float param7,
++        bool requiresConfirm,
+         QObject *parent = nullptr
+     );
+     ~MavlinkAction();
+@@ -49,6 +52,8 @@ class MavlinkAction: public QObject
+ 
+     const QString &label() const { return _label; }
+     const QString &description() const { return _description; }
++    int mavCmdInt() const { return static_cast<int>(_mavCmd); }
++    bool requiresConfirm() const { return _requiresConfirm; }
+ 
+ private:
+     const QString _label;
+@@ -56,4 +61,5 @@ class MavlinkAction: public QObject
+     const MAV_CMD _mavCmd = MAV_CMD_ENUM_END;
+     const MAV_COMPONENT _compId = MAV_COMPONENT_ENUM_END;
+     const float _params[7]{};
++    const bool _requiresConfirm = false;
+ };
+diff --git a/src/QmlControls/MavlinkActionManager.cc b/src/QmlControls/MavlinkActionManager.cc
+index 082e0dc..848ece0 100644
+--- a/src/QmlControls/MavlinkActionManager.cc
++++ b/src/QmlControls/MavlinkActionManager.cc
+@@ -23,6 +23,30 @@
+ 
+ QGC_LOGGING_CATEGORY(MavlinkActionManagerLog, "qgc.qmlcontrols.mavlinkactionmanager")
+ 
++namespace {
++
++bool defaultRequiresConfirm(MAV_CMD mavCmd, float param1, float, float, float, float, float, float)
++{
++    switch (mavCmd) {
++    case MAV_CMD_IMAGE_START_CAPTURE:
++    case MAV_CMD_IMAGE_STOP_CAPTURE:
++    case MAV_CMD_VIDEO_START_CAPTURE:
++    case MAV_CMD_VIDEO_STOP_CAPTURE:
++    case MAV_CMD_DO_DIGICAM_CONTROL:
++    case MAV_CMD_DO_MOUNT_CONTROL:
++    case MAV_CMD_LOGGING_START:
++    case MAV_CMD_LOGGING_STOP:
++    case MAV_CMD_DO_CHANGE_SPEED:
++        return false;
++    case MAV_CMD_DO_FENCE_ENABLE:
++        return param1 < 0.5;
++    default:
++        return true;
++    }
++}
++
++} // namespace
++
+ MavlinkActionManager::MavlinkActionManager(QObject *parent)
+     : QObject(parent)
+     , _actions(new QmlObjectListModel(this))
+@@ -112,6 +136,7 @@ void MavlinkActionManager::_loadActionsFile()
+             { "param5",         QJsonValue::Double, /* required= */ false },
+             { "param6",         QJsonValue::Double, /* required= */ false },
+             { "param7",         QJsonValue::Double, /* required= */ false },
++            { "requiresConfirm", QJsonValue::Bool,  /* required= */ false },
+         };
+ 
+         const auto actionObj = actionJson.toObject();
+@@ -133,7 +158,12 @@ void MavlinkActionManager::_loadActionsFile()
+         const auto param6 = actionObj["param6"].toDouble(0.0);
+         const auto param7 = actionObj["param7"].toDouble(0.0);
+ 
+-        MavlinkAction *const action = new MavlinkAction(label, description, mavCmd, compId, param1, param2, param3, param4, param5, param6, param7, this);
++        bool requiresConfirm = defaultRequiresConfirm(mavCmd, param1, param2, param3, param4, param5, param6, param7);
++        if (actionObj.contains(QStringLiteral("requiresConfirm"))) {
++            requiresConfirm = actionObj[QStringLiteral("requiresConfirm")].toBool();
++        }
++
++        MavlinkAction *const action = new MavlinkAction(label, description, mavCmd, compId, param1, param2, param3, param4, param5, param6, param7, requiresConfirm, this);
+         QQmlEngine::setObjectOwnership(action, QQmlEngine::CppOwnership);
+         (void) _actions->append(action);
+     }
