@@ -1,7 +1,13 @@
 <RCC>
+    <qresource prefix="/custom/mavlink-actions">
+        <file alias="DroneHub-flyview-actions.json">res/mavlink-actions/DroneHub-flyview-actions.json</file>
+        <file alias="DroneHub-joystick-actions.json">res/mavlink-actions/DroneHub-joystick-actions.json</file>
+    </qresource>
+
     <qresource prefix="/custom/img">
         <file alias="DroneHubLogo.svg">res/DroneHubLogo.svg</file>
         <file alias="logo.png">res/logo.png</file>
+        <file alias="dhg-logo.png">res/dhg-logo.png</file>
         <file alias="dggcs-logo-original.png">res/dggcs-logo-original.png</file>
     </qresource>
 
@@ -20,9 +26,13 @@
          qrc:/qml/<path>  →  qrc:/Custom/qml/<path> (თუ აქ არსებობს). -->
     <qresource prefix="/Custom/qml">
         <file alias="QGroundControl/FlightDisplay/FlyViewCustomLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml</file>
+        <file alias="QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml</file>
+        <file alias="QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml</file>
         <file alias="QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml</file>
         <file alias="QGroundControl/FlightDisplay/GuidedActionConfirm.qml">res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml</file>
         <file alias="QGroundControl/Controls/FlyViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml</file>
+        <file alias="QGroundControl/Controls/FlyViewToolBarIndicators.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBarIndicators.qml</file>
+        <file alias="QGroundControl/Toolbar/RCRSSIIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/RCRSSIIndicator.qml</file>
         <file alias="QGroundControl/Controls/QGCPopupDialog.qml">res/Custom/qml/QGroundControl/Controls/QGCPopupDialog.qml</file>
         <file alias="QGroundControl/Controls/DropPanel.qml">res/Custom/qml/QGroundControl/Controls/DropPanel.qml</file>
         <file alias="QGroundControl/Controls/SettingsGroupLayout.qml">res/Custom/qml/QGroundControl/Controls/SettingsGroupLayout.qml</file>

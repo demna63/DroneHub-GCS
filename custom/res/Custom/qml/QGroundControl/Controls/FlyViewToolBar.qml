@@ -50,13 +50,27 @@ Rectangle {
         Item {
             id:                     currentButton
             Layout.preferredHeight: viewButtonRow.height
-            Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 12
+            Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 12.5
+            clip:                   true
 
             Image {
+                id:                 toolbarLogo
                 source:             Theme.logoSource
-                height:             currentButton.height * 0.72
-                fillMode:           Image.PreserveAspectFit
                 anchors.centerIn:   parent
+                width:              parent.width
+                height:             parent.height
+                fillMode:           Image.PreserveAspectFit
+                scale:              Theme.toolbarLogoVisualScale
+                transformOrigin:    Item.Center
+                mipmap:             true
+                smooth:             true
+            }
+
+            MouseArea {
+                anchors.fill:       parent
+                cursorShape:        Qt.PointingHandCursor
+                hoverEnabled:       true
+                onClicked:          Theme.flyToolStripExpanded = !Theme.flyToolStripExpanded
             }
         }
 
@@ -91,11 +105,34 @@ Rectangle {
         anchors.bottomMargin:   1
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
-        anchors.right:          parent.right
+        anchors.right:          cameraToggleButton.left
         contentWidth:           toolIndicators.width
         flickableDirection:     Flickable.HorizontalFlick
 
         FlyViewToolBarIndicators { id: toolIndicators }
+    }
+
+    Item {
+        id:                     cameraToggleButton
+        anchors.top:            parent.top
+        anchors.bottom:         parent.bottom
+        anchors.right:          parent.right
+        anchors.bottomMargin:   1
+        width:                  ScreenTools.defaultFontPixelWidth * 5.5
+
+        Image {
+            source:             "/qmlimages/camera_video.svg"
+            anchors.fill:       parent
+            anchors.margins:    Math.max(4, cameraToggleButton.height * 0.18)
+            fillMode:           Image.PreserveAspectFit
+        }
+
+        MouseArea {
+            anchors.fill:       parent
+            cursorShape:        Qt.PointingHandCursor
+            hoverEnabled:       true
+            onClicked:          Theme.flyCameraPanelExpanded = !Theme.flyCameraPanelExpanded
+        }
     }
 
     Rectangle {

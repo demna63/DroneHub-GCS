@@ -68,18 +68,46 @@ set(CUSTOM_INCLUDE_DIRECTORIES
 
 # Qt 6 qt_add_qml_module precompiles src/FlightDisplay/FlyViewCustomLayer.qml via qmlcache.
 # CustomOverrideInterceptor does not replace module types — copy our layer before each build.
+set(DRONEHUB_FLYVIEW_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyView.qml")
+set(DRONEHUB_FLYVIEW_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyView.qml")
 set(DRONEHUB_FLYVIEW_LAYER_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml")
 set(DRONEHUB_FLYVIEW_LAYER_DST
     "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewCustomLayer.qml")
+set(DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml")
+set(DRONEHUB_FLYVIEW_WIDGET_LAYER_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewWidgetLayer.qml")
+set(DRONEHUB_VIDEO_VIEW_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml")
+set(DRONEHUB_VIDEO_VIEW_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlightDisplayViewVideo.qml")
 set(DRONEHUB_FLYVIEW_TOOLBAR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml")
 set(DRONEHUB_FLYVIEW_TOOLBAR_DST
     "${CMAKE_SOURCE_DIR}/src/QmlControls/FlyViewToolBar.qml")
+set(DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/FlyViewToolBarIndicators.qml")
+set(DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/FlyViewToolBarIndicators.qml")
+set(DRONEHUB_RC_RSSI_INDICATOR_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Toolbar/RCRSSIIndicator.qml")
+set(DRONEHUB_RC_RSSI_INDICATOR_DST
+    "${CMAKE_SOURCE_DIR}/src/UI/toolbar/RCRSSIIndicator.qml")
 set(DRONEHUB_TOOLSTRIP_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml")
 set(DRONEHUB_TOOLSTRIP_DST
     "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewToolStripActionList.qml")
+set(DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewAdditionalActionsButton.qml")
+set(DRONEHUB_ADDITIONAL_ACTIONS_BTN_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewAdditionalActionsButton.qml")
+set(DRONEHUB_GUIDED_GRIPPER_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionGripper.qml")
+set(DRONEHUB_GUIDED_GRIPPER_DST
+    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/GuidedActionGripper.qml")
 set(DRONEHUB_GUIDED_CONFIRM_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml")
 set(DRONEHUB_GUIDED_CONFIRM_DST
@@ -139,11 +167,25 @@ set(DRONEHUB_MAIN_WINDOW_DST
 
 add_custom_target(DroneHubSyncFlyViewLayer ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_FLYVIEW_SRC}" "${DRONEHUB_FLYVIEW_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_LAYER_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC}" "${DRONEHUB_FLYVIEW_WIDGET_LAYER_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_VIDEO_VIEW_SRC}" "${DRONEHUB_VIDEO_VIEW_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_RC_RSSI_INDICATOR_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_TOOLSTRIP_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_GUIDED_GRIPPER_SRC}" "${DRONEHUB_GUIDED_GRIPPER_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_GUIDED_CONFIRM_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -172,8 +214,10 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
             "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_MAIN_WINDOW_SRC}" "${DRONEHUB_MAIN_WINDOW_DST}"
-    DEPENDS "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
-            "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_GUIDED_CONFIRM_SRC}"
+    DEPENDS "${DRONEHUB_FLYVIEW_SRC}" "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC}" "${DRONEHUB_VIDEO_VIEW_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
+            "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_SRC}"
+            "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}" "${DRONEHUB_GUIDED_GRIPPER_SRC}"
+            "${DRONEHUB_GUIDED_CONFIRM_SRC}"
             "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_TOOLSTRIP_PANEL_SRC}"
             "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}" "${DRONEHUB_GPS_INDICATOR_SRC}"
             "${DRONEHUB_BATTERY_INDICATOR_SRC}" "${DRONEHUB_POPUP_DIALOG_SRC}"
@@ -189,6 +233,9 @@ if(TARGET FlightDisplayModule)
 endif()
 if(TARGET QGroundControlControlsModule)
     add_dependencies(QGroundControlControlsModule DroneHubSyncFlyViewLayer)
+endif()
+if(TARGET ToolbarModule)
+    add_dependencies(ToolbarModule DroneHubSyncFlyViewLayer)
 endif()
 if(TARGET MainWindowModule)
     add_dependencies(MainWindowModule DroneHubSyncFlyViewLayer)
@@ -209,8 +256,10 @@ if(APPLE)
     endif()
 endif()
 set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
-    "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_SLIDER_SWITCH_SRC}"
+    "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC}" "${DRONEHUB_VIDEO_VIEW_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
+    "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_SRC}"
+    "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}" "${DRONEHUB_GUIDED_GRIPPER_SRC}"
+    "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_SLIDER_SWITCH_SRC}"
     "${DRONEHUB_TOOLSTRIP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}"
     "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_SRC}"
     "${DRONEHUB_POPUP_DIALOG_SRC}" "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_SETTINGS_GROUP_SRC}"

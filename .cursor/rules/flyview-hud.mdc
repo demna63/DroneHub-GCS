@@ -1,0 +1,24 @@
+---
+description: Fly View HUD compact layout — validated Georgian label spacing
+globs: custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml
+alwaysApply: false
+---
+
+# Fly View HUD compact row
+
+Canonical sizing lives in `custom/res/Custom/Theme.qml` (`hudMetric*` / `hudExpandedMaxWidthEm`). **FlyViewCustomLayer.qml** duplicates these in inline `_t` (qmlcache cannot import Custom) — keep both in sync. Do not shrink without re-testing Georgian labels.
+
+| Token | Value | Use |
+|-------|-------|-----|
+| `hudMetricCellWidthEm` | 12.5 | min width per metric column |
+| `hudMetricColumnGapUnits` | 1.5 | GridLayout columnSpacing |
+| `hudCompactWidthPadUnits` | 2.0 | horizontal pad in compact width |
+| `hudExpandedMaxWidthEm` | 58 | expanded panel max width |
+| `hudMetricLabelMaxLines` | 2 | label wrap for long ka strings |
+| `fontCaption` | 13px | compact metric labels |
+
+Compact row: 4 equal columns (`Layout.fillWidth` + `minimumWidth`). Tap any primary metric toggles expand — no separate expand button.
+
+Toolbar logo (`FlyViewToolBar.qml`): no color overlay on collapse; logo appearance must stay constant when toggling `flyToolStripExpanded`.
+
+HUD horizontal position: **screen center only** (`anchors.horizontalCenter: parent.horizontalCenter`, no inset-based offset). Side panels must not shift the HUD.

@@ -64,7 +64,7 @@ ToolStripActionList {
         },
         ToolStripAction {
             text:           qsTr("Settings")
-            iconSource:     "/res/CogWheels.png"
+            iconSource:     "/qmlimages/CogWheel.svg"
             onTriggered:    mainWindow.showSettingsTool()
         }
     ]

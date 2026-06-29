@@ -6740,25 +6740,25 @@ Click Ok to start the auto-tuning process.
       <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml" line="43"/>
       <location filename="../src/FlightDisplay/FlyViewToolStripActionList.qml" line="43"/>
       <source>Plan</source>
-      <translation type="unfinished">Plan</translation>
+      <translation>გეგმა</translation>
     </message>
     <message>
       <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml" line="55"/>
       <location filename="../src/FlightDisplay/FlyViewToolStripActionList.qml" line="55"/>
       <source>Setup</source>
-      <translation type="unfinished">Setup</translation>
+      <translation>კონფიგურაცია</translation>
     </message>
     <message>
       <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml" line="61"/>
       <location filename="../src/FlightDisplay/FlyViewToolStripActionList.qml" line="61"/>
       <source>Analyze</source>
-      <translation type="unfinished">Analyze</translation>
+      <translation>ანალიზი</translation>
     </message>
     <message>
       <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml" line="67"/>
       <location filename="../src/FlightDisplay/FlyViewToolStripActionList.qml" line="67"/>
       <source>Settings</source>
-      <translation type="unfinished">Settings</translation>
+      <translation>პარამეტრები</translation>
     </message>
   </context>
   <context>
@@ -17874,6 +17874,66 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
       <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
       <source>Collapse</source>
       <translation type="unfinished">Collapse</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>MGRS</source>
+      <translation>MGRS</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Lat</source>
+      <translation>განედი</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Lon</source>
+      <translation>გრძედი</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>HDOP</source>
+      <translation>HDOP</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Voltage</source>
+      <translation>ძაბვა</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Time Remaining</source>
+      <translation>დარჩენილი დრო</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Mag</source>
+      <translation>მაგნ.</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>True</source>
+      <translation>ჭეშმ.</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>WP Distance</source>
+      <translation>შემდ. WP მანძ.</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>WP Heading</source>
+      <translation>შემდ. WP აზიმ.</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Flight &amp; Navigation</source>
+      <translation>ფრენა და ნავიგაცია</translation>
+    </message>
+    <message>
+      <location filename="../custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml"/>
+      <source>Power &amp; Environment</source>
+      <translation>ენერგია და გარემო</translation>
     </message>
   </context>
 </TS>

@@ -1,5 +1,5 @@
 /****************************************************************************
- * DroneHub GCS — tool strip button (readable Georgian labels).
+ * DroneHub GCS — tool strip button (square icon-first; label in tooltip).
  ****************************************************************************/
 
 import QtQuick
@@ -8,33 +8,48 @@ import QtQuick.Controls
 import QGroundControl.ScreenTools
 import QGroundControl.Palette
 
+import Custom
+
 Button {
     id:             control
-    width:          contentLayoutItem.contentWidth + (contentMargins * 2)
-    implicitHeight: contentLayoutItem.implicitHeight + (contentMargins * 2)
     hoverEnabled:   !ScreenTools.isMobile
     enabled:        toolStripAction.enabled
     visible:        toolStripAction.visible
-    imageSource:    toolStripAction.showAlternateIcon ? modelData.alternateIconSource : modelData.iconSource
+    opacity:        enabled ? 1.0 : 0.45
     text:           toolStripAction.text
     checked:        toolStripAction.checked
-    checkable:      toolStripAction.dropPanelComponent || modelData.checkable
+    checkable:      toolStripAction.dropPanelComponent || toolStripAction.checkable
 
     property var    toolStripAction:    undefined
     property var    dropPanel:          undefined
     property alias  radius:             buttonBkRect.radius
     property alias  fontPointSize:      innerText.font.pointSize
-    property alias  imageSource:        innerImage.source
-    property alias  contentWidth:       innerText.contentWidth
 
     property bool forceImageScale11: false
-    property real imageScale:        forceImageScale11 && (text == "") ? 0.8 : 0.55
-    property real contentMargins:    ScreenTools.defaultFontPixelHeight * 0.12
+    property string _resolvedIconSource: {
+        if (!toolStripAction) {
+            return ""
+        }
+        return toolStripAction.showAlternateIcon
+                ? toolStripAction.alternateIconSource
+                : toolStripAction.iconSource
+    }
+    property bool _hasIcon:            _resolvedIconSource !== ""
+    property bool _fullColorIcon:      toolStripAction ? toolStripAction.fullColorIcon : false
+    property bool _biColorIcon:        toolStripAction ? toolStripAction.biColorIcon : false
+    property real imageScale:          _hasIcon ? 0.58 : 0.72
+    property real contentMargins:      ScreenTools.defaultFontPixelHeight * 0.12
 
-    property color _currentContentColor:  (checked || pressed || hovered) ? "#FFFFFF" : "#D0D8E4"
-    property color _currentContentColorSecondary:  (checked || pressed || hovered) ? "#FFFFFF" : "#D0D8E4"
+    property color _currentContentColor: (checked || pressed || hovered)
+                                         ? Theme.textPrimary
+                                         : Theme.textSecondary
+    property color _currentContentColorSecondary: _currentContentColor
 
     signal dropped(int index)
+
+    ToolTip.visible: hovered && control.text !== ""
+    ToolTip.text: control.text
+    ToolTip.delay: 400
 
     onCheckedChanged: toolStripAction.checked = checked
 
@@ -61,79 +76,62 @@ Button {
         anchors.fill:       parent
         anchors.margins:    contentMargins
 
-        Column {
-            anchors.centerIn:   parent
-            width:              parent.width
-            spacing:            contentMargins
+        Image {
+            id:                         innerImageColorful
+            anchors.centerIn:           parent
+            height:                     parent.height * imageScale
+            width:                      height
+            smooth:                     true
+            mipmap:                     true
+            fillMode:                   Image.PreserveAspectFit
+            source:                     control._resolvedIconSource
+            visible:                    _hasIcon && _fullColorIcon
+        }
 
-            Image {
-                id:                         innerImageColorful
-                height:                     contentLayoutItem.height * imageScale
-                width:                      contentLayoutItem.width  * imageScale
-                smooth:                     true
-                mipmap:                     true
-                fillMode:                   Image.PreserveAspectFit
-                antialiasing:               true
-                sourceSize.height:          height
-                sourceSize.width:           width
-                anchors.horizontalCenter:   parent.horizontalCenter
-                source:                     control.imageSource
-                visible:                    source != "" && modelData.fullColorIcon
-            }
+        QGCColoredImage {
+            id:                         innerImage
+            anchors.centerIn:           parent
+            height:                     parent.height * imageScale
+            width:                      height
+            smooth:                     true
+            mipmap:                     true
+            color:                      control._currentContentColor
+            fillMode:                   Image.PreserveAspectFit
+            source:                     control._resolvedIconSource
+            visible:                    _hasIcon && !_fullColorIcon
 
             QGCColoredImage {
-                id:                         innerImage
-                height:                     contentLayoutItem.height * imageScale
-                width:                      contentLayoutItem.width  * imageScale
-                smooth:                     true
-                mipmap:                     true
-                color:                      _currentContentColor
-                fillMode:                   Image.PreserveAspectFit
-                antialiasing:               true
-                sourceSize.height:          height
-                sourceSize.width:           width
-                anchors.horizontalCenter:   parent.horizontalCenter
-                visible:                    source != "" && !modelData.fullColorIcon
-
-                QGCColoredImage {
-                    id:                         innerImageSecondColor
-                    source:                     modelData.alternateIconSource
-                    height:                     contentLayoutItem.height * imageScale
-                    width:                      contentLayoutItem.width  * imageScale
-                    smooth:                     true
-                    mipmap:                     true
-                    color:                      _currentContentColorSecondary
-                    fillMode:                   Image.PreserveAspectFit
-                    antialiasing:               true
-                    sourceSize.height:          height
-                    sourceSize.width:           width
-                    anchors.horizontalCenter:   parent.horizontalCenter
-                    visible:                    source != "" && modelData.biColorIcon
-                }
-            }
-
-            QGCLabel {
-                id:                         innerText
+                anchors.centerIn:           parent
+                height:                     parent.height
                 width:                      parent.width
-                text:                       control.text
-                color:                      _currentContentColor
-                anchors.horizontalCenter:   parent.horizontalCenter
-                horizontalAlignment:        Text.AlignHCenter
-                wrapMode:                   Text.Wrap
-                maximumLineCount:           2
-                elide:                      Text.ElideNone
-                font.pointSize:             control.fontPointSize
-                font.family:                "Noto Sans Georgian"
-                font.bold:                  !innerImage.visible && !innerImageColorful.visible
+                color:                      control._currentContentColorSecondary
+                fillMode:                   Image.PreserveAspectFit
+                source:                     toolStripAction ? toolStripAction.alternateIconSource : ""
+                visible:                    _biColorIcon
             }
+        }
+
+        QGCLabel {
+            id:                         innerText
+            anchors.centerIn:           parent
+            width:                      parent.width
+            text:                       control.text
+            color:                      control._currentContentColor
+            horizontalAlignment:        Text.AlignHCenter
+            wrapMode:                   Text.WordWrap
+            maximumLineCount:           2
+            font.pointSize:             control.fontPointSize
+            font.family:                Theme.fontFamily
+            font.bold:                  true
+            visible:                    !_hasIcon
         }
     }
 
     background: Rectangle {
         id:             buttonBkRect
-        color:          (control.checked || control.pressed) ?
-                            "#30FFFFFF" :
-                            ((control.enabled && control.hovered) ? "#15FFFFFF" : "#00000000")
+        radius:         Theme.radiusSm
+        color:          (control.checked || control.pressed) ? "#30FFFFFF"
+                            : ((control.enabled && control.hovered) ? "#15FFFFFF" : "transparent")
         border.width:   (control.checked || control.pressed) ? 1 : 0
         border.color:   "#40FFFFFF"
         anchors.fill:   parent

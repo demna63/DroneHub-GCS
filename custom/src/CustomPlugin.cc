@@ -6,9 +6,12 @@
 #include "AppSettings.h"
 #include "QGCMAVLink.h"
 #include "FactMetaData.h"
+#include "SettingsManager.h"
+#include "MavlinkActionsSettings.h"
 
-#include <QtCore/QApplicationStatic>
+#include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QApplicationStatic>
 #include <QtCore/QLocale>
 #include <QtGui/QFont>
 #include <QtGui/QFontDatabase>
@@ -37,6 +40,7 @@ QGCCorePlugin* CustomPlugin::instance()
 void CustomPlugin::init()
 {
     _applyGeorgianLocaleAndFont();
+    _installDefaultMavlinkActions();
 }
 
 void CustomPlugin::cleanup()
@@ -91,6 +95,17 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
             return false;
         } else if (metaData.name() == AppSettings::offlineEditingVehicleClassName) {
             metaData.setRawDefaultValue(QGCMAVLink::VehicleClassMultiRotor);
+            return false;
+        }
+    }
+
+    if (settingsGroup == MavlinkActionsSettings::settingsGroup) {
+        if (metaData.name() == MavlinkActionsSettings::flyViewActionsFileName) {
+            metaData.setRawDefaultValue(QStringLiteral("DroneHub-flyview-actions.json"));
+            return false;
+        }
+        if (metaData.name() == MavlinkActionsSettings::joystickActionsFileName) {
+            metaData.setRawDefaultValue(QStringLiteral("DroneHub-joystick-actions.json"));
             return false;
         }
     }
@@ -192,6 +207,56 @@ void CustomPlugin::_applyGeorgianLocaleAndFont()
 
     // UI locale → ქართული, host OS locale-ის მიუხედავად.
     QLocale::setDefault(QLocale(QLocale::Georgian, QLocale::Georgia));
+}
+
+void CustomPlugin::_installDefaultMavlinkActions()
+{
+    static const QString kFlyViewFile = QStringLiteral("DroneHub-flyview-actions.json");
+    static const QString kJoystickFile = QStringLiteral("DroneHub-joystick-actions.json");
+
+    SettingsManager* settingsManager = SettingsManager::instance();
+    if (!settingsManager || !settingsManager->appSettings() || !settingsManager->mavlinkActionsSettings()) {
+        qCWarning(CustomPluginLog) << "MAVLink actions: settings not ready — skipping install";
+        return;
+    }
+
+    AppSettings* appSettings = settingsManager->appSettings();
+    MavlinkActionsSettings* mavlinkSettings = settingsManager->mavlinkActionsSettings();
+
+    const QString destDir = appSettings->mavlinkActionsSavePath();
+    if (destDir.isEmpty()) {
+        qCWarning(CustomPluginLog) << "MAVLink actions: save path empty — skipping install";
+        return;
+    }
+
+    QDir().mkpath(destDir);
+
+    const auto installBundled = [&](const QString& fileName) {
+        const QString destPath = QDir(destDir).filePath(fileName);
+        if (QFile::exists(destPath)) {
+            return;
+        }
+        const QString resourcePath = QStringLiteral(":/custom/mavlink-actions/") + fileName;
+        if (!QFile::exists(resourcePath)) {
+            qCWarning(CustomPluginLog) << "MAVLink actions: bundled resource missing:" << resourcePath;
+            return;
+        }
+        if (!QFile::copy(resourcePath, destPath)) {
+            qCWarning(CustomPluginLog) << "MAVLink actions: failed to copy" << resourcePath << "to" << destPath;
+        } else {
+            qCDebug(CustomPluginLog) << "MAVLink actions: installed" << destPath;
+        }
+    };
+
+    installBundled(kFlyViewFile);
+    installBundled(kJoystickFile);
+
+    if (mavlinkSettings->flyViewActionsFile()->rawValue().toString().isEmpty()) {
+        mavlinkSettings->flyViewActionsFile()->setRawValue(kFlyViewFile);
+    }
+    if (mavlinkSettings->joystickActionsFile()->rawValue().toString().isEmpty()) {
+        mavlinkSettings->joystickActionsFile()->setRawValue(kJoystickFile);
+    }
 }
 
 /*===========================================================================*/

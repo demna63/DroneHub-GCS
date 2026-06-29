@@ -30,14 +30,12 @@ Item {
     readonly property QtObject _t: QtObject {
         readonly property color brandPrimary:       "#0A84FF"
         readonly property color telemetryAccent:    "#64D2FF"
-        readonly property color hudGlass:           "#4A000000"
-        readonly property color hudGlassStrong:     "#66000000"
-        readonly property color hudMetricPlate:     "#58151820"
-        readonly property color hudBorder:          "#00000000"
-        readonly property color instrumentGlass:    "#32000000"
-        readonly property color instrumentBorder:   "#44FFFFFF"
-        readonly property color hudControlActive:   "#880A84FF"
-        readonly property color hudControlBorder:   "#00000000"
+        readonly property color hudGlass:           "#28000000"
+        readonly property color hudGlassStrong:     "#44000000"
+        readonly property color hudMetricPlate:     "#48151820"
+        readonly property color hudBorder:          "#55FFFFFF"
+        readonly property color instrumentGlass:    "#18000000"
+        readonly property color instrumentBorder:   "#66FFFFFF"
         readonly property color textPrimary:        "#FFFFFF"
         readonly property color textSecondary:      "#D0D8E4"
         readonly property color textDisabled:       "#9AA6B8"
@@ -49,13 +47,20 @@ Item {
         readonly property real  radiusMd:           12
         readonly property real  radiusLg:           20
         readonly property real  spacingUnit:        8
-        readonly property real  instrumentSizeCompact:  92
-        readonly property real  instrumentSizeExpanded: 116
+        readonly property real  instrumentSizeCompact:  100
+        readonly property real  instrumentSizeExpanded: 128
+        // HUD compact row — mirror Custom/Theme.qml (qmlcache cannot import Custom).
+        readonly property real  hudMetricCellWidthEm:       12.5
+        readonly property real  hudMetricColumnGapUnits:     1.5
+        readonly property real  hudCompactWidthPadUnits:     2.0
+        readonly property real  hudExpandedMaxWidthEm:      58
+        readonly property int   hudMetricLabelMaxLines:      2
+        readonly property real  hudMetricLabelLineHeight:  1.05
         readonly property string fontFamily:        "Noto Sans Georgian"
         readonly property string fontFamilyNumeric: ScreenTools.normalFontFamily
         readonly property real  fontHero:           28
         readonly property real  fontBody:           18
-        readonly property real  fontCaption:        12
+        readonly property real  fontCaption:        13
         readonly property real  fontMicro:          11
         readonly property string emptyValue:        "—"
     }
@@ -63,11 +68,11 @@ Item {
     property var  _activeVehicle:   QGroundControl.multiVehicleManager.activeVehicle
     property var  _battery:         (_activeVehicle && _activeVehicle.batteries.count > 0)
                                         ? _activeVehicle.batteries.get(0) : null
+    property var  _missionController: globals.planMasterControllerFlyView
+                                        ? globals.planMasterControllerFlyView.missionController
+                                        : null
     property bool _hasVehicle:      _activeVehicle !== null
     property bool _hudExpanded:     false
-    property bool _cleanMapActive:  false
-    property string _storedMapProvider: ""
-    property string _storedMapType:     ""
     property real _margin:          ScreenTools.defaultFontPixelHeight
     property real _bottomSafe:      _margin + (Qt.platform.os === "osx" ? _margin * 0.75 : 0)
     property real _topChromeInset:  parentToolInsets
@@ -75,7 +80,12 @@ Item {
                                                    parentToolInsets.topEdgeCenterInset,
                                                    parentToolInsets.topEdgeRightInset)
                                         : _margin
+    property real _metricCellWidth: ScreenTools.defaultFontPixelWidth * _t.hudMetricCellWidthEm
+    property real _metricColumnGap: _t.spacingUnit * _t.hudMetricColumnGapUnits
     property real _instrumentSize:  _hudExpanded ? _t.instrumentSizeExpanded : _t.instrumentSizeCompact
+    property real _hudCompactWidth: Math.max(
+        _metricCellWidth * 4 + _metricColumnGap * 3 + _t.spacingUnit * _t.hudCompactWidthPadUnits,
+        _instrumentSize * 2 + _t.spacingUnit * 6 + 12)
 
     function _factValue(fact) {
         if (!fact || fact.rawValue === undefined) {
@@ -89,20 +99,150 @@ Item {
         return value === _t.emptyValue ? value : value + unit
     }
 
-    function getHeadingLetter(heading) {
-        if (heading === undefined || isNaN(heading)) {
-            return _t.emptyValue
+    function _normalizeHeading(deg) {
+        if (deg === undefined || isNaN(deg)) {
+            return NaN
         }
-        var directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
-        var index = Math.round(((heading % 360) / 45)) % 8
-        return directions[index]
+        var h = deg % 360
+        return h < 0 ? h + 360 : h
     }
 
-    function _headingNumber() {
-        if (!_activeVehicle || _activeVehicle.heading.rawValue === undefined) {
+    function _headingRounded(fact) {
+        if (!fact || fact.rawValue === undefined || isNaN(fact.rawValue)) {
+            return NaN
+        }
+        return Math.round(_normalizeHeading(fact.rawValue))
+    }
+
+    function _headingLabel(fact) {
+        var deg = _headingRounded(fact)
+        return isNaN(deg) ? _t.emptyValue : (deg + "°")
+    }
+
+    function _magneticHeadingDeg() {
+        return _headingRounded(_activeVehicle ? _activeVehicle.heading : null)
+    }
+
+    function _magneticDeclinationDeg(lat, lon) {
+        var φ = lat * Math.PI / 180
+        var λ = lon * Math.PI / 180
+        // WMM2020-era approximation for HUD declination (display only, ±~1.5°).
+        return 5.6 * Math.sin(φ)
+                + 0.94 * Math.sin(2 * φ) * Math.cos(λ)
+                - 0.03 * Math.cos(φ) * Math.sin(λ)
+                + 0.18 * Math.cos(φ) * Math.cos(λ)
+                + 0.06 * Math.sin(φ) * Math.sin(λ)
+                + 0.002 * lat * Math.sin(λ)
+    }
+
+    function _trueHeadingDeg() {
+        if (!_activeVehicle) {
+            return NaN
+        }
+        var gs = _activeVehicle.groundSpeed.rawValue
+        var cog = _activeVehicle.gps.courseOverGround
+        if (!isNaN(gs) && gs >= 0.5 && cog && !isNaN(cog.rawValue)) {
+            return Math.round(_normalizeHeading(cog.rawValue))
+        }
+        var mag = _magneticHeadingDeg()
+        var lat = _activeVehicle.gps.lat.rawValue
+        var lon = _activeVehicle.gps.lon.rawValue
+        if (isNaN(mag) || isNaN(lat) || isNaN(lon)) {
+            return NaN
+        }
+        return Math.round(_normalizeHeading(mag + _magneticDeclinationDeg(lat, lon)))
+    }
+
+    function _mgrsText() {
+        if (!_activeVehicle || _gpsLock() < 2) {
             return _t.emptyValue
         }
-        return Math.round(_activeVehicle.heading.rawValue)
+        var mgrs = _activeVehicle.gps.mgrs
+        if (!mgrs || mgrs.valueString === undefined || mgrs.valueString === "") {
+            return _t.emptyValue
+        }
+        return mgrs.valueString
+    }
+
+    function _gpsPositionVisible() {
+        return _activeVehicle && _gpsLock() >= 2
+    }
+
+    function _coordText(fact, decimals) {
+        if (!fact || fact.rawValue === undefined || isNaN(fact.rawValue)) {
+            return _t.emptyValue
+        }
+        return fact.rawValue.toFixed(decimals !== undefined ? decimals : 5) + "°"
+    }
+
+    function _hdopText() {
+        if (!_activeVehicle || _activeVehicle.gps.hdop.rawValue === undefined
+                || isNaN(_activeVehicle.gps.hdop.rawValue)) {
+            return _t.emptyValue
+        }
+        return _activeVehicle.gps.hdop.valueString
+    }
+
+    function _batteryVoltageText() {
+        var volts = _factValue(_battery ? _battery.voltage : null)
+        return volts === _t.emptyValue ? volts : volts + " V"
+    }
+
+    function _batteryTimeRemainingText() {
+        if (!_battery) {
+            return _t.emptyValue
+        }
+        var label = _factValue(_battery.timeRemainingStr)
+        if (label !== _t.emptyValue && label !== "") {
+            return label
+        }
+        return _factValue(_battery.timeRemaining)
+    }
+
+    function _windText() {
+        if (!_activeVehicle) {
+            return _t.emptyValue
+        }
+        var dir = _headingRounded(_activeVehicle.wind.direction)
+        var spd = _factValue(_activeVehicle.wind.speed)
+        if (isNaN(dir) && spd === _t.emptyValue) {
+            return _t.emptyValue
+        }
+        if (isNaN(dir)) {
+            return _factWithUnit(_activeVehicle.wind.speed, " m/s")
+        }
+        if (spd === _t.emptyValue) {
+            return dir + "°"
+        }
+        return dir + "° · " + spd + " m/s"
+    }
+
+    function _missionActive() {
+        return _activeVehicle
+                && _activeVehicle.armed
+                && _activeVehicle.flightMode === _activeVehicle.missionFlightMode
+    }
+
+    function _hasMissionWpTelemetry() {
+        if (!_activeVehicle) {
+            return false
+        }
+        var dist = _activeVehicle.distanceToNextWP
+        if (dist && dist.rawValue !== undefined && !isNaN(dist.rawValue) && dist.rawValue >= 0) {
+            return true
+        }
+        var hdg = _activeVehicle.headingToNextWP
+        return hdg && hdg.rawValue !== undefined && !isNaN(hdg.rawValue)
+    }
+
+    function _missionNavVisible() {
+        if (!_activeVehicle || !_activeVehicle.armed) {
+            return false
+        }
+        if (_missionActive()) {
+            return _missionController ? _missionController.missionItemCount > 0 : true
+        }
+        return _hasMissionWpTelemetry()
     }
 
     function _valueColor(hasData) {
@@ -176,76 +316,6 @@ Item {
             return _t.safeWarn
         }
         return _t.safeOk
-    }
-
-    function _findSatelliteMapType(fms) {
-        if (!fms || !fms.mapType) {
-            return ""
-        }
-        var types = fms.mapType.enumStrings
-        for (var i = 0; i < types.length; i++) {
-            var name = types[i]
-            var lower = name.toLowerCase()
-            if (lower.indexOf("satellite") >= 0
-                    && lower.indexOf("hybrid") < 0
-                    && lower.indexOf("street") < 0
-                    && lower.indexOf("road") < 0) {
-                return name
-            }
-        }
-        for (var j = 0; j < types.length; j++) {
-            if (types[j].toLowerCase().indexOf("imagery") >= 0) {
-                return types[j]
-            }
-        }
-        return ""
-    }
-
-    function _applyCleanMap(enabled) {
-        var fms = QGroundControl.settingsManager.flightMapSettings
-        if (!fms) {
-            return
-        }
-
-        if (enabled) {
-            if (!_cleanMapActive) {
-                _storedMapProvider = fms.mapProvider.rawValue
-                _storedMapType = fms.mapType.rawValue
-            }
-
-            var satelliteType = _findSatelliteMapType(fms)
-            if (satelliteType !== "") {
-                fms.mapType.rawValue = satelliteType
-            }
-
-            var providers = fms.mapProvider.enumStrings
-            for (var p = 0; p < providers.length; p++) {
-                if (providers[p].indexOf("Esri") >= 0) {
-                    fms.mapProvider.rawValue = providers[p]
-                    var esriTypes = fms.mapType.enumStrings
-                    for (var e = 0; e < esriTypes.length; e++) {
-                        if (esriTypes[e].indexOf("Imagery") >= 0) {
-                            fms.mapType.rawValue = esriTypes[e]
-                            break
-                        }
-                    }
-                    break
-                }
-            }
-            _cleanMapActive = true
-        } else {
-            if (_storedMapProvider !== "") {
-                fms.mapProvider.rawValue = _storedMapProvider
-            }
-            if (_storedMapType !== "") {
-                fms.mapType.rawValue = _storedMapType
-            }
-            _cleanMapActive = false
-        }
-
-        if (mapControl && typeof mapControl.updateActiveMapType === "function") {
-            mapControl.updateActiveMapType()
-        }
     }
 
     // ---- Reusable HUD components ----
@@ -365,32 +435,39 @@ Item {
         property string label: ""
         property string valueText: _t.emptyValue
         property color  valueColor: valueText === _t.emptyValue ? _t.textDisabled : _t.textPrimary
-        property real   valueSize: _root._hudExpanded ? _t.fontHero : _t.fontBody + 4
+        property real   valueSize: _root._hudExpanded ? _t.fontBody + 6 : _t.fontBody + 4
+        property real   cellWidth: _root._metricCellWidth
+        property bool   togglesExpand: false
 
-        implicitWidth: metricCol.implicitWidth + _t.spacingUnit * 1.5
-        implicitHeight: metricCol.implicitHeight + _t.spacingUnit * 1.2
+        implicitWidth: Math.max(cellWidth, metricCol.implicitWidth + _t.spacingUnit * 1.5)
+        implicitHeight: metricCol.implicitHeight + _t.spacingUnit * 1.25
 
         Rectangle {
             anchors.fill: metricCol
-            anchors.margins: -_t.spacingUnit * 0.75
+            anchors.margins: -_t.spacingUnit * 0.6
             radius: _t.radiusSm
-            color: _t.hudMetricPlate
+            color: togglesExpand && metricMouse.containsMouse
+                    ? Qt.rgba(1, 1, 1, 0.10) : _t.hudMetricPlate
             z: -1
+            Behavior on color { ColorAnimation { duration: 100 } }
         }
 
         ColumnLayout {
             id: metricCol
-            anchors.centerIn: parent
-            spacing: 2
+            width: parent.width
+            spacing: _t.spacingUnit * 0.35
 
             Text {
                 text: label
                 color: _t.textSecondary
-                font.pixelSize: _t.fontMicro
+                font.pixelSize: _t.fontCaption
                 font.family: _t.fontFamily
                 font.weight: Font.Medium
                 horizontalAlignment: Text.AlignHCenter
                 Layout.fillWidth: true
+                wrapMode: Text.WordWrap
+                maximumLineCount: _t.hudMetricLabelMaxLines
+                lineHeight: _t.hudMetricLabelLineHeight
             }
             Text {
                 text: valueText
@@ -404,41 +481,17 @@ Item {
                 styleColor: _t.textOutline
             }
         }
-    }
-
-    component HeroMetric: FloatingMetric { }
-
-    component GlassPill: Rectangle {
-        id:     glassPill
-        property string label: ""
-        property bool   toggled: false
-        signal clicked()
-
-        radius:         height / 2
-        color:          toggled ? _t.hudControlActive : _t.hudGlass
-        border.width:   0
-        implicitHeight: pillLabel.implicitHeight + _t.spacingUnit * 1.1
-        implicitWidth:  pillLabel.implicitWidth + _t.spacingUnit * 2.2
-
-        Text {
-            id:             pillLabel
-            anchors.centerIn: parent
-            text:           glassPill.label
-            color:          glassPill.toggled ? _t.brandPrimary : _t.textPrimary
-            font.pixelSize: _t.fontCaption
-            font.family:    _t.fontFamily
-            font.weight:    Font.Medium
-            style:          Text.Outline
-            styleColor:     _t.textOutline
-        }
 
         MouseArea {
-            anchors.fill:   parent
-            onClicked:      glassPill.clicked()
+            id:                 metricMouse
+            anchors.fill:       parent
+            enabled:            togglesExpand
+            hoverEnabled:       togglesExpand
+            cursorShape:        togglesExpand ? Qt.PointingHandCursor : Qt.ArrowCursor
+            preventStealing:    true
+            onClicked:          _root._hudExpanded = !_root._hudExpanded
         }
     }
-
-    component HudToolButton: GlassPill { }
 
     component MetricRow: RowLayout {
         property string label: ""
@@ -483,6 +536,51 @@ Item {
             iconType: parent.iconType
             iconColor: parent.iconColor
         }
+    }
+
+    component GpsDataRow: RowLayout {
+        property string label: ""
+        property string valueText: _t.emptyValue
+        property color  valueColor: _t.telemetryAccent
+
+        Layout.fillWidth: true
+        spacing: _t.spacingUnit
+
+        Text {
+            text: label
+            color: _t.textSecondary
+            font.pixelSize: _t.fontCaption
+            font.family: _t.fontFamily
+            font.weight: Font.Medium
+            Layout.preferredWidth: label.length > 4 ? 56 : 40
+        }
+        Text {
+            Layout.fillWidth: true
+            text: valueText
+            color: valueColor
+            font.pixelSize: _t.fontBody
+            font.bold: true
+            font.family: _t.fontFamilyNumeric
+            horizontalAlignment: Text.AlignRight
+            elide: Text.ElideMiddle
+            style: Text.Outline
+            styleColor: _t.textOutline
+        }
+    }
+
+    component HudSectionLabel: Text {
+        property string title: ""
+
+        text: title
+        color: _t.textSecondary
+        font.pixelSize: _t.fontMicro
+        font.family: _t.fontFamily
+        font.weight: Font.DemiBold
+        font.letterSpacing: 0.4
+        opacity: 0.92
+        Layout.fillWidth: true
+        horizontalAlignment: Text.AlignHCenter
+        bottomPadding: _t.spacingUnit * 0.35
     }
 
     component CompassDial: Rectangle {
@@ -555,9 +653,8 @@ Item {
             anchors.centerIn:   parent
             width:              compassRoot.dialSize * 0.22
             height:             width
-            rotation:           (_activeVehicle
-                                 && _activeVehicle.heading.rawValue !== undefined)
-                                ? _activeVehicle.heading.rawValue : 0
+            rotation:           !isNaN(_root._magneticHeadingDeg())
+                                ? _root._magneticHeadingDeg() : 0
 
             onPaint: {
                 var ctx = getContext("2d")
@@ -585,95 +682,68 @@ Item {
             Component.onCompleted: requestPaint()
         }
 
-        Text {
-            text:               _root._headingNumber()
-            color:              _t.textPrimary
-            font.bold:          true
-            font.pixelSize:     _t.fontBody
+        Column {
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom:     parent.bottom
-            anchors.bottomMargin: compassRoot.height * 0.22
-            style: Text.Outline
-            styleColor: Qt.rgba(0, 0, 0, 0.4)
-        }
+            anchors.bottom:           parent.bottom
+            anchors.bottomMargin:       compassRoot.height * 0.10
+            spacing:                    1
 
-        Text {
-            text:               _root.getHeadingLetter(
-                                      _activeVehicle
-                                      ? _activeVehicle.heading.rawValue
-                                      : undefined)
-            color:              _t.textSecondary
-            font.pixelSize:     _t.fontMicro
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom:     parent.bottom
-            anchors.bottomMargin: compassRoot.height * 0.12
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text:               qsTr("Mag") + " " + _root._headingLabel(
+                                          _activeVehicle ? _activeVehicle.heading : null)
+                color:              _t.textPrimary
+                font.bold:          true
+                font.pixelSize:     _t.fontCaption
+                font.family:        _t.fontFamilyNumeric
+                style:              Text.Outline
+                styleColor:         _t.textOutline
+            }
+            Text {
+                anchors.horizontalCenter: parent.horizontalCenter
+                text:               qsTr("True") + " " + (isNaN(_root._trueHeadingDeg())
+                                          ? _t.emptyValue
+                                          : (_root._trueHeadingDeg() + "°"))
+                color:              _t.telemetryAccent
+                font.bold:          true
+                font.pixelSize:     _t.fontCaption
+                font.family:        _t.fontFamilyNumeric
+                style:              Text.Outline
+                styleColor:         _t.textOutline
+            }
         }
     }
 
-    // ---- Transparent OSD layer (UniGCS-style) ----
+    // Tap outside HUD to collapse expanded details.
+    MouseArea {
+        anchors.fill:   parent
+        visible:        _hudExpanded && osRoot.visible
+        z:              QGroundControl.zOrderWidgets + 1
+        onClicked:      _hudExpanded = false
+    }
+
+    // ---- Central HUD panel (screenshot reference layout) ----
     Item {
         id:                     osRoot
         anchors.bottom:         parent.bottom
         anchors.bottomMargin:   _bottomSafe
         anchors.horizontalCenter: parent.horizontalCenter
-        width:                  Math.min(osColumn.implicitWidth + _t.spacingUnit * 2, _root.width - _margin * 2)
+        width:                  _hudExpanded
+                                    ? Math.min(_root.width - _margin * 3,
+                                               ScreenTools.defaultFontPixelWidth * _t.hudExpandedMaxWidthEm)
+                                    : Math.min(_hudCompactWidth, _root.width - _margin * 2)
         height:                 osColumn.implicitHeight
         visible:                !ScreenTools.isMobile
-        z:                      1
+        z:                      QGroundControl.zOrderWidgets + 2
 
         ColumnLayout {
             id:                 osColumn
             width:              parent.width
-            spacing:            _t.spacingUnit * 1.25
-
-            RowLayout {
-                Layout.alignment: Qt.AlignHCenter
-                spacing:          _t.spacingUnit
-
-                GlassPill {
-                    label: _cleanMapActive ? qsTr("Standard map") : qsTr("Clean map")
-                    toggled: _cleanMapActive
-                    onClicked: _root._applyCleanMap(!_cleanMapActive)
-                }
-                GlassPill {
-                    label: _hudExpanded ? qsTr("Collapse") : qsTr("Expand")
-                    toggled: _hudExpanded
-                    onClicked: _hudExpanded = !_hudExpanded
-                }
-            }
+            spacing:            _t.spacingUnit
 
             RowLayout {
                 Layout.alignment:       Qt.AlignHCenter
-                spacing:                _t.spacingUnit * (_hudExpanded ? 3 : 2)
-
-                FloatingMetric {
-                    label: qsTr("Altitude")
-                    valueText: _root._factWithUnit(
-                        _activeVehicle ? _activeVehicle.altitudeRelative : null, " m")
-                }
-
-                FloatingMetric {
-                    label: qsTr("Ground Speed")
-                    valueText: _root._factWithUnit(
-                        _activeVehicle ? _activeVehicle.groundSpeed : null, " m/s")
-                }
-
-                FloatingMetric {
-                    label: qsTr("Battery")
-                    valueText: {
-                        var pct = _root._factValue(_battery ? _battery.percentRemaining : null)
-                        return pct === _t.emptyValue ? pct : pct + "%"
-                    }
-                    valueColor: _root._batteryColor()
-                }
-
-                FloatingMetric {
-                    label: qsTr("Satellites")
-                    visible: !_hudExpanded
-                    valueText: _root._factValue(
-                        _activeVehicle ? _activeVehicle.gps.count : null)
-                    valueColor: _root._gpsColor()
-                }
+                spacing:                _t.spacingUnit * 2
 
                 Item {
                     Layout.preferredWidth:  _instrumentSize + 8
@@ -701,106 +771,264 @@ Item {
                 CompassDial {
                     Layout.alignment: Qt.AlignVCenter
                 }
+            }
+
+            GridLayout {
+                Layout.fillWidth:   true
+                Layout.alignment:   Qt.AlignHCenter
+                columns:            4
+                columnSpacing:      _metricColumnGap
+                rowSpacing:         0
 
                 FloatingMetric {
-                    visible: _hudExpanded
-                    label: qsTr("Satellites")
-                    valueText: _root._factValue(
+                    Layout.fillWidth:        true
+                    Layout.minimumWidth:     _metricCellWidth
+                    togglesExpand:          true
+                    label:                  qsTr("Altitude")
+                    valueText:              _root._factWithUnit(
+                        _activeVehicle ? _activeVehicle.altitudeRelative : null, " m")
+                }
+                FloatingMetric {
+                    Layout.fillWidth:        true
+                    Layout.minimumWidth:     _metricCellWidth
+                    togglesExpand:          true
+                    label:                  qsTr("Ground Speed")
+                    valueText:              _root._factWithUnit(
+                        _activeVehicle ? _activeVehicle.groundSpeed : null, " m/s")
+                }
+                FloatingMetric {
+                    Layout.fillWidth:        true
+                    Layout.minimumWidth:     _metricCellWidth
+                    togglesExpand:          true
+                    label:                  qsTr("Battery")
+                    valueText: {
+                        var pct = _root._factValue(_battery ? _battery.percentRemaining : null)
+                        return pct === _t.emptyValue ? pct : pct + "%"
+                    }
+                    valueColor:             _root._batteryColor()
+                }
+                FloatingMetric {
+                    Layout.fillWidth:        true
+                    Layout.minimumWidth:     _metricCellWidth
+                    togglesExpand:          true
+                    label:                  qsTr("Satellites")
+                    valueText:              _root._factValue(
                         _activeVehicle ? _activeVehicle.gps.count : null)
-                    valueColor: _root._gpsColor()
+                    valueColor:             _root._gpsColor()
                 }
             }
 
             Rectangle {
-                visible:            _hudExpanded
-                Layout.fillWidth:   true
-                Layout.preferredHeight: expandedStrip.implicitHeight + _t.spacingUnit * 2
-                radius:             _t.radiusLg
-                color:              _t.hudGlassStrong
-                border.width:       0
+                visible:                _hudExpanded
+                Layout.fillWidth:       true
+                radius:                 _t.radiusLg
+                color:                  _t.hudGlassStrong
+                border.width:           1
+                border.color:           _t.hudBorder
+                implicitHeight:         expandedBody.implicitHeight + _t.spacingUnit * 2
+                Layout.preferredHeight: implicitHeight
 
-                RowLayout {
-                    id:             expandedStrip
-                    anchors.centerIn: parent
-                    spacing:        _t.spacingUnit * 3
+                ColumnLayout {
+                    id:                 expandedBody
+                    anchors.left:       parent.left
+                    anchors.right:      parent.right
+                    anchors.top:        parent.top
+                    anchors.margins:    _t.spacingUnit
+                    spacing:            _t.spacingUnit
 
-                    ColumnLayout {
-                        spacing: _t.spacingUnit * 0.75
-                        Layout.alignment: Qt.AlignVCenter
-                        Layout.preferredWidth: 140
+                    RowLayout {
+                        Layout.alignment:   Qt.AlignHCenter
+                        spacing:            _t.spacingUnit * 2
+                        visible:            _root._missionNavVisible()
 
-                        MetricRow {
-                            alignRight: true
-                            label: qsTr("Distance")
-                            valueText: _root._factWithUnit(
-                                _activeVehicle ? _activeVehicle.distanceToHome : null, " m")
-                            iconType: "home"
+                        FloatingMetric {
+                            Layout.preferredWidth:  _metricCellWidth
+                            label:                  qsTr("WP Distance")
+                            valueText:              _root._factWithUnit(
+                                _activeVehicle ? _activeVehicle.distanceToNextWP : null, " m")
                         }
-                        MetricRow {
-                            alignRight: true
-                            label: qsTr("Climb Rate")
-                            valueText: _root._factWithUnit(
-                                _activeVehicle ? _activeVehicle.climbRate : null, " m/s")
-                            iconType: "height"
-                        }
-                        MetricRow {
-                            alignRight: true
-                            label: qsTr("Flight Time")
-                            valueText: _root._factValue(
-                                _activeVehicle ? _activeVehicle.flightTime : null)
-                            valueColor: _root._valueColor(
-                                _activeVehicle && _activeVehicle.flightTime
-                                && _activeVehicle.flightTime.rawValue !== undefined)
-                            iconType: "clock"
-                        }
-                        MetricRow {
-                            alignRight: true
-                            label: qsTr("Air Speed")
-                            valueText: _root._factWithUnit(
-                                _activeVehicle ? _activeVehicle.airSpeed : null, " m/s")
-                            iconType: "speed"
+                        FloatingMetric {
+                            Layout.preferredWidth:  _metricCellWidth
+                            label:                  qsTr("WP Heading")
+                            valueText:              _root._headingLabel(
+                                _activeVehicle ? _activeVehicle.headingToNextWP : null)
                         }
                     }
 
                     ColumnLayout {
-                        spacing: _t.spacingUnit * 0.75
-                        Layout.alignment: Qt.AlignVCenter
-                        Layout.preferredWidth: 140
+                        Layout.fillWidth:   true
+                        spacing:            _t.spacingUnit * 0.4
+                        visible:            _root._gpsPositionVisible()
 
-                        MetricRow {
-                            label: qsTr("Temperature")
-                            valueText: {
-                                var temp = _root._factValue(_battery ? _battery.temperature : null)
-                                return temp === _t.emptyValue ? temp : temp + "°C"
+                        GpsDataRow {
+                            visible:    _root._mgrsText() !== _t.emptyValue
+                            label:      qsTr("MGRS")
+                            valueText:  _root._mgrsText()
+                        }
+                        RowLayout {
+                            Layout.fillWidth: true
+                            spacing:        _t.spacingUnit * 1.25
+                            Text {
+                                text: qsTr("Lat")
+                                color: _t.textSecondary
+                                font.pixelSize: _t.fontCaption
+                                font.family: _t.fontFamily
                             }
-                            valueColor: {
-                                if (!_hasVehicle || !_battery || _battery.temperature.rawValue === undefined) {
-                                    return _t.textDisabled
+                            Text {
+                                Layout.fillWidth: true
+                                text: _root._coordText(
+                                    _activeVehicle ? _activeVehicle.gps.lat : null, 5)
+                                color: _t.telemetryAccent
+                                font.pixelSize: _t.fontBody
+                                font.bold: true
+                                font.family: _t.fontFamilyNumeric
+                                style: Text.Outline
+                                styleColor: _t.textOutline
+                            }
+                            Text {
+                                text: qsTr("Lon")
+                                color: _t.textSecondary
+                                font.pixelSize: _t.fontCaption
+                                font.family: _t.fontFamily
+                            }
+                            Text {
+                                Layout.fillWidth: true
+                                text: _root._coordText(
+                                    _activeVehicle ? _activeVehicle.gps.lon : null, 5)
+                                color: _t.telemetryAccent
+                                font.pixelSize: _t.fontBody
+                                font.bold: true
+                                font.family: _t.fontFamilyNumeric
+                                horizontalAlignment: Text.AlignRight
+                                style: Text.Outline
+                                styleColor: _t.textOutline
+                            }
+                        }
+                        GpsDataRow {
+                            label:      qsTr("HDOP")
+                            valueText:  _root._hdopText()
+                            valueColor: _root._gpsColor()
+                        }
+                    }
+
+                    RowLayout {
+                        Layout.fillWidth:   true
+                        spacing:            _t.spacingUnit * 2
+
+                        ColumnLayout {
+                            spacing:            _t.spacingUnit * 0.55
+                            Layout.fillWidth:   true
+                            Layout.preferredWidth: parent.width * 0.46
+
+                            HudSectionLabel {
+                                title: qsTr("Flight & Navigation")
+                            }
+
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Distance")
+                                valueText:      _root._factWithUnit(
+                                    _activeVehicle ? _activeVehicle.distanceToHome : null, " m")
+                                iconType:       "home"
+                            }
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("AMSL")
+                                valueText:      _root._factWithUnit(
+                                    _activeVehicle ? _activeVehicle.altitudeAMSL : null, " m")
+                                iconType:       "mountain"
+                            }
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Climb Rate")
+                                valueText:      _root._factWithUnit(
+                                    _activeVehicle ? _activeVehicle.climbRate : null, " m/s")
+                                iconType:       "height"
+                            }
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Air Speed")
+                                valueText:      _root._factWithUnit(
+                                    _activeVehicle ? _activeVehicle.airSpeed : null, " m/s")
+                                iconType:       "speed"
+                            }
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Flight Time")
+                                valueText:      _root._factValue(
+                                    _activeVehicle ? _activeVehicle.flightTime : null)
+                                valueColor:     _root._valueColor(
+                                    _activeVehicle && _activeVehicle.flightTime
+                                    && _activeVehicle.flightTime.rawValue !== undefined)
+                                iconType:       "clock"
+                            }
+                        }
+
+                        Rectangle {
+                            Layout.preferredWidth:  1
+                            Layout.fillHeight:      true
+                            Layout.topMargin:       _t.spacingUnit * 2.5
+                            Layout.bottomMargin:    _t.spacingUnit * 0.5
+                            color:                  Qt.rgba(1, 1, 1, 0.14)
+                        }
+
+                        ColumnLayout {
+                            spacing:            _t.spacingUnit * 0.55
+                            Layout.fillWidth:   true
+                            Layout.preferredWidth: parent.width * 0.46
+
+                            HudSectionLabel {
+                                title: qsTr("Power & Environment")
+                            }
+
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Voltage")
+                                valueText:      _root._batteryVoltageText()
+                                valueColor:     _root._batteryColor()
+                                iconType:       "battery"
+                            }
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Current")
+                                valueText: {
+                                    var a = _root._factValue(_battery ? _battery.current : null)
+                                    return a === _t.emptyValue ? a : a + " A"
                                 }
-                                return _t.telemetryAccent
+                                iconType:       "battery"
                             }
-                            iconType: "temp"
-                            iconColor: _t.telemetryAccent
-                        }
-                        MetricRow {
-                            label: qsTr("AMSL")
-                            valueText: _root._factWithUnit(
-                                _activeVehicle ? _activeVehicle.altitudeAMSL : null, " m")
-                            iconType: "mountain"
-                        }
-                        MetricRow {
-                            label: qsTr("Current")
-                            valueText: {
-                                var a = _root._factValue(_battery ? _battery.current : null)
-                                return a === _t.emptyValue ? a : a + " A"
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Time Remaining")
+                                valueText:      _root._batteryTimeRemainingText()
+                                valueColor:     _root._batteryColor()
+                                iconType:       "clock"
                             }
-                            iconType: "battery"
-                        }
-                        MetricRow {
-                            label: qsTr("Wind")
-                            valueText: _root._factWithUnit(
-                                _activeVehicle ? _activeVehicle.wind.speed : null, " m/s")
-                            iconType: "radar"
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Temperature")
+                                valueText: {
+                                    var temp = _root._factValue(_battery ? _battery.temperature : null)
+                                    return temp === _t.emptyValue ? temp : temp + "°C"
+                                }
+                                valueColor: {
+                                    if (!_hasVehicle || !_battery
+                                            || _battery.temperature.rawValue === undefined) {
+                                        return _t.textDisabled
+                                    }
+                                    return _t.telemetryAccent
+                                }
+                                iconType:       "temp"
+                                iconColor:      _t.telemetryAccent
+                            }
+                            MetricRow {
+                                Layout.fillWidth: true
+                                label:          qsTr("Wind")
+                                valueText:      _root._windText()
+                                valueColor:     _root._valueColor(
+                                    _root._windText() !== _t.emptyValue)
+                                iconType:       "radar"
+                            }
                         }
                     }
                 }
@@ -813,17 +1041,17 @@ Item {
 
     Rectangle {
         id:                     bottomScrim
-        anchors.left:           parent.left
-        anchors.right:          parent.right
+        anchors.horizontalCenter: osRoot.horizontalCenter
         anchors.bottom:         parent.bottom
-        height:                 osRoot.height + _bottomSafe + _t.spacingUnit * 6
+        width:                  osRoot.width + _t.spacingUnit * 8
+        height:                 osRoot.height + _bottomSafe + _t.spacingUnit * 4
         visible:                osRoot.visible
         z:                      0
         gradient: Gradient {
             orientation: Gradient.Vertical
             GradientStop { position: 0.0; color: "#00000000" }
-            GradientStop { position: 0.55; color: "#44000000" }
-            GradientStop { position: 1.0; color: "#99000000" }
+            GradientStop { position: 0.65; color: "#33000000" }
+            GradientStop { position: 1.0; color: "#88000000" }
         }
     }
 

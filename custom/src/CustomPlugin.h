@@ -47,6 +47,9 @@ private:
     /// არეგისტრირებს bundled ქართულ ფონტს და pin-ავს default locale-ს ka-ზე.
     void _applyGeorgianLocaleAndFont();
 
+    /// Bundled MAVLink action JSON-ების კოპირება save path-ში + default არჩევა.
+    void _installDefaultMavlinkActions();
+
     CustomOptions*                  _options   = nullptr;
     QQmlApplicationEngine*          _qmlEngine = nullptr;
     class CustomOverrideInterceptor* _selector = nullptr;
