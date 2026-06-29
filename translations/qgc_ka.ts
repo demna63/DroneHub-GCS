@@ -6593,7 +6593,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="730"/>
         <source>Set Estimator Origin</source>
-        <translation>დააყენეთ Estimator Origin</translation>
+        <translation>დააყენეთ შემფასებლის საწყისი წერტილი</translation>
     </message>
     <message>
         <location filename="../src/FlightDisplay/FlyViewMap.qml" line="740"/>
@@ -6682,7 +6682,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="78"/>
         <source>Enable Multi-Vehicle Panel</source>
-        <translation>Multi-Vehicle Panel-ის ჩართვა</translation>
+        <translation>მრავალ-აპარატის პანელის ჩართვა</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="85"/>
@@ -6727,7 +6727,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="147"/>
         <source>Loiter Radius in Forward Flight Guided Mode</source>
-        <translation>Loiter Radius წინ ფრენის მართვადი რეჟიმში</translation>
+        <translation>ლოიტერის რადიუსი წინსვლითი ფრენის მართვად რეჟიმში</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/FlyViewSettings.qml" line="154"/>
@@ -9348,7 +9348,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/MAVLink/QGCMAVLink.cc" line="295"/>
         <source>Logging</source>
-        <translation>ხე-ტყე</translation>
+        <translation>ჟურნალირება</translation>
     </message>
     <message>
         <location filename="../src/MAVLink/QGCMAVLink.cc" line="296"/>
@@ -10775,7 +10775,7 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/UI/toolbar/MultiVehicleSelector.qml" line="97"/>
         <source>Enable Multi-Vehicle Panel</source>
-        <translation>Multi-Vehicle Panel-ის ჩართვა</translation>
+        <translation>მრავალ-აპარატის პანელის ჩართვა</translation>
     </message>
 </context>
 <context>
@@ -11305,7 +11305,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/UI/AppSettings/PX4LogTransferSettings.qml" line="111"/>
         <source>MAVLink 2.0 Logging (PX4 Pro Only)</source>
-        <translation>MAVLink 2.0 Logging (მხოლოდ PX4 Pro)</translation>
+        <translation>MAVLink 2.0 ჟურნალირება (მხოლოდ PX4 Pro)</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/PX4LogTransferSettings.qml" line="133"/>
@@ -13119,7 +13119,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/UI/AppSettings/PlanViewSettings.qml" line="50"/>
         <source>Missions do not require takeoff item</source>
-        <translation>მისიები არ საჭიროებს აფრენის ნივთს</translation>
+        <translation>მისიები არ საჭიროებს აფრენის ელემენტს</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/PlanViewSettings.qml" line="57"/>
@@ -15005,7 +15005,7 @@ Click the Next button to upload calibration to board. Click Cancel if you don&ap
     <message>
         <location filename="../src/UI/AppSettings/RemoteIDSettings.qml" line="570"/>
         <source>NMEA GPS Baudrate</source>
-        <translation>NMEA GPS baudrate</translation>
+        <translation>NMEA GPS ბოდრეიტი</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/RemoteIDSettings.qml" line="590"/>
@@ -16807,7 +16807,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/UI/AppSettings/TelemetrySettings.qml" line="118"/>
         <source>Logging</source>
-        <translation>ხე-ტყე</translation>
+        <translation>ჟურნალირება</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/TelemetrySettings.qml" line="123"/>
@@ -16827,7 +16827,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/UI/AppSettings/TelemetrySettings.qml" line="149"/>
         <source>Stream Rates (ArduPilot Only)</source>
-        <translation>ნაკადის ტარიფები (მხოლოდ ArduPilot)</translation>
+        <translation>ნაკადის სიხშირეები (მხოლოდ ArduPilot)</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/TelemetrySettings.qml" line="155"/>
@@ -16872,7 +16872,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/UI/AppSettings/TelemetrySettings.qml" line="219"/>
         <source>Link Status (Current Vehicle))</source>
-        <translation>ბმულის სტატუსი (მიმდინარე მანქანა))</translation>
+        <translation>ბმულის სტატუსი (მიმდინარე მანქანა)</translation>
     </message>
     <message>
         <location filename="../src/UI/AppSettings/TelemetrySettings.qml" line="223"/>
