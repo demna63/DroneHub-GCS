@@ -45,12 +45,14 @@ Rectangle {
         anchors.bottomMargin:   1
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
+        anchors.left:           parent.left
+        anchors.leftMargin:     ScreenTools.defaultFontPixelWidth * 0.75
         spacing:                ScreenTools.defaultFontPixelWidth / 2
 
         Item {
             id:                     currentButton
             Layout.preferredHeight: viewButtonRow.height
-            Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 12.5
+            Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 15
             clip:                   true
 
             Image {

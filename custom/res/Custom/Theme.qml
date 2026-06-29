@@ -43,7 +43,8 @@ Item {
     readonly property color divider:        "#2A323F"
 
     readonly property color hudGlass:           "#28000000"
-    readonly property color hudGlassStrong:   "#44000000"
+    readonly property color hudGlassStrong:   "#D9151820"   // telemetry card over map — readable scrim
+    readonly property color hudMetricPlate:   "#C8151820"   // compact HUD metric cells (Altitude/Speed/Battery/Sats)
     readonly property color instrumentGlass:    "#18000000"
     readonly property color toolbarGlass:     "#D1151A23"
     readonly property color chromeGlass:      Qt.rgba(0.08, 0.11, 0.14, 0.82)

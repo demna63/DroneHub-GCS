@@ -38,8 +38,8 @@ Item {
         readonly property color brandPrimary:       "#0A84FF"
         readonly property color telemetryAccent:    "#64D2FF"
         readonly property color hudGlass:           "#28000000"
-        readonly property color hudGlassStrong:     "#44000000"
-        readonly property color hudMetricPlate:     "#48151820"
+        readonly property color hudGlassStrong:     "#D9151820"   // telemetry card over map — readable scrim
+        readonly property color hudMetricPlate:     "#C8151820"   // compact HUD metric cells over map
         readonly property color hudBorder:          "#55FFFFFF"
         readonly property color instrumentGlass:    "#18000000"
         readonly property color instrumentBorder:   "#66FFFFFF"
@@ -454,7 +454,9 @@ Item {
         property real   cellWidth: _root._metricCellWidth
         property bool   togglesExpand: false
 
-        implicitWidth: Math.max(cellWidth, metricCol.implicitWidth + _t.spacingUnit * 1.5)
+        // Fixed cell width — every metric plate is identical regardless of content
+        // length, so the compact row reads as one uniform unit in both HUD states.
+        implicitWidth: cellWidth
         implicitHeight: metricCol.implicitHeight + _t.spacingUnit * 1.25
 
         Rectangle {
@@ -479,7 +481,11 @@ Item {
                 font.family: _t.fontFamily
                 font.weight: Font.Medium
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
                 Layout.fillWidth: true
+                // Always reserve two label lines so 1-line and 2-line labels
+                // produce identical cell heights (uniform plates across the row).
+                Layout.preferredHeight: _t.fontCaption * 2 * _t.hudMetricLabelLineHeight
                 wrapMode: Text.WordWrap
                 maximumLineCount: _t.hudMetricLabelMaxLines
                 lineHeight: _t.hudMetricLabelLineHeight
@@ -553,6 +559,9 @@ Item {
         }
     }
 
+    // Shared label-column width so every GPS value lines up at the same x.
+    readonly property real _gpsLabelColWidth: ScreenTools.defaultFontPixelWidth * 5.5
+
     component GpsDataRow: RowLayout {
         property string label: ""
         property string valueText: _t.emptyValue
@@ -567,20 +576,20 @@ Item {
             font.pixelSize: _t.fontCaption
             font.family: _t.fontFamily
             font.weight: Font.Medium
-            Layout.preferredWidth: label.length > 4 ? 56 : 40
+            Layout.preferredWidth: _root._gpsLabelColWidth
         }
         Text {
-            Layout.fillWidth: true
             text: valueText
             color: valueColor
             font.pixelSize: _t.fontBody
             font.bold: true
             font.family: _t.fontFamilyNumeric
-            horizontalAlignment: Text.AlignRight
-            elide: Text.ElideMiddle
+            horizontalAlignment: Text.AlignLeft
+            elide: Text.ElideRight
             style: Text.Outline
             styleColor: _t.textOutline
         }
+        Item { Layout.fillWidth: true }   // absorb slack — keep label+value grouped left
     }
 
     component HudSectionLabel: Text {
@@ -602,6 +611,12 @@ Item {
         id:             compassRoot
         property real  dialSize: _root._instrumentSize
 
+        // implicit + Layout sizing so the RowLayout gives the compass the SAME
+        // diameter as the attitude wrapper (which is sized via Layout.preferredWidth).
+        implicitWidth:          dialSize
+        implicitHeight:         dialSize
+        Layout.preferredWidth:  dialSize
+        Layout.preferredHeight: dialSize
         width:          dialSize
         height:         dialSize
         radius:         width / 2
@@ -766,22 +781,22 @@ Item {
                 spacing:                _t.spacingUnit * 2
 
                 Item {
-                    Layout.preferredWidth:  _instrumentSize + 8
-                    Layout.preferredHeight: _instrumentSize + 8
+                    // Same outer diameter + glass ring as CompassDial so the two
+                    // instruments read as a matched pair.
+                    Layout.preferredWidth:  _instrumentSize
+                    Layout.preferredHeight: _instrumentSize
                     Layout.alignment:       Qt.AlignVCenter
 
                     Rectangle {
-                        anchors.centerIn:   parent
-                        width:            _instrumentSize + 6
-                        height:           _instrumentSize + 6
-                        radius:           width / 2
-                        color:            _t.instrumentGlass
-                        border.width:     1.5
-                        border.color:     _t.instrumentBorder
+                        anchors.fill:       parent
+                        radius:             width / 2
+                        color:              _t.instrumentGlass
+                        border.width:       1.5
+                        border.color:       _t.instrumentBorder
                     }
                     QGCAttitudeWidget {
                         anchors.centerIn:   parent
-                        size:               _instrumentSize
+                        size:               _instrumentSize - 4   // inset so the glass ring shows (matches compass)
                         vehicle:            _activeVehicle
                         showHeading:        false
                         opacity:            _hasVehicle ? 1.0 : 0.75
@@ -794,31 +809,31 @@ Item {
             }
 
             GridLayout {
-                Layout.fillWidth:   true
-                Layout.alignment:   Qt.AlignHCenter
+                Layout.alignment:   Qt.AlignHCenter   // keep the row compact + centered (same size in both HUD states)
+                Layout.topMargin:   _t.spacingUnit   // clear the compass Mag/True readout above
                 columns:            4
                 columnSpacing:      _metricColumnGap
                 rowSpacing:         0
 
                 FloatingMetric {
-                    Layout.fillWidth:        true
-                    Layout.minimumWidth:     _metricCellWidth
+                    Layout.preferredWidth:   _metricCellWidth
+                    Layout.alignment:        Qt.AlignVCenter
                     togglesExpand:          true
                     label:                  qsTr("Altitude")
                     valueText:              _root._factWithUnit(
                         _activeVehicle ? _activeVehicle.altitudeRelative : null, " m")
                 }
                 FloatingMetric {
-                    Layout.fillWidth:        true
-                    Layout.minimumWidth:     _metricCellWidth
+                    Layout.preferredWidth:   _metricCellWidth
+                    Layout.alignment:        Qt.AlignVCenter
                     togglesExpand:          true
-                    label:                  qsTr("Ground Speed")
+                    label:                  qsTr("Speed")
                     valueText:              _root._factWithUnit(
                         _activeVehicle ? _activeVehicle.groundSpeed : null, " m/s")
                 }
                 FloatingMetric {
-                    Layout.fillWidth:        true
-                    Layout.minimumWidth:     _metricCellWidth
+                    Layout.preferredWidth:   _metricCellWidth
+                    Layout.alignment:        Qt.AlignVCenter
                     togglesExpand:          true
                     label:                  qsTr("Battery")
                     valueText: {
@@ -828,8 +843,8 @@ Item {
                     valueColor:             _root._batteryColor()
                 }
                 FloatingMetric {
-                    Layout.fillWidth:        true
-                    Layout.minimumWidth:     _metricCellWidth
+                    Layout.preferredWidth:   _metricCellWidth
+                    Layout.alignment:        Qt.AlignVCenter
                     togglesExpand:          true
                     label:                  qsTr("Satellites")
                     valueText:              _root._factValue(
@@ -887,41 +902,60 @@ Item {
                         }
                         RowLayout {
                             Layout.fillWidth: true
-                            spacing:        _t.spacingUnit * 1.25
-                            Text {
-                                text: qsTr("Lat")
-                                color: _t.textSecondary
-                                font.pixelSize: _t.fontCaption
-                                font.family: _t.fontFamily
+                            spacing:        _t.spacingUnit
+
+                            // Lat group (left half) — label column + value grouped together.
+                            RowLayout {
+                                Layout.fillWidth:       true
+                                Layout.preferredWidth:  1
+                                spacing:                _t.spacingUnit
+                                Text {
+                                    text: qsTr("Lat")
+                                    color: _t.textSecondary
+                                    font.pixelSize: _t.fontCaption
+                                    font.family: _t.fontFamily
+                                    font.weight: Font.Medium
+                                    Layout.preferredWidth: _root._gpsLabelColWidth
+                                }
+                                Text {
+                                    text: _root._coordText(
+                                        _activeVehicle ? _activeVehicle.gps.lat : null, 5)
+                                    color: _t.telemetryAccent
+                                    font.pixelSize: _t.fontBody
+                                    font.bold: true
+                                    font.family: _t.fontFamilyNumeric
+                                    horizontalAlignment: Text.AlignLeft
+                                    style: Text.Outline
+                                    styleColor: _t.textOutline
+                                }
+                                Item { Layout.fillWidth: true }
                             }
-                            Text {
-                                Layout.fillWidth: true
-                                text: _root._coordText(
-                                    _activeVehicle ? _activeVehicle.gps.lat : null, 5)
-                                color: _t.telemetryAccent
-                                font.pixelSize: _t.fontBody
-                                font.bold: true
-                                font.family: _t.fontFamilyNumeric
-                                style: Text.Outline
-                                styleColor: _t.textOutline
-                            }
-                            Text {
-                                text: qsTr("Lon")
-                                color: _t.textSecondary
-                                font.pixelSize: _t.fontCaption
-                                font.family: _t.fontFamily
-                            }
-                            Text {
-                                Layout.fillWidth: true
-                                text: _root._coordText(
-                                    _activeVehicle ? _activeVehicle.gps.lon : null, 5)
-                                color: _t.telemetryAccent
-                                font.pixelSize: _t.fontBody
-                                font.bold: true
-                                font.family: _t.fontFamilyNumeric
-                                horizontalAlignment: Text.AlignRight
-                                style: Text.Outline
-                                styleColor: _t.textOutline
+
+                            // Lon group (right half).
+                            RowLayout {
+                                Layout.fillWidth:       true
+                                Layout.preferredWidth:  1
+                                spacing:                _t.spacingUnit
+                                Text {
+                                    text: qsTr("Lon")
+                                    color: _t.textSecondary
+                                    font.pixelSize: _t.fontCaption
+                                    font.family: _t.fontFamily
+                                    font.weight: Font.Medium
+                                    Layout.preferredWidth: _root._gpsLabelColWidth
+                                }
+                                Text {
+                                    text: _root._coordText(
+                                        _activeVehicle ? _activeVehicle.gps.lon : null, 5)
+                                    color: _t.telemetryAccent
+                                    font.pixelSize: _t.fontBody
+                                    font.bold: true
+                                    font.family: _t.fontFamilyNumeric
+                                    horizontalAlignment: Text.AlignLeft
+                                    style: Text.Outline
+                                    styleColor: _t.textOutline
+                                }
+                                Item { Layout.fillWidth: true }
                             }
                         }
                         GpsDataRow {

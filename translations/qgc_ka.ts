@@ -6414,8 +6414,8 @@ Click Ok to start the auto-tuning process.
         <translation>სიმაღლე</translation>
     </message>
     <message>
-        <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="802"/>
-        <source>Ground Speed</source>
+        <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="830"/>
+        <source>Speed</source>
         <translation>სიჩქარე</translation>
     </message>
     <message>

@@ -4,7 +4,7 @@
 
 ## რა არის ეს პროექტი
 Desktop **Ground Control Station** (DroneHubGCS) — **QGroundControl-ის fork**.
-Bundle ID: `org.qgroundcontrol.QGroundControl`. macOS build output:
+Bundle ID: `org.dronehub.GCS`. macOS build output:
 `DroneHub-GCS/qgroundcontrol/build/Release/DroneHubGCS.app`.
 დანიშნულება: PX4 (და სავარაუდოდ ArduPilot) დრონების მართვა, mission planning, telemetry, parameter tuning.
 

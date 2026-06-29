@@ -51,6 +51,14 @@ Button {
     ToolTip.text: control.text
     ToolTip.delay: 400
 
+    // Icon-only buttons carry no visible label — expose name/role to assistive tech.
+    Accessible.role:        Accessible.Button
+    Accessible.name:        control.text
+    Accessible.description: control.text
+    Accessible.checkable:   control.checkable
+    Accessible.checked:     control.checked
+    Accessible.onPressAction: control.clicked()
+
     onCheckedChanged: toolStripAction.checked = checked
 
     onClicked: {
