@@ -9,6 +9,7 @@
 #include "FactMetaData.h"
 #include "SettingsManager.h"
 #include "MavlinkActionsSettings.h"
+#include "VideoSettings.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -18,6 +19,7 @@
 #include <QtCore/QLocale>
 #include <QtCore/QMap>
 #include <QtCore/QStringList>
+#include <QtCore/QSettings>
 #include <QtGui/QFont>
 #include <QtGui/QFontDatabase>
 #include <QtGui/QGuiApplication>
@@ -46,6 +48,30 @@ void CustomPlugin::init()
 {
     _applyGeorgianLocaleAndFont();
     _installDefaultMavlinkActions();
+
+    // Keep the Fly View video PiP visible. The window hides whenever
+    // hasVideo == (streamEnabled && streamConfigured) is false, and QGC sets
+    // streamEnabled=false on every disarm when disableWhenDisarmed is on — so the
+    // PiP vanishes after the first disarm and never comes back on its own.
+    //
+    // Fresh installs get disableWhenDisarmed=false via adjustSettingMetaData.
+    // For installs that already persisted the old defaults, run a ONE-TIME
+    // migration (guarded by a marker) so we restore the video without fighting
+    // the user's choice on later launches.
+    QSettings settings;
+    if (!settings.value(QStringLiteral("DroneHub/videoDefaultsMigrated"), false).toBool()) {
+        if (SettingsManager* sm = SettingsManager::instance()) {
+            if (VideoSettings* vs = sm->videoSettings()) {
+                vs->disableWhenDisarmed()->setRawValue(false);
+                const QString current = vs->videoSource()->rawValue().toString();
+                if (current.isEmpty() || current == QString::fromUtf8(VideoSettings::videoDisabled)) {
+                    vs->videoSource()->setRawValue(QString::fromUtf8(VideoSettings::videoSourceUDPH264));
+                }
+                vs->streamEnabled()->setRawValue(true);
+            }
+        }
+        settings.setValue(QStringLiteral("DroneHub/videoDefaultsMigrated"), true);
+    }
 }
 
 void CustomPlugin::cleanup()
@@ -239,6 +265,21 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
             return false;
         } else if (metaData.name() == AppSettings::offlineEditingVehicleClassName) {
             metaData.setRawDefaultValue(QGCMAVLink::VehicleClassMultiRotor);
+            return false;
+        }
+    }
+
+    // Default the video source to UDP h.264 (port 5600) so the Fly View video
+    // window is live out of the box. QGC ships "" (disabled) as the default, which
+    // left the bottom-left PiP hidden on every fresh launch.
+    if (settingsGroup == VideoSettings::settingsGroup) {
+        if (metaData.name() == VideoSettings::videoSourceName) {
+            metaData.setRawDefaultValue(QString::fromUtf8(VideoSettings::videoSourceUDPH264));
+            return false;
+        }
+        // Don't kill the video stream on disarm — keeps the Fly View PiP visible.
+        if (metaData.name() == VideoSettings::disableWhenDisarmedName) {
+            metaData.setRawDefaultValue(false);
             return false;
         }
     }

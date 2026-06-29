@@ -88,7 +88,7 @@ Item {
                 }
                 LabelledLabel {
                     label:      qsTr("Backend")
-                    labelText:  _hasBackend ? qsTr("Available") : qsTr("Not compiled")
+                    labelText:  _videoManager.gstreamerEnabled ? qsTr("Available") : qsTr("Not compiled")
                 }
                 LabelledLabel {
                     label:      qsTr("State")
