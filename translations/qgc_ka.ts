@@ -6308,7 +6308,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/FlightModeIndicator.qml" line="176"/>
         <source>Some Modes Hidden</source>
-        <translation>Some Modes Hidden</translation>
+        <translation>ზოგიერთი რეჟიმი დამალულია</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/FlightModeIndicator.qml" line="212"/>
