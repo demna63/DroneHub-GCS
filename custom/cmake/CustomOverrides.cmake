@@ -36,10 +36,8 @@ endif()
 # ("org.mavlink.qgroundcontrol") in qgroundcontrol/cmake/CustomOptions.cmake:58, which
 # runs before this file — so a FORCE override wins. Lowercase per Android convention
 # (the macOS bundle id is org.dronehub.GCS). The Android app *label* is already
-# "DroneHubGCS" via QGC_APP_NAME → AndroidManifest %%INSERT_APP_NAME%%.
-# NOTE: branding the Android *launcher icon* requires a full custom Android package
-# source dir (QGC_ANDROID_PACKAGE_SOURCE_DIR replaces, not merges, the stock android/
-# tree) — tracked separately to avoid vendoring the whole gradle tree here.
+# "DroneHubGCS" via QGC_APP_NAME → AndroidManifest %%INSERT_APP_NAME%%. The launcher
+# *icon* is branded via a merged package source dir assembled in custom/CMakeLists.txt.
 set(QGC_ANDROID_PACKAGE_NAME "org.dronehub.gcs" CACHE STRING "Android Package Name" FORCE)
 
 # CFBundleIconFile fix: core sets the MACOSX_BUNDLE_ICON_FILE *target property*

@@ -31,6 +31,25 @@ set(CMAKE_PROJECT_VERSION_PATCH "${DRONEHUB_VERSION_PATCH}" PARENT_SCOPE)
 message(STATUS "DroneHub: pinned app version ${DRONEHUB_VERSION}")
 # ────────────────────────────────────────────────────────────────────────────────
 
+# ── Android launcher-icon branding (overlay, not full vendor) ───────────────────
+# QT_ANDROID_PACKAGE_SOURCE_DIR (core CMakeLists.txt:464, fed by
+# QGC_ANDROID_PACKAGE_SOURCE_DIR) *replaces* the stock android/ package tree wholesale.
+# To brand only the launcher icon without vendoring the whole gradle tree (and taking on
+# its upstream-merge burden), assemble a merged tree at configure time: copy the stock
+# android/ package, then overlay custom/deploy/android/ (DroneHub @drawable/icon at all
+# densities) on top. Upstream android/ changes still flow through automatically — we own
+# only the icons. This block runs at add_subdirectory(custom) (core line 261), after
+# project() so ANDROID is defined, and before the target property is read at line 464.
+if(ANDROID)
+    set(_dh_android_pkg "${CMAKE_BINARY_DIR}/dronehub-android")
+    file(REMOVE_RECURSE "${_dh_android_pkg}")
+    file(COPY "${CMAKE_SOURCE_DIR}/android/" DESTINATION "${_dh_android_pkg}")          # stock base
+    file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/deploy/android/" DESTINATION "${_dh_android_pkg}")  # DroneHub icon overlay
+    set(QGC_ANDROID_PACKAGE_SOURCE_DIR "${_dh_android_pkg}" CACHE PATH "Android Package Path" FORCE)
+    message(STATUS "DroneHub: Android package source merged (stock + DroneHub icons) at ${_dh_android_pkg}")
+endif()
+# ────────────────────────────────────────────────────────────────────────────────
+
 # Upstream Stable_V5.0 patches (e.g. macOS Quit null-guard in QGCApplication::event).
 # Windows: CMake cannot execute .sh directly — invoke via Git Bash.
 set(_dronehub_patch_script "${CMAKE_CURRENT_SOURCE_DIR}/../tools/apply-qgc-patches.sh")
