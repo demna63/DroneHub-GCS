@@ -32,6 +32,16 @@ if(EXISTS ${CMAKE_SOURCE_DIR}/custom/res/icons/macx.icns)
     set(QGC_MACOS_ICON_PATH "${CMAKE_SOURCE_DIR}/custom/res/icons" CACHE PATH "MacOS Icon Path" FORCE)
 endif()
 
+# Android application id. Core defaults QGC_ANDROID_PACKAGE_NAME to QGC_PACKAGE_NAME
+# ("org.mavlink.qgroundcontrol") in qgroundcontrol/cmake/CustomOptions.cmake:58, which
+# runs before this file — so a FORCE override wins. Lowercase per Android convention
+# (the macOS bundle id is org.dronehub.GCS). The Android app *label* is already
+# "DroneHubGCS" via QGC_APP_NAME → AndroidManifest %%INSERT_APP_NAME%%.
+# NOTE: branding the Android *launcher icon* requires a full custom Android package
+# source dir (QGC_ANDROID_PACKAGE_SOURCE_DIR replaces, not merges, the stock android/
+# tree) — tracked separately to avoid vendoring the whole gradle tree here.
+set(QGC_ANDROID_PACKAGE_NAME "org.dronehub.gcs" CACHE STRING "Android Package Name" FORCE)
+
 # CFBundleIconFile fix: core sets the MACOSX_BUNDLE_ICON_FILE *target property*
 # (qgroundcontrol/CMakeLists.txt:372) from ${MACOSX_BUNDLE_ICON_FILE} BEFORE it assigns
 # that variable at line 379 — so the plist key is configured empty and macOS falls back
