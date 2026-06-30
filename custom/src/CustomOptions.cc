@@ -7,10 +7,15 @@ CustomFlyViewOptions::CustomFlyViewOptions(CustomOptions* options, QObject* pare
 {
 }
 
-// DroneHub field ops fly a single vehicle — keep the multi-vehicle list hidden.
+// Inherit the upstream default (true). NOTE: in this QGC version this option has
+// no QML consumer — the Fly View multi-vehicle panel (FlyViewTopRightPanel) is
+// governed by the appSettings.enableMultiVehiclePanel setting plus vehicles.count>1,
+// not by this flag. Returning false here was therefore a no-op that misleadingly
+// implied single-vehicle-only; we defer to the base so a future QGC rebase that
+// reconnects this flag does not silently hide multi-vehicle switching.
 bool CustomFlyViewOptions::showMultiVehicleList() const
 {
-    return false;
+    return QGCFlyViewOptions::showMultiVehicleList();
 }
 
 // DroneHub custom HUD replaces the upstream instrument strip.
