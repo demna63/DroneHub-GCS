@@ -4712,12 +4712,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/QmlControls/CameraSection.qml" line="107"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/QmlControls/CameraSection.qml" line="108"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
 </context>
 <context>
@@ -18516,6 +18516,37 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <source>Waypoint</source>
         <translation>გზის წერტილი</translation>
+    </message>
+</context>
+<context>
+    <name>FactEnum</name>
+    <message>
+        <source>No change</source>
+        <translation>ცვლილების გარეშე</translation>
+    </message>
+    <message>
+        <source>Take photo</source>
+        <translation>ფოტოს გადაღება</translation>
+    </message>
+    <message>
+        <source>Take photos (time)</source>
+        <translation>ფოტოები (დროით)</translation>
+    </message>
+    <message>
+        <source>Take photos (distance)</source>
+        <translation>ფოტოები (მანძილით)</translation>
+    </message>
+    <message>
+        <source>Stop taking photos</source>
+        <translation>ფოტოების შეჩერება</translation>
+    </message>
+    <message>
+        <source>Start recording video</source>
+        <translation>ვიდეოს ჩაწერის დაწყება</translation>
+    </message>
+    <message>
+        <source>Stop recording video</source>
+        <translation>ვიდეოს ჩაწერის შეჩერება</translation>
     </message>
 </context>
 </TS>

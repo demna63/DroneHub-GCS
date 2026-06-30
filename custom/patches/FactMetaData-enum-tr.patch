@@ -1,0 +1,21 @@
+--- a/src/FactSystem/FactMetaData.cc
++++ b/src/FactSystem/FactMetaData.cc
+@@ -13,6 +13,7 @@
+ #include "QGCLoggingCategory.h"
+ #include "SettingsManager.h"
+ #include "UnitsSettings.h"
++#include <QtCore/QCoreApplication>
+ 
+ #include <QtCore/QtMath>
+ 
+@@ -1428,6 +1429,10 @@
+     const QString jsonStrings = jsonObject.value(_enumStringsJsonKey).toString();
+     const QString defineMapStrings = defineMap.value(jsonStrings, jsonStrings);
+     rgDescriptions = splitTranslatedList(defineMapStrings);
++    // DroneHub: localize JSON fact-enum display strings via the "FactEnum" ts context.
++    for (QString &_dhEnumStr : rgDescriptions) {
++        _dhEnumStr = QCoreApplication::translate("FactEnum", _dhEnumStr.toUtf8().constData());
++    }
+ 
+     const QString jsonValues = jsonObject.value(_enumValuesJsonKey).toString();
+     const QString defineMapValues = defineMap.value(jsonValues, jsonValues);
