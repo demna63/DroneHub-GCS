@@ -11033,17 +11033,17 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="42"/>
         <source>Manual</source>
-        <translation>Manual</translation>
+        <translation>მანუალური</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="43"/>
         <source>Acro</source>
-        <translation>Acro</translation>
+        <translation>აკრო</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="44"/>
         <source>Stabilized</source>
-        <translation>Stabilized</translation>
+        <translation>სტაბილიზებული</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="45"/>
@@ -11078,7 +11078,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="51"/>
         <source>Hold</source>
-        <translation>Hold</translation>
+        <translation>შეჩერება</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="52"/>
@@ -11098,17 +11098,17 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="55"/>
         <source>Precision Land</source>
-        <translation>Precision Land</translation>
+        <translation>ზუსტი დაშვება</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="56"/>
         <source>Return to Groundstation</source>
-        <translation>Return to Groundstation</translation>
+        <translation>დაბრუნება სადგურთან</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="57"/>
         <source>Follow Me</source>
-        <translation>Follow Me</translation>
+        <translation>გამომყევი</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="58"/>
@@ -11118,7 +11118,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="59"/>
         <source>Orbit</source>
-        <translation>Orbit</translation>
+        <translation>ორბიტა</translation>
     </message>
     <message>
         <location filename="../src/FirmwarePlugin/PX4/PX4FirmwarePlugin.cc" line="139"/>
@@ -18084,7 +18084,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="47"/>
         <source>Off</source>
-        <translation>გამორთ.</translation>
+        <translation>გამორთული</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="48"/>
@@ -18094,12 +18094,12 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="49"/>
         <source>Wait</source>
-        <translation>მოლოდ.</translation>
+        <translation>ლოდინი</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="50"/>
         <source>Live</source>
-        <translation>Live</translation>
+        <translation>ცოცხალი</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="57"/>
@@ -18109,7 +18109,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="58"/>
         <source>No video backend</source>
-        <translation>ვიდეო backend არ არის</translation>
+        <translation>ვიდეო ბექენდი არ არის</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="59"/>
@@ -18149,7 +18149,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="90"/>
         <source>Backend</source>
-        <translation>Backend</translation>
+        <translation>ბექენდი</translation>
     </message>
     <message>
         <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="91"/>

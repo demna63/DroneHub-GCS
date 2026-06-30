@@ -107,11 +107,61 @@ Rectangle {
         anchors.bottomMargin:   1
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
-        anchors.right:          cameraToggleButton.left
+        anchors.right:          clockItem.left
         contentWidth:           toolIndicators.width
         flickableDirection:     Flickable.HorizontalFlick
 
         FlyViewToolBarIndicators { id: toolIndicators }
+    }
+
+    // Mission clock — fills the otherwise-empty right zone with glanceable info and
+    // rebalances the toolbar (status cluster left, clock + camera toggle right).
+    Item {
+        id:                     clockItem
+        anchors.top:            parent.top
+        anchors.bottom:         parent.bottom
+        anchors.bottomMargin:   1
+        anchors.right:          cameraToggleButton.left
+        anchors.rightMargin:    ScreenTools.defaultFontPixelWidth
+        width:                  clockColumn.implicitWidth + Theme.spacingUnit * 2.5
+
+        Rectangle {   // subtle separator from the indicator cluster
+            anchors.left:           parent.left
+            anchors.verticalCenter: parent.verticalCenter
+            width:                  1
+            height:                 parent.height * 0.5
+            color:                  Theme.divider
+        }
+
+        Column {
+            id:                 clockColumn
+            anchors.centerIn:   parent
+            spacing:            -1
+
+            Text {
+                id:                         clockTime
+                anchors.horizontalCenter:   parent.horizontalCenter
+                color:                      Theme.textPrimary
+                font.family:                Theme.fontFamily
+                font.pixelSize:             Theme.fontBody
+                font.bold:                  true
+            }
+            Text {
+                id:                         clockDate
+                anchors.horizontalCenter:   parent.horizontalCenter
+                color:                      Theme.textSecondary
+                font.family:                Theme.fontFamily
+                font.pixelSize:             Theme.fontMicro
+            }
+        }
+
+        function _tick() {
+            var d = new Date()
+            clockTime.text = Qt.formatTime(d, "HH:mm:ss")
+            clockDate.text = Qt.formatDate(d, "dd.MM.yyyy")   // locale-neutral; avoids English month in the Georgian UI
+        }
+        Timer { interval: 1000; repeat: true; running: true; onTriggered: clockItem._tick() }
+        Component.onCompleted: clockItem._tick()
     }
 
     Item {
