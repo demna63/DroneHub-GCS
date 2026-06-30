@@ -230,6 +230,22 @@ set(DRONEHUB_PLAN_TOOLBAR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml")
 set(DRONEHUB_PLAN_TOOLBAR_DST
     "${CMAKE_SOURCE_DIR}/src/QmlControls/PlanViewToolBar.qml")
+set(DRONEHUB_PLAN_TOOLBAR_INDICATORS_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/PlanToolBarIndicators.qml")
+set(DRONEHUB_PLAN_TOOLBAR_INDICATORS_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/PlanToolBarIndicators.qml")
+set(DRONEHUB_MISSION_ITEM_EDITOR_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/MissionItemEditor.qml")
+set(DRONEHUB_MISSION_ITEM_EDITOR_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/MissionItemEditor.qml")
+set(DRONEHUB_SIMPLE_ITEM_EDITOR_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/SimpleItemEditor.qml")
+set(DRONEHUB_SIMPLE_ITEM_EDITOR_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/SimpleItemEditor.qml")
+set(DRONEHUB_MISSION_SETTINGS_EDITOR_SRC
+    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/MissionSettingsEditor.qml")
+set(DRONEHUB_MISSION_SETTINGS_EDITOR_DST
+    "${CMAKE_SOURCE_DIR}/src/QmlControls/MissionSettingsEditor.qml")
 set(DRONEHUB_APP_SETTINGS_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/AppSettings.qml")
 set(DRONEHUB_APP_SETTINGS_DST
@@ -316,6 +332,14 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_PLAN_TOOLBAR_SRC}" "${DRONEHUB_PLAN_TOOLBAR_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_PLAN_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_PLAN_TOOLBAR_INDICATORS_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_MISSION_ITEM_EDITOR_SRC}" "${DRONEHUB_MISSION_ITEM_EDITOR_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_SIMPLE_ITEM_EDITOR_SRC}" "${DRONEHUB_SIMPLE_ITEM_EDITOR_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+            "${DRONEHUB_MISSION_SETTINGS_EDITOR_SRC}" "${DRONEHUB_MISSION_SETTINGS_EDITOR_DST}"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_APP_SETTINGS_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_DST}"
@@ -332,6 +356,8 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
             "${DRONEHUB_BATTERY_INDICATOR_SRC}" "${DRONEHUB_POPUP_DIALOG_SRC}"
             "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_SETTINGS_GROUP_SRC}"
             "${DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC}" "${DRONEHUB_PLAN_TOOLBAR_SRC}"
+            "${DRONEHUB_PLAN_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_MISSION_ITEM_EDITOR_SRC}"
+            "${DRONEHUB_SIMPLE_ITEM_EDITOR_SRC}" "${DRONEHUB_MISSION_SETTINGS_EDITOR_SRC}"
             "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}"
             "${DRONEHUB_MAIN_WINDOW_SRC}"
     COMMENT "Sync DroneHub custom QML into QGC qmlcache sources"

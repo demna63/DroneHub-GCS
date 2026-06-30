@@ -1,0 +1,22 @@
+--- a/src/QmlControls/PlanView.qml
++++ b/src/QmlControls/PlanView.qml
+@@ -678,8 +678,8 @@
+                      _rightPanelWidth
+                  }
+              }
+-            color:              qgcPal.window
+-            opacity:            layerTabBar.visible ? 0.2 : 0
++            color:              "#151A23"
++            opacity:            layerTabBar.visible ? 0.92 : 0
+             anchors.top:        parent.top
+             anchors.topMargin:  planToolBar.height + _toolsMargin
+             anchors.bottom:     parent.bottom
+@@ -753,7 +753,7 @@
+                 QGCListView {
+                     id:                 missionItemEditorListView
+                     anchors.fill:       parent
+-                    spacing:            ScreenTools.defaultFontPixelHeight / 4
++                    spacing:            ScreenTools.defaultFontPixelHeight * 0.45
+                     orientation:        ListView.Vertical
+                     model:              _missionController.visualItems
+                     cacheBuffer:        Math.max(height * 2, 0)

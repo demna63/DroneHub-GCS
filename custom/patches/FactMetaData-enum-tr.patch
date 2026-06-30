@@ -1,21 +1,63 @@
+diff --git a/src/FactSystem/FactMetaData.cc b/src/FactSystem/FactMetaData.cc
+index 4119bc5..6f9acae 100644
 --- a/src/FactSystem/FactMetaData.cc
 +++ b/src/FactSystem/FactMetaData.cc
-@@ -13,6 +13,7 @@
+@@ -13,6 +13,24 @@
  #include "QGCLoggingCategory.h"
  #include "SettingsManager.h"
  #include "UnitsSettings.h"
 +#include <QtCore/QCoreApplication>
++
++namespace {
++QString _translateFactEnumString(const QString &source)
++{
++    return QCoreApplication::translate("FactEnum", source.toUtf8().constData());
++}
++
++QStringList _translateFactEnumStrings(const QStringList &sources)
++{
++    QStringList translated;
++    translated.reserve(sources.size());
++    for (const QString &source : sources) {
++        translated << _translateFactEnumString(source);
++    }
++    return translated;
++}
++} // namespace
  
  #include <QtCore/QtMath>
  
-@@ -1428,6 +1429,10 @@
-     const QString jsonStrings = jsonObject.value(_enumStringsJsonKey).toString();
-     const QString defineMapStrings = defineMap.value(jsonStrings, jsonStrings);
-     rgDescriptions = splitTranslatedList(defineMapStrings);
-+    // DroneHub: localize JSON fact-enum display strings via the "FactEnum" ts context.
-+    for (QString &_dhEnumStr : rgDescriptions) {
-+        _dhEnumStr = QCoreApplication::translate("FactEnum", _dhEnumStr.toUtf8().constData());
-+    }
+@@ -534,14 +552,14 @@ void FactMetaData::setBitmaskInfo(const QStringList &strings, const QVariantList
+         return;
+     }
  
-     const QString jsonValues = jsonObject.value(_enumValuesJsonKey).toString();
-     const QString defineMapValues = defineMap.value(jsonValues, jsonValues);
+-    _bitmaskStrings = strings;
++    _bitmaskStrings = _translateFactEnumStrings(strings);
+     _bitmaskValues = values;
+     setBuiltInTranslator();
+ }
+ 
+ void FactMetaData::addBitmaskInfo(const QString &name, const QVariant &value)
+ {
+-    _bitmaskStrings << name;
++    _bitmaskStrings << _translateFactEnumString(name);
+     _bitmaskValues << value;
+ }
+ 
+@@ -552,14 +570,14 @@ void FactMetaData::setEnumInfo(const QStringList &strings, const QVariantList &v
+         return;
+     }
+ 
+-    _enumStrings = strings;
++    _enumStrings = _translateFactEnumStrings(strings);
+     _enumValues = values;
+     setBuiltInTranslator();
+ }
+ 
+ void FactMetaData::addEnumInfo(const QString &name, const QVariant &value)
+ {
+-    _enumStrings << name;
++    _enumStrings << _translateFactEnumString(name);
+     _enumValues << value;
+ }
+ 

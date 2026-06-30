@@ -16,7 +16,9 @@
 | `apply-ka-batch3.py` | Apply batch 3 (Setup/Safety/Links/Analyze chrome) |
 | `apply-ka-batch4.py` | Apply batch 4 (HUD, MAVLink confirm UI, Phase 1/2 cleanup) |
 | `apply-ka-batch5.py` | Apply batch 5 (Phase 4 health panel, Plan toolbar, operator UX) |
-| `apply-ka-translations.sh` | Run batch 2 + batch 3 + batch 4 + batch 5 |
+| `apply-ka-batch6.py` | Apply batch 6 (FactEnum PX4 parameter enum labels for Setup) |
+| `extract-px4-fact-enums.py` | Seed FactEnum stubs from PX4 parameter XML into `qgc_ka.ts` |
+| `apply-ka-translations.sh` | Run batch 2 + batch 3 + batch 4 + batch 5 + batch 6 |
 | `check-hud-tokens.py` | Verify `Theme.qml` HUD tokens match `FlyViewCustomLayer` inline `_t` |
 | `check-qml-override-drift.py` | Detect drift between custom QML and qmlcache sync targets |
 | `check-dronehub-stability.sh` | Run HUD token + QML drift checks (Phase 2) |

@@ -18560,5 +18560,3345 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
         <source>Survey</source>
         <translation>აეროგადაღება</translation>
     </message>
+    <message>
+        <source>(Not set)</source>
+        <translation>(არ არის დაყენებული)</translation>
+    </message>
+    <message>
+        <source>- Default</source>
+        <translation type="unfinished">- Default</translation>
+    </message>
+    <message>
+        <source>- Disabled</source>
+        <translation type="unfinished">- Disabled</translation>
+    </message>
+    <message>
+        <source>- Enabled</source>
+        <translation type="unfinished">- Enabled</translation>
+    </message>
+    <message>
+        <source>- None</source>
+        <translation type="unfinished">- None</translation>
+    </message>
+    <message>
+        <source>- Reverse</source>
+        <translation type="unfinished">- Reverse</translation>
+    </message>
+    <message>
+        <source>- Turtle Mode enabled via AUX1</source>
+        <translation type="unfinished">- Turtle Mode enabled via AUX1</translation>
+    </message>
+    <message>
+        <source>- Turtle Mode enabled via AUX2</source>
+        <translation type="unfinished">- Turtle Mode enabled via AUX2</translation>
+    </message>
+    <message>
+        <source>- UART Passthrough Mode</source>
+        <translation type="unfinished">- UART Passthrough Mode</translation>
+    </message>
+    <message>
+        <source>- VOXL ESC</source>
+        <translation type="unfinished">- VOXL ESC</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <source>0.1 Hz</source>
+        <translation type="unfinished">0.1 Hz</translation>
+    </message>
+    <message>
+        <source>0.2 Hz</source>
+        <translation type="unfinished">0.2 Hz</translation>
+    </message>
+    <message>
+        <source>0.5 Hz</source>
+        <translation type="unfinished">0.5 Hz</translation>
+    </message>
+    <message>
+        <source>0x80</source>
+        <translation type="unfinished">0x80</translation>
+    </message>
+    <message>
+        <source>0x81</source>
+        <translation type="unfinished">0x81</translation>
+    </message>
+    <message>
+        <source>0x82</source>
+        <translation type="unfinished">0x82</translation>
+    </message>
+    <message>
+        <source>0x83</source>
+        <translation type="unfinished">0x83</translation>
+    </message>
+    <message>
+        <source>0x84</source>
+        <translation type="unfinished">0x84</translation>
+    </message>
+    <message>
+        <source>0x85</source>
+        <translation type="unfinished">0x85</translation>
+    </message>
+    <message>
+        <source>0x86</source>
+        <translation type="unfinished">0x86</translation>
+    </message>
+    <message>
+        <source>0x87</source>
+        <translation type="unfinished">0x87</translation>
+    </message>
+    <message>
+        <source>1</source>
+        <translation type="unfinished">1</translation>
+    </message>
+    <message>
+        <source>1 Hz</source>
+        <translation type="unfinished">1 Hz</translation>
+    </message>
+    <message>
+        <source>1.5625 Hz</source>
+        <translation type="unfinished">1.5625 Hz</translation>
+    </message>
+    <message>
+        <source>10</source>
+        <translation type="unfinished">10</translation>
+    </message>
+    <message>
+        <source>10 Hz</source>
+        <translation type="unfinished">10 Hz</translation>
+    </message>
+    <message>
+        <source>100 Hz</source>
+        <translation type="unfinished">100 Hz</translation>
+    </message>
+    <message>
+        <source>1000 Hz</source>
+        <translation type="unfinished">1000 Hz</translation>
+    </message>
+    <message>
+        <source>1000000 8N1</source>
+        <translation type="unfinished">1000000 8N1</translation>
+    </message>
+    <message>
+        <source>1000hz</source>
+        <translation type="unfinished">1000hz</translation>
+    </message>
+    <message>
+        <source>100hz</source>
+        <translation type="unfinished">100hz</translation>
+    </message>
+    <message>
+        <source>1024</source>
+        <translation type="unfinished">1024</translation>
+    </message>
+    <message>
+        <source>10S Battery</source>
+        <translation type="unfinished">10S Battery</translation>
+    </message>
+    <message>
+        <source>11</source>
+        <translation type="unfinished">11</translation>
+    </message>
+    <message>
+        <source>110 8N1</source>
+        <translation type="unfinished">110 8N1</translation>
+    </message>
+    <message>
+        <source>115200</source>
+        <translation type="unfinished">115200</translation>
+    </message>
+    <message>
+        <source>115200 8N1</source>
+        <translation type="unfinished">115200 8N1</translation>
+    </message>
+    <message>
+        <source>11S Battery</source>
+        <translation type="unfinished">11S Battery</translation>
+    </message>
+    <message>
+        <source>12</source>
+        <translation type="unfinished">12</translation>
+    </message>
+    <message>
+        <source>12.5 Hz</source>
+        <translation type="unfinished">12.5 Hz</translation>
+    </message>
+    <message>
+        <source>1200 8N1</source>
+        <translation type="unfinished">1200 8N1</translation>
+    </message>
+    <message>
+        <source>1200Kts</source>
+        <translation type="unfinished">1200Kts</translation>
+    </message>
+    <message>
+        <source>1250hz</source>
+        <translation type="unfinished">1250hz</translation>
+    </message>
+    <message>
+        <source>12S Battery</source>
+        <translation type="unfinished">12S Battery</translation>
+    </message>
+    <message>
+        <source>13 Hz</source>
+        <translation type="unfinished">13 Hz</translation>
+    </message>
+    <message>
+        <source>134 8N1</source>
+        <translation type="unfinished">134 8N1</translation>
+    </message>
+    <message>
+        <source>13S Battery</source>
+        <translation type="unfinished">13S Battery</translation>
+    </message>
+    <message>
+        <source>1475 Hz</source>
+        <translation type="unfinished">1475 Hz</translation>
+    </message>
+    <message>
+        <source>14S Battery</source>
+        <translation type="unfinished">14S Battery</translation>
+    </message>
+    <message>
+        <source>150 8N1</source>
+        <translation type="unfinished">150 8N1</translation>
+    </message>
+    <message>
+        <source>1500000 8N1</source>
+        <translation type="unfinished">1500000 8N1</translation>
+    </message>
+    <message>
+        <source>150Kts</source>
+        <translation type="unfinished">150Kts</translation>
+    </message>
+    <message>
+        <source>1538hz</source>
+        <translation type="unfinished">1538hz</translation>
+    </message>
+    <message>
+        <source>15S Battery</source>
+        <translation type="unfinished">15S Battery</translation>
+    </message>
+    <message>
+        <source>16S Battery</source>
+        <translation type="unfinished">16S Battery</translation>
+    </message>
+    <message>
+        <source>1800 8N1</source>
+        <translation type="unfinished">1800 8N1</translation>
+    </message>
+    <message>
+        <source>19200</source>
+        <translation type="unfinished">19200</translation>
+    </message>
+    <message>
+        <source>19200 8N1</source>
+        <translation type="unfinished">19200 8N1</translation>
+    </message>
+    <message>
+        <source>1S Battery</source>
+        <translation type="unfinished">1S Battery</translation>
+    </message>
+    <message>
+        <source>2</source>
+        <translation type="unfinished">2</translation>
+    </message>
+    <message>
+        <source>2 Hz</source>
+        <translation type="unfinished">2 Hz</translation>
+    </message>
+    <message>
+        <source>2 sample averaging</source>
+        <translation type="unfinished">2 sample averaging</translation>
+    </message>
+    <message>
+        <source>20 Hz</source>
+        <translation type="unfinished">20 Hz</translation>
+    </message>
+    <message>
+        <source>200 8N1</source>
+        <translation type="unfinished">200 8N1</translation>
+    </message>
+    <message>
+        <source>200 Hz</source>
+        <translation type="unfinished">200 Hz</translation>
+    </message>
+    <message>
+        <source>2000 Hz</source>
+        <translation type="unfinished">2000 Hz</translation>
+    </message>
+    <message>
+        <source>2000000 8N1</source>
+        <translation type="unfinished">2000000 8N1</translation>
+    </message>
+    <message>
+        <source>2000hz</source>
+        <translation type="unfinished">2000hz</translation>
+    </message>
+    <message>
+        <source>200hz</source>
+        <translation type="unfinished">200hz</translation>
+    </message>
+    <message>
+        <source>230400</source>
+        <translation type="unfinished">230400</translation>
+    </message>
+    <message>
+        <source>230400 8N1</source>
+        <translation type="unfinished">230400 8N1</translation>
+    </message>
+    <message>
+        <source>235 Hz</source>
+        <translation type="unfinished">235 Hz</translation>
+    </message>
+    <message>
+        <source>2400 8N1</source>
+        <translation type="unfinished">2400 8N1</translation>
+    </message>
+    <message>
+        <source>25 Hz</source>
+        <translation type="unfinished">25 Hz</translation>
+    </message>
+    <message>
+        <source>25 degrees half cone angle.</source>
+        <translation type="unfinished">25 degrees half cone angle.</translation>
+    </message>
+    <message>
+        <source>250 Hz</source>
+        <translation type="unfinished">250 Hz</translation>
+    </message>
+    <message>
+        <source>2500hz</source>
+        <translation type="unfinished">2500hz</translation>
+    </message>
+    <message>
+        <source>256</source>
+        <translation type="unfinished">256</translation>
+    </message>
+    <message>
+        <source>280 Hz</source>
+        <translation type="unfinished">280 Hz</translation>
+    </message>
+    <message>
+        <source>2950 Hz</source>
+        <translation type="unfinished">2950 Hz</translation>
+    </message>
+    <message>
+        <source>2D</source>
+        <translation type="unfinished">2D</translation>
+    </message>
+    <message>
+        <source>2D + Terrain: Maintain constant altitude relative to terrain below and track XY position</source>
+        <translation type="unfinished">2D + Terrain: Maintain constant altitude relative to terrain below and track XY position</translation>
+    </message>
+    <message>
+        <source>2D Clockwise</source>
+        <translation type="unfinished">2D Clockwise</translation>
+    </message>
+    <message>
+        <source>2D Counter Clockwise</source>
+        <translation type="unfinished">2D Counter Clockwise</translation>
+    </message>
+    <message>
+        <source>2D Tracking: Maintain constant altitude relative to home and track XY position only</source>
+        <translation type="unfinished">2D Tracking: Maintain constant altitude relative to home and track XY position only</translation>
+    </message>
+    <message>
+        <source>2S Battery</source>
+        <translation type="unfinished">2S Battery</translation>
+    </message>
+    <message>
+        <source>3</source>
+        <translation type="unfinished">3</translation>
+    </message>
+    <message>
+        <source>3.125 Hz</source>
+        <translation type="unfinished">3.125 Hz</translation>
+    </message>
+    <message>
+        <source>30 Hz</source>
+        <translation type="unfinished">30 Hz</translation>
+    </message>
+    <message>
+        <source>300 8N1</source>
+        <translation type="unfinished">300 8N1</translation>
+    </message>
+    <message>
+        <source>3000000 8N1</source>
+        <translation type="unfinished">3000000 8N1</translation>
+    </message>
+    <message>
+        <source>300Kts</source>
+        <translation type="unfinished">300Kts</translation>
+    </message>
+    <message>
+        <source>370 Hz</source>
+        <translation type="unfinished">370 Hz</translation>
+    </message>
+    <message>
+        <source>38400</source>
+        <translation type="unfinished">38400</translation>
+    </message>
+    <message>
+        <source>38400 8N1</source>
+        <translation type="unfinished">38400 8N1</translation>
+    </message>
+    <message>
+        <source>3D</source>
+        <translation type="unfinished">3D</translation>
+    </message>
+    <message>
+        <source>3D Clockwise</source>
+        <translation type="unfinished">3D Clockwise</translation>
+    </message>
+    <message>
+        <source>3D Counter Clockwise</source>
+        <translation type="unfinished">3D Counter Clockwise</translation>
+    </message>
+    <message>
+        <source>3D Tracking: Track target&apos;s altitude (be aware that GPS altitude bias usually makes this useless)</source>
+        <translation type="unfinished">3D Tracking: Track target&apos;s altitude (be aware that GPS altitude bias usually makes this useless)</translation>
+    </message>
+    <message>
+        <source>3S Battery</source>
+        <translation type="unfinished">3S Battery</translation>
+    </message>
+    <message>
+        <source>4</source>
+        <translation type="unfinished">4</translation>
+    </message>
+    <message>
+        <source>4 sample averaging</source>
+        <translation type="unfinished">4 sample averaging</translation>
+    </message>
+    <message>
+        <source>400 Hz</source>
+        <translation type="unfinished">400 Hz</translation>
+    </message>
+    <message>
+        <source>400hz</source>
+        <translation type="unfinished">400hz</translation>
+    </message>
+    <message>
+        <source>4096</source>
+        <translation type="unfinished">4096</translation>
+    </message>
+    <message>
+        <source>45 degrees half cone angle.</source>
+        <translation type="unfinished">45 degrees half cone angle.</translation>
+    </message>
+    <message>
+        <source>460800</source>
+        <translation type="unfinished">460800</translation>
+    </message>
+    <message>
+        <source>460800 8N1</source>
+        <translation type="unfinished">460800 8N1</translation>
+    </message>
+    <message>
+        <source>4800</source>
+        <translation type="unfinished">4800</translation>
+    </message>
+    <message>
+        <source>4800 8N1</source>
+        <translation type="unfinished">4800 8N1</translation>
+    </message>
+    <message>
+        <source>4S Battery</source>
+        <translation type="unfinished">4S Battery</translation>
+    </message>
+    <message>
+        <source>5</source>
+        <translation type="unfinished">5</translation>
+    </message>
+    <message>
+        <source>5 Hz</source>
+        <translation type="unfinished">5 Hz</translation>
+    </message>
+    <message>
+        <source>50 8N1</source>
+        <translation type="unfinished">50 8N1</translation>
+    </message>
+    <message>
+        <source>50 Hz</source>
+        <translation type="unfinished">50 Hz</translation>
+    </message>
+    <message>
+        <source>500000 8N1</source>
+        <translation type="unfinished">500000 8N1</translation>
+    </message>
+    <message>
+        <source>5000hz</source>
+        <translation type="unfinished">5000hz</translation>
+    </message>
+    <message>
+        <source>500hz</source>
+        <translation type="unfinished">500hz</translation>
+    </message>
+    <message>
+        <source>50hz</source>
+        <translation type="unfinished">50hz</translation>
+    </message>
+    <message>
+        <source>512</source>
+        <translation type="unfinished">512</translation>
+    </message>
+    <message>
+        <source>57600</source>
+        <translation type="unfinished">57600</translation>
+    </message>
+    <message>
+        <source>57600 8N1</source>
+        <translation type="unfinished">57600 8N1</translation>
+    </message>
+    <message>
+        <source>5900 Hz</source>
+        <translation type="unfinished">5900 Hz</translation>
+    </message>
+    <message>
+        <source>5S Battery</source>
+        <translation type="unfinished">5S Battery</translation>
+    </message>
+    <message>
+        <source>6</source>
+        <translation type="unfinished">6</translation>
+    </message>
+    <message>
+        <source>6.25 Hz</source>
+        <translation type="unfinished">6.25 Hz</translation>
+    </message>
+    <message>
+        <source>600</source>
+        <translation type="unfinished">600</translation>
+    </message>
+    <message>
+        <source>600 8N1</source>
+        <translation type="unfinished">600 8N1</translation>
+    </message>
+    <message>
+        <source>600Kts</source>
+        <translation type="unfinished">600Kts</translation>
+    </message>
+    <message>
+        <source>625hz</source>
+        <translation type="unfinished">625hz</translation>
+    </message>
+    <message>
+        <source>65 degrees half cone angle.</source>
+        <translation type="unfinished">65 degrees half cone angle.</translation>
+    </message>
+    <message>
+        <source>68 Hz</source>
+        <translation type="unfinished">68 Hz</translation>
+    </message>
+    <message>
+        <source>6S Battery</source>
+        <translation type="unfinished">6S Battery</translation>
+    </message>
+    <message>
+        <source>7</source>
+        <translation type="unfinished">7</translation>
+    </message>
+    <message>
+        <source>738 Hz</source>
+        <translation type="unfinished">738 Hz</translation>
+    </message>
+    <message>
+        <source>75 8N1</source>
+        <translation type="unfinished">75 8N1</translation>
+    </message>
+    <message>
+        <source>75Kts</source>
+        <translation type="unfinished">75Kts</translation>
+    </message>
+    <message>
+        <source>7S Battery</source>
+        <translation type="unfinished">7S Battery</translation>
+    </message>
+    <message>
+        <source>8</source>
+        <translation type="unfinished">8</translation>
+    </message>
+    <message>
+        <source>8 sample averaging</source>
+        <translation type="unfinished">8 sample averaging</translation>
+    </message>
+    <message>
+        <source>80 degrees half cone angle.</source>
+        <translation type="unfinished">80 degrees half cone angle.</translation>
+    </message>
+    <message>
+        <source>800 Hz</source>
+        <translation type="unfinished">800 Hz</translation>
+    </message>
+    <message>
+        <source>8S Battery</source>
+        <translation type="unfinished">8S Battery</translation>
+    </message>
+    <message>
+        <source>9</source>
+        <translation type="unfinished">9</translation>
+    </message>
+    <message>
+        <source>921600</source>
+        <translation type="unfinished">921600</translation>
+    </message>
+    <message>
+        <source>921600 8N1</source>
+        <translation type="unfinished">921600 8N1</translation>
+    </message>
+    <message>
+        <source>9600</source>
+        <translation type="unfinished">9600</translation>
+    </message>
+    <message>
+        <source>9600 8N1</source>
+        <translation type="unfinished">9600 8N1</translation>
+    </message>
+    <message>
+        <source>9S Battery</source>
+        <translation type="unfinished">9S Battery</translation>
+    </message>
+    <message>
+        <source>AUAV L05D</source>
+        <translation type="unfinished">AUAV L05D</translation>
+    </message>
+    <message>
+        <source>AUAV L10D</source>
+        <translation type="unfinished">AUAV L10D</translation>
+    </message>
+    <message>
+        <source>AUAV L30D</source>
+        <translation type="unfinished">AUAV L30D</translation>
+    </message>
+    <message>
+        <source>AUX</source>
+        <translation type="unfinished">AUX</translation>
+    </message>
+    <message>
+        <source>AUX1</source>
+        <translation type="unfinished">AUX1</translation>
+    </message>
+    <message>
+        <source>AUX2</source>
+        <translation type="unfinished">AUX2</translation>
+    </message>
+    <message>
+        <source>AUX3</source>
+        <translation type="unfinished">AUX3</translation>
+    </message>
+    <message>
+        <source>AUX4</source>
+        <translation type="unfinished">AUX4</translation>
+    </message>
+    <message>
+        <source>AUX5</source>
+        <translation type="unfinished">AUX5</translation>
+    </message>
+    <message>
+        <source>AUX6</source>
+        <translation type="unfinished">AUX6</translation>
+    </message>
+    <message>
+        <source>Acceleration based</source>
+        <translation type="unfinished">Acceleration based</translation>
+    </message>
+    <message>
+        <source>Acro</source>
+        <translation type="unfinished">Acro</translation>
+    </message>
+    <message>
+        <source>Active high</source>
+        <translation type="unfinished">Active high</translation>
+    </message>
+    <message>
+        <source>Active low</source>
+        <translation type="unfinished">Active low</translation>
+    </message>
+    <message>
+        <source>Airborne</source>
+        <translation type="unfinished">Airborne</translation>
+    </message>
+    <message>
+        <source>Airbrake</source>
+        <translation type="unfinished">Airbrake</translation>
+    </message>
+    <message>
+        <source>Airframe</source>
+        <translation type="unfinished">Airframe</translation>
+    </message>
+    <message>
+        <source>Airship, controlled</source>
+        <translation type="unfinished">Airship, controlled</translation>
+    </message>
+    <message>
+        <source>All mission messages</source>
+        <translation type="unfinished">All mission messages</translation>
+    </message>
+    <message>
+        <source>All sensors</source>
+        <translation type="unfinished">All sensors</translation>
+    </message>
+    <message>
+        <source>All sensors except mag</source>
+        <translation type="unfinished">All sensors except mag</translation>
+    </message>
+    <message>
+        <source>Allow arming</source>
+        <translation type="unfinished">Allow arming</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Altitude</source>
+        <translation type="unfinished">Altitude</translation>
+    </message>
+    <message>
+        <source>Altitude following</source>
+        <translation type="unfinished">Altitude following</translation>
+    </message>
+    <message>
+        <source>Altitude mode</source>
+        <translation type="unfinished">Altitude mode</translation>
+    </message>
+    <message>
+        <source>Always</source>
+        <translation type="unfinished">Always</translation>
+    </message>
+    <message>
+        <source>Always broadcast</source>
+        <translation type="unfinished">Always broadcast</translation>
+    </message>
+    <message>
+        <source>Always off</source>
+        <translation type="unfinished">Always off</translation>
+    </message>
+    <message>
+        <source>Always on</source>
+        <translation type="unfinished">Always on</translation>
+    </message>
+    <message>
+        <source>Always use version 1</source>
+        <translation type="unfinished">Always use version 1</translation>
+    </message>
+    <message>
+        <source>Always use version 2</source>
+        <translation type="unfinished">Always use version 2</translation>
+    </message>
+    <message>
+        <source>Angle</source>
+        <translation type="unfinished">Angle</translation>
+    </message>
+    <message>
+        <source>Angular rate</source>
+        <translation type="unfinished">Angular rate</translation>
+    </message>
+    <message>
+        <source>AppliedBySensor</source>
+        <translation type="unfinished">AppliedBySensor</translation>
+    </message>
+    <message>
+        <source>Apply the estimated scale after disarm</source>
+        <translation type="unfinished">Apply the estimated scale after disarm</translation>
+    </message>
+    <message>
+        <source>Apply the estimated scale in air</source>
+        <translation type="unfinished">Apply the estimated scale in air</translation>
+    </message>
+    <message>
+        <source>Apply the new gains after disarm</source>
+        <translation type="unfinished">Apply the new gains after disarm</translation>
+    </message>
+    <message>
+        <source>Apply the new gains in air</source>
+        <translation type="unfinished">Apply the new gains in air</translation>
+    </message>
+    <message>
+        <source>Ashtech / Trimble</source>
+        <translation type="unfinished">Ashtech / Trimble</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Auto</translation>
+    </message>
+    <message>
+        <source>Auto (RC and MAVLink gimbal protocol v2)</source>
+        <translation type="unfinished">Auto (RC and MAVLink gimbal protocol v2)</translation>
+    </message>
+    <message>
+        <source>Auto detect</source>
+        <translation type="unfinished">Auto detect</translation>
+    </message>
+    <message>
+        <source>Auto-detect</source>
+        <translation type="unfinished">Auto-detect</translation>
+    </message>
+    <message>
+        <source>Auto-detected</source>
+        <translation type="unfinished">Auto-detected</translation>
+    </message>
+    <message>
+        <source>AutoDetect</source>
+        <translation type="unfinished">AutoDetect</translation>
+    </message>
+    <message>
+        <source>Autodetect</source>
+        <translation type="unfinished">Autodetect</translation>
+    </message>
+    <message>
+        <source>Autodetect I2C address (TODO)</source>
+        <translation type="unfinished">Autodetect I2C address (TODO)</translation>
+    </message>
+    <message>
+        <source>Automatic</source>
+        <translation type="unfinished">Automatic</translation>
+    </message>
+    <message>
+        <source>Automotive</source>
+        <translation type="unfinished">Automotive</translation>
+    </message>
+    <message>
+        <source>Aux1</source>
+        <translation type="unfinished">Aux1</translation>
+    </message>
+    <message>
+        <source>Aux2</source>
+        <translation type="unfinished">Aux2</translation>
+    </message>
+    <message>
+        <source>Aux3</source>
+        <translation type="unfinished">Aux3</translation>
+    </message>
+    <message>
+        <source>Aux4</source>
+        <translation type="unfinished">Aux4</translation>
+    </message>
+    <message>
+        <source>Aux5</source>
+        <translation type="unfinished">Aux5</translation>
+    </message>
+    <message>
+        <source>Aux6</source>
+        <translation type="unfinished">Aux6</translation>
+    </message>
+    <message>
+        <source>BQ40Z50 based</source>
+        <translation type="unfinished">BQ40Z50 based</translation>
+    </message>
+    <message>
+        <source>BQ40Z80 based</source>
+        <translation type="unfinished">BQ40Z80 based</translation>
+    </message>
+    <message>
+        <source>Barometric pressure</source>
+        <translation type="unfinished">Barometric pressure</translation>
+    </message>
+    <message>
+        <source>Basic</source>
+        <translation type="unfinished">Basic</translation>
+    </message>
+    <message>
+        <source>Both</source>
+        <translation type="unfinished">Both</translation>
+    </message>
+    <message>
+        <source>COM0</source>
+        <translation type="unfinished">COM0</translation>
+    </message>
+    <message>
+        <source>COM1</source>
+        <translation type="unfinished">COM1</translation>
+    </message>
+    <message>
+        <source>CRSF</source>
+        <translation type="unfinished">CRSF</translation>
+    </message>
+    <message>
+        <source>Calculate landing glide slope relative to the terrain estimate</source>
+        <translation type="unfinished">Calculate landing glide slope relative to the terrain estimate</translation>
+    </message>
+    <message>
+        <source>Camera Capture</source>
+        <translation type="unfinished">Camera Capture</translation>
+    </message>
+    <message>
+        <source>Camera Trigger</source>
+        <translation type="unfinished">Camera Trigger</translation>
+    </message>
+    <message>
+        <source>Channel 1</source>
+        <translation type="unfinished">Channel 1</translation>
+    </message>
+    <message>
+        <source>Channel 10</source>
+        <translation type="unfinished">Channel 10</translation>
+    </message>
+    <message>
+        <source>Channel 11</source>
+        <translation type="unfinished">Channel 11</translation>
+    </message>
+    <message>
+        <source>Channel 12</source>
+        <translation type="unfinished">Channel 12</translation>
+    </message>
+    <message>
+        <source>Channel 13</source>
+        <translation type="unfinished">Channel 13</translation>
+    </message>
+    <message>
+        <source>Channel 14</source>
+        <translation type="unfinished">Channel 14</translation>
+    </message>
+    <message>
+        <source>Channel 15</source>
+        <translation type="unfinished">Channel 15</translation>
+    </message>
+    <message>
+        <source>Channel 16</source>
+        <translation type="unfinished">Channel 16</translation>
+    </message>
+    <message>
+        <source>Channel 17</source>
+        <translation type="unfinished">Channel 17</translation>
+    </message>
+    <message>
+        <source>Channel 18</source>
+        <translation type="unfinished">Channel 18</translation>
+    </message>
+    <message>
+        <source>Channel 2</source>
+        <translation type="unfinished">Channel 2</translation>
+    </message>
+    <message>
+        <source>Channel 3</source>
+        <translation type="unfinished">Channel 3</translation>
+    </message>
+    <message>
+        <source>Channel 4</source>
+        <translation type="unfinished">Channel 4</translation>
+    </message>
+    <message>
+        <source>Channel 5</source>
+        <translation type="unfinished">Channel 5</translation>
+    </message>
+    <message>
+        <source>Channel 6</source>
+        <translation type="unfinished">Channel 6</translation>
+    </message>
+    <message>
+        <source>Channel 7</source>
+        <translation type="unfinished">Channel 7</translation>
+    </message>
+    <message>
+        <source>Channel 8</source>
+        <translation type="unfinished">Channel 8</translation>
+    </message>
+    <message>
+        <source>Channel 9</source>
+        <translation type="unfinished">Channel 9</translation>
+    </message>
+    <message>
+        <source>Coast Motors</source>
+        <translation type="unfinished">Coast Motors</translation>
+    </message>
+    <message>
+        <source>Coaxial helicopter</source>
+        <translation type="unfinished">Coaxial helicopter</translation>
+    </message>
+    <message>
+        <source>Config</source>
+        <translation type="unfinished">Config</translation>
+    </message>
+    <message>
+        <source>Constant Max</source>
+        <translation type="unfinished">Constant Max</translation>
+    </message>
+    <message>
+        <source>Constant Min</source>
+        <translation type="unfinished">Constant Min</translation>
+    </message>
+    <message>
+        <source>Current-based compensation (battery_status instance 0)</source>
+        <translation type="unfinished">Current-based compensation (battery_status instance 0)</translation>
+    </message>
+    <message>
+        <source>Current-based compensation (battery_status instance 1)</source>
+        <translation type="unfinished">Current-based compensation (battery_status instance 1)</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>მორგებული</translation>
+    </message>
+    <message>
+        <source>Custom Euler Angle</source>
+        <translation type="unfinished">Custom Euler Angle</translation>
+    </message>
+    <message>
+        <source>Custom participant</source>
+        <translation type="unfinished">Custom participant</translation>
+    </message>
+    <message>
+        <source>DISABLED</source>
+        <translation type="unfinished">DISABLED</translation>
+    </message>
+    <message>
+        <source>DSM</source>
+        <translation type="unfinished">DSM</translation>
+    </message>
+    <message>
+        <source>DShot1200</source>
+        <translation type="unfinished">DShot1200</translation>
+    </message>
+    <message>
+        <source>DShot150</source>
+        <translation type="unfinished">DShot150</translation>
+    </message>
+    <message>
+        <source>DShot300</source>
+        <translation type="unfinished">DShot300</translation>
+    </message>
+    <message>
+        <source>DShot600</source>
+        <translation type="unfinished">DShot600</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation type="unfinished">Default</translation>
+    </message>
+    <message>
+        <source>Default to 1, switch to 2 if GCS sends version 2</source>
+        <translation type="unfinished">Default to 1, switch to 2 if GCS sends version 2</translation>
+    </message>
+    <message>
+        <source>Deny arming</source>
+        <translation type="unfinished">Deny arming</translation>
+    </message>
+    <message>
+        <source>Developer</source>
+        <translation type="unfinished">Developer</translation>
+    </message>
+    <message>
+        <source>Direct Feedthrough</source>
+        <translation type="unfinished">Direct Feedthrough</translation>
+    </message>
+    <message>
+        <source>Direct velocity</source>
+        <translation type="unfinished">Direct velocity</translation>
+    </message>
+    <message>
+        <source>Disable</source>
+        <translation type="unfinished">Disable</translation>
+    </message>
+    <message>
+        <source>Disable fallback to sensor-less estimation</source>
+        <translation type="unfinished">Disable fallback to sensor-less estimation</translation>
+    </message>
+    <message>
+        <source>Disable nudging</source>
+        <translation type="unfinished">Disable nudging</translation>
+    </message>
+    <message>
+        <source>Disable range fusion</source>
+        <translation type="unfinished">Disable range fusion</translation>
+    </message>
+    <message>
+        <source>Disable the terrain estimate</source>
+        <translation type="unfinished">Disable the terrain estimate</translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation>გამორთული</translation>
+    </message>
+    <message>
+        <source>Disallow arming</source>
+        <translation type="unfinished">Disallow arming</translation>
+    </message>
+    <message>
+        <source>Disarm</source>
+        <translation>დისარმი</translation>
+    </message>
+    <message>
+        <source>Distance based, always on</source>
+        <translation type="unfinished">Distance based, always on</translation>
+    </message>
+    <message>
+        <source>Distance based, on command (Survey mode)</source>
+        <translation type="unfinished">Distance based, on command (Survey mode)</translation>
+    </message>
+    <message>
+        <source>Do not apply the new gains (logging only)</source>
+        <translation type="unfinished">Do not apply the new gains (logging only)</translation>
+    </message>
+    <message>
+        <source>Do not automatically apply the estimated scale</source>
+        <translation type="unfinished">Do not automatically apply the estimated scale</translation>
+    </message>
+    <message>
+        <source>Downed</source>
+        <translation type="unfinished">Downed</translation>
+    </message>
+    <message>
+        <source>ESCs</source>
+        <translation>ESC-ები</translation>
+    </message>
+    <message>
+        <source>EV noise parameters</source>
+        <translation type="unfinished">EV noise parameters</translation>
+    </message>
+    <message>
+        <source>EV reported variance (parameter lower bound)</source>
+        <translation type="unfinished">EV reported variance (parameter lower bound)</translation>
+    </message>
+    <message>
+        <source>EXT2</source>
+        <translation type="unfinished">EXT2</translation>
+    </message>
+    <message>
+        <source>Elevator</source>
+        <translation type="unfinished">Elevator</translation>
+    </message>
+    <message>
+        <source>EmergencySurf</source>
+        <translation type="unfinished">EmergencySurf</translation>
+    </message>
+    <message>
+        <source>Emlid Reach</source>
+        <translation type="unfinished">Emlid Reach</translation>
+    </message>
+    <message>
+        <source>Enable</source>
+        <translation type="unfinished">Enable</translation>
+    </message>
+    <message>
+        <source>Enable fallback to sensor-less estimation</source>
+        <translation type="unfinished">Enable fallback to sensor-less estimation</translation>
+    </message>
+    <message>
+        <source>Enabled</source>
+        <translation>ჩართული</translation>
+    </message>
+    <message>
+        <source>Enabled (conditional mode)</source>
+        <translation type="unfinished">Enabled (conditional mode)</translation>
+    </message>
+    <message>
+        <source>Enabled (except LANDING)</source>
+        <translation type="unfinished">Enabled (except LANDING)</translation>
+    </message>
+    <message>
+        <source>Enabled constantly</source>
+        <translation type="unfinished">Enabled constantly</translation>
+    </message>
+    <message>
+        <source>Enabled if distance to ground above MPC_LAND_ALT1</source>
+        <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT1</translation>
+    </message>
+    <message>
+        <source>Enabled if distance to ground above MPC_LAND_ALT1 (except LANDING)</source>
+        <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT1 (except LANDING)</translation>
+    </message>
+    <message>
+        <source>Enabled if distance to ground above MPC_LAND_ALT2</source>
+        <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT2</translation>
+    </message>
+    <message>
+        <source>Enabled if distance to ground above MPC_LAND_ALT2 (except LANDING)</source>
+        <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT2 (except LANDING)</translation>
+    </message>
+    <message>
+        <source>Enabled in VTOL MC mode, listen to request from system in FW mode</source>
+        <translation type="unfinished">Enabled in VTOL MC mode, listen to request from system in FW mode</translation>
+    </message>
+    <message>
+        <source>Eneabled</source>
+        <translation type="unfinished">Eneabled</translation>
+    </message>
+    <message>
+        <source>Enforce Open Drone ID system presence</source>
+        <translation type="unfinished">Enforce Open Drone ID system presence</translation>
+    </message>
+    <message>
+        <source>Enforce SD card presence</source>
+        <translation type="unfinished">Enforce SD card presence</translation>
+    </message>
+    <message>
+        <source>Ethernet</source>
+        <translation type="unfinished">Ethernet</translation>
+    </message>
+    <message>
+        <source>External</source>
+        <translation>გარე</translation>
+    </message>
+    <message>
+        <source>External Mode 1</source>
+        <translation type="unfinished">External Mode 1</translation>
+    </message>
+    <message>
+        <source>External Mode 2</source>
+        <translation type="unfinished">External Mode 2</translation>
+    </message>
+    <message>
+        <source>External Mode 3</source>
+        <translation type="unfinished">External Mode 3</translation>
+    </message>
+    <message>
+        <source>External Mode 4</source>
+        <translation type="unfinished">External Mode 4</translation>
+    </message>
+    <message>
+        <source>External Mode 5</source>
+        <translation type="unfinished">External Mode 5</translation>
+    </message>
+    <message>
+        <source>External Mode 6</source>
+        <translation type="unfinished">External Mode 6</translation>
+    </message>
+    <message>
+        <source>External Mode 7</source>
+        <translation type="unfinished">External Mode 7</translation>
+    </message>
+    <message>
+        <source>External Mode 8</source>
+        <translation type="unfinished">External Mode 8</translation>
+    </message>
+    <message>
+        <source>External Vision</source>
+        <translation type="unfinished">External Vision</translation>
+    </message>
+    <message>
+        <source>Falling edge</source>
+        <translation type="unfinished">Falling edge</translation>
+    </message>
+    <message>
+        <source>Femtomes</source>
+        <translation type="unfinished">Femtomes</translation>
+    </message>
+    <message>
+        <source>Filter data</source>
+        <translation type="unfinished">Filter data</translation>
+    </message>
+    <message>
+        <source>First airspeed sensor</source>
+        <translation type="unfinished">First airspeed sensor</translation>
+    </message>
+    <message>
+        <source>Fix and Fix2</source>
+        <translation type="unfinished">Fix and Fix2</translation>
+    </message>
+    <message>
+        <source>Fix2</source>
+        <translation type="unfinished">Fix2</translation>
+    </message>
+    <message>
+        <source>Fixed wing aircraft</source>
+        <translation type="unfinished">Fixed wing aircraft</translation>
+    </message>
+    <message>
+        <source>Fixed-Wing</source>
+        <translation type="unfinished">Fixed-Wing</translation>
+    </message>
+    <message>
+        <source>Fixed-wing</source>
+        <translation type="unfinished">Fixed-wing</translation>
+    </message>
+    <message>
+        <source>Flaps channel</source>
+        <translation type="unfinished">Flaps channel</translation>
+    </message>
+    <message>
+        <source>Flight Tester</source>
+        <translation type="unfinished">Flight Tester</translation>
+    </message>
+    <message>
+        <source>Follow Me</source>
+        <translation type="unfinished">Follow Me</translation>
+    </message>
+    <message>
+        <source>Force off</source>
+        <translation type="unfinished">Force off</translation>
+    </message>
+    <message>
+        <source>Force on</source>
+        <translation type="unfinished">Force on</translation>
+    </message>
+    <message>
+        <source>Free balloon, uncontrolled</source>
+        <translation type="unfinished">Free balloon, uncontrolled</translation>
+    </message>
+    <message>
+        <source>From receiver</source>
+        <translation type="unfinished">From receiver</translation>
+    </message>
+    <message>
+        <source>Front to Circle Center</source>
+        <translation type="unfinished">Front to Circle Center</translation>
+    </message>
+    <message>
+        <source>Full</source>
+        <translation type="unfinished">Full</translation>
+    </message>
+    <message>
+        <source>Full communication</source>
+        <translation type="unfinished">Full communication</translation>
+    </message>
+    <message>
+        <source>GHST</source>
+        <translation type="unfinished">GHST</translation>
+    </message>
+    <message>
+        <source>GPIO</source>
+        <translation type="unfinished">GPIO</translation>
+    </message>
+    <message>
+        <source>GPOS</source>
+        <translation type="unfinished">GPOS</translation>
+    </message>
+    <message>
+        <source>GPS</source>
+        <translation type="unfinished">GPS</translation>
+    </message>
+    <message>
+        <source>GPS 1</source>
+        <translation type="unfinished">GPS 1</translation>
+    </message>
+    <message>
+        <source>GPS 2</source>
+        <translation type="unfinished">GPS 2</translation>
+    </message>
+    <message>
+        <source>GPS 3</source>
+        <translation type="unfinished">GPS 3</translation>
+    </message>
+    <message>
+        <source>Gas</source>
+        <translation type="unfinished">Gas</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished">General</translation>
+    </message>
+    <message>
+        <source>Generic PWM (IR trigger, servo)</source>
+        <translation type="unfinished">Generic PWM (IR trigger, servo)</translation>
+    </message>
+    <message>
+        <source>Generic micro air vehicle</source>
+        <translation type="unfinished">Generic micro air vehicle</translation>
+    </message>
+    <message>
+        <source>Geotagging messages</source>
+        <translation type="unfinished">Geotagging messages</translation>
+    </message>
+    <message>
+        <source>Get absolute timestamp</source>
+        <translation type="unfinished">Get absolute timestamp</translation>
+    </message>
+    <message>
+        <source>Get timestamp of mid exposure (active high)</source>
+        <translation type="unfinished">Get timestamp of mid exposure (active high)</translation>
+    </message>
+    <message>
+        <source>Get timestamp of mid exposure (active low)</source>
+        <translation type="unfinished">Get timestamp of mid exposure (active low)</translation>
+    </message>
+    <message>
+        <source>Gimbal</source>
+        <translation type="unfinished">Gimbal</translation>
+    </message>
+    <message>
+        <source>Gimbal Pitch</source>
+        <translation type="unfinished">Gimbal Pitch</translation>
+    </message>
+    <message>
+        <source>Gimbal Roll</source>
+        <translation type="unfinished">Gimbal Roll</translation>
+    </message>
+    <message>
+        <source>Gimbal Yaw</source>
+        <translation type="unfinished">Gimbal Yaw</translation>
+    </message>
+    <message>
+        <source>Glider</source>
+        <translation type="unfinished">Glider</translation>
+    </message>
+    <message>
+        <source>Gripper</source>
+        <translation type="unfinished">Gripper</translation>
+    </message>
+    <message>
+        <source>Ground rover</source>
+        <translation type="unfinished">Ground rover</translation>
+    </message>
+    <message>
+        <source>Groundspeed minus windspeed</source>
+        <translation type="unfinished">Groundspeed minus windspeed</translation>
+    </message>
+    <message>
+        <source>HITL and SIH disabled</source>
+        <translation type="unfinished">HITL and SIH disabled</translation>
+    </message>
+    <message>
+        <source>HITL enabled</source>
+        <translation type="unfinished">HITL enabled</translation>
+    </message>
+    <message>
+        <source>Heading (Rover With Moving Base UART1 Connected To Autopilot, UART2 Connected To Moving Base)</source>
+        <translation type="unfinished">Heading (Rover With Moving Base UART1 Connected To Autopilot, UART2 Connected To Moving Base)</translation>
+    </message>
+    <message>
+        <source>Heading (Rover With Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</source>
+        <translation type="unfinished">Heading (Rover With Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</translation>
+    </message>
+    <message>
+        <source>Heavy</source>
+        <translation type="unfinished">Heavy</translation>
+    </message>
+    <message>
+        <source>Helicopter (Coaxial)</source>
+        <translation type="unfinished">Helicopter (Coaxial)</translation>
+    </message>
+    <message>
+        <source>Helicopter (tail ESC)</source>
+        <translation type="unfinished">Helicopter (tail ESC)</translation>
+    </message>
+    <message>
+        <source>Helicopter (tail Servo)</source>
+        <translation type="unfinished">Helicopter (tail Servo)</translation>
+    </message>
+    <message>
+        <source>Hexarotor</source>
+        <translation type="unfinished">Hexarotor</translation>
+    </message>
+    <message>
+        <source>High</source>
+        <translation type="unfinished">High</translation>
+    </message>
+    <message>
+        <source>High Speed Long Range Mode</source>
+        <translation type="unfinished">High Speed Long Range Mode</translation>
+    </message>
+    <message>
+        <source>High Speed Short Range Mode</source>
+        <translation type="unfinished">High Speed Short Range Mode</translation>
+    </message>
+    <message>
+        <source>HighVortex</source>
+        <translation type="unfinished">HighVortex</translation>
+    </message>
+    <message>
+        <source>Hold</source>
+        <translation type="unfinished">Hold</translation>
+    </message>
+    <message>
+        <source>Hold Front Tangent to Circle</source>
+        <translation type="unfinished">Hold Front Tangent to Circle</translation>
+    </message>
+    <message>
+        <source>Hold Initial Heading</source>
+        <translation type="unfinished">Hold Initial Heading</translation>
+    </message>
+    <message>
+        <source>Hold mode</source>
+        <translation>Hold რეჟიმი</translation>
+    </message>
+    <message>
+        <source>I2C</source>
+        <translation type="unfinished">I2C</translation>
+    </message>
+    <message>
+        <source>INS</source>
+        <translation type="unfinished">INS</translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation type="unfinished">Ignore</translation>
+    </message>
+    <message>
+        <source>Init</source>
+        <translation type="unfinished">Init</translation>
+    </message>
+    <message>
+        <source>Interference</source>
+        <translation type="unfinished">Interference</translation>
+    </message>
+    <message>
+        <source>Internal</source>
+        <translation type="unfinished">Internal</translation>
+    </message>
+    <message>
+        <source>Joystick only</source>
+        <translation type="unfinished">Joystick only</translation>
+    </message>
+    <message>
+        <source>Keep parameters</source>
+        <translation type="unfinished">Keep parameters</translation>
+    </message>
+    <message>
+        <source>LW20/c</source>
+        <translation type="unfinished">LW20/c</translation>
+    </message>
+    <message>
+        <source>Land</source>
+        <translation type="unfinished">Land</translation>
+    </message>
+    <message>
+        <source>Land mode</source>
+        <translation>Land რეჟიმი</translation>
+    </message>
+    <message>
+        <source>Land mode (descend)</source>
+        <translation type="unfinished">Land mode (descend)</translation>
+    </message>
+    <message>
+        <source>Landing Gear</source>
+        <translation type="unfinished">Landing Gear</translation>
+    </message>
+    <message>
+        <source>Landing Gear Wheel</source>
+        <translation type="unfinished">Landing Gear Wheel</translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished">Large</translation>
+    </message>
+    <message>
+        <source>LatLeft2M</source>
+        <translation type="unfinished">LatLeft2M</translation>
+    </message>
+    <message>
+        <source>LatLeft4M</source>
+        <translation type="unfinished">LatLeft4M</translation>
+    </message>
+    <message>
+        <source>LatLeft6M</source>
+        <translation type="unfinished">LatLeft6M</translation>
+    </message>
+    <message>
+        <source>LatRight0M</source>
+        <translation type="unfinished">LatRight0M</translation>
+    </message>
+    <message>
+        <source>LatRight2M</source>
+        <translation type="unfinished">LatRight2M</translation>
+    </message>
+    <message>
+        <source>LatRight4M</source>
+        <translation type="unfinished">LatRight4M</translation>
+    </message>
+    <message>
+        <source>LatRight6M</source>
+        <translation type="unfinished">LatRight6M</translation>
+    </message>
+    <message>
+        <source>Left A-tail</source>
+        <translation type="unfinished">Left A-tail</translation>
+    </message>
+    <message>
+        <source>Left Aileron</source>
+        <translation type="unfinished">Left Aileron</translation>
+    </message>
+    <message>
+        <source>Left Elevon</source>
+        <translation type="unfinished">Left Elevon</translation>
+    </message>
+    <message>
+        <source>Left Flap</source>
+        <translation type="unfinished">Left Flap</translation>
+    </message>
+    <message>
+        <source>Left Spoiler</source>
+        <translation type="unfinished">Left Spoiler</translation>
+    </message>
+    <message>
+        <source>Left V-Tail</source>
+        <translation type="unfinished">Left V-Tail</translation>
+    </message>
+    <message>
+        <source>Len15_Wid23</source>
+        <translation type="unfinished">Len15_Wid23</translation>
+    </message>
+    <message>
+        <source>Len25_Wid28</source>
+        <translation type="unfinished">Len25_Wid28</translation>
+    </message>
+    <message>
+        <source>Len25_Wid34</source>
+        <translation type="unfinished">Len25_Wid34</translation>
+    </message>
+    <message>
+        <source>Len35_Wid33</source>
+        <translation type="unfinished">Len35_Wid33</translation>
+    </message>
+    <message>
+        <source>Len35_Wid38</source>
+        <translation type="unfinished">Len35_Wid38</translation>
+    </message>
+    <message>
+        <source>Len45_Wid39</source>
+        <translation type="unfinished">Len45_Wid39</translation>
+    </message>
+    <message>
+        <source>Len45_Wid45</source>
+        <translation type="unfinished">Len45_Wid45</translation>
+    </message>
+    <message>
+        <source>Len55_Wid45</source>
+        <translation type="unfinished">Len55_Wid45</translation>
+    </message>
+    <message>
+        <source>Len55_Wid52</source>
+        <translation type="unfinished">Len55_Wid52</translation>
+    </message>
+    <message>
+        <source>Len65_Wid59</source>
+        <translation type="unfinished">Len65_Wid59</translation>
+    </message>
+    <message>
+        <source>Len65_Wid67</source>
+        <translation type="unfinished">Len65_Wid67</translation>
+    </message>
+    <message>
+        <source>Len75_Wid72</source>
+        <translation type="unfinished">Len75_Wid72</translation>
+    </message>
+    <message>
+        <source>Len75_Wid80</source>
+        <translation type="unfinished">Len75_Wid80</translation>
+    </message>
+    <message>
+        <source>Len85_Wid80</source>
+        <translation type="unfinished">Len85_Wid80</translation>
+    </message>
+    <message>
+        <source>Len85_Wid90</source>
+        <translation type="unfinished">Len85_Wid90</translation>
+    </message>
+    <message>
+        <source>Light</source>
+        <translation type="unfinished">Light</translation>
+    </message>
+    <message>
+        <source>LightAir</source>
+        <translation type="unfinished">LightAir</translation>
+    </message>
+    <message>
+        <source>Linear sine sweep</source>
+        <translation type="unfinished">Linear sine sweep</translation>
+    </message>
+    <message>
+        <source>Liquid</source>
+        <translation type="unfinished">Liquid</translation>
+    </message>
+    <message>
+        <source>Lite</source>
+        <translation type="unfinished">Lite</translation>
+    </message>
+    <message>
+        <source>Localhost-only</source>
+        <translation type="unfinished">Localhost-only</translation>
+    </message>
+    <message>
+        <source>Logarithmic sine sweep</source>
+        <translation type="unfinished">Logarithmic sine sweep</translation>
+    </message>
+    <message>
+        <source>Long Range Mode</source>
+        <translation type="unfinished">Long Range Mode</translation>
+    </message>
+    <message>
+        <source>Low</source>
+        <translation type="unfinished">Low</translation>
+    </message>
+    <message>
+        <source>LowFuel</source>
+        <translation type="unfinished">LowFuel</translation>
+    </message>
+    <message>
+        <source>MAVLINK_DO_MOUNT (protocol v1, to be deprecated)</source>
+        <translation type="unfinished">MAVLINK_DO_MOUNT (protocol v1, to be deprecated)</translation>
+    </message>
+    <message>
+        <source>MAVLINK_ROI (protocol v1, to be deprecated)</source>
+        <translation type="unfinished">MAVLINK_ROI (protocol v1, to be deprecated)</translation>
+    </message>
+    <message>
+        <source>MAVLink</source>
+        <translation type="unfinished">MAVLink</translation>
+    </message>
+    <message>
+        <source>MAVLink (Camera Protocol v1)</source>
+        <translation type="unfinished">MAVLink (Camera Protocol v1)</translation>
+    </message>
+    <message>
+        <source>MAVLink gimbal protocol v1</source>
+        <translation type="unfinished">MAVLink gimbal protocol v1</translation>
+    </message>
+    <message>
+        <source>MAVLink gimbal protocol v2</source>
+        <translation type="unfinished">MAVLink gimbal protocol v2</translation>
+    </message>
+    <message>
+        <source>MAVlink gimbal protocol v2</source>
+        <translation type="unfinished">MAVlink gimbal protocol v2</translation>
+    </message>
+    <message>
+        <source>MTK</source>
+        <translation type="unfinished">MTK</translation>
+    </message>
+    <message>
+        <source>Magic</source>
+        <translation type="unfinished">Magic</translation>
+    </message>
+    <message>
+        <source>Magnetic heading</source>
+        <translation type="unfinished">Magnetic heading</translation>
+    </message>
+    <message>
+        <source>Manual</source>
+        <translation type="unfinished">Manual</translation>
+    </message>
+    <message>
+        <source>Max</source>
+        <translation type="unfinished">Max</translation>
+    </message>
+    <message>
+        <source>Medical</source>
+        <translation type="unfinished">Medical</translation>
+    </message>
+    <message>
+        <source>Medium (Default)</source>
+        <translation type="unfinished">Medium (Default)</translation>
+    </message>
+    <message>
+        <source>Min</source>
+        <translation type="unfinished">Min</translation>
+    </message>
+    <message>
+        <source>Minimal</source>
+        <translation type="unfinished">Minimal</translation>
+    </message>
+    <message>
+        <source>Mission</source>
+        <translation type="unfinished">Mission</translation>
+    </message>
+    <message>
+        <source>Mission (if valid)</source>
+        <translation type="unfinished">Mission (if valid)</translation>
+    </message>
+    <message>
+        <source>Model with Pitot</source>
+        <translation type="unfinished">Model with Pitot</translation>
+    </message>
+    <message>
+        <source>Model without Pitot (1.5 mm tubes)</source>
+        <translation type="unfinished">Model without Pitot (1.5 mm tubes)</translation>
+    </message>
+    <message>
+        <source>Motion Capture</source>
+        <translation type="unfinished">Motion Capture</translation>
+    </message>
+    <message>
+        <source>Motor 1</source>
+        <translation type="unfinished">Motor 1</translation>
+    </message>
+    <message>
+        <source>Motor 10</source>
+        <translation type="unfinished">Motor 10</translation>
+    </message>
+    <message>
+        <source>Motor 11</source>
+        <translation type="unfinished">Motor 11</translation>
+    </message>
+    <message>
+        <source>Motor 12</source>
+        <translation type="unfinished">Motor 12</translation>
+    </message>
+    <message>
+        <source>Motor 2</source>
+        <translation type="unfinished">Motor 2</translation>
+    </message>
+    <message>
+        <source>Motor 3</source>
+        <translation type="unfinished">Motor 3</translation>
+    </message>
+    <message>
+        <source>Motor 4</source>
+        <translation type="unfinished">Motor 4</translation>
+    </message>
+    <message>
+        <source>Motor 5</source>
+        <translation type="unfinished">Motor 5</translation>
+    </message>
+    <message>
+        <source>Motor 6</source>
+        <translation type="unfinished">Motor 6</translation>
+    </message>
+    <message>
+        <source>Motor 7</source>
+        <translation type="unfinished">Motor 7</translation>
+    </message>
+    <message>
+        <source>Motor 8</source>
+        <translation type="unfinished">Motor 8</translation>
+    </message>
+    <message>
+        <source>Motor 9</source>
+        <translation type="unfinished">Motor 9</translation>
+    </message>
+    <message>
+        <source>Motors (6DOF)</source>
+        <translation type="unfinished">Motors (6DOF)</translation>
+    </message>
+    <message>
+        <source>Moving</source>
+        <translation type="unfinished">Moving</translation>
+    </message>
+    <message>
+        <source>Moving Base (Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</source>
+        <translation type="unfinished">Moving Base (Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</translation>
+    </message>
+    <message>
+        <source>Moving Base (UART1 Connected To Autopilot, UART2 Connected To Rover)</source>
+        <translation type="unfinished">Moving Base (UART1 Connected To Autopilot, UART2 Connected To Rover)</translation>
+    </message>
+    <message>
+        <source>Moving base</source>
+        <translation type="unfinished">Moving base</translation>
+    </message>
+    <message>
+        <source>Multicopter</source>
+        <translation type="unfinished">Multicopter</translation>
+    </message>
+    <message>
+        <source>Multirotor</source>
+        <translation type="unfinished">Multirotor</translation>
+    </message>
+    <message>
+        <source>Multirotor with Tilt</source>
+        <translation type="unfinished">Multirotor with Tilt</translation>
+    </message>
+    <message>
+        <source>NMEA (generic)</source>
+        <translation type="unfinished">NMEA (generic)</translation>
+    </message>
+    <message>
+        <source>NTSC</source>
+        <translation type="unfinished">NTSC</translation>
+    </message>
+    <message>
+        <source>Never broadcast</source>
+        <translation type="unfinished">Never broadcast</translation>
+    </message>
+    <message>
+        <source>No Rescale</source>
+        <translation type="unfinished">No Rescale</translation>
+    </message>
+    <message>
+        <source>No averaging</source>
+        <translation type="unfinished">No averaging</translation>
+    </message>
+    <message>
+        <source>No cone, always climb to RTL_RETURN_ALT above destination.</source>
+        <translation type="unfinished">No cone, always climb to RTL_RETURN_ALT above destination.</translation>
+    </message>
+    <message>
+        <source>No filter</source>
+        <translation type="unfinished">No filter</translation>
+    </message>
+    <message>
+        <source>No precision landing</source>
+        <translation type="unfinished">No precision landing</translation>
+    </message>
+    <message>
+        <source>No requirements</source>
+        <translation type="unfinished">No requirements</translation>
+    </message>
+    <message>
+        <source>No rescaling</source>
+        <translation type="unfinished">No rescaling</translation>
+    </message>
+    <message>
+        <source>No rotation</source>
+        <translation type="unfinished">No rotation</translation>
+    </message>
+    <message>
+        <source>NoCommunications</source>
+        <translation type="unfinished">NoCommunications</translation>
+    </message>
+    <message>
+        <source>NoData</source>
+        <translation type="unfinished">NoData</translation>
+    </message>
+    <message>
+        <source>NoEmergency</source>
+        <translation type="unfinished">NoEmergency</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <translation>არცერთი</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Normal helicopter with tail rotor</source>
+        <translation type="unfinished">Normal helicopter with tail rotor</translation>
+    </message>
+    <message>
+        <source>Nudge approach angle</source>
+        <translation type="unfinished">Nudge approach angle</translation>
+    </message>
+    <message>
+        <source>Nudge approach path</source>
+        <translation type="unfinished">Nudge approach path</translation>
+    </message>
+    <message>
+        <source>Nudging disabled</source>
+        <translation type="unfinished">Nudging disabled</translation>
+    </message>
+    <message>
+        <source>Nudging enabled</source>
+        <translation type="unfinished">Nudging enabled</translation>
+    </message>
+    <message>
+        <source>OSD</source>
+        <translation type="unfinished">OSD</translation>
+    </message>
+    <message>
+        <source>Octorotor</source>
+        <translation type="unfinished">Octorotor</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation type="unfinished">Off</translation>
+    </message>
+    <message>
+        <source>Offboard</source>
+        <translation type="unfinished">Offboard</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation type="unfinished">On</translation>
+    </message>
+    <message>
+        <source>Onboard</source>
+        <translation type="unfinished">Onboard</translation>
+    </message>
+    <message>
+        <source>Onboard Low Bandwidth</source>
+        <translation type="unfinished">Onboard Low Bandwidth</translation>
+    </message>
+    <message>
+        <source>OneShot</source>
+        <translation type="unfinished">OneShot</translation>
+    </message>
+    <message>
+        <source>Only climb to at least RTL_DESCEND_ALT above destination.</source>
+        <translation type="unfinished">Only climb to at least RTL_DESCEND_ALT above destination.</translation>
+    </message>
+    <message>
+        <source>Only multicast</source>
+        <translation type="unfinished">Only multicast</translation>
+    </message>
+    <message>
+        <source>Opportunistic precision landing</source>
+        <translation type="unfinished">Opportunistic precision landing</translation>
+    </message>
+    <message>
+        <source>Over1200Kts</source>
+        <translation type="unfinished">Over1200Kts</translation>
+    </message>
+    <message>
+        <source>PAL</source>
+        <translation type="unfinished">PAL</translation>
+    </message>
+    <message>
+        <source>PPM</source>
+        <translation type="unfinished">PPM</translation>
+    </message>
+    <message>
+        <source>PPS Input</source>
+        <translation type="unfinished">PPS Input</translation>
+    </message>
+    <message>
+        <source>PWM</source>
+        <translation type="unfinished">PWM</translation>
+    </message>
+    <message>
+        <source>PWM 100 Hz</source>
+        <translation type="unfinished">PWM 100 Hz</translation>
+    </message>
+    <message>
+        <source>PWM 200 Hz</source>
+        <translation type="unfinished">PWM 200 Hz</translation>
+    </message>
+    <message>
+        <source>PWM 400 Hz</source>
+        <translation type="unfinished">PWM 400 Hz</translation>
+    </message>
+    <message>
+        <source>PWM 50 Hz</source>
+        <translation type="unfinished">PWM 50 Hz</translation>
+    </message>
+    <message>
+        <source>Parachute</source>
+        <translation type="unfinished">Parachute</translation>
+    </message>
+    <message>
+        <source>Performance</source>
+        <translation type="unfinished">Performance</translation>
+    </message>
+    <message>
+        <source>Peripheral via Actuator Set 1</source>
+        <translation type="unfinished">Peripheral via Actuator Set 1</translation>
+    </message>
+    <message>
+        <source>Peripheral via Actuator Set 2</source>
+        <translation type="unfinished">Peripheral via Actuator Set 2</translation>
+    </message>
+    <message>
+        <source>Peripheral via Actuator Set 3</source>
+        <translation type="unfinished">Peripheral via Actuator Set 3</translation>
+    </message>
+    <message>
+        <source>Peripheral via Actuator Set 4</source>
+        <translation type="unfinished">Peripheral via Actuator Set 4</translation>
+    </message>
+    <message>
+        <source>Peripheral via Actuator Set 5</source>
+        <translation type="unfinished">Peripheral via Actuator Set 5</translation>
+    </message>
+    <message>
+        <source>Peripheral via Actuator Set 6</source>
+        <translation type="unfinished">Peripheral via Actuator Set 6</translation>
+    </message>
+    <message>
+        <source>Pitch</source>
+        <translation type="unfinished">Pitch</translation>
+    </message>
+    <message>
+        <source>Pitch 180°</source>
+        <translation type="unfinished">Pitch 180°</translation>
+    </message>
+    <message>
+        <source>Pitch 180°, Yaw 270°</source>
+        <translation type="unfinished">Pitch 180°, Yaw 270°</translation>
+    </message>
+    <message>
+        <source>Pitch 180°, Yaw 90°</source>
+        <translation type="unfinished">Pitch 180°, Yaw 90°</translation>
+    </message>
+    <message>
+        <source>Pitch 270°</source>
+        <translation type="unfinished">Pitch 270°</translation>
+    </message>
+    <message>
+        <source>Pitch 315°</source>
+        <translation type="unfinished">Pitch 315°</translation>
+    </message>
+    <message>
+        <source>Pitch 90°</source>
+        <translation type="unfinished">Pitch 90°</translation>
+    </message>
+    <message>
+        <source>PointObstacle</source>
+        <translation type="unfinished">PointObstacle</translation>
+    </message>
+    <message>
+        <source>Position</source>
+        <translation type="unfinished">Position</translation>
+    </message>
+    <message>
+        <source>Position Control</source>
+        <translation type="unfinished">Position Control</translation>
+    </message>
+    <message>
+        <source>Position Hold mode</source>
+        <translation type="unfinished">Position Hold mode</translation>
+    </message>
+    <message>
+        <source>Position Slow</source>
+        <translation type="unfinished">Position Slow</translation>
+    </message>
+    <message>
+        <source>Position mode</source>
+        <translation type="unfinished">Position mode</translation>
+    </message>
+    <message>
+        <source>Power Module</source>
+        <translation>ძალის მოდული</translation>
+    </message>
+    <message>
+        <source>Precision Land</source>
+        <translation type="unfinished">Precision Land</translation>
+    </message>
+    <message>
+        <source>Pro User</source>
+        <translation type="unfinished">Pro User</translation>
+    </message>
+    <message>
+        <source>Pseudo-inverse with output clipping</source>
+        <translation type="unfinished">Pseudo-inverse with output clipping</translation>
+    </message>
+    <message>
+        <source>Pseudo-inverse with sequential desaturation technique</source>
+        <translation type="unfinished">Pseudo-inverse with sequential desaturation technique</translation>
+    </message>
+    <message>
+        <source>Publish all magnetometers</source>
+        <translation type="unfinished">Publish all magnetometers</translation>
+    </message>
+    <message>
+        <source>Publish primary IMU selection</source>
+        <translation type="unfinished">Publish primary IMU selection</translation>
+    </message>
+    <message>
+        <source>Publish primary magnetometer</source>
+        <translation type="unfinished">Publish primary magnetometer</translation>
+    </message>
+    <message>
+        <source>Quadrotor</source>
+        <translation type="unfinished">Quadrotor</translation>
+    </message>
+    <message>
+        <source>RAM (not persistent)</source>
+        <translation type="unfinished">RAM (not persistent)</translation>
+    </message>
+    <message>
+        <source>RC</source>
+        <translation type="unfinished">RC</translation>
+    </message>
+    <message>
+        <source>RC AUX 1</source>
+        <translation type="unfinished">RC AUX 1</translation>
+    </message>
+    <message>
+        <source>RC AUX 2</source>
+        <translation type="unfinished">RC AUX 2</translation>
+    </message>
+    <message>
+        <source>RC AUX 3</source>
+        <translation type="unfinished">RC AUX 3</translation>
+    </message>
+    <message>
+        <source>RC AUX 4</source>
+        <translation type="unfinished">RC AUX 4</translation>
+    </message>
+    <message>
+        <source>RC AUX 5</source>
+        <translation type="unfinished">RC AUX 5</translation>
+    </message>
+    <message>
+        <source>RC AUX 6</source>
+        <translation type="unfinished">RC AUX 6</translation>
+    </message>
+    <message>
+        <source>RC Controlled</source>
+        <translation type="unfinished">RC Controlled</translation>
+    </message>
+    <message>
+        <source>RC Flaps</source>
+        <translation type="unfinished">RC Flaps</translation>
+    </message>
+    <message>
+        <source>RC Pitch</source>
+        <translation type="unfinished">RC Pitch</translation>
+    </message>
+    <message>
+        <source>RC Roll</source>
+        <translation type="unfinished">RC Roll</translation>
+    </message>
+    <message>
+        <source>RC Throttle</source>
+        <translation type="unfinished">RC Throttle</translation>
+    </message>
+    <message>
+        <source>RC Transmitter only</source>
+        <translation type="unfinished">RC Transmitter only</translation>
+    </message>
+    <message>
+        <source>RC Yaw</source>
+        <translation type="unfinished">RC Yaw</translation>
+    </message>
+    <message>
+        <source>RC and Joystick with fallback</source>
+        <translation type="unfinished">RC and Joystick with fallback</translation>
+    </message>
+    <message>
+        <source>RC or Joystick keep first</source>
+        <translation type="unfinished">RC or Joystick keep first</translation>
+    </message>
+    <message>
+        <source>RESERVED</source>
+        <translation type="unfinished">RESERVED</translation>
+    </message>
+    <message>
+        <source>ROTATION_BACKWARD_FACING</source>
+        <translation type="unfinished">ROTATION_BACKWARD_FACING</translation>
+    </message>
+    <message>
+        <source>ROTATION_DOWNWARD_FACING</source>
+        <translation type="unfinished">ROTATION_DOWNWARD_FACING</translation>
+    </message>
+    <message>
+        <source>ROTATION_FORWARD_FACING</source>
+        <translation type="unfinished">ROTATION_FORWARD_FACING</translation>
+    </message>
+    <message>
+        <source>ROTATION_LEFT_FACING</source>
+        <translation type="unfinished">ROTATION_LEFT_FACING</translation>
+    </message>
+    <message>
+        <source>ROTATION_NONE</source>
+        <translation type="unfinished">ROTATION_NONE</translation>
+    </message>
+    <message>
+        <source>ROTATION_PITCH_180</source>
+        <translation type="unfinished">ROTATION_PITCH_180</translation>
+    </message>
+    <message>
+        <source>ROTATION_PITCH_180_YAW_270</source>
+        <translation type="unfinished">ROTATION_PITCH_180_YAW_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_PITCH_180_YAW_90</source>
+        <translation type="unfinished">ROTATION_PITCH_180_YAW_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_PITCH_270</source>
+        <translation type="unfinished">ROTATION_PITCH_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_PITCH_315</source>
+        <translation type="unfinished">ROTATION_PITCH_315</translation>
+    </message>
+    <message>
+        <source>ROTATION_PITCH_90</source>
+        <translation type="unfinished">ROTATION_PITCH_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_RIGHT_FACING</source>
+        <translation type="unfinished">ROTATION_RIGHT_FACING</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180</source>
+        <translation type="unfinished">ROTATION_ROLL_180</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_PITCH_270</source>
+        <translation type="unfinished">ROTATION_ROLL_180_PITCH_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_PITCH_90</source>
+        <translation type="unfinished">ROTATION_ROLL_180_PITCH_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_YAW_135</source>
+        <translation type="unfinished">ROTATION_ROLL_180_YAW_135</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_YAW_225</source>
+        <translation type="unfinished">ROTATION_ROLL_180_YAW_225</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_YAW_270</source>
+        <translation type="unfinished">ROTATION_ROLL_180_YAW_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_YAW_315</source>
+        <translation type="unfinished">ROTATION_ROLL_180_YAW_315</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_YAW_45</source>
+        <translation type="unfinished">ROTATION_ROLL_180_YAW_45</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_180_YAW_90</source>
+        <translation type="unfinished">ROTATION_ROLL_180_YAW_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_270</source>
+        <translation type="unfinished">ROTATION_ROLL_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_270_PITCH_180</source>
+        <translation type="unfinished">ROTATION_ROLL_270_PITCH_180</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_270_PITCH_270</source>
+        <translation type="unfinished">ROTATION_ROLL_270_PITCH_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_270_PITCH_90</source>
+        <translation type="unfinished">ROTATION_ROLL_270_PITCH_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_270_YAW_135</source>
+        <translation type="unfinished">ROTATION_ROLL_270_YAW_135</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_270_YAW_45</source>
+        <translation type="unfinished">ROTATION_ROLL_270_YAW_45</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_270_YAW_90</source>
+        <translation type="unfinished">ROTATION_ROLL_270_YAW_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90</source>
+        <translation type="unfinished">ROTATION_ROLL_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_PITCH_180</source>
+        <translation type="unfinished">ROTATION_ROLL_90_PITCH_180</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_PITCH_180_YAW_90</source>
+        <translation type="unfinished">ROTATION_ROLL_90_PITCH_180_YAW_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_PITCH_270</source>
+        <translation type="unfinished">ROTATION_ROLL_90_PITCH_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_PITCH_315</source>
+        <translation type="unfinished">ROTATION_ROLL_90_PITCH_315</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_PITCH_68_YAW_293</source>
+        <translation type="unfinished">ROTATION_ROLL_90_PITCH_68_YAW_293</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_PITCH_90</source>
+        <translation type="unfinished">ROTATION_ROLL_90_PITCH_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_YAW_135</source>
+        <translation type="unfinished">ROTATION_ROLL_90_YAW_135</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_YAW_270</source>
+        <translation type="unfinished">ROTATION_ROLL_90_YAW_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_YAW_45</source>
+        <translation type="unfinished">ROTATION_ROLL_90_YAW_45</translation>
+    </message>
+    <message>
+        <source>ROTATION_ROLL_90_YAW_90</source>
+        <translation type="unfinished">ROTATION_ROLL_90_YAW_90</translation>
+    </message>
+    <message>
+        <source>ROTATION_UPWARD_FACING</source>
+        <translation type="unfinished">ROTATION_UPWARD_FACING</translation>
+    </message>
+    <message>
+        <source>ROTATION_YAW_135</source>
+        <translation type="unfinished">ROTATION_YAW_135</translation>
+    </message>
+    <message>
+        <source>ROTATION_YAW_180</source>
+        <translation type="unfinished">ROTATION_YAW_180</translation>
+    </message>
+    <message>
+        <source>ROTATION_YAW_225</source>
+        <translation type="unfinished">ROTATION_YAW_225</translation>
+    </message>
+    <message>
+        <source>ROTATION_YAW_270</source>
+        <translation type="unfinished">ROTATION_YAW_270</translation>
+    </message>
+    <message>
+        <source>ROTATION_YAW_315</source>
+        <translation type="unfinished">ROTATION_YAW_315</translation>
+    </message>
+    <message>
+        <source>ROTATION_YAW_45</source>
+        <translation type="unfinished">ROTATION_YAW_45</translation>
+    </message>
+    <message>
+        <source>ROTATION_YAW_90</source>
+        <translation type="unfinished">ROTATION_YAW_90</translation>
+    </message>
+    <message>
+        <source>RTCM output (PPK)</source>
+        <translation type="unfinished">RTCM output (PPK)</translation>
+    </message>
+    <message>
+        <source>Radio Controller</source>
+        <translation type="unfinished">Radio Controller</translation>
+    </message>
+    <message>
+        <source>Range sensor</source>
+        <translation type="unfinished">Range sensor</translation>
+    </message>
+    <message>
+        <source>Raw data</source>
+        <translation type="unfinished">Raw data</translation>
+    </message>
+    <message>
+        <source>Remove first failed motor from effectiveness</source>
+        <translation type="unfinished">Remove first failed motor from effectiveness</translation>
+    </message>
+    <message>
+        <source>Require a landing</source>
+        <translation type="unfinished">Require a landing</translation>
+    </message>
+    <message>
+        <source>Require a takeoff</source>
+        <translation type="unfinished">Require a takeoff</translation>
+    </message>
+    <message>
+        <source>Require a takeoff and a landing</source>
+        <translation type="unfinished">Require a takeoff and a landing</translation>
+    </message>
+    <message>
+        <source>Require both a takeoff and a landing, or neither</source>
+        <translation type="unfinished">Require both a takeoff and a landing, or neither</translation>
+    </message>
+    <message>
+        <source>Required precision landing</source>
+        <translation type="unfinished">Required precision landing</translation>
+    </message>
+    <message>
+        <source>Rescale to hover thrust</source>
+        <translation type="unfinished">Rescale to hover thrust</translation>
+    </message>
+    <message>
+        <source>Reset parameters to airframe defaults</source>
+        <translation type="unfinished">Reset parameters to airframe defaults</translation>
+    </message>
+    <message>
+        <source>Return</source>
+        <translation type="unfinished">Return</translation>
+    </message>
+    <message>
+        <source>Return at critical level, land at emergency level</source>
+        <translation>კრიტიკულ დონეზე დაბრუნება, ავარიულზე დაჯახვა</translation>
+    </message>
+    <message>
+        <source>Return mode</source>
+        <translation>Return რეჟიმი</translation>
+    </message>
+    <message>
+        <source>Return to a planned mission landing, if available, using the mission path, else return to home via the reverse mission path. Do not consider rally points.</source>
+        <translation type="unfinished">Return to a planned mission landing, if available, using the mission path, else return to home via the reverse mission path. Do not consider rally points.</translation>
+    </message>
+    <message>
+        <source>Return to closest safe point (home or rally point) via direct path.</source>
+        <translation type="unfinished">Return to closest safe point (home or rally point) via direct path.</translation>
+    </message>
+    <message>
+        <source>Return to closest safe point other than home (mission landing pattern or rally point), via direct path. If no mission landing or rally points are defined return home via direct path. Always chose closest safe landing point if vehicle is a VTOL in hover mode.</source>
+        <translation type="unfinished">Return to closest safe point other than home (mission landing pattern or rally point), via direct path. If no mission landing or rally points are defined return home via direct path. Always chose closest safe landing point if vehicle is a VTOL in hover mode.</translation>
+    </message>
+    <message>
+        <source>Return via direct path to closest destination: home, start of mission landing pattern or safe point. If the destination is a mission landing pattern, follow the pattern to land.</source>
+        <translation type="unfinished">Return via direct path to closest destination: home, start of mission landing pattern or safe point. If the destination is a mission landing pattern, follow the pattern to land.</translation>
+    </message>
+    <message>
+        <source>Reverse</source>
+        <translation type="unfinished">Reverse</translation>
+    </message>
+    <message>
+        <source>Right A-tail</source>
+        <translation type="unfinished">Right A-tail</translation>
+    </message>
+    <message>
+        <source>Right Aileron</source>
+        <translation type="unfinished">Right Aileron</translation>
+    </message>
+    <message>
+        <source>Right Elevon</source>
+        <translation type="unfinished">Right Elevon</translation>
+    </message>
+    <message>
+        <source>Right Flap</source>
+        <translation type="unfinished">Right Flap</translation>
+    </message>
+    <message>
+        <source>Right Spoiler</source>
+        <translation type="unfinished">Right Spoiler</translation>
+    </message>
+    <message>
+        <source>Right V-Tail</source>
+        <translation type="unfinished">Right V-Tail</translation>
+    </message>
+    <message>
+        <source>Rising edge</source>
+        <translation type="unfinished">Rising edge</translation>
+    </message>
+    <message>
+        <source>Roll 180°</source>
+        <translation type="unfinished">Roll 180°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Pitch 270°</source>
+        <translation type="unfinished">Roll 180°, Pitch 270°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Pitch 90°</source>
+        <translation type="unfinished">Roll 180°, Pitch 90°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Yaw 135°</source>
+        <translation type="unfinished">Roll 180°, Yaw 135°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Yaw 225°</source>
+        <translation type="unfinished">Roll 180°, Yaw 225°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Yaw 270°</source>
+        <translation type="unfinished">Roll 180°, Yaw 270°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Yaw 315°</source>
+        <translation type="unfinished">Roll 180°, Yaw 315°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Yaw 45°</source>
+        <translation type="unfinished">Roll 180°, Yaw 45°</translation>
+    </message>
+    <message>
+        <source>Roll 180°, Yaw 90°</source>
+        <translation type="unfinished">Roll 180°, Yaw 90°</translation>
+    </message>
+    <message>
+        <source>Roll 270°</source>
+        <translation type="unfinished">Roll 270°</translation>
+    </message>
+    <message>
+        <source>Roll 270°, Pitch 180°</source>
+        <translation type="unfinished">Roll 270°, Pitch 180°</translation>
+    </message>
+    <message>
+        <source>Roll 270°, Pitch 270°</source>
+        <translation type="unfinished">Roll 270°, Pitch 270°</translation>
+    </message>
+    <message>
+        <source>Roll 270°, Pitch 90°</source>
+        <translation type="unfinished">Roll 270°, Pitch 90°</translation>
+    </message>
+    <message>
+        <source>Roll 270°, Yaw 135°</source>
+        <translation type="unfinished">Roll 270°, Yaw 135°</translation>
+    </message>
+    <message>
+        <source>Roll 270°, Yaw 45°</source>
+        <translation type="unfinished">Roll 270°, Yaw 45°</translation>
+    </message>
+    <message>
+        <source>Roll 270°, Yaw 90°</source>
+        <translation type="unfinished">Roll 270°, Yaw 90°</translation>
+    </message>
+    <message>
+        <source>Roll 90°</source>
+        <translation type="unfinished">Roll 90°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Pitch 180°</source>
+        <translation type="unfinished">Roll 90°, Pitch 180°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Pitch 180°, Yaw 90°</source>
+        <translation type="unfinished">Roll 90°, Pitch 180°, Yaw 90°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Pitch 270°</source>
+        <translation type="unfinished">Roll 90°, Pitch 270°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Pitch 315°</source>
+        <translation type="unfinished">Roll 90°, Pitch 315°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Pitch 68°, Yaw 293°</source>
+        <translation type="unfinished">Roll 90°, Pitch 68°, Yaw 293°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Pitch 90°</source>
+        <translation type="unfinished">Roll 90°, Pitch 90°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Yaw 135°</source>
+        <translation type="unfinished">Roll 90°, Yaw 135°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Yaw 270°</source>
+        <translation type="unfinished">Roll 90°, Yaw 270°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Yaw 45°</source>
+        <translation type="unfinished">Roll 90°, Yaw 45°</translation>
+    </message>
+    <message>
+        <source>Roll 90°, Yaw 90°</source>
+        <translation type="unfinished">Roll 90°, Yaw 90°</translation>
+    </message>
+    <message>
+        <source>Roll/Pitch</source>
+        <translation type="unfinished">Roll/Pitch</translation>
+    </message>
+    <message>
+        <source>Roll/Pitch/Yaw</source>
+        <translation type="unfinished">Roll/Pitch/Yaw</translation>
+    </message>
+    <message>
+        <source>Rotation backward</source>
+        <translation type="unfinished">Rotation backward</translation>
+    </message>
+    <message>
+        <source>Rotation downward</source>
+        <translation type="unfinished">Rotation downward</translation>
+    </message>
+    <message>
+        <source>Rotation forward</source>
+        <translation type="unfinished">Rotation forward</translation>
+    </message>
+    <message>
+        <source>Rotation left</source>
+        <translation type="unfinished">Rotation left</translation>
+    </message>
+    <message>
+        <source>Rotation right</source>
+        <translation type="unfinished">Rotation right</translation>
+    </message>
+    <message>
+        <source>Rotation upward</source>
+        <translation type="unfinished">Rotation upward</translation>
+    </message>
+    <message>
+        <source>Rotorcraft</source>
+        <translation type="unfinished">Rotorcraft</translation>
+    </message>
+    <message>
+        <source>Rover (Ackermann)</source>
+        <translation type="unfinished">Rover (Ackermann)</translation>
+    </message>
+    <message>
+        <source>Rover (Differential)</source>
+        <translation type="unfinished">Rover (Differential)</translation>
+    </message>
+    <message>
+        <source>Rover (Mecanum)</source>
+        <translation type="unfinished">Rover (Mecanum)</translation>
+    </message>
+    <message>
+        <source>Rover with Static Base on UART2 (similar to Default, except coming in on UART2)</source>
+        <translation type="unfinished">Rover with Static Base on UART2 (similar to Default, except coming in on UART2)</translation>
+    </message>
+    <message>
+        <source>Rudder</source>
+        <translation type="unfinished">Rudder</translation>
+    </message>
+    <message>
+        <source>Runway</source>
+        <translation type="unfinished">Runway</translation>
+    </message>
+    <message>
+        <source>SBUS</source>
+        <translation type="unfinished">SBUS</translation>
+    </message>
+    <message>
+        <source>SF/LW20/b</source>
+        <translation type="unfinished">SF/LW20/b</translation>
+    </message>
+    <message>
+        <source>SF/LW20/c</source>
+        <translation type="unfinished">SF/LW20/c</translation>
+    </message>
+    <message>
+        <source>SF/LW30/d</source>
+        <translation type="unfinished">SF/LW30/d</translation>
+    </message>
+    <message>
+        <source>SF02</source>
+        <translation type="unfinished">SF02</translation>
+    </message>
+    <message>
+        <source>SF10/a</source>
+        <translation type="unfinished">SF10/a</translation>
+    </message>
+    <message>
+        <source>SF10/b</source>
+        <translation type="unfinished">SF10/b</translation>
+    </message>
+    <message>
+        <source>SF10/c</source>
+        <translation type="unfinished">SF10/c</translation>
+    </message>
+    <message>
+        <source>SF11/c</source>
+        <translation type="unfinished">SF11/c</translation>
+    </message>
+    <message>
+        <source>SF30/b</source>
+        <translation type="unfinished">SF30/b</translation>
+    </message>
+    <message>
+        <source>SF30/c</source>
+        <translation type="unfinished">SF30/c</translation>
+    </message>
+    <message>
+        <source>SIH enabled</source>
+        <translation type="unfinished">SIH enabled</translation>
+    </message>
+    <message>
+        <source>ST24</source>
+        <translation type="unfinished">ST24</translation>
+    </message>
+    <message>
+        <source>SUMD</source>
+        <translation type="unfinished">SUMD</translation>
+    </message>
+    <message>
+        <source>Safety button</source>
+        <translation type="unfinished">Safety button</translation>
+    </message>
+    <message>
+        <source>Same as previous when landed, in-air require landing only if no valid VTOL approach is present</source>
+        <translation type="unfinished">Same as previous when landed, in-air require landing only if no valid VTOL approach is present</translation>
+    </message>
+    <message>
+        <source>Sea</source>
+        <translation type="unfinished">Sea</translation>
+    </message>
+    <message>
+        <source>Seagull MAP2 (over PWM)</source>
+        <translation type="unfinished">Seagull MAP2 (over PWM)</translation>
+    </message>
+    <message>
+        <source>Second airspeed sensor</source>
+        <translation type="unfinished">Second airspeed sensor</translation>
+    </message>
+    <message>
+        <source>Send Explicit Arm Command</source>
+        <translation type="unfinished">Send Explicit Arm Command</translation>
+    </message>
+    <message>
+        <source>Send Explicit Disarm</source>
+        <translation type="unfinished">Send Explicit Disarm</translation>
+    </message>
+    <message>
+        <source>Sensor disabled, when explicitly started treated as AUAV L05D</source>
+        <translation type="unfinished">Sensor disabled, when explicitly started treated as AUAV L05D</translation>
+    </message>
+    <message>
+        <source>Sensors Automatic Config</source>
+        <translation type="unfinished">Sensors Automatic Config</translation>
+    </message>
+    <message>
+        <source>Sensors Manual Config</source>
+        <translation type="unfinished">Sensors Manual Config</translation>
+    </message>
+    <message>
+        <source>Sensors Only (default)</source>
+        <translation type="unfinished">Sensors Only (default)</translation>
+    </message>
+    <message>
+        <source>Sensors and Actuators (ESCs) Automatic Config</source>
+        <translation type="unfinished">Sensors and Actuators (ESCs) Automatic Config</translation>
+    </message>
+    <message>
+        <source>ServiceSurf</source>
+        <translation type="unfinished">ServiceSurf</translation>
+    </message>
+    <message>
+        <source>Servo</source>
+        <translation type="unfinished">Servo</translation>
+    </message>
+    <message>
+        <source>Servo 1</source>
+        <translation type="unfinished">Servo 1</translation>
+    </message>
+    <message>
+        <source>Servo 2</source>
+        <translation type="unfinished">Servo 2</translation>
+    </message>
+    <message>
+        <source>Servo 3</source>
+        <translation type="unfinished">Servo 3</translation>
+    </message>
+    <message>
+        <source>Servo 4</source>
+        <translation type="unfinished">Servo 4</translation>
+    </message>
+    <message>
+        <source>Servo 5</source>
+        <translation type="unfinished">Servo 5</translation>
+    </message>
+    <message>
+        <source>Servo 6</source>
+        <translation type="unfinished">Servo 6</translation>
+    </message>
+    <message>
+        <source>Servo 7</source>
+        <translation type="unfinished">Servo 7</translation>
+    </message>
+    <message>
+        <source>Servo 8</source>
+        <translation type="unfinished">Servo 8</translation>
+    </message>
+    <message>
+        <source>Set Predefined Velocity Setpoint</source>
+        <translation type="unfinished">Set Predefined Velocity Setpoint</translation>
+    </message>
+    <message>
+        <source>Short Range Mode</source>
+        <translation type="unfinished">Short Range Mode</translation>
+    </message>
+    <message>
+        <source>Single Channel Aileron</source>
+        <translation type="unfinished">Single Channel Aileron</translation>
+    </message>
+    <message>
+        <source>Six side calibration</source>
+        <translation type="unfinished">Six side calibration</translation>
+    </message>
+    <message>
+        <source>SizeUnknown</source>
+        <translation type="unfinished">SizeUnknown</translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished">Small</translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished">Space</translation>
+    </message>
+    <message>
+        <source>Stabilization Mode</source>
+        <translation type="unfinished">Stabilization Mode</translation>
+    </message>
+    <message>
+        <source>Stabilize all axis</source>
+        <translation type="unfinished">Stabilize all axis</translation>
+    </message>
+    <message>
+        <source>Stabilize yaw for absolute/lock mode.</source>
+        <translation type="unfinished">Stabilize yaw for absolute/lock mode.</translation>
+    </message>
+    <message>
+        <source>Stabilized</source>
+        <translation type="unfinished">Stabilized</translation>
+    </message>
+    <message>
+        <source>Standard</source>
+        <translation type="unfinished">Standard</translation>
+    </message>
+    <message>
+        <source>Standard VTOL</source>
+        <translation type="unfinished">Standard VTOL</translation>
+    </message>
+    <message>
+        <source>Standby</source>
+        <translation type="unfinished">Standby</translation>
+    </message>
+    <message>
+        <source>Start on default I2C addr(BATMON_ADDR_DFLT)</source>
+        <translation type="unfinished">Start on default I2C addr(BATMON_ADDR_DFLT)</translation>
+    </message>
+    <message>
+        <source>Stationary</source>
+        <translation type="unfinished">Stationary</translation>
+    </message>
+    <message>
+        <source>Steering Wheel</source>
+        <translation type="unfinished">Steering Wheel</translation>
+    </message>
+    <message>
+        <source>Step</source>
+        <translation type="unfinished">Step</translation>
+    </message>
+    <message>
+        <source>Stick input disabled</source>
+        <translation type="unfinished">Stick input disabled</translation>
+    </message>
+    <message>
+        <source>Submarine</source>
+        <translation type="unfinished">Submarine</translation>
+    </message>
+    <message>
+        <source>Supply Voltage Mode</source>
+        <translation type="unfinished">Supply Voltage Mode</translation>
+    </message>
+    <message>
+        <source>Surface vessel, boat, ship</source>
+        <translation type="unfinished">Surface vessel, boat, ship</translation>
+    </message>
+    <message>
+        <source>TELEM 1</source>
+        <translation type="unfinished">TELEM 1</translation>
+    </message>
+    <message>
+        <source>TELEM 2</source>
+        <translation type="unfinished">TELEM 2</translation>
+    </message>
+    <message>
+        <source>TELEM 3</source>
+        <translation type="unfinished">TELEM 3</translation>
+    </message>
+    <message>
+        <source>TELEM/SERIAL 4</source>
+        <translation type="unfinished">TELEM/SERIAL 4</translation>
+    </message>
+    <message>
+        <source>TREvo3m</source>
+        <translation type="unfinished">TREvo3m</translation>
+    </message>
+    <message>
+        <source>TREvo600Hz</source>
+        <translation type="unfinished">TREvo600Hz</translation>
+    </message>
+    <message>
+        <source>TREvo60m</source>
+        <translation type="unfinished">TREvo60m</translation>
+    </message>
+    <message>
+        <source>TROne</source>
+        <translation type="unfinished">TROne</translation>
+    </message>
+    <message>
+        <source>Tailsitter</source>
+        <translation type="unfinished">Tailsitter</translation>
+    </message>
+    <message>
+        <source>Tailsitter VTOL</source>
+        <translation type="unfinished">Tailsitter VTOL</translation>
+    </message>
+    <message>
+        <source>Takeoff</source>
+        <translation type="unfinished">Takeoff</translation>
+    </message>
+    <message>
+        <source>Terminate</source>
+        <translation type="unfinished">Terminate</translation>
+    </message>
+    <message>
+        <source>Terrain following</source>
+        <translation type="unfinished">Terrain following</translation>
+    </message>
+    <message>
+        <source>Terrain hold</source>
+        <translation type="unfinished">Terrain hold</translation>
+    </message>
+    <message>
+        <source>Thermal control enabled</source>
+        <translation type="unfinished">Thermal control enabled</translation>
+    </message>
+    <message>
+        <source>Thermal control off</source>
+        <translation type="unfinished">Thermal control off</translation>
+    </message>
+    <message>
+        <source>Thermal control unavailable</source>
+        <translation type="unfinished">Thermal control unavailable</translation>
+    </message>
+    <message>
+        <source>Third airspeed sensor</source>
+        <translation type="unfinished">Third airspeed sensor</translation>
+    </message>
+    <message>
+        <source>Three side calibration</source>
+        <translation type="unfinished">Three side calibration</translation>
+    </message>
+    <message>
+        <source>Throttle-based compensation</source>
+        <translation type="unfinished">Throttle-based compensation</translation>
+    </message>
+    <message>
+        <source>Tilt 1</source>
+        <translation type="unfinished">Tilt 1</translation>
+    </message>
+    <message>
+        <source>Tilt 2</source>
+        <translation type="unfinished">Tilt 2</translation>
+    </message>
+    <message>
+        <source>Tilt 3</source>
+        <translation type="unfinished">Tilt 3</translation>
+    </message>
+    <message>
+        <source>Tilt 4</source>
+        <translation type="unfinished">Tilt 4</translation>
+    </message>
+    <message>
+        <source>Tiltrotor</source>
+        <translation type="unfinished">Tiltrotor</translation>
+    </message>
+    <message>
+        <source>Tiltrotor VTOL</source>
+        <translation type="unfinished">Tiltrotor VTOL</translation>
+    </message>
+    <message>
+        <source>Time based, always on</source>
+        <translation type="unfinished">Time based, always on</translation>
+    </message>
+    <message>
+        <source>Time based, on command</source>
+        <translation type="unfinished">Time based, on command</translation>
+    </message>
+    <message>
+        <source>To receiver</source>
+        <translation type="unfinished">To receiver</translation>
+    </message>
+    <message>
+        <source>Towards Front</source>
+        <translation type="unfinished">Towards Front</translation>
+    </message>
+    <message>
+        <source>Towards Right</source>
+        <translation type="unfinished">Towards Right</translation>
+    </message>
+    <message>
+        <source>Tricopter</source>
+        <translation type="unfinished">Tricopter</translation>
+    </message>
+    <message>
+        <source>Tube Pressure Drop</source>
+        <translation type="unfinished">Tube Pressure Drop</translation>
+    </message>
+    <message>
+        <source>Two side calibration</source>
+        <translation type="unfinished">Two side calibration</translation>
+    </message>
+    <message>
+        <source>UART 6</source>
+        <translation type="unfinished">UART 6</translation>
+    </message>
+    <message>
+        <source>UAV</source>
+        <translation type="unfinished">UAV</translation>
+    </message>
+    <message>
+        <source>UltraLight</source>
+        <translation type="unfinished">UltraLight</translation>
+    </message>
+    <message>
+        <source>Unassigned</source>
+        <translation>მიუნიშნავი</translation>
+    </message>
+    <message>
+        <source>Unconfigured</source>
+        <translation type="unfinished">Unconfigured</translation>
+    </message>
+    <message>
+        <source>Uncontrolled</source>
+        <translation type="unfinished">Uncontrolled</translation>
+    </message>
+    <message>
+        <source>Undefined</source>
+        <translation type="unfinished">Undefined</translation>
+    </message>
+    <message>
+        <source>Uninitialized</source>
+        <translation type="unfinished">Uninitialized</translation>
+    </message>
+    <message>
+        <source>Unknown</source>
+        <translation type="unfinished">Unknown</translation>
+    </message>
+    <message>
+        <source>UnknownMaxSpeed</source>
+        <translation type="unfinished">UnknownMaxSpeed</translation>
+    </message>
+    <message>
+        <source>Use Motor Arm Behavior</source>
+        <translation type="unfinished">Use Motor Arm Behavior</translation>
+    </message>
+    <message>
+        <source>Use the terrain estimate to trigger the flare (only)</source>
+        <translation type="unfinished">Use the terrain estimate to trigger the flare (only)</translation>
+    </message>
+    <message>
+        <source>VTOL Quad-rotor Tailsitter</source>
+        <translation type="unfinished">VTOL Quad-rotor Tailsitter</translation>
+    </message>
+    <message>
+        <source>VTOL Standard (separate fixed rotors for hover and cruise flight)</source>
+        <translation type="unfinished">VTOL Standard (separate fixed rotors for hover and cruise flight)</translation>
+    </message>
+    <message>
+        <source>VTOL Tailsitter</source>
+        <translation type="unfinished">VTOL Tailsitter</translation>
+    </message>
+    <message>
+        <source>VTOL Tiltrotor</source>
+        <translation type="unfinished">VTOL Tiltrotor</translation>
+    </message>
+    <message>
+        <source>VTOL Two-rotor Tailsitter</source>
+        <translation type="unfinished">VTOL Two-rotor Tailsitter</translation>
+    </message>
+    <message>
+        <source>Velocity</source>
+        <translation type="unfinished">Velocity</translation>
+    </message>
+    <message>
+        <source>Vision</source>
+        <translation type="unfinished">Vision</translation>
+    </message>
+    <message>
+        <source>Voltage</source>
+        <translation type="unfinished">Voltage</translation>
+    </message>
+    <message>
+        <source>Voltage Limit Mode</source>
+        <translation type="unfinished">Voltage Limit Mode</translation>
+    </message>
+    <message>
+        <source>WARNING Apply the new gains in air</source>
+        <translation type="unfinished">WARNING Apply the new gains in air</translation>
+    </message>
+    <message>
+        <source>Warn only</source>
+        <translation type="unfinished">Warn only</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>გაფრთხილება</translation>
+    </message>
+    <message>
+        <source>Warning only</source>
+        <translation type="unfinished">Warning only</translation>
+    </message>
+    <message>
+        <source>When autopilot is armed</source>
+        <translation type="unfinished">When autopilot is armed</translation>
+    </message>
+    <message>
+        <source>When autopilot is prearmed</source>
+        <translation type="unfinished">When autopilot is prearmed</translation>
+    </message>
+    <message>
+        <source>Wifi Port</source>
+        <translation type="unfinished">Wifi Port</translation>
+    </message>
+    <message>
+        <source>XChaCha20</source>
+        <translation type="unfinished">XChaCha20</translation>
+    </message>
+    <message>
+        <source>Yaw</source>
+        <translation type="unfinished">Yaw</translation>
+    </message>
+    <message>
+        <source>Yaw 135°</source>
+        <translation>Yaw 135°</translation>
+    </message>
+    <message>
+        <source>Yaw 180°</source>
+        <translation>Yaw 180°</translation>
+    </message>
+    <message>
+        <source>Yaw 225°</source>
+        <translation>Yaw 225°</translation>
+    </message>
+    <message>
+        <source>Yaw 270°</source>
+        <translation>Yaw 270°</translation>
+    </message>
+    <message>
+        <source>Yaw 315°</source>
+        <translation>Yaw 315°</translation>
+    </message>
+    <message>
+        <source>Yaw 45°</source>
+        <translation>Yaw 45°</translation>
+    </message>
+    <message>
+        <source>Yaw 90°</source>
+        <translation>Yaw 90°</translation>
+    </message>
+    <message>
+        <source>Yaw and Pitch</source>
+        <translation type="unfinished">Yaw and Pitch</translation>
+    </message>
+    <message>
+        <source>airborne with &amp;lt;1g acceleration</source>
+        <translation type="unfinished">airborne with &amp;lt;1g acceleration</translation>
+    </message>
+    <message>
+        <source>airborne with &amp;lt;2g acceleration</source>
+        <translation type="unfinished">airborne with &amp;lt;2g acceleration</translation>
+    </message>
+    <message>
+        <source>airborne with &amp;lt;4g acceleration</source>
+        <translation type="unfinished">airborne with &amp;lt;4g acceleration</translation>
+    </message>
+    <message>
+        <source>along trajectory</source>
+        <translation type="unfinished">along trajectory</translation>
+    </message>
+    <message>
+        <source>automotive</source>
+        <translation type="unfinished">automotive</translation>
+    </message>
+    <message>
+        <source>away from home</source>
+        <translation type="unfinished">away from home</translation>
+    </message>
+    <message>
+        <source>close the loop with gps speed</source>
+        <translation type="unfinished">close the loop with gps speed</translation>
+    </message>
+    <message>
+        <source>config</source>
+        <translation type="unfinished">config</translation>
+    </message>
+    <message>
+        <source>custom</source>
+        <translation type="unfinished">custom</translation>
+    </message>
+    <message>
+        <source>default (SD card)</source>
+        <translation type="unfinished">default (SD card)</translation>
+    </message>
+    <message>
+        <source>disabled</source>
+        <translation type="unfinished">disabled</translation>
+    </message>
+    <message>
+        <source>disables the feature</source>
+        <translation type="unfinished">disables the feature</translation>
+    </message>
+    <message>
+        <source>external HITL</source>
+        <translation type="unfinished">external HITL</translation>
+    </message>
+    <message>
+        <source>extvision</source>
+        <translation type="unfinished">extvision</translation>
+    </message>
+    <message>
+        <source>extvisionmin</source>
+        <translation type="unfinished">extvisionmin</translation>
+    </message>
+    <message>
+        <source>from 1st armed until shutdown</source>
+        <translation type="unfinished">from 1st armed until shutdown</translation>
+    </message>
+    <message>
+        <source>from boot until disarm</source>
+        <translation type="unfinished">from boot until disarm</translation>
+    </message>
+    <message>
+        <source>from boot until shutdown</source>
+        <translation type="unfinished">from boot until shutdown</translation>
+    </message>
+    <message>
+        <source>full (3D) solution</source>
+        <translation type="unfinished">full (3D) solution</translation>
+    </message>
+    <message>
+        <source>gimbal</source>
+        <translation type="unfinished">gimbal</translation>
+    </message>
+    <message>
+        <source>iridium</source>
+        <translation type="unfinished">iridium</translation>
+    </message>
+    <message>
+        <source>magic</source>
+        <translation type="unfinished">magic</translation>
+    </message>
+    <message>
+        <source>minimal</source>
+        <translation type="unfinished">minimal</translation>
+    </message>
+    <message>
+        <source>normal</source>
+        <translation type="unfinished">normal</translation>
+    </message>
+    <message>
+        <source>onboard</source>
+        <translation type="unfinished">onboard</translation>
+    </message>
+    <message>
+        <source>onboard_low_bandwidth</source>
+        <translation type="unfinished">onboard_low_bandwidth</translation>
+    </message>
+    <message>
+        <source>one arm</source>
+        <translation type="unfinished">one arm</translation>
+    </message>
+    <message>
+        <source>open loop control</source>
+        <translation type="unfinished">open loop control</translation>
+    </message>
+    <message>
+        <source>osd</source>
+        <translation type="unfinished">osd</translation>
+    </message>
+    <message>
+        <source>planar (2D) solution</source>
+        <translation type="unfinished">planar (2D) solution</translation>
+    </message>
+    <message>
+        <source>skip the controller and feedthrough the setpoints</source>
+        <translation type="unfinished">skip the controller and feedthrough the setpoints</translation>
+    </message>
+    <message>
+        <source>stationary</source>
+        <translation type="unfinished">stationary</translation>
+    </message>
+    <message>
+        <source>time-only solution</source>
+        <translation type="unfinished">time-only solution</translation>
+    </message>
+    <message>
+        <source>towards home</source>
+        <translation type="unfinished">towards home</translation>
+    </message>
+    <message>
+        <source>towards waypoint</source>
+        <translation type="unfinished">towards waypoint</translation>
+    </message>
+    <message>
+        <source>towards waypoint (yaw first)</source>
+        <translation type="unfinished">towards waypoint (yaw first)</translation>
+    </message>
+    <message>
+        <source>two step arm</source>
+        <translation type="unfinished">two step arm</translation>
+    </message>
+    <message>
+        <source>u-blox</source>
+        <translation type="unfinished">u-blox</translation>
+    </message>
+    <message>
+        <source>uAvionix</source>
+        <translation type="unfinished">uAvionix</translation>
+    </message>
+    <message>
+        <source>uavionix</source>
+        <translation type="unfinished">uavionix</translation>
+    </message>
+    <message>
+        <source>use Attitude Setpoints</source>
+        <translation type="unfinished">use Attitude Setpoints</translation>
+    </message>
+    <message>
+        <source>use the module&apos;s controller</source>
+        <translation type="unfinished">use the module&apos;s controller</translation>
+    </message>
+    <message>
+        <source>when armed until disarm (default)</source>
+        <translation type="unfinished">when armed until disarm (default)</translation>
+    </message>
+    <message>
+        <source>while manual input AUX1 &amp;gt;30%</source>
+        <translation type="unfinished">while manual input AUX1 &amp;gt;30%</translation>
+    </message>
+    <message>
+        <source>yaw fixed</source>
+        <translation type="unfinished">yaw fixed</translation>
+    </message>
 </context>
 </TS>
