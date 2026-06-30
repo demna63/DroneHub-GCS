@@ -9,6 +9,28 @@
 
 message(STATUS "QGC: Adding DroneHub Custom Plugin")
 
+# ── Pinned app version (portable, engine-git-independent) ───────────────────────
+# Core derives the version from `git describe` in qgroundcontrol/cmake/Git.cmake,
+# which runs BEFORE project() and falls back to 0.0.0 when the engine repo has no
+# v* tag. The qgroundcontrol/ dir is gitignored in this repo, so neither a git tag
+# nor a Git.cmake edit survives a fresh clone — the only portable home is custom/.
+# This subdirectory is add_subdirectory()'d at core CMakeLists.txt:261, AFTER both
+# Git.cmake and project(), but BEFORE every version consumer (macOS bundle plist
+# @369-375, the QGC_APP_VERSION_STR compile-def @493, and the digit validation
+# @427-434). Re-assigning into PARENT_SCOPE therefore wins for all of them.
+set(DRONEHUB_VERSION_MAJOR 1)
+set(DRONEHUB_VERSION_MINOR 0)
+set(DRONEHUB_VERSION_PATCH 0)
+set(DRONEHUB_VERSION "${DRONEHUB_VERSION_MAJOR}.${DRONEHUB_VERSION_MINOR}.${DRONEHUB_VERSION_PATCH}")
+set(QGC_APP_VERSION             "${DRONEHUB_VERSION}"   PARENT_SCOPE)
+set(QGC_APP_VERSION_STR         "v${DRONEHUB_VERSION}"  PARENT_SCOPE)  # in-app About string
+set(CMAKE_PROJECT_VERSION       "${DRONEHUB_VERSION}"   PARENT_SCOPE)
+set(CMAKE_PROJECT_VERSION_MAJOR "${DRONEHUB_VERSION_MAJOR}" PARENT_SCOPE)
+set(CMAKE_PROJECT_VERSION_MINOR "${DRONEHUB_VERSION_MINOR}" PARENT_SCOPE)
+set(CMAKE_PROJECT_VERSION_PATCH "${DRONEHUB_VERSION_PATCH}" PARENT_SCOPE)
+message(STATUS "DroneHub: pinned app version ${DRONEHUB_VERSION}")
+# ────────────────────────────────────────────────────────────────────────────────
+
 # Upstream Stable_V5.0 patches (e.g. macOS Quit null-guard in QGCApplication::event).
 # Windows: CMake cannot execute .sh directly — invoke via Git Bash.
 set(_dronehub_patch_script "${CMAKE_CURRENT_SOURCE_DIR}/../tools/apply-qgc-patches.sh")
