@@ -10,6 +10,7 @@
 #include "SettingsManager.h"
 #include "MavlinkActionsSettings.h"
 #include "VideoSettings.h"
+#include "Viewer3DSettings.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -280,6 +281,17 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
         // Don't kill the video stream on disarm — keeps the Fly View PiP visible.
         if (metaData.name() == VideoSettings::disableWhenDisarmedName) {
             metaData.setRawDefaultValue(false);
+            return false;
+        }
+    }
+
+    // 3D View is compiled in (QGC_VIEWER3D=ON). QGC ships it disabled by default, so
+    // the Fly View "3D View" tool-strip button (gated on viewer3DSettings.enabled) is
+    // hidden out of the box. Default it on so operators get the 3D map without digging
+    // through settings.
+    if (settingsGroup == Viewer3DSettings::settingsGroup) {
+        if (metaData.name() == Viewer3DSettings::enabledName) {
+            metaData.setRawDefaultValue(true);
             return false;
         }
     }
