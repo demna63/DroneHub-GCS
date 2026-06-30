@@ -46,7 +46,21 @@ if(ANDROID)
     file(COPY "${CMAKE_SOURCE_DIR}/android/" DESTINATION "${_dh_android_pkg}")          # stock base
     file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/deploy/android/" DESTINATION "${_dh_android_pkg}")  # DroneHub icon overlay
     set(QGC_ANDROID_PACKAGE_SOURCE_DIR "${_dh_android_pkg}" CACHE PATH "Android Package Path" FORCE)
-    message(STATUS "DroneHub: Android package source merged (stock + DroneHub icons) at ${_dh_android_pkg}")
+    # Distinct install identity. QGC hardcodes the gradle `namespace`
+    # (android/build.gradle:51), so QGC_ANDROID_PACKAGE_NAME / QT_ANDROID_PACKAGE_NAME
+    # do NOT change the applicationId — the stock APK ships as org.mavlink.qgroundcontrol.
+    # Inject applicationId into the merged build.gradle's defaultConfig: this changes only
+    # the install/store id (namespace, and therefore the Java/R package, stays stock, so
+    # the fully-qualified QGCActivity/permission refs and R references keep compiling).
+    set(_dh_gradle "${_dh_android_pkg}/build.gradle")
+    if(EXISTS "${_dh_gradle}")
+        file(READ "${_dh_gradle}" _dh_gradle_txt)
+        string(REPLACE "defaultConfig {"
+                       "defaultConfig {\n        applicationId = \"org.dronehub.gcs\""
+                       _dh_gradle_txt "${_dh_gradle_txt}")
+        file(WRITE "${_dh_gradle}" "${_dh_gradle_txt}")
+    endif()
+    message(STATUS "DroneHub: Android package merged (icons + applicationId org.dronehub.gcs) at ${_dh_android_pkg}")
 endif()
 # ────────────────────────────────────────────────────────────────────────────────
 
