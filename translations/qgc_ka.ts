@@ -18167,4 +18167,355 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
         <translation>სტატუსი</translation>
     </message>
 </context>
+<context>
+    <name>MissionCommands</name>
+    <message>
+        <source>Altitude wait</source>
+        <translation>სიმაღლის მოლოდინი</translation>
+    </message>
+    <message>
+        <source>Arm/Disarm</source>
+        <translation>არმირება/დეარმირება</translation>
+    </message>
+    <message>
+        <source>AutoTune Enable</source>
+        <translation>ავტოტუნინგის ჩართვა</translation>
+    </message>
+    <message>
+        <source>Bind Spektrum receiver</source>
+        <translation>Spektrum მიმღების დაკავშირება</translation>
+    </message>
+    <message>
+        <source>Calibration</source>
+        <translation>კალიბრაცია</translation>
+    </message>
+    <message>
+        <source>Camera config</source>
+        <translation>კამერის კონფიგურაცია</translation>
+    </message>
+    <message>
+        <source>Camera control</source>
+        <translation>კამერის მართვა</translation>
+    </message>
+    <message>
+        <source>Camera trigger distance</source>
+        <translation>კამერის ჩართვის მანძილი</translation>
+    </message>
+    <message>
+        <source>Cancel ROI</source>
+        <translation>ROI-ის გაუქმება</translation>
+    </message>
+    <message>
+        <source>Change Altitude</source>
+        <translation>სიმაღლის შეცვლა</translation>
+    </message>
+    <message>
+        <source>Change speed</source>
+        <translation>სიჩქარის შეცვლა</translation>
+    </message>
+    <message>
+        <source>Condition Gate</source>
+        <translation>პირობის კარიბჭე</translation>
+    </message>
+    <message>
+        <source>Configure Mount</source>
+        <translation>სამაგრის კონფიგურაცია</translation>
+    </message>
+    <message>
+        <source>Control Mount</source>
+        <translation>სამაგრის მართვა</translation>
+    </message>
+    <message>
+        <source>Control high latency link</source>
+        <translation>მაღალი დაყოვნების ლინკის მართვა</translation>
+    </message>
+    <message>
+        <source>Control video</source>
+        <translation>ვიდეოს მართვა</translation>
+    </message>
+    <message>
+        <source>Create panorama</source>
+        <translation>პანორამის შექმნა</translation>
+    </message>
+    <message>
+        <source>Cycle relay</source>
+        <translation>რელეს ციკლი</translation>
+    </message>
+    <message>
+        <source>Cycle servo</source>
+        <translation>სერვოს ციკლი</translation>
+    </message>
+    <message>
+        <source>Delay</source>
+        <translation>დაყოვნება</translation>
+    </message>
+    <message>
+        <source>Delay until</source>
+        <translation>დაყოვნება მომენტამდე</translation>
+    </message>
+    <message>
+        <source>Enable geofence</source>
+        <translation>გეომიჯნის ჩართვა</translation>
+    </message>
+    <message>
+        <source>Flight termination</source>
+        <translation>ფრენის შეწყვეტა</translation>
+    </message>
+    <message>
+        <source>Follow Me</source>
+        <translation>გამომყევი</translation>
+    </message>
+    <message>
+        <source>Get capabilities</source>
+        <translation>შესაძლებლობების მიღება</translation>
+    </message>
+    <message>
+        <source>Get launch position</source>
+        <translation>გაშვების პოზიციის მიღება</translation>
+    </message>
+    <message>
+        <source>Get message interval</source>
+        <translation>შეტყობინების ინტერვალის მიღება</translation>
+    </message>
+    <message>
+        <source>Gimbal Manager PitchYaw</source>
+        <translation>გიმბალის მენეჯერი (Pitch/Yaw)</translation>
+    </message>
+    <message>
+        <source>Go around</source>
+        <translation>გადავლა</translation>
+    </message>
+    <message>
+        <source>Gripper Mechanism</source>
+        <translation>მჭიდის მექანიზმი</translation>
+    </message>
+    <message>
+        <source>Guided enable</source>
+        <translation>მართვადი რეჟიმის ჩართვა</translation>
+    </message>
+    <message>
+        <source>Guided limits</source>
+        <translation>მართვადი ლიმიტები</translation>
+    </message>
+    <message>
+        <source>Home Position</source>
+        <translation>საწყისი პოზიცია</translation>
+    </message>
+    <message>
+        <source>Inverted flight</source>
+        <translation>შებრუნებული ფრენა</translation>
+    </message>
+    <message>
+        <source>Jump to item</source>
+        <translation>ელემენტზე გადასვლა</translation>
+    </message>
+    <message>
+        <source>Land</source>
+        <translation>დაშვება</translation>
+    </message>
+    <message>
+        <source>Land local</source>
+        <translation>ლოკალური დაშვება</translation>
+    </message>
+    <message>
+        <source>Land start</source>
+        <translation>დაშვების დაწყება</translation>
+    </message>
+    <message>
+        <source>Loiter</source>
+        <translation>ბრუნვა</translation>
+    </message>
+    <message>
+        <source>Loiter (altitude)</source>
+        <translation>ბრუნვა (სიმაღლე)</translation>
+    </message>
+    <message>
+        <source>Loiter (time)</source>
+        <translation>ბრუნვა (დრო)</translation>
+    </message>
+    <message>
+        <source>Loiter (turns)</source>
+        <translation>ბრუნვა (შემობრუნებები)</translation>
+    </message>
+    <message>
+        <source>Mission start</source>
+        <translation>მისიის დაწყება</translation>
+    </message>
+    <message>
+        <source>Motor test</source>
+        <translation>ძრავის ტესტი</translation>
+    </message>
+    <message>
+        <source>Nav follow</source>
+        <translation>ნავიგაციური მიდევნება</translation>
+    </message>
+    <message>
+        <source>Override goto</source>
+        <translation>Goto-ის გადაფარვა</translation>
+    </message>
+    <message>
+        <source>Path planning</source>
+        <translation>მარშრუტის დაგეგმვა</translation>
+    </message>
+    <message>
+        <source>Pause/Continue</source>
+        <translation>პაუზა/გაგრძელება</translation>
+    </message>
+    <message>
+        <source>Payload control deploy</source>
+        <translation>დატვირთვის განთავსების მართვა</translation>
+    </message>
+    <message>
+        <source>Payload prepare deploy</source>
+        <translation>დატვირთვის განთავსების მომზადება</translation>
+    </message>
+    <message>
+        <source>ROI to next waypoint</source>
+        <translation>ROI შემდეგ წერტილზე</translation>
+    </message>
+    <message>
+        <source>Rally land</source>
+        <translation>Rally დაშვება</translation>
+    </message>
+    <message>
+        <source>Reboot/Shutdown vehicle</source>
+        <translation>აპარატის გადატვირთვა/გამორთვა</translation>
+    </message>
+    <message>
+        <source>Region of interest</source>
+        <translation>ინტერესის არეალი</translation>
+    </message>
+    <message>
+        <source>Region of interest (ROI)</source>
+        <translation>ინტერესის არეალი (ROI)</translation>
+    </message>
+    <message>
+        <source>Reposition</source>
+        <translation>პოზიციის შეცვლა</translation>
+    </message>
+    <message>
+        <source>Return To Launch</source>
+        <translation>გაშვების წერტილში დაბრუნება</translation>
+    </message>
+    <message>
+        <source>Set Parameter</source>
+        <translation>პარამეტრის დაყენება</translation>
+    </message>
+    <message>
+        <source>Set actuator</source>
+        <translation>აქტუატორის დაყენება</translation>
+    </message>
+    <message>
+        <source>Set camera modes</source>
+        <translation>კამერის რეჟიმების დაყენება</translation>
+    </message>
+    <message>
+        <source>Set flight mode</source>
+        <translation>ფრენის რეჟიმის დაყენება</translation>
+    </message>
+    <message>
+        <source>Set launch location</source>
+        <translation>გაშვების ადგილის დაყენება</translation>
+    </message>
+    <message>
+        <source>Set message interval</source>
+        <translation>შეტყობინების ინტერვალის დაყენება</translation>
+    </message>
+    <message>
+        <source>Set mode</source>
+        <translation>რეჟიმის დაყენება</translation>
+    </message>
+    <message>
+        <source>Set moving direction</source>
+        <translation>მოძრაობის მიმართულების დაყენება</translation>
+    </message>
+    <message>
+        <source>Set relay</source>
+        <translation>რელეს დაყენება</translation>
+    </message>
+    <message>
+        <source>Set sensor offsets</source>
+        <translation>სენსორის ოფსეტების დაყენება</translation>
+    </message>
+    <message>
+        <source>Set servo</source>
+        <translation>სერვოს დაყენება</translation>
+    </message>
+    <message>
+        <source>Spline waypoint</source>
+        <translation>სპლაინ წერტილი</translation>
+    </message>
+    <message>
+        <source>Start image capture</source>
+        <translation>სურათების გადაღების დაწყება</translation>
+    </message>
+    <message>
+        <source>Start video capture</source>
+        <translation>ვიდეოს ჩაწერის დაწყება</translation>
+    </message>
+    <message>
+        <source>Stop image capture</source>
+        <translation>სურათების გადაღების შეჩერება</translation>
+    </message>
+    <message>
+        <source>Stop video capture</source>
+        <translation>ვიდეოს ჩაწერის შეჩერება</translation>
+    </message>
+    <message>
+        <source>Store parameters</source>
+        <translation>პარამეტრების შენახვა</translation>
+    </message>
+    <message>
+        <source>Takeoff</source>
+        <translation>აფრენა</translation>
+    </message>
+    <message>
+        <source>Takeoff local</source>
+        <translation>ლოკალური აფრენა</translation>
+    </message>
+    <message>
+        <source>Trigger control</source>
+        <translation>ჩამრთველის მართვა</translation>
+    </message>
+    <message>
+        <source>Trigger parachute</source>
+        <translation>პარაშუტის ამოქმედება</translation>
+    </message>
+    <message>
+        <source>UAVCAN configure</source>
+        <translation>UAVCAN კონფიგურაცია</translation>
+    </message>
+    <message>
+        <source>VTOL Transition</source>
+        <translation>VTOL გადასვლა</translation>
+    </message>
+    <message>
+        <source>VTOL land</source>
+        <translation>VTOL დაშვება</translation>
+    </message>
+    <message>
+        <source>VTOL takeoff</source>
+        <translation>VTOL აფრენა</translation>
+    </message>
+    <message>
+        <source>Vehicle reposition</source>
+        <translation>აპარატის პოზიციის შეცვლა</translation>
+    </message>
+    <message>
+        <source>Wait for Yaw</source>
+        <translation>Yaw-ის მოლოდინი</translation>
+    </message>
+    <message>
+        <source>Wait for altitude</source>
+        <translation>სიმაღლის მოლოდინი</translation>
+    </message>
+    <message>
+        <source>Wait for distance</source>
+        <translation>მანძილის მოლოდინი</translation>
+    </message>
+    <message>
+        <source>Waypoint</source>
+        <translation>გზის წერტილი</translation>
+    </message>
+</context>
 </TS>

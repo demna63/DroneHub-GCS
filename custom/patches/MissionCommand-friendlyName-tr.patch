@@ -1,0 +1,20 @@
+--- a/src/MissionManager/MissionCommandUIInfo.cc
++++ b/src/MissionManager/MissionCommandUIInfo.cc
+@@ -10,6 +10,7 @@
+ #include "MissionCommandUIInfo.h"
+ #include "JsonHelper.h"
+ #include "FactMetaData.h"
+ #include "QGCLoggingCategory.h"
++#include <QtCore/QCoreApplication>
+
+ QGC_LOGGING_CATEGORY(MissionCommandsLog, "MissionCommandsLog")
+@@ -99,7 +100,8 @@ QString MissionCommandUIInfo::rawName(void) const
+ QString MissionCommandUIInfo::friendlyName(void) const
+ {
+     if (_infoMap.contains(_friendlyNameJsonKey)) {
+-        return _infoMap[_friendlyNameJsonKey].toString();
++        // DroneHub: localize the JSON friendlyName via the "MissionCommands" ts context.
++        return QCoreApplication::translate("MissionCommands", _infoMap[_friendlyNameJsonKey].toString().toUtf8().constData());
+     } else {
+         return QString();
+     }
