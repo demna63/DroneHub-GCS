@@ -18548,5 +18548,17 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
         <source>Stop recording video</source>
         <translation>ვიდეოს ჩაწერის შეჩერება</translation>
     </message>
+    <message>
+        <source>Photo</source>
+        <translation>ფოტო</translation>
+    </message>
+    <message>
+        <source>Video</source>
+        <translation>ვიდეო</translation>
+    </message>
+    <message>
+        <source>Survey</source>
+        <translation>აეროგადაღება</translation>
+    </message>
 </context>
 </TS>
