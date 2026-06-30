@@ -9,37 +9,51 @@ Bundle ID: `org.dronehub.GCS`. macOS build output:
 დანიშნულება: PX4 (და სავარაუდოდ ArduPilot) დრონების მართვა, mission planning, telemetry, parameter tuning.
 
 ## სტეკი
-- **Qt 6** (QML + C++) — QGC-ის სტანდარტული სტეკი
-- **CMake** build system
-- **MAVLink** პროტოკოლი vehicle-თან კომუნიკაციისთვის
+- **Qt 6.8.3** (QML + C++) — QGC Stable_V5.0-ის სტეკი (6.6.3 = minimum ძველ პლატფორმებზე; canonical pin = 6.8.3, იხ. CI `QT_VERSION`)
+- **QGC base:** upstream `Stable_V5.0` (CI `QGC_TAG`)
+- **CMake** + **Ninja** build system
+- **MAVLink** — QGC-ის ნაგულისხმევი dialect (common + ardupilotmega + PX4/development; ცალკე `MAVLINK_DIALECT` არ ვაყენებთ)
 - QML — UI ფენა; C++ — backend/business logic
 
-<!-- TODO: დაადასტურე Qt-ის ზუსტი ვერსია (6.6? 6.8?) და MAVLink dialect -->
-
 ## Build & Run
-<!-- TODO: ჩაანაცვლე შენი რეალური ბრძანებებით. ქვემოთ QGC-ის ტიპური flow-ია. -->
+> ⚠️ **`qgroundcontrol/` (ძრავა) gitignore-შია ამ repo-ში** — ცალკე იკლონება (`Stable_V5.0`).
+> ამ repo-დან ერთვის `custom/` + `translations/`; QGC core ავტომატურად პოულობს `custom/`-ს
+> (`add_subdirectory(custom)`). Configure-ზე patch-ები ავტომატურად ისმება
+> (`tools/apply-qgc-patches.sh`) და custom QML ისინქრონდება core-ის წყაროებში.
+
 ```bash
-# Configure (Release)
-cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
+# Configure (macOS, Qt 6.8.3 prefix path-ით)
+cmake -S qgroundcontrol -B qgroundcontrol/build -G Ninja \
+  -DCMAKE_PREFIX_PATH="<Qt 6.8.3 prefix>" -DCMAKE_BUILD_TYPE=Release
 
 # Build
-cmake --build build --config Release -j$(sysctl -n hw.ncpu)
+cmake --build qgroundcontrol/build -j$(sysctl -n hw.ncpu)
 
-# Output
-open build/Release/DroneHubGCS.app
+# Output (macOS — Finder-ში ჩანს build/DroneHubGCS.app → Release symlink)
+open qgroundcontrol/build/Release/DroneHubGCS.app
 ```
-Submodules (QGC იყენებს):
-```bash
-git submodule update --init --recursive
-```
+რეალური multi-platform build (Linux/Windows/Android/WASM): `.github/workflows/`
+(`build.yml`, `android.yml`, `wasm.yml`) — კლონავს QGC-ს + wire-ავს `custom/`-ს.
 
-## არქიტექტურა (QGC fork — სად რა დევს)
-- `src/` — C++ backend: `Vehicle/`, `Comms/` (MAVLink links), `MissionManager/`, `FactSystem/` (parameters)
-- `src/ui/` ან `*.qml` — QML UI
-- `src/FirmwarePlugin/` — PX4/ArduPilot-სპეციფიკური ლოგიკა
-- `qgcresources` / `*.qrc` — resource bundles
+## არქიტექტურა — "no hard-fork" (სად რა დევს)
+**ყველა ჩვენი ცვლილება `custom/`-შია** (tracked); `qgroundcontrol/` (engine) gitignore-შია და უცვლელია.
+core QGC ფაილს პირდაპირ **არ** ვცვლით — სამი მექანიზმით ვმუშაობთ:
 
-⚠️ ეს fork-ია — **upstream-თან rebase-ის ტვირთი არსებობს**. ცვლილებები მაქსიმალურად იზოლირებულ ფაილებში/plugin-ებში გააკეთე, რომ upstream merge ნაკლებად მტკივნეული იყოს. core QGC ფაილების პირდაპირი რედაქტირება მხოლოდ აუცილებლობისას.
+1. **`custom/src/`** — `CustomPlugin` (QGCCorePlugin subclass) + `CustomOptions`. აქ ხდება defaults,
+   settings-enum თარგმანი (`adjustSettingMetaData`), palette, locale, font, brand.
+2. **custom QML override** (`custom/res/Custom/qml/...`) — ცვლის core QML-ს file-sync-ით
+   (`custom/CMakeLists.txt`: `DRONEHUB_*_SRC|DST` → core წყაროებში კოპირდება build-/configure-დროს).
+   qmlcache-registered ფაილი **configure-time `foreach`-შიც** უნდა იყოს (და build target-შიც).
+3. **patch** (`custom/patches/*.patch`) — surgical C++/CMake ცვლილებები core-ში; იდემპოტენტურად
+   ისმება `tools/apply-qgc-patches.sh`-ით (glob, configure-დროს). დიდ ცვლილებას = QML override,
+   პატარა/ქირურგიულს = patch.
+
+ხარისხის კონტროლი: `tools/check-qml-override-drift.py` — ადევნებს თვალს override↔upstream drift-ს.
+
+**Engine code (qgroundcontrol/, reference-only):** `src/Vehicle`, `src/Comms` (MAVLink),
+`src/MissionManager`, `src/FactSystem` (params), `src/FirmwarePlugin/{PX4,APM}`, `*.qml` UI.
+
+⚠️ upstream rebase-ის ტვირთი: რაც მეტი QML სრულად vendor-დება, მით მეტი merge-ი — patch უმჯობესია სადაც შესაძლებელია.
 
 ## კონვენციები
 - C++: QGC-ის არსებულ სტილს მიჰყევი (Qt naming, `m_` prefix member-ებზე)
@@ -47,8 +61,34 @@ git submodule update --init --recursive
 - ცვლილებამდე შეამოწმე ხომ არ აკეთებს QGC-ი იმავეს უკვე
 
 ## დომენური კონტექსტი
-- PX4 parameter conventions, flight modes, MAVLink command set ცნობილია — ბაზისური ახსნა არ მჭირდება
-- fork-ის mod-ები DroneHub-სპეციფიკურია (branding, ქართული UI, dronehub.ge ინტეგრაცია?) <!-- TODO: ჩამოწერე რა შეცვალე upstream-თან შედარებით -->
+- PX4 + ArduPilot ორივე მუშაობს (APM plugin compiled-in); PX4 = offline-plan default.
+- PX4 parameter conventions, flight modes, MAVLink command set ცნობილია — ბაზისური ახსნა არ მჭირდება.
+
+## რა შეიცვალა upstream-თან შედარებით (DroneHub mods)
+**Branding:** app name `DroneHubGCS`, bundle id `org.dronehub.GCS` (macOS) / `org.dronehub.gcs`
+(Android applicationId), org `DroneHub Georgia` / `dronehub.ge`, copyright; macOS `.icns`,
+Windows `.ico`, Android launcher icons (ყველა density); DroneHub logo/splash/video-placeholder;
+pinned version **1.0.0** (`custom/CMakeLists.txt`, PARENT_SCOPE — engine-git-independent).
+
+**ქართული ლოკალიზაცია (სრული):** `translations/qgc_ka.ts` (~4300 string); Noto Sans Georgian + `ka` locale;
+settings enums → `CustomPlugin::adjustSettingMetaData`; **ყველა** fact/param enum →
+`FactMetaData-enum-tr.patch` (`setEnumInfo`/`setBitmaskInfo` → "FactEnum" ts-context, PX4 param
+metadata-საც ფარავს); mission command names → `MissionCommand-friendlyName-tr.patch` ("MissionCommands"
+context, 87 სახელი); flight-mode menu → custom `FlightModeIndicator.qml` (Georgian display-map,
+დინამიური PX4 v1.14+ რეჟიმებიც).
+
+**Fly view UI:** DroneHub `Theme` (მუქი palette); `FlyViewCustomLayer` — კონფიგურირებადი HUD
+(compact + expanded metrics); custom toolbar (logo, indicators, mission clock, video-status);
+video PiP ყოველთვის-ჩართული + GStreamer (`disableWhenDisarmed=false`, UDP h264 default);
+tool strip — Analyze ყოველთვის, Viewer3D default-on.
+
+**Plan view restyle (HUD-style):** ფართო editor panel + glass chrome (`PlanView-panel-*.patch`);
+custom `MissionItemEditor`/`SimpleItemEditor`/`MissionSettingsEditor` (დიდი ფონტი, spacing).
+
+**ქცევა/defaults:** PX4 multirotor offline default; Brand Image settings დამალული; multi-vehicle
+list = base default. **dronehub.ge backend ინტეგრაცია — ჯერ არ არსებობს (TODO, თუ დაგეგმილია).**
+
+**პლატფორმები/CI:** macOS · Windows (MSVC) · Linux · Android (arm64) · WASM — GitHub Actions-ით.
 
 ## სამუშაო წესი
 - კოდი ჯერ, ახსნა მერე; ახსნა მოკლე
