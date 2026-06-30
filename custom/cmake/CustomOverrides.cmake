@@ -16,8 +16,15 @@ set(QGC_MACOS_BUNDLE_ID "org.dronehub.GCS"                  CACHE STRING "MacOS 
 
 # Video backend — REQUIRED for drone video reception (UDP/RTSP) and the Fly View PiP window.
 # Without this the videoManager has no backend, hasVideo is always false, and the PiP never shows.
-# GStreamer.framework is installed under /Library/Frameworks, so enable the GStreamer backend.
-set(QGC_ENABLE_GST_VIDEOSTREAMING ON                       CACHE BOOL "Enable GStreamer Video Backend" FORCE)
+# Gate on the framework actually being installed: enabling it forces a REQUIRED GStreamer
+# find (FindGStreamer.cmake), which fails on hosts without the dev libs. The CI runners
+# deliberately build video-less (no GStreamer deps on 3 platforms) and don't pass
+# -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF, so an unconditional ON (even non-FORCE) breaks their
+# configure. macOS production installs GStreamer.framework under /Library/Frameworks, so
+# enable the backend only there; everywhere else inherits the upstream default (OFF).
+if(APPLE AND EXISTS "/Library/Frameworks/GStreamer.framework")
+    set(QGC_ENABLE_GST_VIDEOSTREAMING ON CACHE BOOL "Enable GStreamer Video Backend" FORCE)
+endif()
 
 # Branding: copyright line. Core default is the upstream QGroundControl string,
 # set NON-FORCE in qgroundcontrol/cmake/CustomOptions.cmake:13 — we run after it,
