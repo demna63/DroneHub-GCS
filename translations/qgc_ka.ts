@@ -21582,7 +21582,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     </message>
     <message>
         <source>Unassigned</source>
-        <translation>მიუნიშნავი</translation>
+        <translation>მიუნიჭებული</translation>
     </message>
     <message>
         <source>Unconfigured</source>

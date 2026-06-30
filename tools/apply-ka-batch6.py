@@ -26,7 +26,7 @@ TARGET_CONTEXT = "FactEnum"
 
 BATCH6: dict[str, str] = {
     # Setup summary — power / battery
-    "Unassigned": "მიუნიშნავი",
+    "Unassigned": "მიუნიჭებული",
     "Power Module": "ძალის მოდული",
     "External": "გარე",
     "ESCs": "ESC-ები",
