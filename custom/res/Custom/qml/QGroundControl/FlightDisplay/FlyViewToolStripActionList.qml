@@ -59,7 +59,7 @@ ToolStripActionList {
         ToolStripAction {
             text:           qsTr("Analyze")
             iconSource:     "/qmlimages/Analyze.svg"
-            visible:        QGroundControl.corePlugin.showAdvancedUI
+            visible:        true   // always available — operators rely on log download, MAVLink console/inspector
             onTriggered:    mainWindow.showAnalyzeTool()
         },
         ToolStripAction {

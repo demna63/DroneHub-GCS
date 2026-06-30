@@ -30,9 +30,10 @@ Item {
         id: _flyViewPrefs
         category: "DroneHub/FlyView"
         property bool   flyHudExpanded: false
-        // Operator-configurable compact HUD row — comma-separated metric keys
-        // (see _metricCatalog). Edited in-place via the HUD pencil button.
-        property string compactMetricKeys: "altitude,groundSpeed,battery,satellites"
+        // Operator-configurable HUD metrics — comma-separated keys (see
+        // _metricCatalog). Edited in-place via the HUD pencil button.
+        property string compactMetricKeys:  "altitude,groundSpeed,battery,satellites"
+        property string expandedMetricKeys: "distanceToHome,amsl,climbRate,airSpeed,flightTime,voltage,current,timeRemaining,temperature,wind"
     }
 
     property bool _hudEditMode: false
@@ -342,22 +343,22 @@ Item {
     // Catalog of metrics the operator can place in the compact row. Each value
     // reuses the telemetry helpers above; label is shown in the cell + picker.
     readonly property var _metricCatalog: [
-        { key: "altitude",       label: qsTr("Altitude") },
-        { key: "amsl",           label: qsTr("AMSL") },
-        { key: "groundSpeed",    label: qsTr("Speed") },
-        { key: "airSpeed",       label: qsTr("Air Speed") },
-        { key: "climbRate",      label: qsTr("Climb Rate") },
-        { key: "distanceToHome", label: qsTr("Distance") },
-        { key: "flightTime",     label: qsTr("Flight Time") },
-        { key: "heading",        label: qsTr("Heading") },
-        { key: "battery",        label: qsTr("Battery") },
-        { key: "voltage",        label: qsTr("Voltage") },
-        { key: "current",        label: qsTr("Current") },
-        { key: "timeRemaining",  label: qsTr("Time Remaining") },
-        { key: "temperature",    label: qsTr("Temperature") },
-        { key: "wind",           label: qsTr("Wind") },
-        { key: "satellites",     label: qsTr("Satellites") },
-        { key: "hdop",           label: qsTr("HDOP") }
+        { key: "altitude",       label: qsTr("Altitude"),       icon: "height" },
+        { key: "amsl",           label: qsTr("AMSL"),           icon: "mountain" },
+        { key: "groundSpeed",    label: qsTr("Speed"),          icon: "speed" },
+        { key: "airSpeed",       label: qsTr("Air Speed"),      icon: "speed" },
+        { key: "climbRate",      label: qsTr("Climb Rate"),     icon: "height" },
+        { key: "distanceToHome", label: qsTr("Distance"),       icon: "home" },
+        { key: "flightTime",     label: qsTr("Flight Time"),    icon: "clock" },
+        { key: "heading",        label: qsTr("Heading"),        icon: "radar" },
+        { key: "battery",        label: qsTr("Battery"),        icon: "battery" },
+        { key: "voltage",        label: qsTr("Voltage"),        icon: "battery" },
+        { key: "current",        label: qsTr("Current"),        icon: "battery" },
+        { key: "timeRemaining",  label: qsTr("Time Remaining"), icon: "clock" },
+        { key: "temperature",    label: qsTr("Temperature"),    icon: "temp" },
+        { key: "wind",           label: qsTr("Wind"),           icon: "radar" },
+        { key: "satellites",     label: qsTr("Satellites"),     icon: "satellite" },
+        { key: "hdop",           label: qsTr("HDOP"),           icon: "satellite" }
     ]
     readonly property var _catalogLabels: _metricCatalog.map(function(m) { return m.label })
 
@@ -371,6 +372,7 @@ Item {
         return 0
     }
     function _metricLabel(key) { return _metricCatalog[_catalogIndexOf(key)].label }
+    function _metricIcon(key)  { return _metricCatalog[_catalogIndexOf(key)].icon }
 
     function _metricValue(key) {
         var v = _activeVehicle
@@ -437,6 +439,28 @@ Item {
         if (arr.length > 1) {
             arr.splice(index, 1)
             _flyViewPrefs.compactMetricKeys = arr.join(",")
+        }
+    }
+
+    // Expanded card telemetry grid — same catalog, separate persisted list.
+    property var _expandedKeys: _splitKeys(_flyViewPrefs.expandedMetricKeys)
+    function _setExpandedKey(index, key) {
+        var arr = _expandedKeys.slice()
+        arr[index] = key
+        _flyViewPrefs.expandedMetricKeys = arr.join(",")
+    }
+    function _addExpandedSlot() {
+        var arr = _expandedKeys.slice()
+        if (arr.length < 12) {
+            arr.push("heading")
+            _flyViewPrefs.expandedMetricKeys = arr.join(",")
+        }
+    }
+    function _removeExpandedSlot(index) {
+        var arr = _expandedKeys.slice()
+        if (arr.length > 1) {
+            arr.splice(index, 1)
+            _flyViewPrefs.expandedMetricKeys = arr.join(",")
         }
     }
 
@@ -751,7 +775,9 @@ Item {
     }
 
     // Shared label-column width so every GPS value lines up at the same x.
-    readonly property real _gpsLabelColWidth: ScreenTools.defaultFontPixelWidth * 5.5
+    // Sized to fit the *translated* labels (Georgian "განედი"/"გრძედი" are 6 glyphs,
+    // wider than the Latin "Lat"/"Lon") so the value never overlaps the label.
+    readonly property real _gpsLabelColWidth: ScreenTools.defaultFontPixelWidth * 8
 
     component GpsDataRow: RowLayout {
         property string label: ""
@@ -959,7 +985,9 @@ Item {
                                                ScreenTools.defaultFontPixelWidth * _t.hudExpandedMaxWidthEm)
                                     : Math.min(_hudCompactWidth, _root.width - _margin * 2)
         height:                 osColumn.implicitHeight
-        visible:                !ScreenTools.isMobile
+        // Show on mobile/touch too — otherwise the stock TelemetryValuesBar is
+        // disabled in this fork and the operator gets no telemetry panel at all.
+        visible:                true
         z:                      QGroundControl.zOrderWidgets + 2
 
         ColumnLayout {
@@ -1107,7 +1135,9 @@ Item {
             }
 
             Rectangle {
-                visible:                _hudExpanded
+                // Also shown while editing so the expanded-metric pickers are
+                // reachable from the (collapsed-position) pencil button.
+                visible:                _hudExpanded || _hudEditMode
                 Layout.fillWidth:       true
                 radius:                 _t.radiusLg
                 color:                  _t.hudGlassStrong
@@ -1218,125 +1248,82 @@ Item {
                         }
                     }
 
-                    RowLayout {
+                    HudSectionLabel { title: qsTr("Telemetry") }
+
+                    // Configurable telemetry grid — display (2 columns).
+                    GridLayout {
                         Layout.fillWidth:   true
-                        spacing:            _t.spacingUnit * 2
+                        visible:            !_hudEditMode
+                        columns:            2
+                        columnSpacing:      _t.spacingUnit * 2
+                        rowSpacing:         _t.spacingUnit * 0.55
 
-                        ColumnLayout {
-                            spacing:            _t.spacingUnit * 0.55
-                            Layout.fillWidth:   true
-                            Layout.preferredWidth: parent.width * 0.46
-
-                            HudSectionLabel {
-                                title: qsTr("Flight & Navigation")
-                            }
-
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Distance")
-                                valueText:      _root._factWithUnit(
-                                    _activeVehicle ? _activeVehicle.distanceToHome : null, " m")
-                                iconType:       "home"
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("AMSL")
-                                valueText:      _root._factWithUnit(
-                                    _activeVehicle ? _activeVehicle.altitudeAMSL : null, " m")
-                                iconType:       "mountain"
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Climb Rate")
-                                valueText:      _root._factWithUnit(
-                                    _activeVehicle ? _activeVehicle.climbRate : null, " m/s")
-                                iconType:       "height"
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Air Speed")
-                                valueText:      _root._factWithUnit(
-                                    _activeVehicle ? _activeVehicle.airSpeed : null, " m/s")
-                                iconType:       "speed"
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Flight Time")
-                                valueText:      _root._factValue(
-                                    _activeVehicle ? _activeVehicle.flightTime : null)
-                                valueColor:     _root._valueColor(
-                                    _activeVehicle && _activeVehicle.flightTime
-                                    && _activeVehicle.flightTime.rawValue !== undefined)
-                                iconType:       "clock"
+                        Repeater {
+                            model: _expandedKeys
+                            delegate: MetricRow {
+                                Layout.fillWidth:   true
+                                label:      _root._metricLabel(modelData)
+                                valueText:  _root._metricValue(modelData)
+                                valueColor: _root._metricColor(modelData)
+                                iconType:   _root._metricIcon(modelData)
                             }
                         }
+                    }
 
-                        Rectangle {
-                            Layout.preferredWidth:  1
-                            Layout.fillHeight:      true
-                            Layout.topMargin:       _t.spacingUnit * 2.5
-                            Layout.bottomMargin:    _t.spacingUnit * 0.5
-                            color:                  Qt.rgba(1, 1, 1, 0.14)
-                        }
+                    // Configurable telemetry grid — editor (pickers).
+                    GridLayout {
+                        Layout.fillWidth:   true
+                        visible:            _hudEditMode
+                        columns:            2
+                        columnSpacing:      _t.spacingUnit * 2
+                        rowSpacing:         _t.spacingUnit * 0.5
 
-                        ColumnLayout {
-                            spacing:            _t.spacingUnit * 0.55
-                            Layout.fillWidth:   true
-                            Layout.preferredWidth: parent.width * 0.46
-
-                            HudSectionLabel {
-                                title: qsTr("Power & Environment")
-                            }
-
-                            MetricRow {
+                        Repeater {
+                            model: _expandedKeys
+                            delegate: RowLayout {
                                 Layout.fillWidth: true
-                                label:          qsTr("Voltage")
-                                valueText:      _root._batteryVoltageText()
-                                valueColor:     _root._batteryColor()
-                                iconType:       "battery"
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Current")
-                                valueText: {
-                                    var a = _root._factValue(_battery ? _battery.current : null)
-                                    return a === _t.emptyValue ? a : a + " A"
+                                spacing:          _t.spacingUnit * 0.5
+                                HudComboBox {
+                                    Layout.fillWidth:   true
+                                    model:              _root._catalogLabels
+                                    currentIndex:       _root._catalogIndexOf(modelData)
+                                    onActivated:        _root._setExpandedKey(index, _root._metricCatalog[currentIndex].key)
                                 }
-                                iconType:       "battery"
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Time Remaining")
-                                valueText:      _root._batteryTimeRemainingText()
-                                valueColor:     _root._batteryColor()
-                                iconType:       "clock"
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Temperature")
-                                valueText: {
-                                    var temp = _root._factValue(_battery ? _battery.temperature : null)
-                                    return temp === _t.emptyValue ? temp : temp + "°C"
-                                }
-                                valueColor: {
-                                    if (!_hasVehicle || !_battery
-                                            || _battery.temperature.rawValue === undefined) {
-                                        return _t.textDisabled
+                                Text {
+                                    visible:        _root._expandedKeys.length > 1
+                                    text:           "✕"
+                                    color:          _t.safeCrit
+                                    font.family:    _t.fontFamily
+                                    font.pixelSize: _t.fontBody
+                                    MouseArea {
+                                        anchors.fill:   parent
+                                        cursorShape:    Qt.PointingHandCursor
+                                        onClicked:      _root._removeExpandedSlot(index)
                                     }
-                                    return _t.telemetryAccent
                                 }
-                                iconType:       "temp"
-                                iconColor:      _t.telemetryAccent
-                            }
-                            MetricRow {
-                                Layout.fillWidth: true
-                                label:          qsTr("Wind")
-                                valueText:      _root._windText()
-                                valueColor:     _root._valueColor(
-                                    _root._windText() !== _t.emptyValue)
-                                iconType:       "radar"
                             }
                         }
+                    }
+
+                    // Add an expanded metric (edit mode).
+                    Rectangle {
+                        visible:                _hudEditMode && _root._expandedKeys.length < 12
+                        Layout.alignment:       Qt.AlignHCenter
+                        Layout.topMargin:       _t.spacingUnit * 0.3
+                        Layout.preferredWidth:  _t.spacingUnit * 11
+                        Layout.preferredHeight: _t.spacingUnit * 3.5
+                        radius:                 _t.radiusSm
+                        color:                  _t.hudMetricPlate
+                        border.width:           1
+                        border.color:           _t.hudBorder
+                        Text {
+                            anchors.centerIn:   parent
+                            text:               qsTr("+ add metric")
+                            color:              _t.textPrimary
+                            font.family:        _t.fontFamily
+                            font.pixelSize:     _t.fontMicro
+                        }
+                        MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addExpandedSlot() }
                     }
                 }
             }
