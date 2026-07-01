@@ -42,7 +42,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponent.h" line="26"/>
         <source>Frame Setup is used to select the airframe which matches your vehicle.</source>
-        <translation>Frame Setup გამოიყენება თქვენი ავტომობილის შესატყვისი საჰაერო ჩარჩოს შესარჩევად.</translation>
+        <translation>ჩარჩოს კონფიგურაცია გამოიყენება თქვენი ავტომობილის შესატყვისი საჰაერო ჩარჩოს შესარჩევად.</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMAirframeComponent.h" line="35"/>
@@ -1081,7 +1081,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMHeliComponent.h" line="24"/>
         <source>Heli Setup is used to setup parameters which are specific to a helicopter.</source>
-        <translation>Heli Setup გამოიყენება ვერტმფრენისთვის დამახასიათებელი პარამეტრების დასაყენებლად.</translation>
+        <translation>ვერტმფრენის კონფიგურაცია გამოიყენება ვერტმფრენისთვის დამახასიათებელი პარამეტრების დასაყენებლად.</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMHeliComponent.h" line="33"/>
@@ -2005,12 +2005,12 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponent.cc" line="24"/>
         <source>Safety Setup is used to setup failsafe actions, leak detection, and arming checks.</source>
-        <translation>Safety Setup გამოიყენება გაუმართავი მოქმედებების დასაყენებლად, გაჟონვის გამოვლენისა და შეიარაღების შესამოწმებლად.</translation>
+        <translation>უსაფრთხოების კონფიგურაცია გამოიყენება გაუმართავი მოქმედებების დასაყენებლად, გაჟონვის გამოვლენისა და შეიარაღების შესამოწმებლად.</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponent.cc" line="34"/>
         <source>Safety Setup is used to setup triggers for Return to Land as well as the settings for Return to Land itself.</source>
-        <translation>Safety Setup გამოიყენება მიწაზე დაბრუნების ტრიგერების დასაყენებლად, ისევე როგორც თავად მიწაზე დაბრუნების პარამეტრების დასაყენებლად.</translation>
+        <translation>უსაფრთხოების კონფიგურაცია გამოიყენება მიწაზე დაბრუნების ტრიგერების დასაყენებლად, ისევე როგორც თავად მიწაზე დაბრუნების პარამეტრების დასაყენებლად.</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSafetyComponent.h" line="34"/>
@@ -3887,7 +3887,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/AirframeComponent.cc" line="32"/>
         <source>Airframe Setup is used to select the airframe that matches your vehicle. This will in turn set up the various tuning values for flight parameters.</source>
-        <translation>Airframe Setup გამოიყენება თქვენი მანქანის შესატყვისი აირფრაგმის შესარჩევად. ეს თავის მხრივ დააყენებს ფრენის პარამეტრების სხვადასხვა დარეგულირების მნიშვნელობებს.</translation>
+        <translation>საჰაერო ჩარჩოს კონფიგურაცია გამოიყენება თქვენი მანქანის შესატყვისი აირფრაგმის შესარჩევად. ეს თავის მხრივ დააყენებს ფრენის პარამეტრების სხვადასხვა დარეგულირების მნიშვნელობებს.</translation>
     </message>
 </context>
 <context>
@@ -6369,7 +6369,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/FlightModesComponent.cc" line="36"/>
         <source>Flight Modes Setup is used to configure the transmitter switches associated with Flight Modes.</source>
-        <translation>Flight Modes Setup გამოიყენება ფრენის რეჟიმებთან დაკავშირებული გადამცემის გადამრთველების კონფიგურაციისთვის.</translation>
+        <translation>ფრენის რეჟიმების კონფიგურაცია გამოიყენება ფრენის რეჟიმებთან დაკავშირებული გადამცემის გადამრთველების კონფიგურაციისთვის.</translation>
     </message>
 </context>
 <context>
@@ -10652,7 +10652,7 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/MotorComponent.h" line="23"/>
         <source>Motors Setup is used to manually test motor control and direction.</source>
-        <translation>Motors Setup გამოიყენება ძრავის კონტროლისა და მიმართულების ხელით შესამოწმებლად.</translation>
+        <translation>ძრავების კონფიგურაცია გამოიყენება ძრავის კონტროლისა და მიმართულების ხელით შესამოწმებლად.</translation>
     </message>
 </context>
 <context>
@@ -13432,7 +13432,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PowerComponent.cc" line="31"/>
         <source>Power Setup is used to setup battery parameters as well as advanced settings for propellers.</source>
-        <translation>Power Setup გამოიყენება ბატარეის პარამეტრების დასაყენებლად, ასევე პროპელერების გაფართოებული პარამეტრების დასაყენებლად.</translation>
+        <translation>კვების კონფიგურაცია გამოიყენება ბატარეის პარამეტრების დასაყენებლად, ასევე პროპელერების გაფართოებული პარამეტრების დასაყენებლად.</translation>
     </message>
 </context>
 <context>
