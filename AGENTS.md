@@ -17,7 +17,12 @@ standard build commands see `README.md` §4 / `.github/workflows/build.yml`.
   tag `Stable_V5.0`). `custom/` and `translations/qgc_ka.ts` are **symlinked** into it, so
   edits to `custom/` are reflected immediately with no re-wiring needed.
 - The Georgian font `custom/res/fonts/NotoSansGeorgian.ttf` is git-ignored; the update
-  script fetches it. Without it the build still works but Georgian glyphs render as boxes.
+ script fetches it. Without it the build still works but Georgian glyphs render as boxes.
+ NOTE: outbound HTTPS to `raw.githubusercontent.com` is reset by network egress in this VM
+ (`curl: (35) Recv failure: Connection reset by peer`), so the upstream font download fails.
+ The update script therefore falls back to the system `fonts-noto` copy
+ (`/usr/share/fonts/truetype/noto/NotoSansGeorgian-Regular.ttf`) and is non-fatal — a blocked
+ font download must never abort startup. `github.com` clone traffic (`bootstrap.sh`) is allowed.
 
 ### Qt version (canonical)
 - **Qt 6.8.3 LTS** is the project pin — matches upstream `Stable_V5.0`, all CI workflows,
