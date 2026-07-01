@@ -21,8 +21,10 @@
 #include <QtNetwork/QNetworkRequest>
 
 namespace {
-constexpr double kRadiusMeters   = 800.0;   // ~1.6 km box around the vehicle
-constexpr double kResampleMeters = 250.0;   // don't re-download until we move this far
+constexpr double kRadiusMeters   = 350.0;   // ~700 m box — dense urban areas otherwise
+                                            // return thousands of buildings and the
+                                            // Viewer3D mesh builder chokes (white scene).
+constexpr double kResampleMeters = 200.0;   // don't re-download until we move this far
 const QString    kTempPrefix     = QStringLiteral("dronehub-osm-");
 const QString    kPlaceholder    = QStringLiteral("Please select an OSM file");
 }
