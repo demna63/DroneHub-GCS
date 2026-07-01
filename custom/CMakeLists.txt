@@ -113,6 +113,8 @@ set(CUSTOM_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOsmAutoLoader.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOsmAutoLoader.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/geo/geo_mag_declination.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/geo/geo_mag_declination.h
     CACHE INTERNAL "" FORCE

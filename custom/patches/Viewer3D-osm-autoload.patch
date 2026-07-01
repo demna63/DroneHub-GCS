@@ -1,0 +1,21 @@
+--- a/src/Viewer3D/Viewer3DQmlBackend.cc
++++ b/src/Viewer3D/Viewer3DQmlBackend.cc
+@@ -13,6 +13,7 @@
+ #include "Vehicle.h"
+ #include "Viewer3DSettings.h"
+ #include "OsmParser.h"
++#include "CustomOsmAutoLoader.h"   // DroneHub: Viewer3D OSM building auto-loader
+ 
+ #define GPS_REF_NOT_SET                 0
+ #define GPS_REF_SET_BY_MAP              1
+@@ -62,6 +63,10 @@
+             emit gpsRefChanged();
+ 
+             qDebug() << "3D viewer gps reference set by vehicles:" << _gpsRef.latitude() << _gpsRef.longitude() << _gpsRef.altitude();
++
++            // DroneHub: auto-download OSM buildings around the vehicle for the 3D view
++            // (hybrid — no-op if a manual .osm file is chosen or when offline).
++            CustomOsmAutoLoader::instance()->autoLoad(_gpsRef);
+         }
+     }
+ }
