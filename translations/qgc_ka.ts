@@ -3460,7 +3460,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponent.h" line="24"/>
         <source>Tuning Setup is used to tune the flight characteristics of the Vehicle.</source>
-        <translation>Tuning Setup გამოიყენება ავტომობილის ფრენის მახასიათებლების დასარეგულირებლად.</translation>
+        <translation>PID მორგება გამოიყენება ავტომობილის ფრენის მახასიათებლების დასარეგულირებლად.</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponent.h" line="33"/>
@@ -11611,7 +11611,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponent.cc" line="28"/>
         <source>Tuning Setup is used to tune the flight controllers.</source>
-        <translation>Tuning Setup გამოიყენება ფრენის კონტროლერების დასარეგულირებლად.</translation>
+        <translation>PID მორგება გამოიყენება ფრენის კონტროლერების დასარეგულირებლად.</translation>
     </message>
 </context>
 <context>
@@ -11619,22 +11619,22 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAll.qml" line="22"/>
         <source>Rate Controller</source>
-        <translation>რეიტინგის კონტროლერი</translation>
+        <translation>კუთხ. სიჩქარე</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAll.qml" line="26"/>
         <source>Attitude Controller</source>
-        <translation>დამოკიდებულების კონტროლერი</translation>
+        <translation>ორიენტაცია</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAll.qml" line="30"/>
         <source>Velocity Controller</source>
-        <translation>სიჩქარის კონტროლერი</translation>
+        <translation>სიჩქარე</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAll.qml" line="34"/>
         <source>Position Controller</source>
-        <translation>პოზიციის კონტროლერი</translation>
+        <translation>პოზიცია</translation>
     </message>
 </context>
 <context>
@@ -11899,7 +11899,7 @@ Is this really what you want?</source>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneAll.qml" line="22"/>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneAll.qml" line="26"/>
         <source>Rate Controller</source>
-        <translation>რეიტინგის კონტროლერი</translation>
+        <translation>კუთხ. სიჩქარე</translation>
     </message>
 </context>
 <context>

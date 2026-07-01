@@ -1,0 +1,11 @@
+--- a/src/QmlControls/QGCTabButton.qml
++++ b/src/QmlControls/QGCTabButton.qml
+@@ -38,7 +38,7 @@
+ 
+     background: Rectangle {
+         id:             backRect
+-        implicitWidth:  ScreenTools.implicitButtonWidth
++        implicitWidth:  Math.max(ScreenTools.implicitButtonWidth, control.contentItem.implicitWidth + control.leftPadding + control.rightPadding + ScreenTools.defaultFontPixelWidth * 1.5)
+         implicitHeight: ScreenTools.implicitButtonHeight
+         //radius:         backRadius
+         border.width:   showBorder ? 1 : 0
