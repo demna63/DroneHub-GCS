@@ -3126,7 +3126,7 @@ Click Ok to start calibration.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSensorsComponent.h" line="27"/>
         <source>Sensors Setup is used to calibrate the sensors within your vehicle.</source>
-        <translation>Sensors Setup გამოიყენება თქვენი ავტომობილის სენსორების დასაკალიბრებლად.</translation>
+        <translation>სენსორების კონფიგურაცია გამოიყენება თქვენი ავტომობილის სენსორების დასაკალიბრებლად.</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMSensorsComponent.h" line="35"/>
@@ -15429,7 +15429,7 @@ Click the Next button to upload calibration to board. Click Cancel if you don&ap
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/SensorsComponent.cc" line="37"/>
         <source>Sensors Setup is used to calibrate the sensors within your vehicle.</source>
-        <translation>Sensors Setup გამოიყენება თქვენი ავტომობილის სენსორების დასაკალიბრებლად.</translation>
+        <translation>სენსორების კონფიგურაცია გამოიყენება თქვენი ავტომობილის სენსორების დასაკალიბრებლად.</translation>
     </message>
 </context>
 <context>

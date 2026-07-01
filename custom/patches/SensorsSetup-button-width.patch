@@ -1,0 +1,11 @@
+--- a/src/AutoPilotPlugins/PX4/SensorsSetup.qml
++++ b/src/AutoPilotPlugins/PX4/SensorsSetup.qml
+@@ -75,7 +75,7 @@
+ 
+     property bool   _sensorsHaveFixedOrientation:       QGroundControl.corePlugin.options.sensorsHaveFixedOrientation
+     property bool   _wifiReliableForCalibration:        QGroundControl.corePlugin.options.wifiReliableForCalibration
+-    property int    _buttonWidth:                       ScreenTools.defaultFontPixelWidth * 15
++    property int    _buttonWidth:                       ScreenTools.defaultFontPixelWidth * 21
+     property string _calMagIdParamFormat:               "CAL_MAG#_ID"
+     property string _calMagRotParamFormat:              "CAL_MAG#_ROT"
+     property bool 	_allMagsDisabled:                   controller.parameterExists(-1, "SYS_HAS_MAG") ? controller.getParameterFact(-1, "SYS_HAS_MAG").value === 0 : false
