@@ -217,7 +217,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMCameraComponent.qml" line="495"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMCameraComponent.qml" line="513"/>
@@ -405,7 +405,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMCameraSubComponent.qml" line="541"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMCameraSubComponent.qml" line="561"/>
@@ -1668,7 +1668,7 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRadioComponentSummary.qml" line="23"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRadioComponentSummary.qml" line="24"/>
@@ -1689,12 +1689,12 @@
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRadioComponentSummary.qml" line="28"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRadioComponentSummary.qml" line="33"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMRadioComponentSummary.qml" line="38"/>
@@ -3603,7 +3603,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponentCopter.qml" line="467"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponentCopter.qml" line="474"/>
@@ -3628,7 +3628,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponentCopter.qml" line="508"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponentCopter.qml" line="515"/>
@@ -3653,7 +3653,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponentCopter.qml" line="549"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/APM/APMTuningComponentCopter.qml" line="556"/>
@@ -8646,7 +8646,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/Vehicle/VehicleSetup/JoystickConfigGeneral.qml" line="162"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/Vehicle/VehicleSetup/JoystickConfigGeneral.qml" line="176"/>
@@ -8656,12 +8656,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../src/Vehicle/VehicleSetup/JoystickConfigGeneral.qml" line="176"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/Vehicle/VehicleSetup/JoystickConfigGeneral.qml" line="189"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/Vehicle/VehicleSetup/JoystickConfigGeneral.qml" line="202"/>
@@ -11530,7 +11530,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4RadioComponentSummary.qml" line="26"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4RadioComponentSummary.qml" line="27"/>
@@ -11543,12 +11543,12 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4RadioComponentSummary.qml" line="31"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4RadioComponentSummary.qml" line="36"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4RadioComponentSummary.qml" line="41"/>
@@ -11642,7 +11642,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAttitude.qml" line="31"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAttitude.qml" line="38"/>
@@ -11658,7 +11658,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAttitude.qml" line="48"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAttitude.qml" line="55"/>
@@ -11668,7 +11668,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAttitude.qml" line="65"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterAttitude.qml" line="72"/>
@@ -11745,7 +11745,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterRate.qml" line="72"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterRate.qml" line="79"/>
@@ -11785,7 +11785,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterRate.qml" line="105"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterRate.qml" line="112"/>
@@ -11805,7 +11805,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterRate.qml" line="138"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentCopterRate.qml" line="145"/>
@@ -11907,7 +11907,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneAttitude.qml" line="31"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneAttitude.qml" line="38"/>
@@ -11922,7 +11922,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneAttitude.qml" line="48"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneAttitude.qml" line="55"/>
@@ -11940,7 +11940,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneRate.qml" line="31"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneRate.qml" line="38"/>
@@ -11991,7 +11991,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneRate.qml" line="72"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneRate.qml" line="79"/>
@@ -12022,7 +12022,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneRate.qml" line="113"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneRate.qml" line="120"/>
@@ -14533,17 +14533,17 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponent.qml" line="184"/>
         <source>Roll</source>
-        <translation>Roll</translation>
+        <translation>გადახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponent.qml" line="213"/>
         <source>Pitch</source>
-        <translation>Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponent.qml" line="242"/>
         <source>Yaw</source>
-        <translation>Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <location filename="../src/AutoPilotPlugins/Common/RadioComponent.qml" line="271"/>
@@ -17905,17 +17905,17 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
         <location filename="../src/AnalyzeView/VibrationPage.qml" line="202"/>
         <source>Accel 1: %1</source>
-        <translation>Accel 1: %1</translation>
+        <translation>აქსელ. 1: %1</translation>
     </message>
     <message>
         <location filename="../src/AnalyzeView/VibrationPage.qml" line="206"/>
         <source>Accel 2: %1</source>
-        <translation>Accel 2: %1</translation>
+        <translation>აქსელ. 2: %1</translation>
     </message>
     <message>
         <location filename="../src/AnalyzeView/VibrationPage.qml" line="210"/>
         <source>Accel 3: %1</source>
-        <translation>Accel 3: %1</translation>
+        <translation>აქსელ. 3: %1</translation>
     </message>
     <message>
         <location filename="../src/AnalyzeView/VibrationPage.qml" line="224"/>
@@ -19566,7 +19566,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     </message>
     <message>
         <source>Default</source>
-        <translation type="unfinished">Default</translation>
+        <translation>ნაგულისხმევი</translation>
     </message>
     <message>
         <source>Default to 1, switch to 2 if GCS sends version 2</source>
@@ -20578,7 +20578,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     </message>
     <message>
         <source>Pitch</source>
-        <translation type="unfinished">Pitch</translation>
+        <translation>დახრა</translation>
     </message>
     <message>
         <source>Pitch 180°</source>
@@ -20974,7 +20974,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     </message>
     <message>
         <source>Return</source>
-        <translation type="unfinished">Return</translation>
+        <translation>დაბრუნება</translation>
     </message>
     <message>
         <source>Return at critical level, land at emergency level</source>
@@ -21686,7 +21686,7 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     </message>
     <message>
         <source>Yaw</source>
-        <translation type="unfinished">Yaw</translation>
+        <translation>მობრუნება</translation>
     </message>
     <message>
         <source>Yaw 135°</source>
