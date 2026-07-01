@@ -3,6 +3,7 @@
  ****************************************************************************/
 
 import QtQml.Models
+import QtCore
 
 import QGroundControl
 import QGroundControl.Controls
@@ -12,13 +13,17 @@ ToolStripActionList {
 
     signal displayPreFlightChecklist
 
+    // macOS + GStreamer: entire app uses OpenGL 2.1; Viewer3D cannot render (white scene).
+    readonly property bool _viewer3DBlockedByGstMac: Qt.platform.os === "osx"
+                                                       && QGroundControl.videoManager.gstreamerEnabled
+
     model: [
         ToolStripAction {
             property bool _is3DViewOpen:            viewer3DWindow.isOpen
             property bool _viewer3DEnabled:         QGroundControl.settingsManager.viewer3DSettings.enabled.rawValue
 
             id: view3DIcon
-            visible: _viewer3DEnabled
+            visible:            _viewer3DEnabled && !_root._viewer3DBlockedByGstMac
             text:           qsTr("3D View")
             iconSource:     "/qmlimages/Viewer3D/City3DMapIcon.svg"
             onTriggered: {

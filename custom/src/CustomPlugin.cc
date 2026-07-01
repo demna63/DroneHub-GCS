@@ -73,6 +73,20 @@ void CustomPlugin::init()
         }
         settings.setValue(QStringLiteral("DroneHub/videoDefaultsMigrated"), true);
     }
+
+#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
+    // GStreamer forces QQuickWindow to OpenGL (legacy 2.1 on macOS); QtQuick3D/Viewer3D
+    // needs GL 3.3+ or Metal — white scene if both are offered. Default Viewer3D off and
+    // hide the tool-strip entry (see FlyViewToolStripActionList.qml).
+    if (!settings.value(QStringLiteral("DroneHub/viewer3dMacGstPolicyMigrated"), false).toBool()) {
+        if (SettingsManager* sm = SettingsManager::instance()) {
+            if (Viewer3DSettings* v3 = sm->viewer3DSettings()) {
+                v3->enabled()->setRawValue(false);
+            }
+        }
+        settings.setValue(QStringLiteral("DroneHub/viewer3dMacGstPolicyMigrated"), true);
+    }
+#endif
 }
 
 void CustomPlugin::cleanup()
@@ -112,6 +126,15 @@ bool CustomPlugin::overrideSettingsGroupVisibility(const QString& name)
     if (name == BrandImageSettings::name) {
         return false;
     }
+
+#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
+    // Fly View Settings → "3D View" group (enabled toggle + OSM). GStreamer forces
+    // OpenGL 2.1 on macOS; Viewer3D cannot render alongside video PiP.
+    if (name == Viewer3DSettings::name) {
+        return false;
+    }
+#endif
+
     return QGCCorePlugin::overrideSettingsGroupVisibility(name);
 }
 
@@ -288,10 +311,15 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
     // 3D View is compiled in (QGC_VIEWER3D=ON). QGC ships it disabled by default, so
     // the Fly View "3D View" tool-strip button (gated on viewer3DSettings.enabled) is
     // hidden out of the box. Default it on so operators get the 3D map without digging
-    // through settings.
+    // through settings — except macOS GStreamer builds where video forces OpenGL 2.1
+    // and breaks Viewer3D (see init() migration + FlyViewToolStripActionList.qml).
     if (settingsGroup == Viewer3DSettings::settingsGroup) {
         if (metaData.name() == Viewer3DSettings::enabledName) {
+#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
+            metaData.setRawDefaultValue(false);
+#else
             metaData.setRawDefaultValue(true);
+#endif
             return false;
         }
     }
