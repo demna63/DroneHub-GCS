@@ -1,0 +1,40 @@
+{
+    "version": 1,
+    "fileType": "FactMetaData",
+    "QGC.MetaData.Facts":
+[
+{
+    "name":         "forwarding",
+    "shortDesc":    "DHGM-ზე გადაცემა",
+    "longDesc":     "ვეჰიკლის ტელემეტრია → CoT (ATAK/DHGM რუკა) + JSON (plugin პანელი). Python bridge აღარ სჭირდება.",
+    "type":         "bool",
+    "default":      false
+},
+{
+    "name":         "cotMulticast",
+    "shortDesc":    "CoT multicast",
+    "longDesc":     "ATAK mesh SA default: 239.2.3.1:6969",
+    "type":         "string",
+    "default":      "239.2.3.1:6969"
+},
+{
+    "name":         "pluginTcpPort",
+    "shortDesc":    "Plugin TCP პორტი",
+    "longDesc":     "DHGM plugin JSON stream (0 = გამორთული). default 14550",
+    "type":         "uint32",
+    "default":      14550
+},
+{
+    "name":         "rateHz",
+    "shortDesc":    "გადაცემის სიხშირე (Hz)",
+    "type":         "double",
+    "default":      1.0
+},
+{
+    "name":         "staleSeconds",
+    "shortDesc":    "Stale timeout (წმ)",
+    "type":         "double",
+    "default":      10.0
+}
+]
+}

@@ -24,6 +24,8 @@
 #include <QHostAddress>
 #include <QList>
 #include <QString>
+#include <QHash>
+#include <QSet>
 
 class Vehicle;
 
@@ -57,13 +59,19 @@ private:
     QByteArray _buildJson(Vehicle* v, qint64 nowMs) const;
     void       _sendCot(const QByteArray& xml);
     void       _broadcastJson(const QByteArray& line);
+    void       _sendBridgeHello();
+    bool       _vehicleActive(Vehicle* v, qint64 nowMs) const;
     static QString _cotTime(qint64 ms);
+    static QString _gpsFixName(int fixType);
+    static double  _courseDeg(Vehicle* v);
+    static int     _rssiDbm(Vehicle* v);
 
     bool         _enabled = false;
     QTimer       _timer;
     QUdpSocket   _udp;
     QTcpServer   _tcpServer;
     QList<QTcpSocket*> _tcpClients;
+    QSet<int>    _prevActiveSysids;
 
     QHostAddress _cotAddr = QHostAddress(QStringLiteral("239.2.3.1"));
     quint16      _cotPort = 6969;

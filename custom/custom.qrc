@@ -16,6 +16,11 @@
         <file alias="NotoSansGeorgian.ttf">res/fonts/NotoSansGeorgian.ttf</file>
     </qresource>
 
+    <!-- SettingsGroup JSON (SettingsGroup kJsonFile = ":/json/%1.SettingsGroup.json") -->
+    <qresource prefix="/json">
+        <file alias="DHGM.SettingsGroup.json">res/json/DHGM.SettingsGroup.json</file>
+    </qresource>
+
     <!-- Custom.Theme singleton module. import path: "qrc:/Custom/imports" → import Custom -->
     <qresource prefix="/Custom/imports/Custom">
         <file alias="qmldir">res/Custom/qmldir</file>
@@ -46,6 +51,7 @@
         <file alias="QGroundControl/Controls/ToolStripDropPanel.qml">res/Custom/qml/QGroundControl/Controls/ToolStripDropPanel.qml</file>
         <file alias="QGroundControl/Controls/PlanViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml</file>
         <file alias="QGroundControl/Controls/AppSettings.qml">res/Custom/qml/QGroundControl/Controls/AppSettings.qml</file>
+        <file alias="QGroundControl/AppSettings/TelemetrySettings.qml">res/Custom/qml/QGroundControl/AppSettings/TelemetrySettings.qml</file>
         <file alias="QGroundControl/Controls/ToolIndicatorPage.qml">res/Custom/qml/QGroundControl/Controls/ToolIndicatorPage.qml</file>
         <file alias="QGroundControl/MainWindow/MainWindow.qml">res/Custom/qml/QGroundControl/MainWindow/MainWindow.qml</file>
     </qresource>

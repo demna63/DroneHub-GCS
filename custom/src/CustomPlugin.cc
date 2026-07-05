@@ -1,6 +1,7 @@
 #include "CustomPlugin.h"
 #include "CustomOptions.h"
 #include "CotForwarder.h"
+#include "DhgmSettings.h"
 #include "geo/geo_mag_declination.h"
 
 #include "QGCLoggingCategory.h"
@@ -12,6 +13,7 @@
 #include "MavlinkActionsSettings.h"
 #include "VideoSettings.h"
 #include "Viewer3DSettings.h"
+#include "Fact.h"
 
 #include <QtCore/QDir>
 #include <QtCore/QFile>
@@ -22,6 +24,7 @@
 #include <QtCore/QMap>
 #include <QtCore/QStringList>
 #include <QtCore/QSettings>
+#include <QtCore/QVariant>
 #include <QtGui/QFont>
 #include <QtGui/QFontDatabase>
 #include <QtGui/QGuiApplication>
@@ -37,16 +40,18 @@ CustomPlugin::CustomPlugin(QObject* parent)
     : QGCCorePlugin(parent)
     , _options(new CustomOptions(this, this))
     , _cotForwarder(new CotForwarder(this))
+    , _dhgmSettings(new DhgmSettings(this))
 {
-    // DHGM forwarding — default off; ჩართვა QSettings-ით (მომავალში Settings-UI toggle).
-    QSettings dhgmSettings;
-    if (dhgmSettings.value(QStringLiteral("DHGM/forwarding"), false).toBool()) {
-        _cotForwarder->setCotMulticast(dhgmSettings.value(
-                QStringLiteral("DHGM/cotMulticast"),
-                QStringLiteral("239.2.3.1:6969")).toString());
-        _cotForwarder->setPluginTcpPort(quint16(
-                dhgmSettings.value(QStringLiteral("DHGM/tcpPort"), 14550).toUInt()));
-        _cotForwarder->setEnabled(true);
+    // ძველი QSettings გასაღებები (tcpPort) → DhgmSettings Facts
+    QSettings legacy;
+    if (legacy.contains(QStringLiteral("DHGM/forwarding"))) {
+        _dhgmSettings->forwarding()->setRawValue(legacy.value(QStringLiteral("DHGM/forwarding")));
+    }
+    if (legacy.contains(QStringLiteral("DHGM/cotMulticast"))) {
+        _dhgmSettings->cotMulticast()->setRawValue(legacy.value(QStringLiteral("DHGM/cotMulticast")));
+    }
+    if (legacy.contains(QStringLiteral("DHGM/tcpPort"))) {
+        _dhgmSettings->pluginTcpPort()->setRawValue(legacy.value(QStringLiteral("DHGM/tcpPort")));
     }
 }
 
@@ -61,6 +66,7 @@ void CustomPlugin::init()
 {
     _applyGeorgianLocaleAndFont();
     _installDefaultMavlinkActions();
+    _wireDhgmForwarding();
 
     // Keep the Fly View video PiP visible. The window hides whenever
     // hasVideo == (streamEnabled && streamConfigured) is false, and QGC sets
@@ -265,6 +271,12 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
         { QStringLiteral("Connect to ADSB SBS server"), QStringLiteral("ADSB SBS სერვერთან დაკავშირება") },
         { QStringLiteral("Host address"),               QStringLiteral("ჰოსტის მისამართი") },
         { QStringLiteral("Server port"),                QStringLiteral("სერვერის პორტი") },
+        // DHGM forwarding
+        { QStringLiteral("DHGM-ზე გადაცემა"),           QStringLiteral("DHGM-ზე გადაცემა") },
+        { QStringLiteral("CoT multicast"),              QStringLiteral("CoT multicast") },
+        { QStringLiteral("Plugin TCP პორტი"),           QStringLiteral("Plugin TCP პორტი") },
+        { QStringLiteral("გადაცემის სიხშირე (Hz)"),     QStringLiteral("გადაცემის სიხშირე (Hz)") },
+        { QStringLiteral("Stale timeout (წმ)"),         QStringLiteral("Stale timeout (წმ)") },
         // Remote ID — field labels come from JSON shortDesc (not in .ts)
         { QStringLiteral("Region of operation"),        QStringLiteral("ოპერირების რეგიონი") },
         { QStringLiteral("Basic ID Type"),              QStringLiteral("ძირითადი ID-ის ტიპი") },
@@ -526,6 +538,25 @@ void CustomPlugin::_installDefaultMavlinkActions()
     if (mavlinkSettings->joystickActionsFile()->rawValue().toString().isEmpty()) {
         mavlinkSettings->joystickActionsFile()->setRawValue(kJoystickFile);
     }
+}
+
+void CustomPlugin::_wireDhgmForwarding()
+{
+    const auto apply = [this]() {
+        _cotForwarder->setCotMulticast(_dhgmSettings->cotMulticast()->rawValue().toString());
+        _cotForwarder->setPluginTcpPort(quint16(_dhgmSettings->pluginTcpPort()->rawValue().toUInt()));
+        _cotForwarder->setRateHz(_dhgmSettings->rateHz()->rawValue().toDouble());
+        _cotForwarder->setStaleSeconds(_dhgmSettings->staleSeconds()->rawValue().toDouble());
+        _cotForwarder->setEnabled(_dhgmSettings->forwarding()->rawValue().toBool());
+    };
+
+    apply();
+
+    connect(_dhgmSettings->forwarding(), &Fact::rawValueChanged, this, apply);
+    connect(_dhgmSettings->cotMulticast(), &Fact::rawValueChanged, this, apply);
+    connect(_dhgmSettings->pluginTcpPort(), &Fact::rawValueChanged, this, apply);
+    connect(_dhgmSettings->rateHz(), &Fact::rawValueChanged, this, apply);
+    connect(_dhgmSettings->staleSeconds(), &Fact::rawValueChanged, this, apply);
 }
 
 /*===========================================================================*/
