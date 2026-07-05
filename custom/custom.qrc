@@ -18,7 +18,7 @@
 
     <!-- SettingsGroup JSON (SettingsGroup kJsonFile = ":/json/%1.SettingsGroup.json") -->
     <qresource prefix="/json">
-        <file alias="DHGM.SettingsGroup.json">res/json/DHGM.SettingsGroup.json</file>
+        <file alias="Dhgm.SettingsGroup.json">res/json/DHGM.SettingsGroup.json</file>
     </qresource>
 
     <!-- Custom.Theme singleton module. import path: "qrc:/Custom/imports" → import Custom -->

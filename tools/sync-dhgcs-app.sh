@@ -64,20 +64,11 @@ if [[ -x "$LSREGISTER" ]]; then
   "$LSREGISTER" -f "$RELEASE_APP"
 fi
 
-# --- Desktop: Finder alias (not symlink — LaunchServices resolves reliably) ----
+# --- Desktop: symlink to Release bundle --------------------------------------
+# Finder aliases break after every rebuild (codesign / bundle path change) and
+# double-click silently fails. Symlink survives rebuilds and opens reliably.
 rm -rf "$DESKTOP_APP"
-if ! osascript <<EOF 2>/dev/null
-tell application "Finder"
-    set targetApp to POSIX file "$RELEASE_APP"
-    set desktopFolder to desktop
-    set aliasFile to make new alias file at desktopFolder to targetApp
-    set name of aliasFile to "DroneHubGCS.app"
-end tell
-EOF
-then
-  echo "sync-dhgcs-app: Finder alias failed — falling back to symlink on Desktop"
-  ln -s "$RELEASE_APP" "$DESKTOP_APP"
-fi
+ln -s "$RELEASE_APP" "$DESKTOP_APP"
 
 echo "sync-dhgcs-app: open from Desktop:"
 echo "  $DESKTOP_APP"

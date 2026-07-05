@@ -21,7 +21,12 @@ import QGroundControl.ScreenTools
 import QGroundControl.MultiVehicleManager
 import QGroundControl.Palette
 
-SettingsPage {
+// SettingsPage inline — custom qrc override is outside QGroundControl.AppSettings module.
+Item {
+    id: root
+
+    default property alias contentItem: mainLayout.data
+
     property var    _settingsManager:           QGroundControl.settingsManager
     property var    _mavlinkSettings:           _settingsManager.mavlinkSettings
     property var    _appSettings:               _settingsManager.appSettings
@@ -33,6 +38,16 @@ SettingsPage {
     property var    _apmStartMavlinkStreams:    _mavlinkSettings.apmStartMavlinkStreams
     property var    _dhgmSettings:              QGroundControl.corePlugin.dhgmSettings
 
+    QGCFlickable {
+        anchors.fill:   parent
+        contentWidth:   mainLayout.width
+        contentHeight:  mainLayout.height
+
+        ColumnLayout {
+            id:         mainLayout
+            x:          Math.max(0, root.width / 2 - width / 2)
+            width:      Math.max(implicitWidth, ScreenTools.defaultFontPixelWidth * 50)
+            spacing:    ScreenTools.defaultFontPixelHeight
     SettingsGroupLayout {
         Layout.fillWidth:   true
         heading:            qsTr("Ground Station")
@@ -118,6 +133,7 @@ SettingsPage {
         Layout.fillWidth:   true
         heading:            qsTr("DHGM / ATAK")
         headingDescription: qsTr("ტელემეტრია პირდაპირ GCS-იდან → DHGM რუკა (CoT) + plugin პანელი (JSON). Python bridge აღარ სჭირდება.")
+        visible:            _dhgmSettings !== null
 
         FactCheckBoxSlider {
             Layout.fillWidth:   true
@@ -283,6 +299,8 @@ SettingsPage {
             Layout.fillWidth:   true
             label:              qsTr("Signing:")
             labelText:          _activeVehicle ? (_activeVehicle.mavlinkSigning ? "On" : "Off") : _notConnectedStr
+        }
+    }
         }
     }
 }

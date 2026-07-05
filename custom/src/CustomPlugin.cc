@@ -40,19 +40,9 @@ CustomPlugin::CustomPlugin(QObject* parent)
     : QGCCorePlugin(parent)
     , _options(new CustomOptions(this, this))
     , _cotForwarder(new CotForwarder(this))
-    , _dhgmSettings(new DhgmSettings(this))
 {
-    // ძველი QSettings გასაღებები (tcpPort) → DhgmSettings Facts
-    QSettings legacy;
-    if (legacy.contains(QStringLiteral("DHGM/forwarding"))) {
-        _dhgmSettings->forwarding()->setRawValue(legacy.value(QStringLiteral("DHGM/forwarding")));
-    }
-    if (legacy.contains(QStringLiteral("DHGM/cotMulticast"))) {
-        _dhgmSettings->cotMulticast()->setRawValue(legacy.value(QStringLiteral("DHGM/cotMulticast")));
-    }
-    if (legacy.contains(QStringLiteral("DHGM/tcpPort"))) {
-        _dhgmSettings->pluginTcpPort()->setRawValue(legacy.value(QStringLiteral("DHGM/tcpPort")));
-    }
+    // DhgmSettings extends SettingsGroup, whose ctor calls QGCCorePlugin::instance().
+    // Creating it here deadlocks Q_APPLICATION_STATIC while CustomPlugin is still constructing.
 }
 
 CustomPlugin::~CustomPlugin() = default;
@@ -64,6 +54,20 @@ QGCCorePlugin* CustomPlugin::instance()
 
 void CustomPlugin::init()
 {
+    _dhgmSettings = new DhgmSettings(this);
+
+    // ძველი QSettings გასაღებები (tcpPort) → DhgmSettings Facts
+    QSettings legacy;
+    if (legacy.contains(QStringLiteral("DHGM/forwarding"))) {
+        _dhgmSettings->forwarding()->setRawValue(legacy.value(QStringLiteral("DHGM/forwarding")));
+    }
+    if (legacy.contains(QStringLiteral("DHGM/cotMulticast"))) {
+        _dhgmSettings->cotMulticast()->setRawValue(legacy.value(QStringLiteral("DHGM/cotMulticast")));
+    }
+    if (legacy.contains(QStringLiteral("DHGM/tcpPort"))) {
+        _dhgmSettings->pluginTcpPort()->setRawValue(legacy.value(QStringLiteral("DHGM/tcpPort")));
+    }
+
     _applyGeorgianLocaleAndFont();
     _installDefaultMavlinkActions();
     _wireDhgmForwarding();
