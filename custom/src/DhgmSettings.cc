@@ -2,7 +2,7 @@
 
 #include <QtQml/QQmlEngine>
 
-DECLARE_SETTINGGROUP(DHGM, "DHGM")
+DECLARE_SETTINGGROUP(Dhgm, "DHGM")
 {
     qmlRegisterUncreatableType<DhgmSettings>(
         "QGroundControl", 1, 0, "DhgmSettings", "Reference only");
