@@ -1,5 +1,6 @@
 #include "CustomPlugin.h"
 #include "CustomOptions.h"
+#include "CotForwarder.h"
 #include "geo/geo_mag_declination.h"
 
 #include "QGCLoggingCategory.h"
@@ -35,7 +36,18 @@ Q_APPLICATION_STATIC(CustomPlugin, _customPluginInstance);
 CustomPlugin::CustomPlugin(QObject* parent)
     : QGCCorePlugin(parent)
     , _options(new CustomOptions(this, this))
+    , _cotForwarder(new CotForwarder(this))
 {
+    // DHGM forwarding — default off; ჩართვა QSettings-ით (მომავალში Settings-UI toggle).
+    QSettings dhgmSettings;
+    if (dhgmSettings.value(QStringLiteral("DHGM/forwarding"), false).toBool()) {
+        _cotForwarder->setCotMulticast(dhgmSettings.value(
+                QStringLiteral("DHGM/cotMulticast"),
+                QStringLiteral("239.2.3.1:6969")).toString());
+        _cotForwarder->setPluginTcpPort(quint16(
+                dhgmSettings.value(QStringLiteral("DHGM/tcpPort"), 14550).toUInt()));
+        _cotForwarder->setEnabled(true);
+    }
 }
 
 CustomPlugin::~CustomPlugin() = default;
