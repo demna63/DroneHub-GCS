@@ -112,6 +112,8 @@ set(CUSTOM_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CotForwarder.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CotForwarder.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DhgmSettings.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DhgmSettings.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.h

@@ -7,9 +7,11 @@
 #include "QGCCorePlugin.h"
 #include "QGCOptions.h"
 #include "QGCPalette.h"
+#include "DhgmSettings.h"
 
 class CustomOptions;
 class QQmlApplicationEngine;
+class CotForwarder;
 
 Q_DECLARE_LOGGING_CATEGORY(CustomPluginLog)
 
@@ -46,7 +48,13 @@ public:
     /// WMM declination (degrees, east positive) — PX4 world_magnetic_model lookup, same as FC geo_lookup.
     Q_INVOKABLE double magneticDeclination(double latitude, double longitude) const;
 
+    /// DHGM forwarding პარამეტრები (Settings → Telemetry).
+    Q_PROPERTY(DhgmSettings* dhgmSettings READ dhgmSettings CONSTANT)
+
+    DhgmSettings* dhgmSettings() { return _dhgmSettings; }
+
 private:
+    void _wireDhgmForwarding();
     /// არეგისტრირებს bundled ქართულ ფონტს და pin-ავს default locale-ს ka-ზე.
     void _applyGeorgianLocaleAndFont();
 
@@ -58,8 +66,8 @@ private:
     class CustomOverrideInterceptor* _selector = nullptr;
 
     /// DHGM ინტეგრაცია — ვეჰიკლების ტელემეტრია → CoT/JSON (ATAK/DHGM plugin).
-    /// ჩართვა: QSettings "DHGM/forwarding" (default off). იხ. CotForwarder.
     class CotForwarder*             _cotForwarder = nullptr;
+    DhgmSettings*                   _dhgmSettings = nullptr;
 };
 
 /*===========================================================================*/
