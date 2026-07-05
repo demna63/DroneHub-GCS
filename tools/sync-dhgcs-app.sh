@@ -66,7 +66,7 @@ fi
 
 # --- Desktop: Finder alias (not symlink — LaunchServices resolves reliably) ----
 rm -rf "$DESKTOP_APP"
-osascript <<EOF
+if ! osascript <<EOF 2>/dev/null
 tell application "Finder"
     set targetApp to POSIX file "$RELEASE_APP"
     set desktopFolder to desktop
@@ -74,6 +74,10 @@ tell application "Finder"
     set name of aliasFile to "DroneHubGCS.app"
 end tell
 EOF
+then
+  echo "sync-dhgcs-app: Finder alias failed — falling back to symlink on Desktop"
+  ln -s "$RELEASE_APP" "$DESKTOP_APP"
+fi
 
 echo "sync-dhgcs-app: open from Desktop:"
 echo "  $DESKTOP_APP"
