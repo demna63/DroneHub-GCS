@@ -56,6 +56,10 @@ private:
     CustomOptions*                  _options   = nullptr;
     QQmlApplicationEngine*          _qmlEngine = nullptr;
     class CustomOverrideInterceptor* _selector = nullptr;
+
+    /// DHGM ინტეგრაცია — ვეჰიკლების ტელემეტრია → CoT/JSON (ATAK/DHGM plugin).
+    /// ჩართვა: QSettings "DHGM/forwarding" (default off). იხ. CotForwarder.
+    class CotForwarder*             _cotForwarder = nullptr;
 };
 
 /*===========================================================================*/
