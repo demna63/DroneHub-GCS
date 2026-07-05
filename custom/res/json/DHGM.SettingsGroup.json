@@ -6,14 +6,14 @@
 {
     "name":         "forwarding",
     "shortDesc":    "DHGM-ზე გადაცემა",
-    "longDesc":     "ვეჰიკლის ტელემეტრია → CoT (ATAK/DHGM რუკა) + JSON (plugin პანელი). Python bridge აღარ სჭირდება.",
+    "longDesc":     "ვეჰიკლის ტელემეტრია → CoT (DHGM რუკა) + JSON (plugin პანელი). Python bridge აღარ სჭირდება.",
     "type":         "bool",
     "default":      false
 },
 {
     "name":         "cotMulticast",
     "shortDesc":    "CoT multicast",
-    "longDesc":     "ATAK mesh SA default: 239.2.3.1:6969",
+    "longDesc":     "DHGM mesh SA default: 239.2.3.1:6969",
     "type":         "string",
     "default":      "239.2.3.1:6969"
 },

@@ -131,7 +131,7 @@ Item {
 
     SettingsGroupLayout {
         Layout.fillWidth:   true
-        heading:            qsTr("DHGM / ATAK")
+        heading:            qsTr("DHGM")
         headingDescription: qsTr("ტელემეტრია პირდაპირ GCS-იდან → DHGM რუკა (CoT) + plugin პანელი (JSON). Python bridge აღარ სჭირდება.")
         visible:            _dhgmSettings !== null
 

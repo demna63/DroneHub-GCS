@@ -2,7 +2,7 @@
 
 #include "SettingsGroup.h"
 
-/// DHGM forwarding პარამეტრები — Settings → Telemetry → „DHGM / ATAK".
+/// DHGM forwarding პარამეტრები — Settings → Telemetry → „DHGM".
 class DhgmSettings : public SettingsGroup
 {
     Q_OBJECT
