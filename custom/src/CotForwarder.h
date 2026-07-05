@@ -2,7 +2,7 @@
  * DHGM ინტეგრაცია — CotForwarder
  *
  * DroneHub GCS-ის შიდა მოდული, რომელიც ცალკე Python bridge-ს ცვლის: GCS-ის
- * ვეჰიკლების ტელემეტრიას პირდაპირ გარდაქმნის Cursor-on-Target-ად (ATAK/DHGM
+ * ვეჰიკლების ტელემეტრიას პირდაპირ გარდაქმნის Cursor-on-Target-ად (DHGM
  * multicast-ისთვის) და JSON-ად (DHGM plugin-ის TCP პანელისთვის).
  *
  * ფორმატები იდენტურია `DHGM/bridge/dhgm_bridge.py` + `plugin_json.py`-ს:
