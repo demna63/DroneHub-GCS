@@ -10,6 +10,13 @@
  *         multicast 239.2.3.1:6969
  *   JSON: {"type":"telemetry", sysid, lat, lon, alt_agl_m, speed_mps, ...}
  *         TCP :14550 (newline-delimited)
+ *   keepalive: {"type":"bridge_heartbeat","ts":...} ყოველ tick-ზე — DHGM plugin
+ *         (v0.3.0+) 5 წმ სიჩუმეს კავშირის გაწყვეტად ათვლის.
+ *   bridge_hello: მხოლოდ ახალ კლიენტს, accept-ისთანავე.
+ *
+ * Backpressure: კლიენტი, რომლის write buffer > kMaxClientBacklogBytes (ტელეფონი
+ * ძილში / Wi-Fi drop), abort-დება — QTcpSocket-ის buffer სხვა შემთხვევაში
+ * უსასრულოდ იზრდება.
  *
  * ჩართვა: Settings → DHGM forwarding (CustomOptions). "no hard-fork" —
  * ცალკე ფაილები custom/src/-ში, core უცვლელი.
@@ -59,12 +66,15 @@ private:
     QByteArray _buildJson(Vehicle* v, qint64 nowMs) const;
     void       _sendCot(const QByteArray& xml);
     void       _broadcastJson(const QByteArray& line);
-    void       _sendBridgeHello();
+    void       _sendBridgeHello(QTcpSocket* client);
+    void       _writeToClient(QTcpSocket* client, const QByteArray& line);
+    bool       _listenTcp();
     bool       _vehicleActive(Vehicle* v, qint64 nowMs) const;
     static QString _cotTime(qint64 ms);
     static QString _gpsFixName(int fixType);
     static double  _courseDeg(Vehicle* v);
     static int     _rssiDbm(Vehicle* v);
+    static QString _jsonEscape(const QString& s);
 
     bool         _enabled = false;
     QTimer       _timer;
