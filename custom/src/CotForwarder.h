@@ -13,6 +13,8 @@
  *   keepalive: {"type":"bridge_heartbeat","ts":...} ყოველ tick-ზე — DHGM plugin
  *         (v0.3.0+) 5 წმ სიჩუმეს კავშირის გაწყვეტად ათვლის.
  *   bridge_hello: მხოლოდ ახალ კლიენტს, accept-ისთანავე.
+ *   rc_rssi_pct: RC link (Vehicle::rcRSSI — RC_CHANNELS.rssi, low-pass 0..100 %).
+ *         ExpressLRS/CRSF: PX4 — LQ; ArduPilot — RSSI ან LQ (RC_OPTIONS bit 10).
  *
  * Backpressure: კლიენტი, რომლის write buffer > kMaxClientBacklogBytes (ტელეფონი
  * ძილში / Wi-Fi drop), abort-დება — QTcpSocket-ის buffer სხვა შემთხვევაში
@@ -74,6 +76,7 @@ private:
     static QString _gpsFixName(int fixType);
     static double  _courseDeg(Vehicle* v);
     static int     _rssiDbm(Vehicle* v);
+    static int     _rcRssiPct(Vehicle* v);           ///< RC link 0..100 % (ELRS/CRSF LQ), -1 = unknown
     static QString _jsonEscape(const QString& s);
 
     bool         _enabled = false;

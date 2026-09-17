@@ -207,6 +207,13 @@ int CotForwarder::_rssiDbm(Vehicle* v)
     return rssi;
 }
 
+int CotForwarder::_rcRssiPct(Vehicle* v)
+{
+    // QGC: 0..100 % (low-pass filtered), 255 = invalid/unknown
+    const int rc = v ? v->rcRSSI() : 255;
+    return (rc >= 0 && rc <= 100) ? rc : -1;
+}
+
 bool CotForwarder::_vehicleActive(Vehicle* v, qint64 /*nowMs*/) const
 {
     if (!v || !v->coordinate().isValid()) {
@@ -264,6 +271,7 @@ QByteArray CotForwarder::_buildJson(Vehicle* v, qint64 nowMs) const
     Fact* sats = gpsFact(v, "count");
     const int satCount = (sats && sats->rawValue().isValid()) ? sats->rawValue().toInt() : -1;
     const int rssi = _rssiDbm(v);
+    const int rcPct = _rcRssiPct(v);
 
     QString j = QStringLiteral(
         "{\"type\":\"telemetry\",\"ts\":%1,\"sysid\":%2,\"callsign\":\"%3-%2\","
@@ -284,6 +292,9 @@ QByteArray CotForwarder::_buildJson(Vehicle* v, qint64 nowMs) const
     }
     if (rssi != INT_MIN) {
         j += QStringLiteral(",\"rssi_dbm\":%1").arg(rssi);
+    }
+    if (rcPct >= 0) {
+        j += QStringLiteral(",\"rc_rssi_pct\":%1").arg(rcPct);
     }
     j += QStringLiteral("}\n");
     return j.toUtf8();
