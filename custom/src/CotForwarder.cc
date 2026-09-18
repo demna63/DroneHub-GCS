@@ -10,11 +10,14 @@
 #include "VehicleGPSFactGroup.h"
 
 #include <QDateTime>
+#include <QDebug>
 #include <QGeoCoordinate>
 #include <QtMath>
 
 namespace {
-constexpr const char* kBridgeVersion = "0.2.0";
+constexpr const char* kBridgeVersion = "0.3.0";
+/// ჩეჭდილ კლიენტის ზღვარ: ~1 Hz × ~400 B × N დრონი → 256 KiB = წუთებ ჩეჭდება.
+constexpr qint64 kMaxClientBacklogBytes = 256 * 1024;
 }
 
 CotForwarder::CotForwarder(QObject* parent)
@@ -38,19 +41,19 @@ void CotForwarder::setEnabled(bool enabled)
     _enabled = enabled;
     if (enabled) {
         _udp.setSocketOption(QAbstractSocket::MulticastTtlOption, 1);
-        if (_tcpPort > 0 && !_tcpServer.isListening()) {
-            // 0.0.0.0 — ტელეფონი/plugin ქსელიდანაც წვდება (Python bridge-ის იგივე)
-            _tcpServer.listen(QHostAddress::AnyIPv4, _tcpPort);
-        }
+        (void)_listenTcp();
         _timer.start(qMax(50, int(1000.0 / qMax(0.1, _rateHz))));
         _prevActiveSysids.clear();
         emit statusChanged(QStringLiteral("DHGM forwarding ჩართული"));
     } else {
         _timer.stop();
-        for (QTcpSocket* c : _tcpClients) {
-            c->disconnectFromHost();
+        const QList<QTcpSocket*> clients = _tcpClients;
+        _tcpClients.clear();  // _onTcpDisconnected-ის removeAll no-op-ია
+        for (QTcpSocket* c : clients) {
+            c->disconnect(this);
+            c->abort();
+            c->deleteLater();
         }
-        _tcpClients.clear();
         if (_tcpServer.isListening()) {
             _tcpServer.close();
         }
@@ -70,10 +73,54 @@ void CotForwarder::setCotMulticast(const QString& hostPort)
 
 void CotForwarder::setPluginTcpPort(quint16 port)
 {
-    _tcpPort = port;
-    if (_enabled && port > 0 && !_tcpServer.isListening()) {
-        _tcpServer.listen(QHostAddress::AnyIPv4, port);
+    if (port == _tcpPort && (_tcpServer.isListening() || !_enabled)) {
+        return;
     }
+    _tcpPort = port;
+    if (_tcpServer.isListening()) {
+        _tcpServer.close();  // port შეიცვალა → ახალ port-ზე re-listen
+    }
+    if (_enabled) {
+        (void)_listenTcp();
+    }
+}
+
+bool CotForwarder::_listenTcp()
+{
+    if (_tcpPort == 0 || _tcpServer.isListening()) {
+        return _tcpServer.isListening();
+    }
+    // 0.0.0.0 — ტელეფონი/plugin ქსელიდანაც წვდება (Python bridge-ის იგივე)
+    if (!_tcpServer.listen(QHostAddress::AnyIPv4, _tcpPort)) {
+        const QString err = QStringLiteral("DHGM: TCP :%1 listen ვერ მოხერხდა — %2")
+                                .arg(_tcpPort).arg(_tcpServer.errorString());
+        qWarning() << err;
+        emit statusChanged(err);
+        return false;
+    }
+    return true;
+}
+
+QString CotForwarder::_jsonEscape(const QString& s)
+{
+    QString out;
+    out.reserve(s.size());
+    for (const QChar ch : s) {
+        switch (ch.unicode()) {
+        case '"':  out += QStringLiteral("\\\""); break;
+        case '\\': out += QStringLiteral("\\\\"); break;
+        case '\n': out += QStringLiteral("\\n"); break;
+        case '\r': out += QStringLiteral("\\r"); break;
+        case '\t': out += QStringLiteral("\\t"); break;
+        default:
+            if (ch.unicode() < 0x20) {
+                out += QStringLiteral("\\u%1").arg(int(ch.unicode()), 4, 16, QChar('0'));
+            } else {
+                out += ch;
+            }
+        }
+    }
+    return out;
 }
 
 void CotForwarder::setRateHz(double hz)
@@ -160,9 +207,20 @@ int CotForwarder::_rssiDbm(Vehicle* v)
     return rssi;
 }
 
+int CotForwarder::_rcRssiPct(Vehicle* v)
+{
+    // QGC: 0..100 % (low-pass filtered), 255 = invalid/unknown
+    const int rc = v ? v->rcRSSI() : 255;
+    return (rc >= 0 && rc <= 100) ? rc : -1;
+}
+
 bool CotForwarder::_vehicleActive(Vehicle* v, qint64 /*nowMs*/) const
 {
     if (!v || !v->coordinate().isValid()) {
+        return false;
+    }
+    // fix-ის გარეშე autopilot-ებ lat=lon=0 აგზავნიან → Null Island-ზე მარკერი
+    if (qFuzzyIsNull(v->coordinate().latitude()) && qFuzzyIsNull(v->coordinate().longitude())) {
         return false;
     }
     VehicleLinkManager* lm = v->vehicleLinkManager();
@@ -198,7 +256,7 @@ QByteArray CotForwarder::_buildCot(Vehicle* v, qint64 nowMs) const
         "</event>")
         .arg(uid, _cotTime(nowMs), _cotTime(nowMs + qint64(_staleS * 1000)))
         .arg(c.latitude(), 0, 'f', 7).arg(c.longitude(), 0, 'f', 7).arg(hae, 0, 'f', 1)
-        .arg(callsign).arg(spd, 0, 'f', 2).arg(hdg, 0, 'f', 1).arg(remarks.toHtmlEscaped());
+        .arg(callsign.toHtmlEscaped()).arg(spd, 0, 'f', 2).arg(hdg, 0, 'f', 1).arg(remarks.toHtmlEscaped());
     return xml.toUtf8();
 }
 
@@ -213,6 +271,7 @@ QByteArray CotForwarder::_buildJson(Vehicle* v, qint64 nowMs) const
     Fact* sats = gpsFact(v, "count");
     const int satCount = (sats && sats->rawValue().isValid()) ? sats->rawValue().toInt() : -1;
     const int rssi = _rssiDbm(v);
+    const int rcPct = _rcRssiPct(v);
 
     QString j = QStringLiteral(
         "{\"type\":\"telemetry\",\"ts\":%1,\"sysid\":%2,\"callsign\":\"%3-%2\","
@@ -224,7 +283,7 @@ QByteArray CotForwarder::_buildJson(Vehicle* v, qint64 nowMs) const
         .arg(course, 0, 'f', 1)
         .arg(vfg(v, QStringLiteral("altitudeRelative"), 0.0), 0, 'f', 1)
         .arg(vfg(v, QStringLiteral("altitudeAMSL"), 0.0), 0, 'f', 1)
-        .arg(v->flightMode()).arg(_gpsFixName(fixType));
+        .arg(_jsonEscape(v->flightMode())).arg(_gpsFixName(fixType));
     if (bat >= 0) {
         j += QStringLiteral(",\"battery_pct\":%1").arg(int(bat));
     }
@@ -233,6 +292,9 @@ QByteArray CotForwarder::_buildJson(Vehicle* v, qint64 nowMs) const
     }
     if (rssi != INT_MIN) {
         j += QStringLiteral(",\"rssi_dbm\":%1").arg(rssi);
+    }
+    if (rcPct >= 0) {
+        j += QStringLiteral(",\"rc_rssi_pct\":%1").arg(rcPct);
     }
     j += QStringLiteral("}\n");
     return j.toUtf8();
@@ -243,23 +305,39 @@ void CotForwarder::_sendCot(const QByteArray& xml)
     _udp.writeDatagram(xml, _cotAddr, _cotPort);
 }
 
+void CotForwarder::_writeToClient(QTcpSocket* client, const QByteArray& line)
+{
+    if (!client || client->state() != QAbstractSocket::ConnectedState) {
+        return;
+    }
+    if (client->bytesToWrite() > kMaxClientBacklogBytes) {
+        // abort() → disconnected() → _onTcpDisconnected (removeAll + deleteLater)
+        qWarning() << "DHGM: stalled plugin client dropped" << client->peerAddress().toString()
+                   << "backlog" << client->bytesToWrite();
+        client->abort();
+        return;
+    }
+    client->write(line);
+}
+
 void CotForwarder::_broadcastJson(const QByteArray& line)
 {
-    for (QTcpSocket* c : _tcpClients) {
-        if (c->state() == QAbstractSocket::ConnectedState) {
-            c->write(line);
-        }
+    // copy: abort()-ი sync-ურად disconnected-ს emit-ავს და _tcpClients-ს ცვლს
+    const QList<QTcpSocket*> clients = _tcpClients;
+    for (QTcpSocket* c : clients) {
+        _writeToClient(c, line);
     }
 }
 
-void CotForwarder::_sendBridgeHello()
+void CotForwarder::_sendBridgeHello(QTcpSocket* client)
 {
     QmlObjectListModel* vehicles = MultiVehicleManager::instance()->vehicles();
     QStringList ids;
     if (vehicles) {
+        const qint64 nowMs = QDateTime::currentMSecsSinceEpoch();
         for (int i = 0; i < vehicles->count(); ++i) {
             Vehicle* v = qobject_cast<Vehicle*>(vehicles->get(i));
-            if (v && _vehicleActive(v, QDateTime::currentMSecsSinceEpoch())) {
+            if (v && _vehicleActive(v, nowMs)) {
                 ids << QString::number(v->id());
             }
         }
@@ -267,16 +345,21 @@ void CotForwarder::_sendBridgeHello()
     const QByteArray line = QStringLiteral(
         "{\"type\":\"bridge_hello\",\"version\":\"%1\",\"drones\":[%2]}\n")
         .arg(QString::fromUtf8(kBridgeVersion), ids.join(',')).toUtf8();
-    _broadcastJson(line);
+    _writeToClient(client, line);
 }
 
 void CotForwarder::_tick()
 {
     QmlObjectListModel* vehicles = MultiVehicleManager::instance()->vehicles();
+    const qint64 nowMs = QDateTime::currentMSecsSinceEpoch();
     if (!vehicles) {
+        // ვეჰიკლ-მენეჯერი ჯერ არ არის — heartbeat-ი მაინც (plugin-ი არ timeout-დეს)
+        if (_tcpPort > 0 && !_tcpClients.isEmpty()) {
+            _broadcastJson(QStringLiteral("{\"type\":\"bridge_heartbeat\",\"ts\":%1}\n")
+                               .arg(nowMs / 1000.0, 0, 'f', 3).toUtf8());
+        }
         return;
     }
-    const qint64 nowMs = QDateTime::currentMSecsSinceEpoch();
     QSet<int> currentActive;
     int sent = 0;
 
@@ -300,6 +383,9 @@ void CotForwarder::_tick()
                                    .arg(gone).toUtf8());
             }
         }
+        // keepalive — დრონ ყონ თუ არა (plugin read timeout = 5 წმ)
+        _broadcastJson(QStringLiteral("{\"type\":\"bridge_heartbeat\",\"ts\":%1}\n")
+                           .arg(nowMs / 1000.0, 0, 'f', 3).toUtf8());
     }
 
     _prevActiveSysids = currentActive;
@@ -311,9 +397,10 @@ void CotForwarder::_onNewTcpConnection()
 {
     while (_tcpServer.hasPendingConnections()) {
         QTcpSocket* c = _tcpServer.nextPendingConnection();
+        c->setSocketOption(QAbstractSocket::LowDelayOption, 1);
         connect(c, &QTcpSocket::disconnected, this, &CotForwarder::_onTcpDisconnected);
         _tcpClients.append(c);
-        _sendBridgeHello();
+        _sendBridgeHello(c);  // მხოლოდ ახალ კლიენტს
     }
 }
 
