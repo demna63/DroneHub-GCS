@@ -16,6 +16,12 @@
  *   rc_rssi_pct: RC link (Vehicle::rcRSSI — RC_CHANNELS.rssi, low-pass 0..100 %).
  *         ExpressLRS/CRSF: PX4 — LQ; ArduPilot — RSSI ან LQ (RC_OPTIONS bit 10).
  *
+ * CoT socket bind-დება (setMulticastInterface() unbound socket-ზე არ მუშაობს).
+ * CoT-ის მიწოდება: multicast **ყოველ** შესაფერის ინტერფეისზე (macOS-ზე default route
+ * შეიძლება VPN/virtual NIC-ზე გადიოდეს და მარკერი ტელეფონამდე არ აღწევდეს) **პლუს**
+ * unicast პანელის TCP-კლიენტების IP-ებზე ATAK-ის SA პორტზე ({@link #kAtakUnicastPort}) —
+ * ქსელებ, სადაც multicast იფილტრება, ასე მაინც მუშაობს.
+ *
  * Backpressure: კლიენტი, რომლის write buffer > kMaxClientBacklogBytes (ტელეფონი
  * ძილში / Wi-Fi drop), abort-დება — QTcpSocket-ის buffer სხვა შემთხვევაში
  * უსასრულოდ იზრდება.
@@ -67,6 +73,8 @@ private:
     QByteArray _buildCot(Vehicle* v, qint64 nowMs) const;
     QByteArray _buildJson(Vehicle* v, qint64 nowMs) const;
     void       _sendCot(const QByteArray& xml);
+    void       _sendCotMulticast(const QByteArray& xml);
+    void       _sendCotUnicast(const QByteArray& xml);
     void       _broadcastJson(const QByteArray& line);
     void       _sendBridgeHello(QTcpSocket* client);
     void       _writeToClient(QTcpSocket* client, const QByteArray& line);
@@ -78,6 +86,9 @@ private:
     static int     _rssiDbm(Vehicle* v);
     static int     _rcRssiPct(Vehicle* v);           ///< RC link 0..100 % (ELRS/CRSF LQ), -1 = unknown
     static QString _jsonEscape(const QString& s);
+
+    /// ATAK-ის unicast SA პორტი (mesh multicast-ის გარდა).
+    static constexpr quint16 kAtakUnicastPort = 4242;
 
     bool         _enabled = false;
     QTimer       _timer;
