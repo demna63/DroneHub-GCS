@@ -11,6 +11,7 @@
 
 #include <QDateTime>
 #include <QDebug>
+#include <QNetworkInterface>
 #include <QGeoCoordinate>
 #include <QtMath>
 
@@ -40,6 +41,10 @@ void CotForwarder::setEnabled(bool enabled)
     }
     _enabled = enabled;
     if (enabled) {
+        // setMulticastInterface() bound socket-ს ითხოვს (თორემ ჩუმად იგნორირდება)
+        if (_udp.state() != QAbstractSocket::BoundState) {
+            _udp.bind(QHostAddress::AnyIPv4, 0, QAbstractSocket::ShareAddress);
+        }
         _udp.setSocketOption(QAbstractSocket::MulticastTtlOption, 1);
         (void)_listenTcp();
         _timer.start(qMax(50, int(1000.0 / qMax(0.1, _rateHz))));
@@ -302,7 +307,70 @@ QByteArray CotForwarder::_buildJson(Vehicle* v, qint64 nowMs) const
 
 void CotForwarder::_sendCot(const QByteArray& xml)
 {
-    _udp.writeDatagram(xml, _cotAddr, _cotPort);
+    _sendCotMulticast(xml);
+    _sendCotUnicast(xml);
+}
+
+/// multicast ყოველ up/multicast-capable IPv4 ინტერფეისზე: default route შეიძლება
+/// VPN-ზე ან virtual NIC-ზე გადიოდეს და Wi-Fi-ზე მყოფ ტაბლეტამდე არ აღწევდეს.
+void CotForwarder::_sendCotMulticast(const QByteArray& xml)
+{
+    int sent = 0;
+    const QList<QNetworkInterface> ifaces = QNetworkInterface::allInterfaces();
+    for (const QNetworkInterface& iface : ifaces) {
+        const QNetworkInterface::InterfaceFlags f = iface.flags();
+        if (!f.testFlag(QNetworkInterface::IsUp)
+                || !f.testFlag(QNetworkInterface::IsRunning)
+                || !f.testFlag(QNetworkInterface::CanMulticast)
+                || f.testFlag(QNetworkInterface::IsLoopBack)) {
+            continue;
+        }
+        bool hasIPv4 = false;
+        for (const QNetworkAddressEntry& e : iface.addressEntries()) {
+            if (e.ip().protocol() == QAbstractSocket::IPv4Protocol) {
+                hasIPv4 = true;
+                break;
+            }
+        }
+        if (!hasIPv4) {
+            continue;
+        }
+        _udp.setMulticastInterface(iface);
+        if (_udp.writeDatagram(xml, _cotAddr, _cotPort) > 0) {
+            ++sent;
+        }
+    }
+    if (sent == 0) {
+        // fallback: OS-ის default route
+        _udp.setMulticastInterface(QNetworkInterface());
+        _udp.writeDatagram(xml, _cotAddr, _cotPort);
+    }
+}
+
+/// unicast პანელის კლიენტებზე (:4242) — multicast-ის მფილტრავ ქსელებზე ეს მუშაობს.
+void CotForwarder::_sendCotUnicast(const QByteArray& xml)
+{
+    QSet<QString> sent;  // ერთ მოწყობილობაზე ერთი პაკეტი, თუნდაც რამდენიმე კავშირი ჰქონდეს
+    for (QTcpSocket* c : _tcpClients) {
+        if (!c || c->state() != QAbstractSocket::ConnectedState) {
+            continue;
+        }
+        QHostAddress addr = c->peerAddress();
+        bool ok = false;
+        const quint32 v4 = addr.toIPv4Address(&ok);  // ::ffff:a.b.c.d → a.b.c.d
+        if (ok) {
+            addr = QHostAddress(v4);
+        }
+        if (addr.isNull() || addr.isLoopback()) {
+            continue;  // adb reverse: ATAK იმავე multicast-ს ლოკალურად იღებს
+        }
+        const QString key = addr.toString();
+        if (sent.contains(key)) {
+            continue;
+        }
+        sent.insert(key);
+        _udp.writeDatagram(xml, addr, kAtakUnicastPort);
+    }
 }
 
 void CotForwarder::_writeToClient(QTcpSocket* client, const QByteArray& line)
