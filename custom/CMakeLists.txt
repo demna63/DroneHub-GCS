@@ -257,27 +257,23 @@ set(DRONEHUB_MAIN_WINDOW_SRC
 set(DRONEHUB_MAIN_WINDOW_DST
     "${CMAKE_SOURCE_DIR}/src/MainWindow/MainWindow.qml")
 
-# Configure-time sync for qmlcache-registered files (must exist before qt_add_qml_module generate).
-foreach(_dronehub_cfg_sync IN ITEMS
-    "${DRONEHUB_VIDEO_VIEW_SRC}|${DRONEHUB_VIDEO_VIEW_DST}"
-    "${DRONEHUB_FLYVIEW_SRC}|${DRONEHUB_FLYVIEW_DST}"
-    "${DRONEHUB_VIDEO_STATUS_INDICATOR_SRC}|${DRONEHUB_VIDEO_STATUS_INDICATOR_DST}"
-    "${DRONEHUB_VEHICLE_HEALTH_INDICATOR_SRC}|${DRONEHUB_VEHICLE_HEALTH_INDICATOR_DST}"
-    "${DRONEHUB_FLIGHT_MODE_INDICATOR_SRC}|${DRONEHUB_FLIGHT_MODE_INDICATOR_DST}"
-    "${DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC}|${DRONEHUB_MAVLINK_ACTION_CONFIRM_DST}"
-    "${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_SRC}|${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_DST}"
-    "${DRONEHUB_MISSION_ITEM_EDITOR_SRC}|${DRONEHUB_MISSION_ITEM_EDITOR_DST}"
-    "${DRONEHUB_SIMPLE_ITEM_EDITOR_SRC}|${DRONEHUB_SIMPLE_ITEM_EDITOR_DST}"
-    "${DRONEHUB_MISSION_SETTINGS_EDITOR_SRC}|${DRONEHUB_MISSION_SETTINGS_EDITOR_DST}"
-)
-    string(REPLACE "|" ";" _pair "${_dronehub_cfg_sync}")
-    list(GET _pair 0 _cfg_src)
-    list(GET _pair 1 _cfg_dst)
-    if(EXISTS "${_cfg_src}")
-        execute_process(
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_cfg_src}" "${_cfg_dst}"
-            COMMAND_ERROR_IS_FATAL ANY
-        )
+# Configure-time sync of EVERY override (all DRONEHUB_<KEY>_SRC / _DST pairs).
+# custom/ is add_subdirectory()'d (core CMakeLists.txt:279) BEFORE src/ (line 358), so the files
+# must already be in place when qt_add_qml_module() inspects its QML_FILES and when qmlcachegen
+# runs. A build-time-only copy (DroneHubSyncFlyViewLayer below) loses that race and leaves stale
+# core copies (this was the cause of "override changes don't show up" until a second build).
+get_cmake_property(_dronehub_all_vars VARIABLES)
+foreach(_dronehub_var IN LISTS _dronehub_all_vars)
+    if(_dronehub_var MATCHES "^DRONEHUB_(.+)_SRC$")
+        set(_dronehub_key "${CMAKE_MATCH_1}")
+        set(_cfg_src "${${_dronehub_var}}")
+        set(_cfg_dst "${DRONEHUB_${_dronehub_key}_DST}")
+        if(_cfg_dst AND EXISTS "${_cfg_src}")
+            execute_process(
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_cfg_src}" "${_cfg_dst}"
+                COMMAND_ERROR_IS_FATAL ANY
+            )
+        endif()
     endif()
 endforeach()
 
