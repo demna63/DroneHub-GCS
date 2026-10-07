@@ -1,13 +1,11 @@
 /****************************************************************************
- * DroneHub GCS — Fly View left tool strip (icon-first, scrollable).
+ * DroneHub GCS — Fly View left tool strip (icon-first glass panel; 5.1 structure kept).
  ****************************************************************************/
 
 import QtQuick
 import QtQuick.Controls
 
 import QGroundControl
-import QGroundControl.ScreenTools
-import QGroundControl.Palette
 import QGroundControl.Controls
 
 import Custom
@@ -18,23 +16,16 @@ Rectangle {
     border.width: 1
     border.color: Theme.divider
     width:      ScreenTools.defaultFontPixelWidth * 8
+    height:     Math.min(maxHeight, toolStripColumn.height + (flickable.anchors.margins * 2))
     radius:     Theme.radiusMd
 
     property alias  model:              repeater.model
-    property real   maxHeight
-    property alias  title:              titleLabel.text
+    property real   maxHeight           ///< Maximum height for control, determines whether text is hidden to make control shorter
     property var    fontSize:           ScreenTools.defaultFontPointSize * 0.72
-
-    readonly property real innerPadding: ScreenTools.defaultFontPixelWidth * 0.35
-
-    height:     maxHeight > 0
-                    ? Math.min(maxHeight, toolStripColumn.height + innerPadding * 2)
-                    : toolStripColumn.height + innerPadding * 2
 
     property var _dropPanel: dropPanel
 
     function simulateClick(buttonIndex) {
-        buttonIndex = buttonIndex + 1
         var button = toolStripColumn.children[buttonIndex]
         if (button.checkable) {
             button.checked = !button.checked
@@ -50,48 +41,39 @@ Rectangle {
 
     QGCFlickable {
         id:                 flickable
-        anchors.margins:    innerPadding
-        anchors.top:        parent.top
-        anchors.left:       parent.left
-        anchors.right:      parent.right
-        height:             parent.height - innerPadding * 2
+        anchors.margins:    ScreenTools.defaultFontPixelWidth * 0.4
+        anchors.fill:       parent
         contentHeight:      toolStripColumn.height
         flickableDirection: Flickable.VerticalFlick
         clip:               true
 
         Column {
             id:             toolStripColumn
-            width:          flickable.width
-            spacing:        ScreenTools.defaultFontPixelWidth * 0.2
-
-            QGCLabel {
-                id:                     titleLabel
-                width:                  parent.width
-                horizontalAlignment:    Text.AlignHCenter
-                font.pointSize:         ScreenTools.defaultFontPointSize * 0.7
-                font.family:            Theme.fontFamily
-                color:                  Theme.textSecondary
-                visible:                title != ""
-            }
+            anchors.left:   parent.left
+            anchors.right:  parent.right
+            spacing:        ScreenTools.defaultFontPixelWidth * 0.25
 
             Repeater {
                 id: repeater
 
                 ToolStripHoverButton {
-                    width:              toolStripColumn.width
+                    id:                 buttonTemplate
+                    anchors.left:       toolStripColumn.left
+                    anchors.right:      toolStripColumn.right
                     height:             width
                     radius:             Theme.radiusSm
                     fontPointSize:      _root.fontSize
                     toolStripAction:    modelData
                     dropPanel:          _dropPanel
-                    onDropped: (rowIndex) => _root.dropped(rowIndex)
+                    onDropped: (index) => _root.dropped(index)
 
                     onCheckedChanged: {
+                        // We deal with exclusive check state manually since usinug autoExclusive caused all sorts of crazt problems
                         if (checked) {
-                            for (var i = 0; i < repeater.count; i++) {
-                                if (i !== index) {
+                            for (var i=0; i<repeater.count; i++) {
+                                if (i != index) {
                                     var button = repeater.itemAt(i)
-                                    if (button && button.checked) {
+                                    if (button.checked) {
                                         button.checked = false
                                     }
                                 }

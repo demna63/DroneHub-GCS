@@ -14,14 +14,11 @@ import QtQuick.Layouts
 import QtQuick.Window
 
 import QGroundControl
-import QGroundControl.Palette
 import QGroundControl.Controls
+import QGroundControl.FlyView
 import QGroundControl.FactControls
-import QGroundControl.ScreenTools
-import QGroundControl.FlightDisplay
 import QGroundControl.FlightMap
 
-import QGroundControl.UTMSP
 
 import Custom
 

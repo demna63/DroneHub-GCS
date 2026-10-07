@@ -9,11 +9,8 @@ import QtQml
 import QtQuick.Layouts
 
 import QGroundControl
-import QGroundControl.ScreenTools
-import QGroundControl.Vehicle
 import QGroundControl.Controls
 import QGroundControl.FactControls
-import QGroundControl.Palette
 
 import Custom
 

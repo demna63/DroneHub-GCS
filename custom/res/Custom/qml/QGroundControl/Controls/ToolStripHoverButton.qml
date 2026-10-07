@@ -1,49 +1,42 @@
 /****************************************************************************
- * DroneHub GCS — tool strip button (square icon-first; label in tooltip).
+ * DroneHub GCS — Fly View tool strip button (icon-first, glass highlight; 5.1 structure kept).
  ****************************************************************************/
 
 import QtQuick
 import QtQuick.Controls
 
-import QGroundControl.ScreenTools
-import QGroundControl.Palette
+import QGroundControl
+import QGroundControl.Controls
 
 import Custom
 
 Button {
     id:             control
+    objectName:     toolStripAction ? toolStripAction.objectName : ""
+    width:          contentLayoutItem.contentWidth + (contentMargins * 2)
+    height:         width
     hoverEnabled:   !ScreenTools.isMobile
-    enabled:        toolStripAction.enabled
-    visible:        toolStripAction.visible
+    enabled:        toolStripAction ? toolStripAction.enabled : true
+    visible:        toolStripAction ? toolStripAction.visible : true
     opacity:        enabled ? 1.0 : 0.45
-    text:           toolStripAction.text
-    checked:        toolStripAction.checked
-    checkable:      toolStripAction.dropPanelComponent || toolStripAction.checkable
+    imageSource:    (toolStripAction && modelData) ? (toolStripAction.showAlternateIcon ? modelData.alternateIconSource : modelData.iconSource) : ""
+    text:           toolStripAction ? toolStripAction.text : ""
+    checked:        toolStripAction ? toolStripAction.checked : false
+    checkable:      toolStripAction ? (toolStripAction.dropPanelComponent || (modelData && modelData.checkable)) : false
 
     property var    toolStripAction:    undefined
     property var    dropPanel:          undefined
     property alias  radius:             buttonBkRect.radius
     property alias  fontPointSize:      innerText.font.pointSize
+    property alias  imageSource:        innerImage.source
+    property alias  contentWidth:       innerText.contentWidth
 
     property bool forceImageScale11: false
-    property string _resolvedIconSource: {
-        if (!toolStripAction) {
-            return ""
-        }
-        return toolStripAction.showAlternateIcon
-                ? toolStripAction.alternateIconSource
-                : toolStripAction.iconSource
-    }
-    property bool _hasIcon:            _resolvedIconSource !== ""
-    property bool _fullColorIcon:      toolStripAction ? toolStripAction.fullColorIcon : false
-    property bool _biColorIcon:        toolStripAction ? toolStripAction.biColorIcon : false
-    property real imageScale:          _hasIcon ? 0.58 : 0.72
-    property real contentMargins:      ScreenTools.defaultFontPixelHeight * 0.12
+    property real imageScale:        forceImageScale11 && (text == "") ? 0.8 : 0.6
+    property real contentMargins:    innerText.height * 0.1
 
-    property color _currentContentColor: (checked || pressed || hovered)
-                                         ? Theme.textPrimary
-                                         : Theme.textSecondary
-    property color _currentContentColorSecondary: _currentContentColor
+    property color _currentContentColor:  (checked || pressed || hovered) ? Theme.textPrimary : Theme.textSecondary
+    property color _currentContentColorSecondary:  _currentContentColor
 
     signal dropped(int index)
 
@@ -59,7 +52,7 @@ Button {
     Accessible.checked:     control.checked
     Accessible.onPressAction: control.clicked()
 
-    onCheckedChanged: toolStripAction.checked = checked
+    onCheckedChanged: { if (toolStripAction) toolStripAction.checked = checked }
 
     onClicked: {
         if (mainWindow.allowViewSwitch()) {
@@ -84,54 +77,68 @@ Button {
         anchors.fill:       parent
         anchors.margins:    contentMargins
 
-        Image {
-            id:                         innerImageColorful
-            anchors.centerIn:           parent
-            height:                     parent.height * imageScale
-            width:                      height
-            smooth:                     true
-            mipmap:                     true
-            fillMode:                   Image.PreserveAspectFit
-            source:                     control._resolvedIconSource
-            visible:                    _hasIcon && _fullColorIcon
-        }
+        Column {
+            anchors.centerIn:   parent
+            spacing:            0
 
-        QGCColoredImage {
-            id:                         innerImage
-            anchors.centerIn:           parent
-            height:                     parent.height * imageScale
-            width:                      height
-            smooth:                     true
-            mipmap:                     true
-            color:                      control._currentContentColor
-            fillMode:                   Image.PreserveAspectFit
-            source:                     control._resolvedIconSource
-            visible:                    _hasIcon && !_fullColorIcon
+            Image {
+                id:                         innerImageColorful
+                height:                     contentLayoutItem.height * imageScale
+                width:                      contentLayoutItem.width  * imageScale
+                smooth:                     true
+                mipmap:                     true
+                fillMode:                   Image.PreserveAspectFit
+                antialiasing:               true
+                sourceSize.height:          height
+                sourceSize.width:           width
+                anchors.horizontalCenter:   parent.horizontalCenter
+                source:                     control.imageSource
+                visible:                    source != "" && !!modelData && modelData.fullColorIcon
+            }
 
             QGCColoredImage {
-                anchors.centerIn:           parent
-                height:                     parent.height
-                width:                      parent.width
-                color:                      control._currentContentColorSecondary
+                id:                         innerImage
+                height:                     contentLayoutItem.height * imageScale
+                width:                      contentLayoutItem.width  * imageScale
+                smooth:                     true
+                mipmap:                     true
+                color:                      _currentContentColor
                 fillMode:                   Image.PreserveAspectFit
-                source:                     toolStripAction ? toolStripAction.alternateIconSource : ""
-                visible:                    _biColorIcon
-            }
-        }
+                antialiasing:               true
+                sourceSize.height:          height
+                sourceSize.width:           width
+                anchors.horizontalCenter:   parent.horizontalCenter
+                visible:                    source != "" && !(modelData && modelData.fullColorIcon)
 
-        QGCLabel {
-            id:                         innerText
-            anchors.centerIn:           parent
-            width:                      parent.width
-            text:                       control.text
-            color:                      control._currentContentColor
-            horizontalAlignment:        Text.AlignHCenter
-            wrapMode:                   Text.WordWrap
-            maximumLineCount:           2
-            font.pointSize:             control.fontPointSize
-            font.family:                Theme.fontFamily
-            font.bold:                  true
-            visible:                    !_hasIcon
+                QGCColoredImage {
+                    id:                         innerImageSecondColor
+                    source:                     modelData ? modelData.alternateIconSource : ""
+                    height:                     contentLayoutItem.height * imageScale
+                    width:                      contentLayoutItem.width  * imageScale
+                    smooth:                     true
+                    mipmap:                     true
+                    color:                      _currentContentColorSecondary
+                    fillMode:                   Image.PreserveAspectFit
+                    antialiasing:               true
+                    sourceSize.height:          height
+                    sourceSize.width:           width
+                    anchors.horizontalCenter:   parent.horizontalCenter
+                    visible:                    source != "" && !!modelData && modelData.biColorIcon
+                }
+            }
+
+            QGCLabel {
+                id:                         innerText
+                text:                       control.text
+                color:                      _currentContentColor
+                anchors.horizontalCenter:   parent.horizontalCenter
+                horizontalAlignment:        Text.AlignHCenter
+                wrapMode:                   Text.WordWrap
+                maximumLineCount:           2
+                font.family:                Theme.fontFamily
+                font.bold:                  true
+                visible:                    !innerImage.visible && !innerImageColorful.visible
+            }
         }
     }
 
@@ -142,6 +149,5 @@ Button {
                             : ((control.enabled && control.hovered) ? "#15FFFFFF" : "transparent")
         border.width:   (control.checked || control.pressed) ? 1 : 0
         border.color:   "#40FFFFFF"
-        anchors.fill:   parent
     }
 }
