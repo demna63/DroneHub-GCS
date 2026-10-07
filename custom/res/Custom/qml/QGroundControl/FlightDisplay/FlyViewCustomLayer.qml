@@ -1333,21 +1333,6 @@ Item {
     // Legacy id for tool insets
     property alias hudPanel: osRoot
 
-    Rectangle {
-        id:                     bottomScrim
-        anchors.horizontalCenter: osRoot.horizontalCenter
-        anchors.bottom:         parent.bottom
-        width:                  osRoot.width + _t.spacingUnit * 8
-        height:                 osRoot.height + _bottomSafe + _t.spacingUnit * 4
-        visible:                osRoot.visible
-        z:                      0
-        gradient: Gradient {
-            orientation: Gradient.Vertical
-            GradientStop { position: 0.0; color: "#00000000" }
-            GradientStop { position: 0.65; color: "#33000000" }
-            GradientStop { position: 1.0; color: "#88000000" }
-        }
-    }
 
     QGCToolInsets {
         id:                     _toolInsets
