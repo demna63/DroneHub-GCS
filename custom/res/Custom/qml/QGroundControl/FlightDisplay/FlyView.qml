@@ -3,6 +3,7 @@
  ****************************************************************************/
 
 import QtQuick
+import QtQuick.Effects
 import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
@@ -122,6 +123,42 @@ Item {
 
             property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
             property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
+
+            // Rounded corners matching the HUD dock: render the PiP (video or map) through
+            // a rounded-rect alpha mask. Interaction is unaffected (layer is render-only).
+            layer.enabled:  visible
+            layer.effect: MultiEffect {
+                maskEnabled:        true
+                maskSource:         pipCornerMask
+                maskThresholdMin:   0.5
+                maskSpreadAtMin:    1.0
+            }
+        }
+
+        Item {
+            id:             pipCornerMask
+            width:          _pipView.width
+            height:         _pipView.height
+            visible:        false
+            layer.enabled:  true
+
+            Rectangle {
+                anchors.fill:   parent
+                radius:         customOverlay.hudCornerRadius
+                antialiasing:   true
+            }
+        }
+
+        // Hairline edge — same glass edge as the HUD dock.
+        Rectangle {
+            anchors.fill:   _pipView
+            visible:        _pipView.visible
+            z:              _pipView.z + 1
+            radius:         customOverlay.hudCornerRadius
+            color:          "transparent"
+            border.width:   1
+            border.color:   "#40FFFFFF"
+            antialiasing:   true
         }
 
         FlyViewWidgetLayer {

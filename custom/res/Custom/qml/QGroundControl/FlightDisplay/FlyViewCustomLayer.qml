@@ -33,6 +33,8 @@ Item {
     /// Height of the dock in the collapsed (compact, non-edit) state — FlyView sizes the
     /// PiP from it so both read as one row. 0 until first layout.
     property real hudCompactDockHeight: 0
+    /// Corner radius of the HUD dock — FlyView rounds the PiP with the same value.
+    readonly property real hudCornerRadius: _t.radiusLg
 
     Settings {
         id: _flyViewPrefs
