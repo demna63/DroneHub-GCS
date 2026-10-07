@@ -876,13 +876,21 @@ Item {
         ColumnLayout {
             spacing: 1
             Layout.alignment: alignRight ? Qt.AlignRight : Qt.AlignLeft
+            // Take the remaining cell width and allow shrinking, so long (Georgian)
+            // labels wrap inside the grid column instead of running out of the card.
+            Layout.fillWidth: true
+            Layout.minimumWidth: 0
             Text {
+                Layout.fillWidth: true
                 text: label
                 color: _t.textSecondary
                 font.pixelSize: _t.fontCaption
                 font.family: _t.fontFamily
                 font.weight: Font.Medium
                 horizontalAlignment: alignRight ? Text.AlignRight : Text.AlignLeft
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+                elide: Text.ElideRight
             }
             Text {
                 text: valueText
@@ -1429,13 +1437,19 @@ Item {
                         Repeater {
                             model: _expandedKeys
                             delegate: RowLayout {
+                                id:               expandedSlot
+                                // Slot position in _expandedKeys. Must be captured here:
+                                // inside onActivated `index` is ComboBox.activated's argument
+                                // (catalog index), which shadows the Repeater index.
+                                readonly property int slotIndex: index
                                 Layout.fillWidth: true
                                 spacing:          _t.spacingUnit * 0.5
                                 HudComboBox {
                                     Layout.fillWidth:   true
                                     model:              _root._catalogLabels
                                     currentIndex:       _root._catalogIndexOf(modelData)
-                                    onActivated:        _root._setExpandedKey(index, _root._metricCatalog[currentIndex].key)
+                                    onActivated: (catalogIndex) => _root._setExpandedKey(
+                                        expandedSlot.slotIndex, _root._metricCatalog[catalogIndex].key)
                                 }
                                 Text {
                                     visible:        _root._expandedKeys.length > 1
@@ -1446,7 +1460,7 @@ Item {
                                     MouseArea {
                                         anchors.fill:   parent
                                         cursorShape:    Qt.PointingHandCursor
-                                        onClicked:      _root._removeExpandedSlot(index)
+                                        onClicked:      _root._removeExpandedSlot(expandedSlot.slotIndex)
                                     }
                                 }
                             }
