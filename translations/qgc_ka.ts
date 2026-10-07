@@ -6507,7 +6507,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="711"/>
       <source>True</source>
-      <translation>ჭეშმარიტი</translation>
+      <translation>ჭეშმ.</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="853"/>

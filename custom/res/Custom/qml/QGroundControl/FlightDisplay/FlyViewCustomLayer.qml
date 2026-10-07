@@ -57,6 +57,8 @@ Item {
         readonly property color glassEdge:          "#40FFFFFF"   // hairline highlight edge
         readonly property color glassSheen:         "#1FFFFFFF"   // top reflection
         readonly property real  glassBlurPad:       24            // px sampled outside the plate (no dark blur edges)
+        readonly property color glassDockFallback:  "#B3151820"   // dock over video / no live blur
+        readonly property color glassDivider:       "#26FFFFFF"   // hairlines inside the HUD dock
         readonly property color textPrimary:        "#FFFFFF"
         readonly property color textSecondary:      "#D0D8E4"
         readonly property color textDisabled:       "#9AA6B8"
@@ -786,6 +788,8 @@ Item {
         property real   valueSize: _root._hudExpanded ? _t.fontBody + 6 : _t.fontBody + 4
         property real   cellWidth: _root._metricCellWidth
         property bool   togglesExpand: false
+        /// false when the metric sits inside the shared HUD dock (no separate plate).
+        property bool   plate: true
 
         // Fixed cell width — every metric plate is identical regardless of content
         // length, so the compact row reads as one uniform unit in both HUD states.
@@ -793,6 +797,7 @@ Item {
         implicitHeight: metricCol.implicitHeight + _t.spacingUnit * 1.25
 
         GlassBackdrop {
+            visible:            plate
             anchors.fill:       metricCol
             anchors.margins:    -_t.spacingUnit * 0.6
             cornerRadius:       _t.radiusMd
@@ -977,14 +982,6 @@ Item {
         border.width:   1.5
         border.color:   _t.instrumentBorder
 
-        GlassBackdrop {
-            anchors.fill:   parent
-            cornerRadius:   width / 2
-            tint:           _t.glassTint
-            fallbackTint:   _t.instrumentGlass
-            z:              -1
-        }
-
         Repeater {
             model: 12
             Rectangle {
@@ -1134,12 +1131,40 @@ Item {
         visible:                true
         z:                      QGroundControl.zOrderWidgets + 2
 
+        // One glass dock behind the instruments and the compact metric row, so the
+        // HUD reads as a single unit instead of separate plates. osColumn sits at
+        // (0,0) in osRoot, so its children's coordinates are usable directly.
+        GlassBackdrop {
+            id:             hudDock
+            readonly property real _pad:     _t.spacingUnit * 1.5
+            readonly property real _sideW:   (hudEditButton.width + _t.spacingUnit) * 2
+            readonly property real _content: Math.max(instrumentRow.width, compactRow.width + _sideW)
+            x:              (osRoot.width - width) / 2
+            y:              instrumentRow.y - _pad
+            width:          _content + _pad * 2
+            height:         (compactContainer.y + compactContainer.height) - instrumentRow.y + _pad * 2
+            z:              -1
+            cornerRadius:   _t.radiusLg
+            tint:           _t.glassTint
+            fallbackTint:   _t.glassDockFallback
+
+            // Hairline between the instrument row and the metric strip
+            Rectangle {
+                x:          _t.radiusLg
+                width:      parent.width - _t.radiusLg * 2
+                height:     1
+                y:          (instrumentRow.y + instrumentRow.height + compactContainer.y) / 2 - hudDock.y
+                color:      _t.glassDivider
+            }
+        }
+
         ColumnLayout {
             id:                 osColumn
             width:              parent.width
             spacing:            _t.spacingUnit
 
             RowLayout {
+                id:                     instrumentRow
                 Layout.alignment:       Qt.AlignHCenter
                 spacing:                _t.spacingUnit * 2
 
@@ -1150,12 +1175,6 @@ Item {
                     Layout.preferredHeight: _instrumentSize
                     Layout.alignment:       Qt.AlignVCenter
 
-                    GlassBackdrop {
-                        anchors.fill:       parent
-                        cornerRadius:       width / 2
-                        tint:               _t.glassTint
-                        fallbackTint:       _t.instrumentGlass
-                    }
                     Rectangle {
                         anchors.fill:       parent
                         radius:             width / 2
@@ -1201,11 +1220,22 @@ Item {
                             implicitWidth:          _metricCellWidth
                             implicitHeight:         _hudEditMode ? editCol.implicitHeight : viewMetric.implicitHeight
 
+                            // Hairline between cells — the row reads as one strip of the dock.
+                            Rectangle {
+                                visible:                cell._idx > 0 && !_hudEditMode
+                                x:                      -_metricColumnGap / 2
+                                anchors.verticalCenter: parent.verticalCenter
+                                width:                  1
+                                height:                 parent.height * 0.6
+                                color:                  _t.glassDivider
+                            }
+
                             FloatingMetric {
                                 id:             viewMetric
                                 width:          parent.width
                                 visible:        !_hudEditMode
                                 togglesExpand:  true
+                                plate:          false
                                 label:          _root._metricLabel(cell._key)
                                 valueText:      _root._metricValue(cell._key)
                                 valueColor:     _root._metricColor(cell._key)
@@ -1266,9 +1296,9 @@ Item {
                     width:                  _hudEditMode ? _t.spacingUnit * 6 : _t.spacingUnit * 3.5
                     height:                 _t.spacingUnit * 3.5
                     radius:                 _t.radiusSm
-                    color:                  _hudEditMode ? "#660A84FF" : _t.hudMetricPlate
-                    border.width:           1
-                    border.color:           _hudEditMode ? _t.brandPrimary : _t.hudBorder
+                    color:                  _hudEditMode ? "#660A84FF" : "transparent"
+                    border.width:           _hudEditMode ? 1 : 0
+                    border.color:           _t.brandPrimary
                     Text {
                         anchors.centerIn:   parent
                         text:               _hudEditMode ? qsTr("Done") : "✎"
