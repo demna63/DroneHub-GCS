@@ -88,7 +88,7 @@ Item {
         case _levelOk:   return qgcPal.colorGreen
         case _levelWarn: return qgcPal.colorOrange
         case _levelCrit: return qgcPal.colorRed
-        default:         return qgcPal.textDisabled
+        default:         return Qt.darker(qgcPal.text, 1.8)
         }
     }
 

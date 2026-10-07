@@ -35,12 +35,11 @@ public:
     void                    init()                                                          final;
     void                    cleanup()                                                       final;
     QGCOptions*             options()                                                       final;
-    QString                 brandImageIndoor()  const                                       final;
-    QString                 brandImageOutdoor() const                                       final;
     QString                 showAdvancedUIMessage() const                                   final;
     bool                    overrideSettingsGroupVisibility(const QString& name)            final;
-    bool                    adjustSettingMetaData(const QString& settingsGroup,
-                                                  FactMetaData& metaData)                    final;
+    void                    adjustSettingMetaData(const QString& settingsGroup,
+                                                  FactMetaData& metaData,
+                                                  bool& userVisible)                         final;
     void                    paletteOverride(const QString& colorName,
                                             QGCPalette::PaletteColorInfo_t& colorInfo)       final;
     QQmlApplicationEngine*  createQmlApplicationEngine(QObject* parent)                      final;

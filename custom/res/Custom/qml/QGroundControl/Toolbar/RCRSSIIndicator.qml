@@ -25,7 +25,7 @@ Item {
 
     function _rcColor() {
         if (!_rcDataValid) {
-            return qgcPal.textDisabled
+            return Qt.darker(qgcPal.text, 1.8)
         }
         if (_rcPercent < 30) {
             return qgcPal.colorRed

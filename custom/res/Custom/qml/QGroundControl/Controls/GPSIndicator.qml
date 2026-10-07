@@ -34,7 +34,7 @@ Item {
 
     function _gpsColor() {
         if (!_activeVehicle) {
-            return qgcPal.textDisabled
+            return Qt.darker(qgcPal.text, 1.8)
         }
         var lock = _gpsLock()
         var count = _satCount()

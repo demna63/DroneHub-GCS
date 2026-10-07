@@ -34,16 +34,9 @@ CustomOptions::CustomOptions(CustomPlugin* plugin, QObject* parent)
     Q_CHECK_PTR(_plugin);
 }
 
-QGCFlyViewOptions* CustomOptions::flyViewOptions() const
+const QGCFlyViewOptions* CustomOptions::flyViewOptions() const
 {
     return _flyViewOptions;
-}
-
-// Real-world WiFi telemetry links are not reliable enough to suppress the
-// PX4 calibration WiFi warning — keep QGC's default safety warning.
-bool CustomOptions::wifiReliableForCalibration() const
-{
-    return false;
 }
 
 bool CustomOptions::showFirmwareUpgrade() const

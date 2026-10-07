@@ -1,5 +1,5 @@
 /****************************************************************************
- * DroneHub GCS — mission item editor (Plan View waypoint card).
+ * DroneHub GCS — mission item editor (Plan View waypoint card; Theme palette, roomier spacing).
  ****************************************************************************/
 
 import QtQuick
@@ -16,6 +16,14 @@ import Custom
 
 /// Mission item edit control
 Rectangle {
+    required property var    missionItem         ///< MissionItem associated with this editor
+    required property var    map                 ///< Map control
+
+    signal clicked
+    signal remove
+    signal selectNextNotReadyItem
+    signal editorExpandedAndLoaded
+
     id:             _root
     height:         _currentItem ? (editorLoader.y + editorLoader.height + _innerMargin) : (topRowLayout.y + topRowLayout.height + _margin)
     color:          _currentItem ? Theme.bgElevated : Theme.bgSurface
@@ -24,31 +32,39 @@ Rectangle {
     border.width:   _readyForSave ? (_currentItem ? 1 : 0) : 2
     border.color:   _readyForSave ? (_currentItem ? Theme.brandPrimary : Theme.divider) : Theme.warning
 
-    property var    map
-    property var    masterController
-    property var    missionItem
-    property bool   readOnly
-
-    signal clicked
-    signal remove
-    signal selectNextNotReadyItem
-
-    property var    _masterController:          masterController
+    property var    _masterController:          missionItem.masterController
     property var    _missionController:         _masterController.missionController
     property bool   _currentItem:               missionItem.isCurrentItem
     property color  _outerTextColor:            _currentItem ? Theme.textPrimary : Theme.textSecondary
-    property bool   _noMissionItemsAdded:       ListView.view.model.count === 1
-    property real   _sectionSpacer:             ScreenTools.defaultFontPixelWidth / 2
-    property bool   _singleComplexItem:         _missionController.complexMissionItemNames.length === 1
+    property bool   _noMissionItemsAdded:       _missionController.visualItems ? _missionController.visualItems.count <= 1 : true
+    property real   _sectionSpacer:             ScreenTools.defaultFontPixelWidth / 2  // spacing between section headings
+    property bool   _singleComplexItem:         _missionController.complexMissionItems.length === 1
     property bool   _readyForSave:              missionItem.readyForSaveState === VisualMissionItem.ReadyForSave
 
     readonly property real  _editFieldWidth:    Math.min(width - _innerMargin * 2, ScreenTools.defaultFontPixelWidth * 12)
     readonly property real  _margin:            ScreenTools.defaultFontPixelWidth * 0.9
     readonly property real  _innerMargin:       ScreenTools.defaultFontPixelWidth * 0.6
-    readonly property real  _radius:             ScreenTools.defaultFontPixelWidth * 0.9
+    readonly property real  _radius:            ScreenTools.defaultFontPixelWidth * 0.9
     readonly property real  _hamburgerSize:     commandPicker.height * 0.75
     readonly property real  _trashSize:         commandPicker.height * 0.75
     readonly property bool  _waypointsOnlyMode: QGroundControl.corePlugin.options.missionWaypointsOnly
+
+    // setSource() injects missionItem before internal bindings activate
+    function _loadEditor() {
+        if (missionItem.isCurrentItem) {
+            editorLoader.setSource(missionItem.editorQml, {
+                missionItem:    _root.missionItem,
+                availableWidth: _root.width - (editorLoader.anchors.margins * 2)
+            })
+        } else {
+            editorLoader.setSource("")
+        }
+    }
+
+    Connections {
+        target: missionItem
+        function onIsCurrentItemChanged() { _root._loadEditor() }
+    }
 
     QGCPalette {
         id: qgcPal
@@ -70,12 +86,24 @@ Rectangle {
         }
     }
 
+    QGCPopupDialogFactory {
+        id: editPositionDialogFactory
+
+        dialogComponent: editPositionDialog
+    }
+
     Component {
         id: editPositionDialog
 
         EditPositionDialog {
-            coordinate:             missionItem.isSurveyItem ?  missionItem.centerCoordinate : missionItem.coordinate
-            onCoordinateChanged:    missionItem.isSurveyItem ?  missionItem.centerCoordinate = coordinate : missionItem.coordinate = coordinate
+            property bool _editCenterCoordinate: false
+
+            onCoordinateChanged: {
+                if (_editCenterCoordinate)
+                    missionItem.centerCoordinate = coordinate
+                else
+                    missionItem.coordinate = coordinate
+            }
         }
     }
 
@@ -93,17 +121,17 @@ Rectangle {
             height:                 width
             border.width:           1.5
             border.color:           Theme.warning
-            color:                  Theme.bgSurface
+            color:                  "white"
             radius:                 width / 2
             visible:                !_readyForSave
 
             QGCLabel {
                 id:                 readyForSaveLabel
                 anchors.centerIn:   parent
+                //: Indicator in Plan view to show mission item is not ready for save/send
                 text:               qsTr("?")
                 color:              Theme.warning
                 font.pointSize:     ScreenTools.defaultFontPointSize
-                font.family:        Theme.fontFamily
             }
         }
 
@@ -140,12 +168,7 @@ Rectangle {
 
                 property real _padding: ScreenTools.comboBoxPadding
 
-                QGCLabel {
-                    text:           missionItem.commandName
-                    color:          _outerTextColor
-                    font.family:    Theme.fontFamily
-                    font.pointSize: ScreenTools.defaultFontPointSize
-                }
+                QGCLabel { text: missionItem.commandName }
 
                 QGCColoredImage {
                     height:             ScreenTools.defaultFontPixelWidth
@@ -160,17 +183,24 @@ Rectangle {
 
             QGCMouseArea {
                 fillItem:   parent
-                onClicked:  commandDialog.createObject(mainWindow).open()
+                onClicked:  commandDialogFactory.open()
+            }
+
+            QGCPopupDialogFactory {
+                id: commandDialogFactory
+
+                dialogComponent: commandDialog
             }
 
             Component {
                 id: commandDialog
 
                 MissionCommandDialog {
-                    vehicle:                    masterController.controllerVehicle
+                    vehicle:                    _masterController.controllerVehicle
                     missionItem:                _root.missionItem
                     map:                        _root.map
-                    flyThroughCommandsAllowed:  true
+                    // FIXME: Disabling fly through commands doesn't work since you may need to change from an RTL to something else
+                    flyThroughCommandsAllowed:  true //_missionController.flyThroughCommandsAllowed
                 }
             }
         }
@@ -184,8 +214,6 @@ Rectangle {
             verticalAlignment:      Text.AlignVCenter
             text:                   missionItem.commandName
             color:                  _outerTextColor
-            font.family:            Theme.fontFamily
-            font.pointSize:         ScreenTools.defaultFontPointSize
         }
     }
 
@@ -194,6 +222,7 @@ Rectangle {
 
         DropPanel {
             id: hamburgerMenuDropPanel
+            onClosed: destroy()
 
             sourceComponent: Component {
                 ColumnLayout {
@@ -202,7 +231,7 @@ Rectangle {
                     QGCButton {
                         Layout.fillWidth:   true
                         text:               qsTr("Move to vehicle position")
-                        enabled:            _activeVehicle && missionItem.specifiesCoordinate
+                        enabled:            _activeVehicle && missionItem.specifiesCoordinate && _activeVehicle.coordinate.isValid
 
                         onClicked: {
                             missionItem.coordinate = _activeVehicle.coordinate
@@ -227,7 +256,13 @@ Rectangle {
                         text:               qsTr("Edit position...")
                         enabled:            missionItem.specifiesCoordinate
                         onClicked: {
-                            editPositionDialog.createObject(mainWindow).open()
+                            const editCenterCoordinate = missionItem.isSurveyItem
+                            editPositionDialogFactory.open({
+                                _editCenterCoordinate:   editCenterCoordinate,
+                                coordinate:              editCenterCoordinate ? missionItem.centerCoordinate : missionItem.coordinate,
+                                altitudeFact:            !editCenterCoordinate && missionItem.specifiesAltitude ? missionItem.altitude : null,
+                                altitudeFrame:           !editCenterCoordinate && missionItem.specifiesAltitude ? missionItem.altitudeFrame : QGroundControl.AltitudeFrameNone,
+                            })
                             hamburgerMenuDropPanel.close()
                         }
                     }
@@ -250,7 +285,7 @@ Rectangle {
                             if (missionItem.rawEdit && !missionItem.friendlyEditAllowed) {
                                 missionItem.rawEdit = false
                                 checked = false
-                                mainWindow.showMessageDialog(qsTr("Mission Edit"), qsTr("You have made changes to the mission item which cannot be shown in Simple Mode"))
+                                QGroundControl.showMessageDialog(_root, qsTr("Mission Edit"), qsTr("You have made changes to the mission item which cannot be shown in Simple Mode"))
                             }
                             hamburgerMenuDropPanel.close()
                         }
@@ -263,9 +298,8 @@ Rectangle {
                     }
 
                     QGCLabel {
-                        text:           qsTr("Item #%1").arg(missionItem.sequenceNumber)
-                        enabled:        false
-                        font.family:    Theme.fontFamily
+                        text:       qsTr("Item #%1").arg(missionItem.sequenceNumber)
+                        enabled:    false
                     }
                 }
             }
@@ -289,23 +323,57 @@ Rectangle {
             onClicked: (position) => {
                 currentItemScope.focus = true
                 position = Qt.point(position.x, position.y)
+                // For some strange reason using mainWindow in mapToItem doesn't work, so we use globals.parent instead which also gets us mainWindow
                 position = mapToItem(globals.parent, position)
+
                 var dropPanel = hamburgerMenuDropPanelComponent.createObject(mainWindow, { clickRect: Qt.rect(position.x, position.y, 0, 0) })
                 dropPanel.open()
             }
         }
     }
 
+    /*
+    QGCLabel {
+        id:                     notReadyForSaveLabel
+        anchors.margins:        _margin
+        anchors.left:           notReadyForSaveIndicator.right
+        anchors.right:          parent.right
+        anchors.top:            commandPicker.bottom
+        visible:                _currentItem && !_readyForSave
+        text:                   missionItem.readyForSaveState === VisualMissionItem.NotReadyForSaveTerrain ?
+                                    qsTr("Incomplete: Waiting on terrain data.") :
+                                    qsTr("Incomplete: Item not fully specified.")
+        wrapMode:               Text.WordWrap
+        horizontalAlignment:    Text.AlignHCenter
+        color:                  Theme.warning
+    }
+
+*/
+
     Loader {
         id:                 editorLoader
         anchors.margins:    _innerMargin
         anchors.left:       parent.left
         anchors.top:        topRowLayout.bottom
-        source:             _currentItem ? missionItem.editorQml : ""
-        asynchronous:       true
 
-        property var    masterController:   _masterController
-        property real   availableWidth:     _root.width - (anchors.margins * 2)
-        property var    editorRoot:         _root
+        // Deliberately not asynchronous. With asynchronous: true the editor is built
+        // incrementally over later event-loop ticks. If the user switches layers before
+        // that finishes, the TreeView collapses the mission group and destroys this
+        // delegate, and the still-running load then warns "Cannot create a component in
+        // an invalid context". Synchronous loading closes that window: the editor is
+        // fully built before control returns to the event loop.
+        Component.onCompleted: _root._loadEditor()
+    }
+
+    onHeightChanged: {
+        if (_currentItem && editorLoader.status === Loader.Ready) {
+            _editorHeightSettleTimer.restart()
+        }
+    }
+
+    Timer {
+        id: _editorHeightSettleTimer
+        interval: 100
+        onTriggered: _root.editorExpandedAndLoaded()
     }
 }

@@ -5,7 +5,6 @@
 #include "geo/geo_mag_declination.h"
 
 #include "QGCLoggingCategory.h"
-#include "BrandImageSettings.h"
 #include "AppSettings.h"
 #include "QGCMAVLink.h"
 #include "FactMetaData.h"
@@ -125,16 +124,6 @@ QGCOptions* CustomPlugin::options()
     return _options;
 }
 
-QString CustomPlugin::brandImageIndoor() const
-{
-    return QStringLiteral("/custom/img/dggcs-logo-original.png");
-}
-
-QString CustomPlugin::brandImageOutdoor() const
-{
-    return QStringLiteral("/custom/img/dggcs-logo-original.png");
-}
-
 QString CustomPlugin::showAdvancedUIMessage() const
 {
     return tr("გაფართოებული რეჟიმი მხოლოდ გამოცდილი ოპერატორებისთვისაა და შეიცავს "
@@ -143,11 +132,8 @@ QString CustomPlugin::showAdvancedUIMessage() const
 
 bool CustomPlugin::overrideSettingsGroupVisibility(const QString& name)
 {
-    // ჩვენი ბრენდის ლოგო fix-ირებულია — დავმალოთ Brand Image პარამეტრები,
-    // რომ მომხმარებელმა ვერ შეცვალოს.
-    if (name == BrandImageSettings::name) {
-        return false;
-    }
+    // NOTE: QGC 5.1 removed BrandImageSettings (and brandImageIndoor/Outdoor), so there is
+    // nothing left to hide for the branding logo.
 
 #if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
     // Fly View Settings → "3D View" group (enabled toggle + OSM). GStreamer forces
@@ -162,9 +148,11 @@ bool CustomPlugin::overrideSettingsGroupVisibility(const QString& name)
 
 // F3: offline Plan-ის default firmware/vehicle — DroneHub PX4 multirotor.
 // ეს განსაზღვრავს, რა აპარატისთვის იქმნება mission, როცა vehicle არ არის მიერთებული.
-bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaData& metaData)
+// QGC 5.1 signature: void + `bool& userVisible` (false = hidden and pinned to the default value,
+// the same semantics the old `return false` had).
+void CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaData& metaData, bool& userVisible)
 {
-    const bool parentResult = QGCCorePlugin::adjustSettingMetaData(settingsGroup, metaData);
+    QGCCorePlugin::adjustSettingMetaData(settingsGroup, metaData, userVisible);
 
     // Localize enum display strings. QGC pulls JSON-metadata enum strings (and a
     // few un-tr()'d C++ ones such as the speed units) around the .ts system, so
@@ -314,10 +302,12 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
     if (settingsGroup == AppSettings::settingsGroup) {
         if (metaData.name() == AppSettings::offlineEditingFirmwareClassName) {
             metaData.setRawDefaultValue(QGCMAVLink::FirmwareClassPX4);
-            return false;
+            userVisible = false;
+            return;
         } else if (metaData.name() == AppSettings::offlineEditingVehicleClassName) {
             metaData.setRawDefaultValue(QGCMAVLink::VehicleClassMultiRotor);
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
@@ -327,12 +317,14 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
     if (settingsGroup == VideoSettings::settingsGroup) {
         if (metaData.name() == VideoSettings::videoSourceName) {
             metaData.setRawDefaultValue(QString::fromUtf8(VideoSettings::videoSourceUDPH264));
-            return false;
+            userVisible = false;
+            return;
         }
         // Don't kill the video stream on disarm — keeps the Fly View PiP visible.
         if (metaData.name() == VideoSettings::disableWhenDisarmedName) {
             metaData.setRawDefaultValue(false);
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
@@ -348,22 +340,24 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
 #else
             metaData.setRawDefaultValue(true);
 #endif
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
     if (settingsGroup == MavlinkActionsSettings::settingsGroup) {
         if (metaData.name() == MavlinkActionsSettings::flyViewActionsFileName) {
             metaData.setRawDefaultValue(QStringLiteral("DroneHub-flyview-actions.json"));
-            return false;
+            userVisible = false;
+            return;
         }
         if (metaData.name() == MavlinkActionsSettings::joystickActionsFileName) {
             metaData.setRawDefaultValue(QStringLiteral("DroneHub-joystick-actions.json"));
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
-    return parentResult;
 }
 
 // DroneHub პალიტრა → QGC palette tokens. ფერები ემთხვევა Custom/Theme.qml-ს

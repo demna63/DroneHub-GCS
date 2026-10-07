@@ -19,16 +19,15 @@ public:
 };
 
 /// DroneHub UI option overrides (toolbar colors, calibration, fly-view).
-/// API ემთხვევა QGC Stable_V5.0-ს: ctor(CustomPlugin*, QObject*) + flyViewOptions().
+/// API ემთხვევა QGC v5.1.x-ს: ctor(CustomPlugin*, QObject*) + flyViewOptions().
 class CustomOptions : public QGCOptions
 {
 public:
     explicit CustomOptions(CustomPlugin* plugin, QObject* parent = nullptr);
 
     // QGCOptions overrides
-    bool                wifiReliableForCalibration() const final;
     bool                showFirmwareUpgrade()        const final;
-    QGCFlyViewOptions*  flyViewOptions()             const final;
+    const QGCFlyViewOptions* flyViewOptions()        const final;
     QColor              toolbarBackgroundLight()      const final;
     QColor              toolbarBackgroundDark()       const final;
 
