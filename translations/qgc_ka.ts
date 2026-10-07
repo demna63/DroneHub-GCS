@@ -6404,7 +6404,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/FlightDisplay/FlyViewAdditionalActionsPanel.qml" line="33"/>
       <source>Other</source>
-      <translation type="unfinished">Other</translation>
+      <translation>სხვა</translation>
     </message>
   </context>
   <context>
@@ -6417,7 +6417,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="830"/>
       <source>Speed</source>
-      <translation type="unfinished">Speed</translation>
+      <translation>სიჩქარე</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="810"/>
@@ -6472,62 +6472,62 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="872"/>
       <source>MGRS</source>
-      <translation type="unfinished">MGRS</translation>
+      <translation>MGRS</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="879"/>
       <source>Lat</source>
-      <translation type="unfinished">Lat</translation>
+      <translation>განედი</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="896"/>
       <source>Lon</source>
-      <translation type="unfinished">Lon</translation>
+      <translation>გრძედი</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="915"/>
       <source>HDOP</source>
-      <translation type="unfinished">HDOP</translation>
+      <translation>HDOP</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="993"/>
       <source>Voltage</source>
-      <translation type="unfinished">Voltage</translation>
+      <translation>ძაბვა</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="1009"/>
       <source>Time Remaining</source>
-      <translation type="unfinished">Time Remaining</translation>
+      <translation>დარჩენილი დრო</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="700"/>
       <source>Mag</source>
-      <translation type="unfinished">Mag</translation>
+      <translation>მაგნ.</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="711"/>
       <source>True</source>
-      <translation type="unfinished">True</translation>
+      <translation>ჭეშმარიტი</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="853"/>
       <source>WP Distance</source>
-      <translation type="unfinished">WP Distance</translation>
+      <translation>WP მანძილი</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="859"/>
       <source>WP Heading</source>
-      <translation type="unfinished">WP Heading</translation>
+      <translation>WP მიმართულება</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="931"/>
       <source>Flight &amp; Navigation</source>
-      <translation type="unfinished">Flight &amp; Navigation</translation>
+      <translation>ფრენა და ნავიგაცია</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/FlyViewCustomLayer.qml" line="988"/>
       <source>Power &amp; Environment</source>
-      <translation type="unfinished">Power &amp; Environment</translation>
+      <translation>კვება და გარემო</translation>
     </message>
   </context>
   <context>
@@ -8438,7 +8438,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/Joystick/Joystick.cc" line="1128"/>
       <source>Action &quot;%1&quot; requires slide confirmation. Use Fly View → Actions.</source>
-      <translation type="unfinished">Action &quot;%1&quot; requires slide confirmation. Use Fly View → Actions.</translation>
+      <translation>მოქმედება „%1“ საჭიროებს სლაიდით დადასტურებას. გამოიყენე Fly View → Actions.</translation>
     </message>
   </context>
   <context>
@@ -10133,12 +10133,12 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/FlightDisplay/MavlinkActionConfirm.qml" line="38"/>
       <source>Slide to confirm</source>
-      <translation type="unfinished">Slide to confirm</translation>
+      <translation>გადაასრიალე დასადასტურებლად</translation>
     </message>
     <message>
       <location filename="../src/FlightDisplay/MavlinkActionConfirm.qml" line="39"/>
       <source>Slide or hold spacebar</source>
-      <translation type="unfinished">Slide or hold spacebar</translation>
+      <translation>გადაასრიალე ან დააჭირე Space-ს</translation>
     </message>
   </context>
   <context>
@@ -10455,7 +10455,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location filename="../src/Comms/MockLink/MockConfiguration.h" line="37"/>
       <source>Mock Link Settings</source>
-      <translation type="unfinished">Mock Link Settings</translation>
+      <translation>Mock Link-ის პარამეტრები</translation>
     </message>
   </context>
   <context>
@@ -14412,7 +14412,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
       <location filename="../src/UI/toolbar/RCRSSIIndicator.qml" line="53"/>
       <source>No data</source>
-      <translation type="unfinished">No data</translation>
+      <translation>მონაცემები არ არის</translation>
     </message>
   </context>
   <context>
@@ -17633,17 +17633,17 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="81"/>
       <source>OK</source>
-      <translation type="unfinished">OK</translation>
+      <translation>OK</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="82"/>
       <source>Warn</source>
-      <translation type="unfinished">Warn</translation>
+      <translation>გაფრთხ.</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="83"/>
       <source>Crit</source>
-      <translation type="unfinished">Crit</translation>
+      <translation>კრიტ.</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="99"/>
@@ -17652,113 +17652,113 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="165"/>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="169"/>
       <source>No vehicle</source>
-      <translation type="unfinished">No vehicle</translation>
+      <translation>აპარატი არ არის</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="102"/>
       <source>No GPS lock</source>
-      <translation type="unfinished">No GPS lock</translation>
+      <translation>GPS ფიქსაცია არ არის</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="104"/>
       <source>sats</source>
-      <translation type="unfinished">sats</translation>
+      <translation>თანამგზ.</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="104"/>
       <source>Locked</source>
-      <translation type="unfinished">Locked</translation>
+      <translation>ფიქსირებულია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="115"/>
       <source>Link lost</source>
-      <translation type="unfinished">Link lost</translation>
+      <translation>კავშირი დაკარგულია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="115"/>
       <source>Link OK</source>
-      <translation type="unfinished">Link OK</translation>
+      <translation>კავშირი OK</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="123"/>
       <source>Not supported</source>
-      <translation type="unfinished">Not supported</translation>
+      <translation>არ არის მხარდაჭერილი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="125"/>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="130"/>
       <source>No data</source>
-      <translation type="unfinished">No data</translation>
+      <translation>მონაცემები არ არის</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="137"/>
       <source>Disabled</source>
-      <translation type="unfinished">Disabled</translation>
+      <translation>გამორთულია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="140"/>
       <source>Not compiled</source>
-      <translation type="unfinished">Not compiled</translation>
+      <translation>build-ში ჩართული არ არის</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="143"/>
       <source>Live</source>
-      <translation type="unfinished">Live</translation>
+      <translation>პირდაპირი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="145"/>
       <source>Waiting</source>
-      <translation type="unfinished">Waiting</translation>
+      <translation>ლოდინი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="157"/>
       <source>Vehicle health</source>
-      <translation type="unfinished">Vehicle health</translation>
+      <translation>აპარატის მდგომარეობა</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="160"/>
       <source>Link</source>
-      <translation type="unfinished">Link</translation>
+      <translation>კავშირი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="164"/>
       <source>Flight mode</source>
-      <translation type="unfinished">Flight mode</translation>
+      <translation>ფრენის რეჟიმი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="168"/>
       <source>Armed</source>
-      <translation type="unfinished">Armed</translation>
+      <translation>Armed</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="170"/>
       <source>Yes</source>
-      <translation type="unfinished">Yes</translation>
+      <translation>დიახ</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="170"/>
       <source>No</source>
-      <translation type="unfinished">No</translation>
+      <translation>არა</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="173"/>
       <source>GPS</source>
-      <translation type="unfinished">GPS</translation>
+      <translation>GPS</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="177"/>
       <source>RC link</source>
-      <translation type="unfinished">RC link</translation>
+      <translation>RC კავშირი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="181"/>
       <source>Battery</source>
-      <translation type="unfinished">Battery</translation>
+      <translation>ბატარეა</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VehicleHealthIndicator.qml" line="185"/>
       <source>Video</source>
-      <translation type="unfinished">Video</translation>
+      <translation>ვიდეო</translation>
     </message>
   </context>
   <context>
@@ -18085,3821 +18085,3821 @@ ROTATION_NONE მიუთითებს კომპონენტის წ�
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="47"/>
       <source>Off</source>
-      <translation type="unfinished">Off</translation>
+      <translation>გამორთულია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="48"/>
       <source>N/A</source>
-      <translation type="unfinished">N/A</translation>
+      <translation>N/A</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="49"/>
       <source>Wait</source>
-      <translation type="unfinished">Wait</translation>
+      <translation>ლოდინი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="50"/>
       <source>Live</source>
-      <translation type="unfinished">Live</translation>
+      <translation>პირდაპირი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="57"/>
       <source>Video off</source>
-      <translation type="unfinished">Video off</translation>
+      <translation>ვიდეო გამორთულია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="58"/>
       <source>No video backend</source>
-      <translation type="unfinished">No video backend</translation>
+      <translation>ვიდეო backend არ არის</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="59"/>
       <source>Video waiting</source>
-      <translation type="unfinished">Video waiting</translation>
+      <translation>ვიდეოს ლოდინი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="60"/>
       <source>Video live</source>
-      <translation type="unfinished">Video live</translation>
+      <translation>ვიდეო პირდაპირია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="61"/>
       <source>Video</source>
-      <translation type="unfinished">Video</translation>
+      <translation>ვიდეო</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="83"/>
       <source>Video status</source>
-      <translation type="unfinished">Video status</translation>
+      <translation>ვიდეოს სტატუსი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="86"/>
       <source>Stream</source>
-      <translation type="unfinished">Stream</translation>
+      <translation>ნაკადი</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="87"/>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>ჩართულია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="87"/>
       <source>Disabled</source>
-      <translation type="unfinished">Disabled</translation>
+      <translation>გამორთულია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="90"/>
       <source>Backend</source>
-      <translation type="unfinished">Backend</translation>
+      <translation>Backend</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="91"/>
       <source>Available</source>
-      <translation type="unfinished">Available</translation>
+      <translation>ხელმისაწვდომია</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="91"/>
       <source>Not compiled</source>
-      <translation type="unfinished">Not compiled</translation>
+      <translation>build-ში ჩართული არ არის</translation>
     </message>
     <message>
       <location filename="../src/UI/toolbar/VideoStatusIndicator.qml" line="94"/>
       <source>State</source>
-      <translation type="unfinished">State</translation>
+      <translation>მდგომარეობა</translation>
     </message>
   </context>
   <context>
     <name>MissionCommands</name>
     <message>
       <source>Altitude wait</source>
-      <translation type="unfinished">Altitude wait</translation>
+      <translation>სიმაღლის ლოდინი</translation>
     </message>
     <message>
       <source>Arm/Disarm</source>
-      <translation type="unfinished">Arm/Disarm</translation>
+      <translation>Arm/Disarm</translation>
     </message>
     <message>
       <source>AutoTune Enable</source>
-      <translation type="unfinished">AutoTune Enable</translation>
+      <translation>AutoTune-ის ჩართვა</translation>
     </message>
     <message>
       <source>Bind Spektrum receiver</source>
-      <translation type="unfinished">Bind Spektrum receiver</translation>
+      <translation>Spektrum მიმღების დაკავშირება</translation>
     </message>
     <message>
       <source>Calibration</source>
-      <translation type="unfinished">Calibration</translation>
+      <translation>კალიბრაცია</translation>
     </message>
     <message>
       <source>Camera config</source>
-      <translation type="unfinished">Camera config</translation>
+      <translation>კამერის კონფიგურაცია</translation>
     </message>
     <message>
       <source>Camera control</source>
-      <translation type="unfinished">Camera control</translation>
+      <translation>კამერის მართვა</translation>
     </message>
     <message>
       <source>Camera trigger distance</source>
-      <translation type="unfinished">Camera trigger distance</translation>
+      <translation>კამერის გამოწვევის მანძილი</translation>
     </message>
     <message>
       <source>Cancel ROI</source>
-      <translation type="unfinished">Cancel ROI</translation>
+      <translation>ROI-ის გაუქმება</translation>
     </message>
     <message>
       <source>Change Altitude</source>
-      <translation type="unfinished">Change Altitude</translation>
+      <translation>სიმაღლის შეცვლა</translation>
     </message>
     <message>
       <source>Change speed</source>
-      <translation type="unfinished">Change speed</translation>
+      <translation>სიჩქარის შეცვლა</translation>
     </message>
     <message>
       <source>Condition Gate</source>
-      <translation type="unfinished">Condition Gate</translation>
+      <translation>Gate-ის პირობა</translation>
     </message>
     <message>
       <source>Configure Mount</source>
-      <translation type="unfinished">Configure Mount</translation>
+      <translation>Mount-ის კონფიგურაცია</translation>
     </message>
     <message>
       <source>Control Mount</source>
-      <translation type="unfinished">Control Mount</translation>
+      <translation>Mount-ის მართვა</translation>
     </message>
     <message>
       <source>Control high latency link</source>
-      <translation type="unfinished">Control high latency link</translation>
+      <translation>მაღალი დაყოვნების არხის მართვა</translation>
     </message>
     <message>
       <source>Control video</source>
-      <translation type="unfinished">Control video</translation>
+      <translation>ვიდეოს მართვა</translation>
     </message>
     <message>
       <source>Create panorama</source>
-      <translation type="unfinished">Create panorama</translation>
+      <translation>პანორამის შექმნა</translation>
     </message>
     <message>
       <source>Cycle relay</source>
-      <translation type="unfinished">Cycle relay</translation>
+      <translation>რელეს ციკლი</translation>
     </message>
     <message>
       <source>Cycle servo</source>
-      <translation type="unfinished">Cycle servo</translation>
+      <translation>სერვოს ციკლი</translation>
     </message>
     <message>
       <source>Delay</source>
-      <translation type="unfinished">Delay</translation>
+      <translation>დაყოვნება</translation>
     </message>
     <message>
       <source>Delay until</source>
-      <translation type="unfinished">Delay until</translation>
+      <translation>დაყოვნება სანამ</translation>
     </message>
     <message>
       <source>Enable geofence</source>
-      <translation type="unfinished">Enable geofence</translation>
+      <translation>Geofence-ის ჩართვა</translation>
     </message>
     <message>
       <source>Flight termination</source>
-      <translation type="unfinished">Flight termination</translation>
+      <translation>ფრენის შეწყვეტა</translation>
     </message>
     <message>
       <source>Follow Me</source>
-      <translation type="unfinished">Follow Me</translation>
+      <translation>Follow Me</translation>
     </message>
     <message>
       <source>Get capabilities</source>
-      <translation type="unfinished">Get capabilities</translation>
+      <translation>შესაძლებლობების მიღება</translation>
     </message>
     <message>
       <source>Get launch position</source>
-      <translation type="unfinished">Get launch position</translation>
+      <translation>გაშვების პოზიციის მიღება</translation>
     </message>
     <message>
       <source>Get message interval</source>
-      <translation type="unfinished">Get message interval</translation>
+      <translation>შეტყობინების ინტერვალის მიღება</translation>
     </message>
     <message>
       <source>Gimbal Manager PitchYaw</source>
-      <translation type="unfinished">Gimbal Manager PitchYaw</translation>
+      <translation>Gimbal Manager PitchYaw</translation>
     </message>
     <message>
       <source>Go around</source>
-      <translation type="unfinished">Go around</translation>
+      <translation>ხელახალი მიდგომა (Go around)</translation>
     </message>
     <message>
       <source>Gripper Mechanism</source>
-      <translation type="unfinished">Gripper Mechanism</translation>
+      <translation>გრიპერის მექანიზმი</translation>
     </message>
     <message>
       <source>Guided enable</source>
-      <translation type="unfinished">Guided enable</translation>
+      <translation>Guided-ის ჩართვა</translation>
     </message>
     <message>
       <source>Guided limits</source>
-      <translation type="unfinished">Guided limits</translation>
+      <translation>Guided-ის ლიმიტები</translation>
     </message>
     <message>
       <source>Home Position</source>
-      <translation type="unfinished">Home Position</translation>
+      <translation>Home პოზიცია</translation>
     </message>
     <message>
       <source>Inverted flight</source>
-      <translation type="unfinished">Inverted flight</translation>
+      <translation>ინვერსიული ფრენა</translation>
     </message>
     <message>
       <source>Jump to item</source>
-      <translation type="unfinished">Jump to item</translation>
+      <translation>გადასვლა პუნქტზე</translation>
     </message>
     <message>
       <source>Land</source>
-      <translation type="unfinished">Land</translation>
+      <translation>Land</translation>
     </message>
     <message>
       <source>Land local</source>
-      <translation type="unfinished">Land local</translation>
+      <translation>ლოკალური Land</translation>
     </message>
     <message>
       <source>Land start</source>
-      <translation type="unfinished">Land start</translation>
+      <translation>Land-ის დაწყება</translation>
     </message>
     <message>
       <source>Loiter</source>
-      <translation type="unfinished">Loiter</translation>
+      <translation>Loiter</translation>
     </message>
     <message>
       <source>Loiter (altitude)</source>
-      <translation type="unfinished">Loiter (altitude)</translation>
+      <translation>Loiter (სიმაღლე)</translation>
     </message>
     <message>
       <source>Loiter (time)</source>
-      <translation type="unfinished">Loiter (time)</translation>
+      <translation>Loiter (დრო)</translation>
     </message>
     <message>
       <source>Loiter (turns)</source>
-      <translation type="unfinished">Loiter (turns)</translation>
+      <translation>Loiter (ბრუნები)</translation>
     </message>
     <message>
       <source>Mission start</source>
-      <translation type="unfinished">Mission start</translation>
+      <translation>მისიის დაწყება</translation>
     </message>
     <message>
       <source>Motor test</source>
-      <translation type="unfinished">Motor test</translation>
+      <translation>მოტორის ტესტი</translation>
     </message>
     <message>
       <source>Nav follow</source>
-      <translation type="unfinished">Nav follow</translation>
+      <translation>Nav follow</translation>
     </message>
     <message>
       <source>Override goto</source>
-      <translation type="unfinished">Override goto</translation>
+      <translation>Goto-ს გადაფარვა</translation>
     </message>
     <message>
       <source>Path planning</source>
-      <translation type="unfinished">Path planning</translation>
+      <translation>გზის დაგეგმვა</translation>
     </message>
     <message>
       <source>Pause/Continue</source>
-      <translation type="unfinished">Pause/Continue</translation>
+      <translation>პაუზა/გაგრძელება</translation>
     </message>
     <message>
       <source>Payload control deploy</source>
-      <translation type="unfinished">Payload control deploy</translation>
+      <translation>Payload-ის დაშვების მართვა</translation>
     </message>
     <message>
       <source>Payload prepare deploy</source>
-      <translation type="unfinished">Payload prepare deploy</translation>
+      <translation>Payload-ის დაშვების მომზადება</translation>
     </message>
     <message>
       <source>ROI to next waypoint</source>
-      <translation type="unfinished">ROI to next waypoint</translation>
+      <translation>ROI შემდეგ waypoint-ზე</translation>
     </message>
     <message>
       <source>Rally land</source>
-      <translation type="unfinished">Rally land</translation>
+      <translation>Rally Land</translation>
     </message>
     <message>
       <source>Reboot/Shutdown vehicle</source>
-      <translation type="unfinished">Reboot/Shutdown vehicle</translation>
+      <translation>აპარატის გადატვირთვა/გამორთვა</translation>
     </message>
     <message>
       <source>Region of interest</source>
-      <translation type="unfinished">Region of interest</translation>
+      <translation>ინტერესის რეგიონი</translation>
     </message>
     <message>
       <source>Region of interest (ROI)</source>
-      <translation type="unfinished">Region of interest (ROI)</translation>
+      <translation>ინტერესის რეგიონი (ROI)</translation>
     </message>
     <message>
       <source>Reposition</source>
-      <translation type="unfinished">Reposition</translation>
+      <translation>გადაადგილება</translation>
     </message>
     <message>
       <source>Return To Launch</source>
-      <translation type="unfinished">Return To Launch</translation>
+      <translation>Return To Launch</translation>
     </message>
     <message>
       <source>Set Parameter</source>
-      <translation type="unfinished">Set Parameter</translation>
+      <translation>პარამეტრის დაყენება</translation>
     </message>
     <message>
       <source>Set actuator</source>
-      <translation type="unfinished">Set actuator</translation>
+      <translation>აქტუატორის დაყენება</translation>
     </message>
     <message>
       <source>Set camera modes</source>
-      <translation type="unfinished">Set camera modes</translation>
+      <translation>კამერის რეჟიმების დაყენება</translation>
     </message>
     <message>
       <source>Set flight mode</source>
-      <translation type="unfinished">Set flight mode</translation>
+      <translation>ფრენის რეჟიმის დაყენება</translation>
     </message>
     <message>
       <source>Set launch location</source>
-      <translation type="unfinished">Set launch location</translation>
+      <translation>გაშვების ადგილის დაყენება</translation>
     </message>
     <message>
       <source>Set message interval</source>
-      <translation type="unfinished">Set message interval</translation>
+      <translation>შეტყობინების ინტერვალის დაყენება</translation>
     </message>
     <message>
       <source>Set mode</source>
-      <translation type="unfinished">Set mode</translation>
+      <translation>რეჟიმის დაყენება</translation>
     </message>
     <message>
       <source>Set moving direction</source>
-      <translation type="unfinished">Set moving direction</translation>
+      <translation>მოძრაობის მიმართულების დაყენება</translation>
     </message>
     <message>
       <source>Set relay</source>
-      <translation type="unfinished">Set relay</translation>
+      <translation>რელეს დაყენება</translation>
     </message>
     <message>
       <source>Set sensor offsets</source>
-      <translation type="unfinished">Set sensor offsets</translation>
+      <translation>სენსორის offset-ების დაყენება</translation>
     </message>
     <message>
       <source>Set servo</source>
-      <translation type="unfinished">Set servo</translation>
+      <translation>სერვოს დაყენება</translation>
     </message>
     <message>
       <source>Spline waypoint</source>
-      <translation type="unfinished">Spline waypoint</translation>
+      <translation>Spline waypoint</translation>
     </message>
     <message>
       <source>Start image capture</source>
-      <translation type="unfinished">Start image capture</translation>
+      <translation>ფოტოგადაღების დაწყება</translation>
     </message>
     <message>
       <source>Start video capture</source>
-      <translation type="unfinished">Start video capture</translation>
+      <translation>ვიდეოჩაწერის დაწყება</translation>
     </message>
     <message>
       <source>Stop image capture</source>
-      <translation type="unfinished">Stop image capture</translation>
+      <translation>ფოტოგადაღების შეჩერება</translation>
     </message>
     <message>
       <source>Stop video capture</source>
-      <translation type="unfinished">Stop video capture</translation>
+      <translation>ვიდეოჩაწერის შეჩერება</translation>
     </message>
     <message>
       <source>Store parameters</source>
-      <translation type="unfinished">Store parameters</translation>
+      <translation>პარამეტრების შენახვა</translation>
     </message>
     <message>
       <source>Takeoff</source>
-      <translation type="unfinished">Takeoff</translation>
+      <translation>Takeoff</translation>
     </message>
     <message>
       <source>Takeoff local</source>
-      <translation type="unfinished">Takeoff local</translation>
+      <translation>ლოკალური Takeoff</translation>
     </message>
     <message>
       <source>Trigger control</source>
-      <translation type="unfinished">Trigger control</translation>
+      <translation>Trigger-ის მართვა</translation>
     </message>
     <message>
       <source>Trigger parachute</source>
-      <translation type="unfinished">Trigger parachute</translation>
+      <translation>პარაშუტის გააქტიურება</translation>
     </message>
     <message>
       <source>UAVCAN configure</source>
-      <translation type="unfinished">UAVCAN configure</translation>
+      <translation>UAVCAN-ის კონფიგურაცია</translation>
     </message>
     <message>
       <source>VTOL Transition</source>
-      <translation type="unfinished">VTOL Transition</translation>
+      <translation>VTOL გადასვლა</translation>
     </message>
     <message>
       <source>VTOL land</source>
-      <translation type="unfinished">VTOL land</translation>
+      <translation>VTOL Land</translation>
     </message>
     <message>
       <source>VTOL takeoff</source>
-      <translation type="unfinished">VTOL takeoff</translation>
+      <translation>VTOL Takeoff</translation>
     </message>
     <message>
       <source>Vehicle reposition</source>
-      <translation type="unfinished">Vehicle reposition</translation>
+      <translation>აპარატის გადაადგილება</translation>
     </message>
     <message>
       <source>Wait for Yaw</source>
-      <translation type="unfinished">Wait for Yaw</translation>
+      <translation>Yaw-ს ლოდინი</translation>
     </message>
     <message>
       <source>Wait for altitude</source>
-      <translation type="unfinished">Wait for altitude</translation>
+      <translation>სიმაღლის ლოდინი</translation>
     </message>
     <message>
       <source>Wait for distance</source>
-      <translation type="unfinished">Wait for distance</translation>
+      <translation>მანძილის ლოდინი</translation>
     </message>
     <message>
       <source>Waypoint</source>
-      <translation type="unfinished">Waypoint</translation>
+      <translation>Waypoint</translation>
     </message>
   </context>
   <context>
     <name>FactEnum</name>
     <message>
       <source>No change</source>
-      <translation type="unfinished">No change</translation>
+      <translation>ცვლილების გარეშე</translation>
     </message>
     <message>
       <source>Take photo</source>
-      <translation type="unfinished">Take photo</translation>
+      <translation>ფოტოს გადაღება</translation>
     </message>
     <message>
       <source>Take photos (time)</source>
-      <translation type="unfinished">Take photos (time)</translation>
+      <translation>ფოტოები (დროით)</translation>
     </message>
     <message>
       <source>Take photos (distance)</source>
-      <translation type="unfinished">Take photos (distance)</translation>
+      <translation>ფოტოები (მანძილით)</translation>
     </message>
     <message>
       <source>Stop taking photos</source>
-      <translation type="unfinished">Stop taking photos</translation>
+      <translation>ფოტოგადაღების შეჩერება</translation>
     </message>
     <message>
       <source>Start recording video</source>
-      <translation type="unfinished">Start recording video</translation>
+      <translation>ვიდეოჩაწერის დაწყება</translation>
     </message>
     <message>
       <source>Stop recording video</source>
-      <translation type="unfinished">Stop recording video</translation>
+      <translation>ვიდეოჩაწერის შეჩერება</translation>
     </message>
     <message>
       <source>Photo</source>
-      <translation type="unfinished">Photo</translation>
+      <translation>ფოტო</translation>
     </message>
     <message>
       <source>Video</source>
-      <translation type="unfinished">Video</translation>
+      <translation>ვიდეო</translation>
     </message>
     <message>
       <source>Survey</source>
-      <translation type="unfinished">Survey</translation>
+      <translation>Survey</translation>
     </message>
     <message>
       <source>(Not set)</source>
-      <translation type="unfinished">(Not set)</translation>
+      <translation>(არ არის დაყენებული)</translation>
     </message>
     <message>
       <source>- Default</source>
-      <translation type="unfinished">- Default</translation>
+      <translation>- ნაგულისხმევი</translation>
     </message>
     <message>
       <source>- Disabled</source>
-      <translation type="unfinished">- Disabled</translation>
+      <translation>- გამორთული</translation>
     </message>
     <message>
       <source>- Enabled</source>
-      <translation type="unfinished">- Enabled</translation>
+      <translation>- ჩართული</translation>
     </message>
     <message>
       <source>- None</source>
-      <translation type="unfinished">- None</translation>
+      <translation>- არცერთი</translation>
     </message>
     <message>
       <source>- Reverse</source>
-      <translation type="unfinished">- Reverse</translation>
+      <translation>- უკუ</translation>
     </message>
     <message>
       <source>- Turtle Mode enabled via AUX1</source>
-      <translation type="unfinished">- Turtle Mode enabled via AUX1</translation>
+      <translation>- Turtle Mode ჩართულია AUX1-ით</translation>
     </message>
     <message>
       <source>- Turtle Mode enabled via AUX2</source>
-      <translation type="unfinished">- Turtle Mode enabled via AUX2</translation>
+      <translation>- Turtle Mode ჩართულია AUX2-ით</translation>
     </message>
     <message>
       <source>- UART Passthrough Mode</source>
-      <translation type="unfinished">- UART Passthrough Mode</translation>
+      <translation>- UART Passthrough რეჟიმი</translation>
     </message>
     <message>
       <source>- VOXL ESC</source>
-      <translation type="unfinished">- VOXL ESC</translation>
+      <translation>- VOXL ESC</translation>
     </message>
     <message>
       <source>0</source>
-      <translation type="unfinished">0</translation>
+      <translation>0</translation>
     </message>
     <message>
       <source>0.1 Hz</source>
-      <translation type="unfinished">0.1 Hz</translation>
+      <translation>0.1 Hz</translation>
     </message>
     <message>
       <source>0.2 Hz</source>
-      <translation type="unfinished">0.2 Hz</translation>
+      <translation>0.2 Hz</translation>
     </message>
     <message>
       <source>0.5 Hz</source>
-      <translation type="unfinished">0.5 Hz</translation>
+      <translation>0.5 Hz</translation>
     </message>
     <message>
       <source>0x80</source>
-      <translation type="unfinished">0x80</translation>
+      <translation>0x80</translation>
     </message>
     <message>
       <source>0x81</source>
-      <translation type="unfinished">0x81</translation>
+      <translation>0x81</translation>
     </message>
     <message>
       <source>0x82</source>
-      <translation type="unfinished">0x82</translation>
+      <translation>0x82</translation>
     </message>
     <message>
       <source>0x83</source>
-      <translation type="unfinished">0x83</translation>
+      <translation>0x83</translation>
     </message>
     <message>
       <source>0x84</source>
-      <translation type="unfinished">0x84</translation>
+      <translation>0x84</translation>
     </message>
     <message>
       <source>0x85</source>
-      <translation type="unfinished">0x85</translation>
+      <translation>0x85</translation>
     </message>
     <message>
       <source>0x86</source>
-      <translation type="unfinished">0x86</translation>
+      <translation>0x86</translation>
     </message>
     <message>
       <source>0x87</source>
-      <translation type="unfinished">0x87</translation>
+      <translation>0x87</translation>
     </message>
     <message>
       <source>1</source>
-      <translation type="unfinished">1</translation>
+      <translation>1</translation>
     </message>
     <message>
       <source>1 Hz</source>
-      <translation type="unfinished">1 Hz</translation>
+      <translation>1 Hz</translation>
     </message>
     <message>
       <source>1.5625 Hz</source>
-      <translation type="unfinished">1.5625 Hz</translation>
+      <translation>1.5625 Hz</translation>
     </message>
     <message>
       <source>10</source>
-      <translation type="unfinished">10</translation>
+      <translation>10</translation>
     </message>
     <message>
       <source>10 Hz</source>
-      <translation type="unfinished">10 Hz</translation>
+      <translation>10 Hz</translation>
     </message>
     <message>
       <source>100 Hz</source>
-      <translation type="unfinished">100 Hz</translation>
+      <translation>100 Hz</translation>
     </message>
     <message>
       <source>1000 Hz</source>
-      <translation type="unfinished">1000 Hz</translation>
+      <translation>1000 Hz</translation>
     </message>
     <message>
       <source>1000000 8N1</source>
-      <translation type="unfinished">1000000 8N1</translation>
+      <translation>1000000 8N1</translation>
     </message>
     <message>
       <source>1000hz</source>
-      <translation type="unfinished">1000hz</translation>
+      <translation>1000hz</translation>
     </message>
     <message>
       <source>100hz</source>
-      <translation type="unfinished">100hz</translation>
+      <translation>100hz</translation>
     </message>
     <message>
       <source>1024</source>
-      <translation type="unfinished">1024</translation>
+      <translation>1024</translation>
     </message>
     <message>
       <source>10S Battery</source>
-      <translation type="unfinished">10S Battery</translation>
+      <translation>10S ბატარეა</translation>
     </message>
     <message>
       <source>11</source>
-      <translation type="unfinished">11</translation>
+      <translation>11</translation>
     </message>
     <message>
       <source>110 8N1</source>
-      <translation type="unfinished">110 8N1</translation>
+      <translation>110 8N1</translation>
     </message>
     <message>
       <source>115200</source>
-      <translation type="unfinished">115200</translation>
+      <translation>115200</translation>
     </message>
     <message>
       <source>115200 8N1</source>
-      <translation type="unfinished">115200 8N1</translation>
+      <translation>115200 8N1</translation>
     </message>
     <message>
       <source>11S Battery</source>
-      <translation type="unfinished">11S Battery</translation>
+      <translation>11S ბატარეა</translation>
     </message>
     <message>
       <source>12</source>
-      <translation type="unfinished">12</translation>
+      <translation>12</translation>
     </message>
     <message>
       <source>12.5 Hz</source>
-      <translation type="unfinished">12.5 Hz</translation>
+      <translation>12.5 Hz</translation>
     </message>
     <message>
       <source>1200 8N1</source>
-      <translation type="unfinished">1200 8N1</translation>
+      <translation>1200 8N1</translation>
     </message>
     <message>
       <source>1200Kts</source>
-      <translation type="unfinished">1200Kts</translation>
+      <translation>1200Kts</translation>
     </message>
     <message>
       <source>1250hz</source>
-      <translation type="unfinished">1250hz</translation>
+      <translation>1250hz</translation>
     </message>
     <message>
       <source>12S Battery</source>
-      <translation type="unfinished">12S Battery</translation>
+      <translation>12S ბატარეა</translation>
     </message>
     <message>
       <source>13 Hz</source>
-      <translation type="unfinished">13 Hz</translation>
+      <translation>13 Hz</translation>
     </message>
     <message>
       <source>134 8N1</source>
-      <translation type="unfinished">134 8N1</translation>
+      <translation>134 8N1</translation>
     </message>
     <message>
       <source>13S Battery</source>
-      <translation type="unfinished">13S Battery</translation>
+      <translation>13S ბატარეა</translation>
     </message>
     <message>
       <source>1475 Hz</source>
-      <translation type="unfinished">1475 Hz</translation>
+      <translation>1475 Hz</translation>
     </message>
     <message>
       <source>14S Battery</source>
-      <translation type="unfinished">14S Battery</translation>
+      <translation>14S ბატარეა</translation>
     </message>
     <message>
       <source>150 8N1</source>
-      <translation type="unfinished">150 8N1</translation>
+      <translation>150 8N1</translation>
     </message>
     <message>
       <source>1500000 8N1</source>
-      <translation type="unfinished">1500000 8N1</translation>
+      <translation>1500000 8N1</translation>
     </message>
     <message>
       <source>150Kts</source>
-      <translation type="unfinished">150Kts</translation>
+      <translation>150Kts</translation>
     </message>
     <message>
       <source>1538hz</source>
-      <translation type="unfinished">1538hz</translation>
+      <translation>1538hz</translation>
     </message>
     <message>
       <source>15S Battery</source>
-      <translation type="unfinished">15S Battery</translation>
+      <translation>15S ბატარეა</translation>
     </message>
     <message>
       <source>16S Battery</source>
-      <translation type="unfinished">16S Battery</translation>
+      <translation>16S ბატარეა</translation>
     </message>
     <message>
       <source>1800 8N1</source>
-      <translation type="unfinished">1800 8N1</translation>
+      <translation>1800 8N1</translation>
     </message>
     <message>
       <source>19200</source>
-      <translation type="unfinished">19200</translation>
+      <translation>19200</translation>
     </message>
     <message>
       <source>19200 8N1</source>
-      <translation type="unfinished">19200 8N1</translation>
+      <translation>19200 8N1</translation>
     </message>
     <message>
       <source>1S Battery</source>
-      <translation type="unfinished">1S Battery</translation>
+      <translation>1S ბატარეა</translation>
     </message>
     <message>
       <source>2</source>
-      <translation type="unfinished">2</translation>
+      <translation>2</translation>
     </message>
     <message>
       <source>2 Hz</source>
-      <translation type="unfinished">2 Hz</translation>
+      <translation>2 Hz</translation>
     </message>
     <message>
       <source>2 sample averaging</source>
-      <translation type="unfinished">2 sample averaging</translation>
+      <translation>2 ნიმუშის გასაშუალოება</translation>
     </message>
     <message>
       <source>20 Hz</source>
-      <translation type="unfinished">20 Hz</translation>
+      <translation>20 Hz</translation>
     </message>
     <message>
       <source>200 8N1</source>
-      <translation type="unfinished">200 8N1</translation>
+      <translation>200 8N1</translation>
     </message>
     <message>
       <source>200 Hz</source>
-      <translation type="unfinished">200 Hz</translation>
+      <translation>200 Hz</translation>
     </message>
     <message>
       <source>2000 Hz</source>
-      <translation type="unfinished">2000 Hz</translation>
+      <translation>2000 Hz</translation>
     </message>
     <message>
       <source>2000000 8N1</source>
-      <translation type="unfinished">2000000 8N1</translation>
+      <translation>2000000 8N1</translation>
     </message>
     <message>
       <source>2000hz</source>
-      <translation type="unfinished">2000hz</translation>
+      <translation>2000hz</translation>
     </message>
     <message>
       <source>200hz</source>
-      <translation type="unfinished">200hz</translation>
+      <translation>200hz</translation>
     </message>
     <message>
       <source>230400</source>
-      <translation type="unfinished">230400</translation>
+      <translation>230400</translation>
     </message>
     <message>
       <source>230400 8N1</source>
-      <translation type="unfinished">230400 8N1</translation>
+      <translation>230400 8N1</translation>
     </message>
     <message>
       <source>235 Hz</source>
-      <translation type="unfinished">235 Hz</translation>
+      <translation>235 Hz</translation>
     </message>
     <message>
       <source>2400 8N1</source>
-      <translation type="unfinished">2400 8N1</translation>
+      <translation>2400 8N1</translation>
     </message>
     <message>
       <source>25 Hz</source>
-      <translation type="unfinished">25 Hz</translation>
+      <translation>25 Hz</translation>
     </message>
     <message>
       <source>25 degrees half cone angle.</source>
-      <translation type="unfinished">25 degrees half cone angle.</translation>
+      <translation>25° ნახევარ-კონუსის კუთხე.</translation>
     </message>
     <message>
       <source>250 Hz</source>
-      <translation type="unfinished">250 Hz</translation>
+      <translation>250 Hz</translation>
     </message>
     <message>
       <source>2500hz</source>
-      <translation type="unfinished">2500hz</translation>
+      <translation>2500hz</translation>
     </message>
     <message>
       <source>256</source>
-      <translation type="unfinished">256</translation>
+      <translation>256</translation>
     </message>
     <message>
       <source>280 Hz</source>
-      <translation type="unfinished">280 Hz</translation>
+      <translation>280 Hz</translation>
     </message>
     <message>
       <source>2950 Hz</source>
-      <translation type="unfinished">2950 Hz</translation>
+      <translation>2950 Hz</translation>
     </message>
     <message>
       <source>2D</source>
-      <translation type="unfinished">2D</translation>
+      <translation>2D</translation>
     </message>
     <message>
       <source>2D + Terrain: Maintain constant altitude relative to terrain below and track XY position</source>
-      <translation type="unfinished">2D + Terrain: Maintain constant altitude relative to terrain below and track XY position</translation>
+      <translation>2D + რელიეფი: მუდმივი სიმაღლე ქვემოთ არსებული რელიეფის მიმართ და XY პოზიციის თვალყურის დევნება</translation>
     </message>
     <message>
       <source>2D Clockwise</source>
-      <translation type="unfinished">2D Clockwise</translation>
+      <translation>2D საათის ისრის მიმართულებით</translation>
     </message>
     <message>
       <source>2D Counter Clockwise</source>
-      <translation type="unfinished">2D Counter Clockwise</translation>
+      <translation>2D საათის ისრის საწინააღმდეგოდ</translation>
     </message>
     <message>
       <source>2D Tracking: Maintain constant altitude relative to home and track XY position only</source>
-      <translation type="unfinished">2D Tracking: Maintain constant altitude relative to home and track XY position only</translation>
+      <translation>2D თვალყურის დევნება: მუდმივი სიმაღლე home-ის მიმართ, მხოლოდ XY პოზიციის თვალყურით</translation>
     </message>
     <message>
       <source>2S Battery</source>
-      <translation type="unfinished">2S Battery</translation>
+      <translation>2S ბატარეა</translation>
     </message>
     <message>
       <source>3</source>
-      <translation type="unfinished">3</translation>
+      <translation>3</translation>
     </message>
     <message>
       <source>3.125 Hz</source>
-      <translation type="unfinished">3.125 Hz</translation>
+      <translation>3.125 Hz</translation>
     </message>
     <message>
       <source>30 Hz</source>
-      <translation type="unfinished">30 Hz</translation>
+      <translation>30 Hz</translation>
     </message>
     <message>
       <source>300 8N1</source>
-      <translation type="unfinished">300 8N1</translation>
+      <translation>300 8N1</translation>
     </message>
     <message>
       <source>3000000 8N1</source>
-      <translation type="unfinished">3000000 8N1</translation>
+      <translation>3000000 8N1</translation>
     </message>
     <message>
       <source>300Kts</source>
-      <translation type="unfinished">300Kts</translation>
+      <translation>300Kts</translation>
     </message>
     <message>
       <source>370 Hz</source>
-      <translation type="unfinished">370 Hz</translation>
+      <translation>370 Hz</translation>
     </message>
     <message>
       <source>38400</source>
-      <translation type="unfinished">38400</translation>
+      <translation>38400</translation>
     </message>
     <message>
       <source>38400 8N1</source>
-      <translation type="unfinished">38400 8N1</translation>
+      <translation>38400 8N1</translation>
     </message>
     <message>
       <source>3D</source>
-      <translation type="unfinished">3D</translation>
+      <translation>3D</translation>
     </message>
     <message>
       <source>3D Clockwise</source>
-      <translation type="unfinished">3D Clockwise</translation>
+      <translation>3D საათის ისრის მიმართულებით</translation>
     </message>
     <message>
       <source>3D Counter Clockwise</source>
-      <translation type="unfinished">3D Counter Clockwise</translation>
+      <translation>3D საათის ისრის საწინააღმდეგოდ</translation>
     </message>
     <message>
       <source>3D Tracking: Track target&apos;s altitude (be aware that GPS altitude bias usually makes this useless)</source>
-      <translation type="unfinished">3D Tracking: Track target&apos;s altitude (be aware that GPS altitude bias usually makes this useless)</translation>
+      <translation>3D თვალყურის დევნება: სამიზნის სიმაღლის თვალყურით (გაითვალისწინე: GPS სიმაღლის წანაცვლება ხშირად ამას უსარგებლოს ხდის)</translation>
     </message>
     <message>
       <source>3S Battery</source>
-      <translation type="unfinished">3S Battery</translation>
+      <translation>3S ბატარეა</translation>
     </message>
     <message>
       <source>4</source>
-      <translation type="unfinished">4</translation>
+      <translation>4</translation>
     </message>
     <message>
       <source>4 sample averaging</source>
-      <translation type="unfinished">4 sample averaging</translation>
+      <translation>4 ნიმუშის გასაშუალოება</translation>
     </message>
     <message>
       <source>400 Hz</source>
-      <translation type="unfinished">400 Hz</translation>
+      <translation>400 Hz</translation>
     </message>
     <message>
       <source>400hz</source>
-      <translation type="unfinished">400hz</translation>
+      <translation>400hz</translation>
     </message>
     <message>
       <source>4096</source>
-      <translation type="unfinished">4096</translation>
+      <translation>4096</translation>
     </message>
     <message>
       <source>45 degrees half cone angle.</source>
-      <translation type="unfinished">45 degrees half cone angle.</translation>
+      <translation>45° ნახევარ-კონუსის კუთხე.</translation>
     </message>
     <message>
       <source>460800</source>
-      <translation type="unfinished">460800</translation>
+      <translation>460800</translation>
     </message>
     <message>
       <source>460800 8N1</source>
-      <translation type="unfinished">460800 8N1</translation>
+      <translation>460800 8N1</translation>
     </message>
     <message>
       <source>4800</source>
-      <translation type="unfinished">4800</translation>
+      <translation>4800</translation>
     </message>
     <message>
       <source>4800 8N1</source>
-      <translation type="unfinished">4800 8N1</translation>
+      <translation>4800 8N1</translation>
     </message>
     <message>
       <source>4S Battery</source>
-      <translation type="unfinished">4S Battery</translation>
+      <translation>4S ბატარეა</translation>
     </message>
     <message>
       <source>5</source>
-      <translation type="unfinished">5</translation>
+      <translation>5</translation>
     </message>
     <message>
       <source>5 Hz</source>
-      <translation type="unfinished">5 Hz</translation>
+      <translation>5 Hz</translation>
     </message>
     <message>
       <source>50 8N1</source>
-      <translation type="unfinished">50 8N1</translation>
+      <translation>50 8N1</translation>
     </message>
     <message>
       <source>50 Hz</source>
-      <translation type="unfinished">50 Hz</translation>
+      <translation>50 Hz</translation>
     </message>
     <message>
       <source>500000 8N1</source>
-      <translation type="unfinished">500000 8N1</translation>
+      <translation>500000 8N1</translation>
     </message>
     <message>
       <source>5000hz</source>
-      <translation type="unfinished">5000hz</translation>
+      <translation>5000hz</translation>
     </message>
     <message>
       <source>500hz</source>
-      <translation type="unfinished">500hz</translation>
+      <translation>500hz</translation>
     </message>
     <message>
       <source>50hz</source>
-      <translation type="unfinished">50hz</translation>
+      <translation>50hz</translation>
     </message>
     <message>
       <source>512</source>
-      <translation type="unfinished">512</translation>
+      <translation>512</translation>
     </message>
     <message>
       <source>57600</source>
-      <translation type="unfinished">57600</translation>
+      <translation>57600</translation>
     </message>
     <message>
       <source>57600 8N1</source>
-      <translation type="unfinished">57600 8N1</translation>
+      <translation>57600 8N1</translation>
     </message>
     <message>
       <source>5900 Hz</source>
-      <translation type="unfinished">5900 Hz</translation>
+      <translation>5900 Hz</translation>
     </message>
     <message>
       <source>5S Battery</source>
-      <translation type="unfinished">5S Battery</translation>
+      <translation>5S ბატარეა</translation>
     </message>
     <message>
       <source>6</source>
-      <translation type="unfinished">6</translation>
+      <translation>6</translation>
     </message>
     <message>
       <source>6.25 Hz</source>
-      <translation type="unfinished">6.25 Hz</translation>
+      <translation>6.25 Hz</translation>
     </message>
     <message>
       <source>600</source>
-      <translation type="unfinished">600</translation>
+      <translation>600</translation>
     </message>
     <message>
       <source>600 8N1</source>
-      <translation type="unfinished">600 8N1</translation>
+      <translation>600 8N1</translation>
     </message>
     <message>
       <source>600Kts</source>
-      <translation type="unfinished">600Kts</translation>
+      <translation>600Kts</translation>
     </message>
     <message>
       <source>625hz</source>
-      <translation type="unfinished">625hz</translation>
+      <translation>625hz</translation>
     </message>
     <message>
       <source>65 degrees half cone angle.</source>
-      <translation type="unfinished">65 degrees half cone angle.</translation>
+      <translation>65° ნახევარ-კონუსის კუთხე.</translation>
     </message>
     <message>
       <source>68 Hz</source>
-      <translation type="unfinished">68 Hz</translation>
+      <translation>68 Hz</translation>
     </message>
     <message>
       <source>6S Battery</source>
-      <translation type="unfinished">6S Battery</translation>
+      <translation>6S ბატარეა</translation>
     </message>
     <message>
       <source>7</source>
-      <translation type="unfinished">7</translation>
+      <translation>7</translation>
     </message>
     <message>
       <source>738 Hz</source>
-      <translation type="unfinished">738 Hz</translation>
+      <translation>738 Hz</translation>
     </message>
     <message>
       <source>75 8N1</source>
-      <translation type="unfinished">75 8N1</translation>
+      <translation>75 8N1</translation>
     </message>
     <message>
       <source>75Kts</source>
-      <translation type="unfinished">75Kts</translation>
+      <translation>75Kts</translation>
     </message>
     <message>
       <source>7S Battery</source>
-      <translation type="unfinished">7S Battery</translation>
+      <translation>7S ბატარეა</translation>
     </message>
     <message>
       <source>8</source>
-      <translation type="unfinished">8</translation>
+      <translation>8</translation>
     </message>
     <message>
       <source>8 sample averaging</source>
-      <translation type="unfinished">8 sample averaging</translation>
+      <translation>8 ნიმუშის გასაშუალოება</translation>
     </message>
     <message>
       <source>80 degrees half cone angle.</source>
-      <translation type="unfinished">80 degrees half cone angle.</translation>
+      <translation>80° ნახევარ-კონუსის კუთხე.</translation>
     </message>
     <message>
       <source>800 Hz</source>
-      <translation type="unfinished">800 Hz</translation>
+      <translation>800 Hz</translation>
     </message>
     <message>
       <source>8S Battery</source>
-      <translation type="unfinished">8S Battery</translation>
+      <translation>8S ბატარეა</translation>
     </message>
     <message>
       <source>9</source>
-      <translation type="unfinished">9</translation>
+      <translation>9</translation>
     </message>
     <message>
       <source>921600</source>
-      <translation type="unfinished">921600</translation>
+      <translation>921600</translation>
     </message>
     <message>
       <source>921600 8N1</source>
-      <translation type="unfinished">921600 8N1</translation>
+      <translation>921600 8N1</translation>
     </message>
     <message>
       <source>9600</source>
-      <translation type="unfinished">9600</translation>
+      <translation>9600</translation>
     </message>
     <message>
       <source>9600 8N1</source>
-      <translation type="unfinished">9600 8N1</translation>
+      <translation>9600 8N1</translation>
     </message>
     <message>
       <source>9S Battery</source>
-      <translation type="unfinished">9S Battery</translation>
+      <translation>9S ბატარეა</translation>
     </message>
     <message>
       <source>AUAV L05D</source>
-      <translation type="unfinished">AUAV L05D</translation>
+      <translation>AUAV L05D</translation>
     </message>
     <message>
       <source>AUAV L10D</source>
-      <translation type="unfinished">AUAV L10D</translation>
+      <translation>AUAV L10D</translation>
     </message>
     <message>
       <source>AUAV L30D</source>
-      <translation type="unfinished">AUAV L30D</translation>
+      <translation>AUAV L30D</translation>
     </message>
     <message>
       <source>AUX</source>
-      <translation type="unfinished">AUX</translation>
+      <translation>AUX</translation>
     </message>
     <message>
       <source>AUX1</source>
-      <translation type="unfinished">AUX1</translation>
+      <translation>AUX1</translation>
     </message>
     <message>
       <source>AUX2</source>
-      <translation type="unfinished">AUX2</translation>
+      <translation>AUX2</translation>
     </message>
     <message>
       <source>AUX3</source>
-      <translation type="unfinished">AUX3</translation>
+      <translation>AUX3</translation>
     </message>
     <message>
       <source>AUX4</source>
-      <translation type="unfinished">AUX4</translation>
+      <translation>AUX4</translation>
     </message>
     <message>
       <source>AUX5</source>
-      <translation type="unfinished">AUX5</translation>
+      <translation>AUX5</translation>
     </message>
     <message>
       <source>AUX6</source>
-      <translation type="unfinished">AUX6</translation>
+      <translation>AUX6</translation>
     </message>
     <message>
       <source>Acceleration based</source>
-      <translation type="unfinished">Acceleration based</translation>
+      <translation>აჩქარებაზე დაფუძნებული</translation>
     </message>
     <message>
       <source>Acro</source>
-      <translation type="unfinished">Acro</translation>
+      <translation>Acro</translation>
     </message>
     <message>
       <source>Active high</source>
-      <translation type="unfinished">Active high</translation>
+      <translation>აქტიური მაღალი</translation>
     </message>
     <message>
       <source>Active low</source>
-      <translation type="unfinished">Active low</translation>
+      <translation>აქტიური დაბალი</translation>
     </message>
     <message>
       <source>Airborne</source>
-      <translation type="unfinished">Airborne</translation>
+      <translation>ჰაერში</translation>
     </message>
     <message>
       <source>Airbrake</source>
-      <translation type="unfinished">Airbrake</translation>
+      <translation>საჰაერო მუხრუჭი</translation>
     </message>
     <message>
       <source>Airframe</source>
-      <translation type="unfinished">Airframe</translation>
+      <translation>ფიუზელაჟი</translation>
     </message>
     <message>
       <source>Airship, controlled</source>
-      <translation type="unfinished">Airship, controlled</translation>
+      <translation>დირიჟაბლი, მართვადი</translation>
     </message>
     <message>
       <source>All mission messages</source>
-      <translation type="unfinished">All mission messages</translation>
+      <translation>მისიის ყველა შეტყობინება</translation>
     </message>
     <message>
       <source>All sensors</source>
-      <translation type="unfinished">All sensors</translation>
+      <translation>ყველა სენსორი</translation>
     </message>
     <message>
       <source>All sensors except mag</source>
-      <translation type="unfinished">All sensors except mag</translation>
+      <translation>ყველა სენსორი მაგნიტომეტრის გარდა</translation>
     </message>
     <message>
       <source>Allow arming</source>
-      <translation type="unfinished">Allow arming</translation>
+      <translation>Arming-ის დაშვება</translation>
     </message>
     <message>
       <source>Alt</source>
-      <translation type="unfinished">Alt</translation>
+      <translation>სიმ.</translation>
     </message>
     <message>
       <source>Altitude</source>
-      <translation type="unfinished">Altitude</translation>
+      <translation>Altitude</translation>
     </message>
     <message>
       <source>Altitude following</source>
-      <translation type="unfinished">Altitude following</translation>
+      <translation>სიმაღლის მიყოლა</translation>
     </message>
     <message>
       <source>Altitude mode</source>
-      <translation type="unfinished">Altitude mode</translation>
+      <translation>Altitude mode</translation>
     </message>
     <message>
       <source>Always</source>
-      <translation type="unfinished">Always</translation>
+      <translation>ყოველთვის</translation>
     </message>
     <message>
       <source>Always broadcast</source>
-      <translation type="unfinished">Always broadcast</translation>
+      <translation>ყოველთვის broadcast</translation>
     </message>
     <message>
       <source>Always off</source>
-      <translation type="unfinished">Always off</translation>
+      <translation>ყოველთვის გამორთული</translation>
     </message>
     <message>
       <source>Always on</source>
-      <translation type="unfinished">Always on</translation>
+      <translation>ყოველთვის ჩართული</translation>
     </message>
     <message>
       <source>Always use version 1</source>
-      <translation type="unfinished">Always use version 1</translation>
+      <translation>ყოველთვის ვერსია 1</translation>
     </message>
     <message>
       <source>Always use version 2</source>
-      <translation type="unfinished">Always use version 2</translation>
+      <translation>ყოველთვის ვერსია 2</translation>
     </message>
     <message>
       <source>Angle</source>
-      <translation type="unfinished">Angle</translation>
+      <translation>კუთხე</translation>
     </message>
     <message>
       <source>Angular rate</source>
-      <translation type="unfinished">Angular rate</translation>
+      <translation>კუთხური სიჩქარე</translation>
     </message>
     <message>
       <source>AppliedBySensor</source>
-      <translation type="unfinished">AppliedBySensor</translation>
+      <translation>სენსორის მიერ გამოყენებული</translation>
     </message>
     <message>
       <source>Apply the estimated scale after disarm</source>
-      <translation type="unfinished">Apply the estimated scale after disarm</translation>
+      <translation>შეფასებული მასშტაბის გამოყენება disarm-ის შემდეგ</translation>
     </message>
     <message>
       <source>Apply the estimated scale in air</source>
-      <translation type="unfinished">Apply the estimated scale in air</translation>
+      <translation>შეფასებული მასშტაბის გამოყენება ჰაერში</translation>
     </message>
     <message>
       <source>Apply the new gains after disarm</source>
-      <translation type="unfinished">Apply the new gains after disarm</translation>
+      <translation>ახალი gain-ების გამოყენება disarm-ის შემდეგ</translation>
     </message>
     <message>
       <source>Apply the new gains in air</source>
-      <translation type="unfinished">Apply the new gains in air</translation>
+      <translation>ახალი gain-ების გამოყენება ჰაერში</translation>
     </message>
     <message>
       <source>Ashtech / Trimble</source>
-      <translation type="unfinished">Ashtech / Trimble</translation>
+      <translation>Ashtech / Trimble</translation>
     </message>
     <message>
       <source>Auto</source>
-      <translation type="unfinished">Auto</translation>
+      <translation>Auto</translation>
     </message>
     <message>
       <source>Auto (RC and MAVLink gimbal protocol v2)</source>
-      <translation type="unfinished">Auto (RC and MAVLink gimbal protocol v2)</translation>
+      <translation>Auto (RC და MAVLink gimbal protocol v2)</translation>
     </message>
     <message>
       <source>Auto detect</source>
-      <translation type="unfinished">Auto detect</translation>
+      <translation>ავტომატური აღმოჩენა</translation>
     </message>
     <message>
       <source>Auto-detect</source>
-      <translation type="unfinished">Auto-detect</translation>
+      <translation>ავტომატური აღმოჩენა</translation>
     </message>
     <message>
       <source>Auto-detected</source>
-      <translation type="unfinished">Auto-detected</translation>
+      <translation>ავტომატურად აღმოჩენილი</translation>
     </message>
     <message>
       <source>AutoDetect</source>
-      <translation type="unfinished">AutoDetect</translation>
+      <translation>ავტომატური აღმოჩენა</translation>
     </message>
     <message>
       <source>Autodetect</source>
-      <translation type="unfinished">Autodetect</translation>
+      <translation>ავტომატური აღმოჩენა</translation>
     </message>
     <message>
       <source>Autodetect I2C address (TODO)</source>
-      <translation type="unfinished">Autodetect I2C address (TODO)</translation>
+      <translation>I2C მისამართის ავტომატური აღმოჩენა</translation>
     </message>
     <message>
       <source>Automatic</source>
-      <translation type="unfinished">Automatic</translation>
+      <translation>ავტომატური</translation>
     </message>
     <message>
       <source>Automotive</source>
-      <translation type="unfinished">Automotive</translation>
+      <translation>საავტომობილო</translation>
     </message>
     <message>
       <source>Aux1</source>
-      <translation type="unfinished">Aux1</translation>
+      <translation>Aux1</translation>
     </message>
     <message>
       <source>Aux2</source>
-      <translation type="unfinished">Aux2</translation>
+      <translation>Aux2</translation>
     </message>
     <message>
       <source>Aux3</source>
-      <translation type="unfinished">Aux3</translation>
+      <translation>Aux3</translation>
     </message>
     <message>
       <source>Aux4</source>
-      <translation type="unfinished">Aux4</translation>
+      <translation>Aux4</translation>
     </message>
     <message>
       <source>Aux5</source>
-      <translation type="unfinished">Aux5</translation>
+      <translation>Aux5</translation>
     </message>
     <message>
       <source>Aux6</source>
-      <translation type="unfinished">Aux6</translation>
+      <translation>Aux6</translation>
     </message>
     <message>
       <source>BQ40Z50 based</source>
-      <translation type="unfinished">BQ40Z50 based</translation>
+      <translation>BQ40Z50-ზე დაფუძნებული</translation>
     </message>
     <message>
       <source>BQ40Z80 based</source>
-      <translation type="unfinished">BQ40Z80 based</translation>
+      <translation>BQ40Z80-ზე დაფუძნებული</translation>
     </message>
     <message>
       <source>Barometric pressure</source>
-      <translation type="unfinished">Barometric pressure</translation>
+      <translation>ბარომეტრული წნევა</translation>
     </message>
     <message>
       <source>Basic</source>
-      <translation type="unfinished">Basic</translation>
+      <translation>ძირითადი</translation>
     </message>
     <message>
       <source>Both</source>
-      <translation type="unfinished">Both</translation>
+      <translation>ორივე</translation>
     </message>
     <message>
       <source>COM0</source>
-      <translation type="unfinished">COM0</translation>
+      <translation>COM0</translation>
     </message>
     <message>
       <source>COM1</source>
-      <translation type="unfinished">COM1</translation>
+      <translation>COM1</translation>
     </message>
     <message>
       <source>CRSF</source>
-      <translation type="unfinished">CRSF</translation>
+      <translation>CRSF</translation>
     </message>
     <message>
       <source>Calculate landing glide slope relative to the terrain estimate</source>
-      <translation type="unfinished">Calculate landing glide slope relative to the terrain estimate</translation>
+      <translation>დაშვების გლისადის გამოთვლა რელიეფის შეფასების მიმართ</translation>
     </message>
     <message>
       <source>Camera Capture</source>
-      <translation type="unfinished">Camera Capture</translation>
+      <translation>კამერით გადაღება</translation>
     </message>
     <message>
       <source>Camera Trigger</source>
-      <translation type="unfinished">Camera Trigger</translation>
+      <translation>კამერის Trigger</translation>
     </message>
     <message>
       <source>Channel 1</source>
-      <translation type="unfinished">Channel 1</translation>
+      <translation>არხი 1</translation>
     </message>
     <message>
       <source>Channel 10</source>
-      <translation type="unfinished">Channel 10</translation>
+      <translation>არხი 10</translation>
     </message>
     <message>
       <source>Channel 11</source>
-      <translation type="unfinished">Channel 11</translation>
+      <translation>არხი 11</translation>
     </message>
     <message>
       <source>Channel 12</source>
-      <translation type="unfinished">Channel 12</translation>
+      <translation>არხი 12</translation>
     </message>
     <message>
       <source>Channel 13</source>
-      <translation type="unfinished">Channel 13</translation>
+      <translation>არხი 13</translation>
     </message>
     <message>
       <source>Channel 14</source>
-      <translation type="unfinished">Channel 14</translation>
+      <translation>არხი 14</translation>
     </message>
     <message>
       <source>Channel 15</source>
-      <translation type="unfinished">Channel 15</translation>
+      <translation>არხი 15</translation>
     </message>
     <message>
       <source>Channel 16</source>
-      <translation type="unfinished">Channel 16</translation>
+      <translation>არხი 16</translation>
     </message>
     <message>
       <source>Channel 17</source>
-      <translation type="unfinished">Channel 17</translation>
+      <translation>არხი 17</translation>
     </message>
     <message>
       <source>Channel 18</source>
-      <translation type="unfinished">Channel 18</translation>
+      <translation>არხი 18</translation>
     </message>
     <message>
       <source>Channel 2</source>
-      <translation type="unfinished">Channel 2</translation>
+      <translation>არხი 2</translation>
     </message>
     <message>
       <source>Channel 3</source>
-      <translation type="unfinished">Channel 3</translation>
+      <translation>არხი 3</translation>
     </message>
     <message>
       <source>Channel 4</source>
-      <translation type="unfinished">Channel 4</translation>
+      <translation>არხი 4</translation>
     </message>
     <message>
       <source>Channel 5</source>
-      <translation type="unfinished">Channel 5</translation>
+      <translation>არხი 5</translation>
     </message>
     <message>
       <source>Channel 6</source>
-      <translation type="unfinished">Channel 6</translation>
+      <translation>არხი 6</translation>
     </message>
     <message>
       <source>Channel 7</source>
-      <translation type="unfinished">Channel 7</translation>
+      <translation>არხი 7</translation>
     </message>
     <message>
       <source>Channel 8</source>
-      <translation type="unfinished">Channel 8</translation>
+      <translation>არხი 8</translation>
     </message>
     <message>
       <source>Channel 9</source>
-      <translation type="unfinished">Channel 9</translation>
+      <translation>არხი 9</translation>
     </message>
     <message>
       <source>Coast Motors</source>
-      <translation type="unfinished">Coast Motors</translation>
+      <translation>მოტორების ინერციით ბრუნვა</translation>
     </message>
     <message>
       <source>Coaxial helicopter</source>
-      <translation type="unfinished">Coaxial helicopter</translation>
+      <translation>კოაქსიალური ვერტმფრენი</translation>
     </message>
     <message>
       <source>Config</source>
-      <translation type="unfinished">Config</translation>
+      <translation>კონფიგურაცია</translation>
     </message>
     <message>
       <source>Constant Max</source>
-      <translation type="unfinished">Constant Max</translation>
+      <translation>მუდმივი მაქს.</translation>
     </message>
     <message>
       <source>Constant Min</source>
-      <translation type="unfinished">Constant Min</translation>
+      <translation>მუდმივი მინ.</translation>
     </message>
     <message>
       <source>Current-based compensation (battery_status instance 0)</source>
-      <translation type="unfinished">Current-based compensation (battery_status instance 0)</translation>
+      <translation>დენზე დაფუძნებული კომპენსაცია (battery_status instance 0)</translation>
     </message>
     <message>
       <source>Current-based compensation (battery_status instance 1)</source>
-      <translation type="unfinished">Current-based compensation (battery_status instance 1)</translation>
+      <translation>დენზე დაფუძნებული კომპენსაცია (battery_status instance 1)</translation>
     </message>
     <message>
       <source>Custom</source>
-      <translation type="unfinished">Custom</translation>
+      <translation>მორგებული</translation>
     </message>
     <message>
       <source>Custom Euler Angle</source>
-      <translation type="unfinished">Custom Euler Angle</translation>
+      <translation>მორგებული Euler-ის კუთხე</translation>
     </message>
     <message>
       <source>Custom participant</source>
-      <translation type="unfinished">Custom participant</translation>
+      <translation>მორგებული მონაწილე</translation>
     </message>
     <message>
       <source>DISABLED</source>
-      <translation type="unfinished">DISABLED</translation>
+      <translation>გამორთულია</translation>
     </message>
     <message>
       <source>DSM</source>
-      <translation type="unfinished">DSM</translation>
+      <translation>DSM</translation>
     </message>
     <message>
       <source>DShot1200</source>
-      <translation type="unfinished">DShot1200</translation>
+      <translation>DShot1200</translation>
     </message>
     <message>
       <source>DShot150</source>
-      <translation type="unfinished">DShot150</translation>
+      <translation>DShot150</translation>
     </message>
     <message>
       <source>DShot300</source>
-      <translation type="unfinished">DShot300</translation>
+      <translation>DShot300</translation>
     </message>
     <message>
       <source>DShot600</source>
-      <translation type="unfinished">DShot600</translation>
+      <translation>DShot600</translation>
     </message>
     <message>
       <source>Default</source>
-      <translation type="unfinished">Default</translation>
+      <translation>ნაგულისხმევი</translation>
     </message>
     <message>
       <source>Default to 1, switch to 2 if GCS sends version 2</source>
-      <translation type="unfinished">Default to 1, switch to 2 if GCS sends version 2</translation>
+      <translation>ნაგულისხმევად 1, გადადის 2-ზე თუ GCS გააგზავნის ვერსიას 2</translation>
     </message>
     <message>
       <source>Deny arming</source>
-      <translation type="unfinished">Deny arming</translation>
+      <translation>Arming-ის აკრძალვა</translation>
     </message>
     <message>
       <source>Developer</source>
-      <translation type="unfinished">Developer</translation>
+      <translation>დეველოპერი</translation>
     </message>
     <message>
       <source>Direct Feedthrough</source>
-      <translation type="unfinished">Direct Feedthrough</translation>
+      <translation>პირდაპირი Feedthrough</translation>
     </message>
     <message>
       <source>Direct velocity</source>
-      <translation type="unfinished">Direct velocity</translation>
+      <translation>პირდაპირი სიჩქარე</translation>
     </message>
     <message>
       <source>Disable</source>
-      <translation type="unfinished">Disable</translation>
+      <translation>გამორთვა</translation>
     </message>
     <message>
       <source>Disable fallback to sensor-less estimation</source>
-      <translation type="unfinished">Disable fallback to sensor-less estimation</translation>
+      <translation>სენსორის გარეშე შეფასებაზე გადასვლის გამორთვა</translation>
     </message>
     <message>
       <source>Disable nudging</source>
-      <translation type="unfinished">Disable nudging</translation>
+      <translation>Nudging-ის გამორთვა</translation>
     </message>
     <message>
       <source>Disable range fusion</source>
-      <translation type="unfinished">Disable range fusion</translation>
+      <translation>Range fusion-ის გამორთვა</translation>
     </message>
     <message>
       <source>Disable the terrain estimate</source>
-      <translation type="unfinished">Disable the terrain estimate</translation>
+      <translation>რელიეფის შეფასების გამორთვა</translation>
     </message>
     <message>
       <source>Disabled</source>
-      <translation type="unfinished">Disabled</translation>
+      <translation>გამორთულია</translation>
     </message>
     <message>
       <source>Disallow arming</source>
-      <translation type="unfinished">Disallow arming</translation>
+      <translation>Arming-ის აკრძალვა</translation>
     </message>
     <message>
       <source>Disarm</source>
-      <translation type="unfinished">Disarm</translation>
+      <translation>Disarm</translation>
     </message>
     <message>
       <source>Distance based, always on</source>
-      <translation type="unfinished">Distance based, always on</translation>
+      <translation>მანძილზე დაფუძნებული, ყოველთვის ჩართული</translation>
     </message>
     <message>
       <source>Distance based, on command (Survey mode)</source>
-      <translation type="unfinished">Distance based, on command (Survey mode)</translation>
+      <translation>მანძილზე დაფუძნებული, ბრძანებით (Survey რეჟიმი)</translation>
     </message>
     <message>
       <source>Do not apply the new gains (logging only)</source>
-      <translation type="unfinished">Do not apply the new gains (logging only)</translation>
+      <translation>ახალი gain-ები არ გამოიყენო (მხოლოდ ლოგირება)</translation>
     </message>
     <message>
       <source>Do not automatically apply the estimated scale</source>
-      <translation type="unfinished">Do not automatically apply the estimated scale</translation>
+      <translation>შეფასებული მასშტაბი ავტომატურად არ გამოიყენო</translation>
     </message>
     <message>
       <source>Downed</source>
-      <translation type="unfinished">Downed</translation>
+      <translation>დაცემული</translation>
     </message>
     <message>
       <source>ESCs</source>
-      <translation type="unfinished">ESCs</translation>
+      <translation>ESC-ები</translation>
     </message>
     <message>
       <source>EV noise parameters</source>
-      <translation type="unfinished">EV noise parameters</translation>
+      <translation>EV noise parameters</translation>
     </message>
     <message>
       <source>EV reported variance (parameter lower bound)</source>
-      <translation type="unfinished">EV reported variance (parameter lower bound)</translation>
+      <translation>EV-ის დეკლარირებული დისპერსია (პარამეტრის ქვედა ზღვარი)</translation>
     </message>
     <message>
       <source>EXT2</source>
-      <translation type="unfinished">EXT2</translation>
+      <translation>EXT2</translation>
     </message>
     <message>
       <source>Elevator</source>
-      <translation type="unfinished">Elevator</translation>
+      <translation>სიმაღლის საჭე</translation>
     </message>
     <message>
       <source>EmergencySurf</source>
-      <translation type="unfinished">EmergencySurf</translation>
+      <translation>EmergencySurf</translation>
     </message>
     <message>
       <source>Emlid Reach</source>
-      <translation type="unfinished">Emlid Reach</translation>
+      <translation>Emlid Reach</translation>
     </message>
     <message>
       <source>Enable</source>
-      <translation type="unfinished">Enable</translation>
+      <translation>ჩართვა</translation>
     </message>
     <message>
       <source>Enable fallback to sensor-less estimation</source>
-      <translation type="unfinished">Enable fallback to sensor-less estimation</translation>
+      <translation>სენსორის გარეშე შეფასებაზე გადასვლის ჩართვა</translation>
     </message>
     <message>
       <source>Enabled</source>
-      <translation type="unfinished">Enabled</translation>
+      <translation>ჩართულია</translation>
     </message>
     <message>
       <source>Enabled (conditional mode)</source>
-      <translation type="unfinished">Enabled (conditional mode)</translation>
+      <translation>ჩართულია (პირობითი რეჟიმი)</translation>
     </message>
     <message>
       <source>Enabled (except LANDING)</source>
-      <translation type="unfinished">Enabled (except LANDING)</translation>
+      <translation>ჩართულია (LANDING-ის გარდა)</translation>
     </message>
     <message>
       <source>Enabled constantly</source>
-      <translation type="unfinished">Enabled constantly</translation>
+      <translation>მუდმივად ჩართულია</translation>
     </message>
     <message>
       <source>Enabled if distance to ground above MPC_LAND_ALT1</source>
-      <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT1</translation>
+      <translation>ჩართულია, თუ მიწამდე მანძილი MPC_LAND_ALT1-ზე მეტია</translation>
     </message>
     <message>
       <source>Enabled if distance to ground above MPC_LAND_ALT1 (except LANDING)</source>
-      <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT1 (except LANDING)</translation>
+      <translation>ჩართულია, თუ მიწამდე მანძილი MPC_LAND_ALT1-ზე მეტია (LANDING-ის გარდა)</translation>
     </message>
     <message>
       <source>Enabled if distance to ground above MPC_LAND_ALT2</source>
-      <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT2</translation>
+      <translation>ჩართულია, თუ მიწამდე მანძილი MPC_LAND_ALT2-ზე მეტია</translation>
     </message>
     <message>
       <source>Enabled if distance to ground above MPC_LAND_ALT2 (except LANDING)</source>
-      <translation type="unfinished">Enabled if distance to ground above MPC_LAND_ALT2 (except LANDING)</translation>
+      <translation>ჩართულია, თუ მიწამდე მანძილი MPC_LAND_ALT2-ზე მეტია (LANDING-ის გარდა)</translation>
     </message>
     <message>
       <source>Enabled in VTOL MC mode, listen to request from system in FW mode</source>
-      <translation type="unfinished">Enabled in VTOL MC mode, listen to request from system in FW mode</translation>
+      <translation>ჩართულია VTOL MC რეჟიმში; FW რეჟიმში ისმენს სისტემის მოთხოვნას</translation>
     </message>
     <message>
       <source>Eneabled</source>
-      <translation type="unfinished">Eneabled</translation>
+      <translation>ჩართულია</translation>
     </message>
     <message>
       <source>Enforce Open Drone ID system presence</source>
-      <translation type="unfinished">Enforce Open Drone ID system presence</translation>
+      <translation>Open Drone ID სისტემის არსებობის მოთხოვნა</translation>
     </message>
     <message>
       <source>Enforce SD card presence</source>
-      <translation type="unfinished">Enforce SD card presence</translation>
+      <translation>SD ბარათის არსებობის მოთხოვნა</translation>
     </message>
     <message>
       <source>Ethernet</source>
-      <translation type="unfinished">Ethernet</translation>
+      <translation>Ethernet</translation>
     </message>
     <message>
       <source>External</source>
-      <translation type="unfinished">External</translation>
+      <translation>გარე</translation>
     </message>
     <message>
       <source>External Mode 1</source>
-      <translation type="unfinished">External Mode 1</translation>
+      <translation>გარე რეჟიმი 1</translation>
     </message>
     <message>
       <source>External Mode 2</source>
-      <translation type="unfinished">External Mode 2</translation>
+      <translation>გარე რეჟიმი 2</translation>
     </message>
     <message>
       <source>External Mode 3</source>
-      <translation type="unfinished">External Mode 3</translation>
+      <translation>გარე რეჟიმი 3</translation>
     </message>
     <message>
       <source>External Mode 4</source>
-      <translation type="unfinished">External Mode 4</translation>
+      <translation>გარე რეჟიმი 4</translation>
     </message>
     <message>
       <source>External Mode 5</source>
-      <translation type="unfinished">External Mode 5</translation>
+      <translation>გარე რეჟიმი 5</translation>
     </message>
     <message>
       <source>External Mode 6</source>
-      <translation type="unfinished">External Mode 6</translation>
+      <translation>გარე რეჟიმი 6</translation>
     </message>
     <message>
       <source>External Mode 7</source>
-      <translation type="unfinished">External Mode 7</translation>
+      <translation>გარე რეჟიმი 7</translation>
     </message>
     <message>
       <source>External Mode 8</source>
-      <translation type="unfinished">External Mode 8</translation>
+      <translation>გარე რეჟიმი 8</translation>
     </message>
     <message>
       <source>External Vision</source>
-      <translation type="unfinished">External Vision</translation>
+      <translation>გარე ვიზუალური სისტემა</translation>
     </message>
     <message>
       <source>Falling edge</source>
-      <translation type="unfinished">Falling edge</translation>
+      <translation>ვარდნის ფრონტი</translation>
     </message>
     <message>
       <source>Femtomes</source>
-      <translation type="unfinished">Femtomes</translation>
+      <translation>Femtomes</translation>
     </message>
     <message>
       <source>Filter data</source>
-      <translation type="unfinished">Filter data</translation>
+      <translation>მონაცემების ფილტრაცია</translation>
     </message>
     <message>
       <source>First airspeed sensor</source>
-      <translation type="unfinished">First airspeed sensor</translation>
+      <translation>პირველი airspeed სენსორი</translation>
     </message>
     <message>
       <source>Fix and Fix2</source>
-      <translation type="unfinished">Fix and Fix2</translation>
+      <translation>Fix და Fix2</translation>
     </message>
     <message>
       <source>Fix2</source>
-      <translation type="unfinished">Fix2</translation>
+      <translation>Fix2</translation>
     </message>
     <message>
       <source>Fixed wing aircraft</source>
-      <translation type="unfinished">Fixed wing aircraft</translation>
+      <translation>ფიქსირებულფრთიანი საფრენი აპარატი</translation>
     </message>
     <message>
       <source>Fixed-Wing</source>
-      <translation type="unfinished">Fixed-Wing</translation>
+      <translation>ფიქსირებული ფრთა</translation>
     </message>
     <message>
       <source>Fixed-wing</source>
-      <translation type="unfinished">Fixed-wing</translation>
+      <translation>ფიქსირებული ფრთა</translation>
     </message>
     <message>
       <source>Flaps channel</source>
-      <translation type="unfinished">Flaps channel</translation>
+      <translation>ფლაპების არხი</translation>
     </message>
     <message>
       <source>Flight Tester</source>
-      <translation type="unfinished">Flight Tester</translation>
+      <translation>ფრენის ტესტერი</translation>
     </message>
     <message>
       <source>Follow Me</source>
-      <translation type="unfinished">Follow Me</translation>
+      <translation>Follow Me</translation>
     </message>
     <message>
       <source>Force off</source>
-      <translation type="unfinished">Force off</translation>
+      <translation>იძულებით გამორთვა</translation>
     </message>
     <message>
       <source>Force on</source>
-      <translation type="unfinished">Force on</translation>
+      <translation>იძულებით ჩართვა</translation>
     </message>
     <message>
       <source>Free balloon, uncontrolled</source>
-      <translation type="unfinished">Free balloon, uncontrolled</translation>
+      <translation>თავისუფალი ბუშტი, უმართავი</translation>
     </message>
     <message>
       <source>From receiver</source>
-      <translation type="unfinished">From receiver</translation>
+      <translation>მიმღებიდან</translation>
     </message>
     <message>
       <source>Front to Circle Center</source>
-      <translation type="unfinished">Front to Circle Center</translation>
+      <translation>წინა მხარე წრის ცენტრისკენ</translation>
     </message>
     <message>
       <source>Full</source>
-      <translation type="unfinished">Full</translation>
+      <translation>სრული</translation>
     </message>
     <message>
       <source>Full communication</source>
-      <translation type="unfinished">Full communication</translation>
+      <translation>სრული კომუნიკაცია</translation>
     </message>
     <message>
       <source>GHST</source>
-      <translation type="unfinished">GHST</translation>
+      <translation>GHST</translation>
     </message>
     <message>
       <source>GPIO</source>
-      <translation type="unfinished">GPIO</translation>
+      <translation>GPIO</translation>
     </message>
     <message>
       <source>GPOS</source>
-      <translation type="unfinished">GPOS</translation>
+      <translation>GPOS</translation>
     </message>
     <message>
       <source>GPS</source>
-      <translation type="unfinished">GPS</translation>
+      <translation>GPS</translation>
     </message>
     <message>
       <source>GPS 1</source>
-      <translation type="unfinished">GPS 1</translation>
+      <translation>GPS 1</translation>
     </message>
     <message>
       <source>GPS 2</source>
-      <translation type="unfinished">GPS 2</translation>
+      <translation>GPS 2</translation>
     </message>
     <message>
       <source>GPS 3</source>
-      <translation type="unfinished">GPS 3</translation>
+      <translation>GPS 3</translation>
     </message>
     <message>
       <source>Gas</source>
-      <translation type="unfinished">Gas</translation>
+      <translation>Gas</translation>
     </message>
     <message>
       <source>General</source>
-      <translation type="unfinished">General</translation>
+      <translation>ზოგადი</translation>
     </message>
     <message>
       <source>Generic PWM (IR trigger, servo)</source>
-      <translation type="unfinished">Generic PWM (IR trigger, servo)</translation>
+      <translation>ზოგადი PWM (IR trigger, სერვო)</translation>
     </message>
     <message>
       <source>Generic micro air vehicle</source>
-      <translation type="unfinished">Generic micro air vehicle</translation>
+      <translation>ზოგადი მიკრო საფრენი აპარატი</translation>
     </message>
     <message>
       <source>Geotagging messages</source>
-      <translation type="unfinished">Geotagging messages</translation>
+      <translation>გეომარკირების შეტყობინებები</translation>
     </message>
     <message>
       <source>Get absolute timestamp</source>
-      <translation type="unfinished">Get absolute timestamp</translation>
+      <translation>აბსოლუტური დროის ნიშნულის მიღება</translation>
     </message>
     <message>
       <source>Get timestamp of mid exposure (active high)</source>
-      <translation type="unfinished">Get timestamp of mid exposure (active high)</translation>
+      <translation>ექსპოზიციის შუა წერტილის დროის ნიშნულის მიღება (აქტიური მაღალი)</translation>
     </message>
     <message>
       <source>Get timestamp of mid exposure (active low)</source>
-      <translation type="unfinished">Get timestamp of mid exposure (active low)</translation>
+      <translation>ექსპოზიციის შუა წერტილის დროის ნიშნულის მიღება (აქტიური დაბალი)</translation>
     </message>
     <message>
       <source>Gimbal</source>
-      <translation type="unfinished">Gimbal</translation>
+      <translation>Gimbal</translation>
     </message>
     <message>
       <source>Gimbal Pitch</source>
-      <translation type="unfinished">Gimbal Pitch</translation>
+      <translation>Gimbal Pitch</translation>
     </message>
     <message>
       <source>Gimbal Roll</source>
-      <translation type="unfinished">Gimbal Roll</translation>
+      <translation>Gimbal Roll</translation>
     </message>
     <message>
       <source>Gimbal Yaw</source>
-      <translation type="unfinished">Gimbal Yaw</translation>
+      <translation>Gimbal Yaw</translation>
     </message>
     <message>
       <source>Glider</source>
-      <translation type="unfinished">Glider</translation>
+      <translation>პლანერი</translation>
     </message>
     <message>
       <source>Gripper</source>
-      <translation type="unfinished">Gripper</translation>
+      <translation>გრიპერი</translation>
     </message>
     <message>
       <source>Ground rover</source>
-      <translation type="unfinished">Ground rover</translation>
+      <translation>მიწისზედა როვერი</translation>
     </message>
     <message>
       <source>Groundspeed minus windspeed</source>
-      <translation type="unfinished">Groundspeed minus windspeed</translation>
+      <translation>მიწისპირა სიჩქარე მინუს ქარის სიჩქარე</translation>
     </message>
     <message>
       <source>HITL and SIH disabled</source>
-      <translation type="unfinished">HITL and SIH disabled</translation>
+      <translation>HITL და SIH გამორთულია</translation>
     </message>
     <message>
       <source>HITL enabled</source>
-      <translation type="unfinished">HITL enabled</translation>
+      <translation>HITL ჩართულია</translation>
     </message>
     <message>
       <source>Heading (Rover With Moving Base UART1 Connected To Autopilot, UART2 Connected To Moving Base)</source>
-      <translation type="unfinished">Heading (Rover With Moving Base UART1 Connected To Autopilot, UART2 Connected To Moving Base)</translation>
+      <translation>Heading (Rover მოძრავი ბაზით: UART1 ავტოპილოტზე, UART2 მოძრავ ბაზაზე)</translation>
     </message>
     <message>
       <source>Heading (Rover With Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</source>
-      <translation type="unfinished">Heading (Rover With Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</translation>
+      <translation>Heading (Rover მოძრავი ბაზით: UART1 ავტოპილოტზე ან CAN node-ზე, 921600)</translation>
     </message>
     <message>
       <source>Heavy</source>
-      <translation type="unfinished">Heavy</translation>
+      <translation>მძიმე</translation>
     </message>
     <message>
       <source>Helicopter (Coaxial)</source>
-      <translation type="unfinished">Helicopter (Coaxial)</translation>
+      <translation>ვერტმფრენი (კოაქსიალური)</translation>
     </message>
     <message>
       <source>Helicopter (tail ESC)</source>
-      <translation type="unfinished">Helicopter (tail ESC)</translation>
+      <translation>ვერტმფრენი (კუდის ESC)</translation>
     </message>
     <message>
       <source>Helicopter (tail Servo)</source>
-      <translation type="unfinished">Helicopter (tail Servo)</translation>
+      <translation>ვერტმფრენი (კუდის სერვო)</translation>
     </message>
     <message>
       <source>Hexarotor</source>
-      <translation type="unfinished">Hexarotor</translation>
+      <translation>Hexarotor</translation>
     </message>
     <message>
       <source>High</source>
-      <translation type="unfinished">High</translation>
+      <translation>მაღალი</translation>
     </message>
     <message>
       <source>High Speed Long Range Mode</source>
-      <translation type="unfinished">High Speed Long Range Mode</translation>
+      <translation>მაღალსიჩქარიანი შორ მანძილის რეჟიმი</translation>
     </message>
     <message>
       <source>High Speed Short Range Mode</source>
-      <translation type="unfinished">High Speed Short Range Mode</translation>
+      <translation>მაღალსიჩქარიანი მოკლე მანძილის რეჟიმი</translation>
     </message>
     <message>
       <source>HighVortex</source>
-      <translation type="unfinished">HighVortex</translation>
+      <translation>HighVortex</translation>
     </message>
     <message>
       <source>Hold</source>
-      <translation type="unfinished">Hold</translation>
+      <translation>Hold</translation>
     </message>
     <message>
       <source>Hold Front Tangent to Circle</source>
-      <translation type="unfinished">Hold Front Tangent to Circle</translation>
+      <translation>წინა მხარე წრის მხების გასწვრივ</translation>
     </message>
     <message>
       <source>Hold Initial Heading</source>
-      <translation type="unfinished">Hold Initial Heading</translation>
+      <translation>საწყისი Heading-ის შენარჩუნება</translation>
     </message>
     <message>
       <source>Hold mode</source>
-      <translation type="unfinished">Hold mode</translation>
+      <translation>Hold mode</translation>
     </message>
     <message>
       <source>I2C</source>
-      <translation type="unfinished">I2C</translation>
+      <translation>I2C</translation>
     </message>
     <message>
       <source>INS</source>
-      <translation type="unfinished">INS</translation>
+      <translation>INS</translation>
     </message>
     <message>
       <source>Ignore</source>
-      <translation type="unfinished">Ignore</translation>
+      <translation>იგნორირება</translation>
     </message>
     <message>
       <source>Init</source>
-      <translation type="unfinished">Init</translation>
+      <translation>ინიციალიზაცია</translation>
     </message>
     <message>
       <source>Interference</source>
-      <translation type="unfinished">Interference</translation>
+      <translation>ხელშეშლა</translation>
     </message>
     <message>
       <source>Internal</source>
-      <translation type="unfinished">Internal</translation>
+      <translation>შიდა</translation>
     </message>
     <message>
       <source>Joystick only</source>
-      <translation type="unfinished">Joystick only</translation>
+      <translation>მხოლოდ Joystick</translation>
     </message>
     <message>
       <source>Keep parameters</source>
-      <translation type="unfinished">Keep parameters</translation>
+      <translation>პარამეტრების შენარჩუნება</translation>
     </message>
     <message>
       <source>LW20/c</source>
-      <translation type="unfinished">LW20/c</translation>
+      <translation>LW20/c</translation>
     </message>
     <message>
       <source>Land</source>
-      <translation type="unfinished">Land</translation>
+      <translation>Land</translation>
     </message>
     <message>
       <source>Land mode</source>
-      <translation type="unfinished">Land mode</translation>
+      <translation>Land mode</translation>
     </message>
     <message>
       <source>Land mode (descend)</source>
-      <translation type="unfinished">Land mode (descend)</translation>
+      <translation>Land რეჟიმი (დაშვება)</translation>
     </message>
     <message>
       <source>Landing Gear</source>
-      <translation type="unfinished">Landing Gear</translation>
+      <translation>შასი</translation>
     </message>
     <message>
       <source>Landing Gear Wheel</source>
-      <translation type="unfinished">Landing Gear Wheel</translation>
+      <translation>შასის ბორბალი</translation>
     </message>
     <message>
       <source>Large</source>
-      <translation type="unfinished">Large</translation>
+      <translation>დიდი</translation>
     </message>
     <message>
       <source>LatLeft2M</source>
-      <translation type="unfinished">LatLeft2M</translation>
+      <translation>LatLeft2M</translation>
     </message>
     <message>
       <source>LatLeft4M</source>
-      <translation type="unfinished">LatLeft4M</translation>
+      <translation>LatLeft4M</translation>
     </message>
     <message>
       <source>LatLeft6M</source>
-      <translation type="unfinished">LatLeft6M</translation>
+      <translation>LatLeft6M</translation>
     </message>
     <message>
       <source>LatRight0M</source>
-      <translation type="unfinished">LatRight0M</translation>
+      <translation>LatRight0M</translation>
     </message>
     <message>
       <source>LatRight2M</source>
-      <translation type="unfinished">LatRight2M</translation>
+      <translation>LatRight2M</translation>
     </message>
     <message>
       <source>LatRight4M</source>
-      <translation type="unfinished">LatRight4M</translation>
+      <translation>LatRight4M</translation>
     </message>
     <message>
       <source>LatRight6M</source>
-      <translation type="unfinished">LatRight6M</translation>
+      <translation>LatRight6M</translation>
     </message>
     <message>
       <source>Left A-tail</source>
-      <translation type="unfinished">Left A-tail</translation>
+      <translation>მარცხენა A-კუდი</translation>
     </message>
     <message>
       <source>Left Aileron</source>
-      <translation type="unfinished">Left Aileron</translation>
+      <translation>მარცხენა ელერონი</translation>
     </message>
     <message>
       <source>Left Elevon</source>
-      <translation type="unfinished">Left Elevon</translation>
+      <translation>მარცხენა ელევონი</translation>
     </message>
     <message>
       <source>Left Flap</source>
-      <translation type="unfinished">Left Flap</translation>
+      <translation>მარცხენა ფლაპი</translation>
     </message>
     <message>
       <source>Left Spoiler</source>
-      <translation type="unfinished">Left Spoiler</translation>
+      <translation>მარცხენა სპოილერი</translation>
     </message>
     <message>
       <source>Left V-Tail</source>
-      <translation type="unfinished">Left V-Tail</translation>
+      <translation>მარცხენა V-კუდი</translation>
     </message>
     <message>
       <source>Len15_Wid23</source>
-      <translation type="unfinished">Len15_Wid23</translation>
+      <translation>Len15_Wid23</translation>
     </message>
     <message>
       <source>Len25_Wid28</source>
-      <translation type="unfinished">Len25_Wid28</translation>
+      <translation>Len25_Wid28</translation>
     </message>
     <message>
       <source>Len25_Wid34</source>
-      <translation type="unfinished">Len25_Wid34</translation>
+      <translation>Len25_Wid34</translation>
     </message>
     <message>
       <source>Len35_Wid33</source>
-      <translation type="unfinished">Len35_Wid33</translation>
+      <translation>Len35_Wid33</translation>
     </message>
     <message>
       <source>Len35_Wid38</source>
-      <translation type="unfinished">Len35_Wid38</translation>
+      <translation>Len35_Wid38</translation>
     </message>
     <message>
       <source>Len45_Wid39</source>
-      <translation type="unfinished">Len45_Wid39</translation>
+      <translation>Len45_Wid39</translation>
     </message>
     <message>
       <source>Len45_Wid45</source>
-      <translation type="unfinished">Len45_Wid45</translation>
+      <translation>Len45_Wid45</translation>
     </message>
     <message>
       <source>Len55_Wid45</source>
-      <translation type="unfinished">Len55_Wid45</translation>
+      <translation>Len55_Wid45</translation>
     </message>
     <message>
       <source>Len55_Wid52</source>
-      <translation type="unfinished">Len55_Wid52</translation>
+      <translation>Len55_Wid52</translation>
     </message>
     <message>
       <source>Len65_Wid59</source>
-      <translation type="unfinished">Len65_Wid59</translation>
+      <translation>Len65_Wid59</translation>
     </message>
     <message>
       <source>Len65_Wid67</source>
-      <translation type="unfinished">Len65_Wid67</translation>
+      <translation>Len65_Wid67</translation>
     </message>
     <message>
       <source>Len75_Wid72</source>
-      <translation type="unfinished">Len75_Wid72</translation>
+      <translation>Len75_Wid72</translation>
     </message>
     <message>
       <source>Len75_Wid80</source>
-      <translation type="unfinished">Len75_Wid80</translation>
+      <translation>Len75_Wid80</translation>
     </message>
     <message>
       <source>Len85_Wid80</source>
-      <translation type="unfinished">Len85_Wid80</translation>
+      <translation>Len85_Wid80</translation>
     </message>
     <message>
       <source>Len85_Wid90</source>
-      <translation type="unfinished">Len85_Wid90</translation>
+      <translation>Len85_Wid90</translation>
     </message>
     <message>
       <source>Light</source>
-      <translation type="unfinished">Light</translation>
+      <translation>მსუბუქი</translation>
     </message>
     <message>
       <source>LightAir</source>
-      <translation type="unfinished">LightAir</translation>
+      <translation>LightAir</translation>
     </message>
     <message>
       <source>Linear sine sweep</source>
-      <translation type="unfinished">Linear sine sweep</translation>
+      <translation>წრფივი სინუსოიდური გაწმენდა</translation>
     </message>
     <message>
       <source>Liquid</source>
-      <translation type="unfinished">Liquid</translation>
+      <translation>თხევადი</translation>
     </message>
     <message>
       <source>Lite</source>
-      <translation type="unfinished">Lite</translation>
+      <translation>Lite</translation>
     </message>
     <message>
       <source>Localhost-only</source>
-      <translation type="unfinished">Localhost-only</translation>
+      <translation>მხოლოდ localhost</translation>
     </message>
     <message>
       <source>Logarithmic sine sweep</source>
-      <translation type="unfinished">Logarithmic sine sweep</translation>
+      <translation>ლოგარითმული სინუსოიდური გაწმენდა</translation>
     </message>
     <message>
       <source>Long Range Mode</source>
-      <translation type="unfinished">Long Range Mode</translation>
+      <translation>შორ მანძილის რეჟიმი</translation>
     </message>
     <message>
       <source>Low</source>
-      <translation type="unfinished">Low</translation>
+      <translation>დაბალი</translation>
     </message>
     <message>
       <source>LowFuel</source>
-      <translation type="unfinished">LowFuel</translation>
+      <translation>LowFuel</translation>
     </message>
     <message>
       <source>MAVLINK_DO_MOUNT (protocol v1, to be deprecated)</source>
-      <translation type="unfinished">MAVLINK_DO_MOUNT (protocol v1, to be deprecated)</translation>
+      <translation>MAVLINK_DO_MOUNT (protocol v1, მომავალში მოიხსნება)</translation>
     </message>
     <message>
       <source>MAVLINK_ROI (protocol v1, to be deprecated)</source>
-      <translation type="unfinished">MAVLINK_ROI (protocol v1, to be deprecated)</translation>
+      <translation>MAVLINK_ROI (protocol v1, მომავალში მოიხსნება)</translation>
     </message>
     <message>
       <source>MAVLink</source>
-      <translation type="unfinished">MAVLink</translation>
+      <translation>MAVLink</translation>
     </message>
     <message>
       <source>MAVLink (Camera Protocol v1)</source>
-      <translation type="unfinished">MAVLink (Camera Protocol v1)</translation>
+      <translation>MAVLink (Camera Protocol v1)</translation>
     </message>
     <message>
       <source>MAVLink gimbal protocol v1</source>
-      <translation type="unfinished">MAVLink gimbal protocol v1</translation>
+      <translation>MAVLink gimbal protocol v1</translation>
     </message>
     <message>
       <source>MAVLink gimbal protocol v2</source>
-      <translation type="unfinished">MAVLink gimbal protocol v2</translation>
+      <translation>MAVLink gimbal protocol v2</translation>
     </message>
     <message>
       <source>MAVlink gimbal protocol v2</source>
-      <translation type="unfinished">MAVlink gimbal protocol v2</translation>
+      <translation>MAVLink gimbal protocol v2</translation>
     </message>
     <message>
       <source>MTK</source>
-      <translation type="unfinished">MTK</translation>
+      <translation>MTK</translation>
     </message>
     <message>
       <source>Magic</source>
-      <translation type="unfinished">Magic</translation>
+      <translation>Magic</translation>
     </message>
     <message>
       <source>Magnetic heading</source>
-      <translation type="unfinished">Magnetic heading</translation>
+      <translation>მაგნიტური მიმართულება</translation>
     </message>
     <message>
       <source>Manual</source>
-      <translation type="unfinished">Manual</translation>
+      <translation>Manual</translation>
     </message>
     <message>
       <source>Max</source>
-      <translation type="unfinished">Max</translation>
+      <translation>მაქს.</translation>
     </message>
     <message>
       <source>Medical</source>
-      <translation type="unfinished">Medical</translation>
+      <translation>სამედიცინო</translation>
     </message>
     <message>
       <source>Medium (Default)</source>
-      <translation type="unfinished">Medium (Default)</translation>
+      <translation>საშუალო (ნაგულისხმევი)</translation>
     </message>
     <message>
       <source>Min</source>
-      <translation type="unfinished">Min</translation>
+      <translation>მინ.</translation>
     </message>
     <message>
       <source>Minimal</source>
-      <translation type="unfinished">Minimal</translation>
+      <translation>მინიმალური</translation>
     </message>
     <message>
       <source>Mission</source>
-      <translation type="unfinished">Mission</translation>
+      <translation>Mission</translation>
     </message>
     <message>
       <source>Mission (if valid)</source>
-      <translation type="unfinished">Mission (if valid)</translation>
+      <translation>Mission (თუ სწორია)</translation>
     </message>
     <message>
       <source>Model with Pitot</source>
-      <translation type="unfinished">Model with Pitot</translation>
+      <translation>მოდელი Pitot-ით</translation>
     </message>
     <message>
       <source>Model without Pitot (1.5 mm tubes)</source>
-      <translation type="unfinished">Model without Pitot (1.5 mm tubes)</translation>
+      <translation>მოდელი Pitot-ის გარეშე (1.5 მმ მილები)</translation>
     </message>
     <message>
       <source>Motion Capture</source>
-      <translation type="unfinished">Motion Capture</translation>
+      <translation>Motion Capture</translation>
     </message>
     <message>
       <source>Motor 1</source>
-      <translation type="unfinished">Motor 1</translation>
+      <translation>მოტორი 1</translation>
     </message>
     <message>
       <source>Motor 10</source>
-      <translation type="unfinished">Motor 10</translation>
+      <translation>მოტორი 10</translation>
     </message>
     <message>
       <source>Motor 11</source>
-      <translation type="unfinished">Motor 11</translation>
+      <translation>მოტორი 11</translation>
     </message>
     <message>
       <source>Motor 12</source>
-      <translation type="unfinished">Motor 12</translation>
+      <translation>მოტორი 12</translation>
     </message>
     <message>
       <source>Motor 2</source>
-      <translation type="unfinished">Motor 2</translation>
+      <translation>მოტორი 2</translation>
     </message>
     <message>
       <source>Motor 3</source>
-      <translation type="unfinished">Motor 3</translation>
+      <translation>მოტორი 3</translation>
     </message>
     <message>
       <source>Motor 4</source>
-      <translation type="unfinished">Motor 4</translation>
+      <translation>მოტორი 4</translation>
     </message>
     <message>
       <source>Motor 5</source>
-      <translation type="unfinished">Motor 5</translation>
+      <translation>მოტორი 5</translation>
     </message>
     <message>
       <source>Motor 6</source>
-      <translation type="unfinished">Motor 6</translation>
+      <translation>მოტორი 6</translation>
     </message>
     <message>
       <source>Motor 7</source>
-      <translation type="unfinished">Motor 7</translation>
+      <translation>მოტორი 7</translation>
     </message>
     <message>
       <source>Motor 8</source>
-      <translation type="unfinished">Motor 8</translation>
+      <translation>მოტორი 8</translation>
     </message>
     <message>
       <source>Motor 9</source>
-      <translation type="unfinished">Motor 9</translation>
+      <translation>მოტორი 9</translation>
     </message>
     <message>
       <source>Motors (6DOF)</source>
-      <translation type="unfinished">Motors (6DOF)</translation>
+      <translation>მოტორები (6DOF)</translation>
     </message>
     <message>
       <source>Moving</source>
-      <translation type="unfinished">Moving</translation>
+      <translation>მოძრავი</translation>
     </message>
     <message>
       <source>Moving Base (Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</source>
-      <translation type="unfinished">Moving Base (Moving Base UART1 Connected to Autopilot Or Can Node At 921600)</translation>
+      <translation>მოძრავი ბაზა (UART1 ავტოპილოტზე ან CAN node-ზე, 921600)</translation>
     </message>
     <message>
       <source>Moving Base (UART1 Connected To Autopilot, UART2 Connected To Rover)</source>
-      <translation type="unfinished">Moving Base (UART1 Connected To Autopilot, UART2 Connected To Rover)</translation>
+      <translation>მოძრავი ბაზა (UART1 ავტოპილოტზე, UART2 როვერზე)</translation>
     </message>
     <message>
       <source>Moving base</source>
-      <translation type="unfinished">Moving base</translation>
+      <translation>მოძრავი ბაზა</translation>
     </message>
     <message>
       <source>Multicopter</source>
-      <translation type="unfinished">Multicopter</translation>
+      <translation>მულტიკოპტერი</translation>
     </message>
     <message>
       <source>Multirotor</source>
-      <translation type="unfinished">Multirotor</translation>
+      <translation>მულტიროტორი</translation>
     </message>
     <message>
       <source>Multirotor with Tilt</source>
-      <translation type="unfinished">Multirotor with Tilt</translation>
+      <translation>მულტიროტორი Tilt-ით</translation>
     </message>
     <message>
       <source>NMEA (generic)</source>
-      <translation type="unfinished">NMEA (generic)</translation>
+      <translation>NMEA (generic)</translation>
     </message>
     <message>
       <source>NTSC</source>
-      <translation type="unfinished">NTSC</translation>
+      <translation>NTSC</translation>
     </message>
     <message>
       <source>Never broadcast</source>
-      <translation type="unfinished">Never broadcast</translation>
+      <translation>არასდროს broadcast</translation>
     </message>
     <message>
       <source>No Rescale</source>
-      <translation type="unfinished">No Rescale</translation>
+      <translation>მასშტაბირების გარეშე</translation>
     </message>
     <message>
       <source>No averaging</source>
-      <translation type="unfinished">No averaging</translation>
+      <translation>გასაშუალოების გარეშე</translation>
     </message>
     <message>
       <source>No cone, always climb to RTL_RETURN_ALT above destination.</source>
-      <translation type="unfinished">No cone, always climb to RTL_RETURN_ALT above destination.</translation>
+      <translation>კონუსის გარეშე; ყოველთვის ადის RTL_RETURN_ALT-მდე დანიშნულების წერტილის ზემოთ.</translation>
     </message>
     <message>
       <source>No filter</source>
-      <translation type="unfinished">No filter</translation>
+      <translation>ფილტრის გარეშე</translation>
     </message>
     <message>
       <source>No precision landing</source>
-      <translation type="unfinished">No precision landing</translation>
+      <translation>ზუსტი დაშვების გარეშე</translation>
     </message>
     <message>
       <source>No requirements</source>
-      <translation type="unfinished">No requirements</translation>
+      <translation>მოთხოვნების გარეშე</translation>
     </message>
     <message>
       <source>No rescaling</source>
-      <translation type="unfinished">No rescaling</translation>
+      <translation>მასშტაბირების გარეშე</translation>
     </message>
     <message>
       <source>No rotation</source>
-      <translation type="unfinished">No rotation</translation>
+      <translation>ბრუნვის გარეშე</translation>
     </message>
     <message>
       <source>NoCommunications</source>
-      <translation type="unfinished">NoCommunications</translation>
+      <translation>კომუნიკაცია არ არის</translation>
     </message>
     <message>
       <source>NoData</source>
-      <translation type="unfinished">NoData</translation>
+      <translation>მონაცემები არ არის</translation>
     </message>
     <message>
       <source>NoEmergency</source>
-      <translation type="unfinished">NoEmergency</translation>
+      <translation>საგანგებო სიტუაცია არ არის</translation>
     </message>
     <message>
       <source>None</source>
-      <translation type="unfinished">None</translation>
+      <translation>არცერთი</translation>
     </message>
     <message>
       <source>Normal</source>
-      <translation type="unfinished">Normal</translation>
+      <translation>ნორმალური</translation>
     </message>
     <message>
       <source>Normal helicopter with tail rotor</source>
-      <translation type="unfinished">Normal helicopter with tail rotor</translation>
+      <translation>ჩვეულებრივი ვერტმფრენი კუდის როტორით</translation>
     </message>
     <message>
       <source>Nudge approach angle</source>
-      <translation type="unfinished">Nudge approach angle</translation>
+      <translation>მიდგომის კუთხის Nudge</translation>
     </message>
     <message>
       <source>Nudge approach path</source>
-      <translation type="unfinished">Nudge approach path</translation>
+      <translation>მიდგომის ტრაექტორიის Nudge</translation>
     </message>
     <message>
       <source>Nudging disabled</source>
-      <translation type="unfinished">Nudging disabled</translation>
+      <translation>Nudging გამორთულია</translation>
     </message>
     <message>
       <source>Nudging enabled</source>
-      <translation type="unfinished">Nudging enabled</translation>
+      <translation>Nudging ჩართულია</translation>
     </message>
     <message>
       <source>OSD</source>
-      <translation type="unfinished">OSD</translation>
+      <translation>OSD</translation>
     </message>
     <message>
       <source>Octorotor</source>
-      <translation type="unfinished">Octorotor</translation>
+      <translation>Octorotor</translation>
     </message>
     <message>
       <source>Off</source>
-      <translation type="unfinished">Off</translation>
+      <translation>გამორთულია</translation>
     </message>
     <message>
       <source>Offboard</source>
-      <translation type="unfinished">Offboard</translation>
+      <translation>Offboard</translation>
     </message>
     <message>
       <source>On</source>
-      <translation type="unfinished">On</translation>
+      <translation>ჩართულია</translation>
     </message>
     <message>
       <source>Onboard</source>
-      <translation type="unfinished">Onboard</translation>
+      <translation>Onboard</translation>
     </message>
     <message>
       <source>Onboard Low Bandwidth</source>
-      <translation type="unfinished">Onboard Low Bandwidth</translation>
+      <translation>Onboard დაბალი გამტარუნარიანობა</translation>
     </message>
     <message>
       <source>OneShot</source>
-      <translation type="unfinished">OneShot</translation>
+      <translation>OneShot</translation>
     </message>
     <message>
       <source>Only climb to at least RTL_DESCEND_ALT above destination.</source>
-      <translation type="unfinished">Only climb to at least RTL_DESCEND_ALT above destination.</translation>
+      <translation>ადის მხოლოდ დანიშნულების წერტილის ზემოთ მინიმუმ RTL_DESCEND_ALT-მდე.</translation>
     </message>
     <message>
       <source>Only multicast</source>
-      <translation type="unfinished">Only multicast</translation>
+      <translation>მხოლოდ multicast</translation>
     </message>
     <message>
       <source>Opportunistic precision landing</source>
-      <translation type="unfinished">Opportunistic precision landing</translation>
+      <translation>შესაძლებლობისამებრ ზუსტი დაშვება</translation>
     </message>
     <message>
       <source>Over1200Kts</source>
-      <translation type="unfinished">Over1200Kts</translation>
+      <translation>Over1200Kts</translation>
     </message>
     <message>
       <source>PAL</source>
-      <translation type="unfinished">PAL</translation>
+      <translation>PAL</translation>
     </message>
     <message>
       <source>PPM</source>
-      <translation type="unfinished">PPM</translation>
+      <translation>PPM</translation>
     </message>
     <message>
       <source>PPS Input</source>
-      <translation type="unfinished">PPS Input</translation>
+      <translation>PPS შეყვანა</translation>
     </message>
     <message>
       <source>PWM</source>
-      <translation type="unfinished">PWM</translation>
+      <translation>PWM</translation>
     </message>
     <message>
       <source>PWM 100 Hz</source>
-      <translation type="unfinished">PWM 100 Hz</translation>
+      <translation>PWM 100 Hz</translation>
     </message>
     <message>
       <source>PWM 200 Hz</source>
-      <translation type="unfinished">PWM 200 Hz</translation>
+      <translation>PWM 200 Hz</translation>
     </message>
     <message>
       <source>PWM 400 Hz</source>
-      <translation type="unfinished">PWM 400 Hz</translation>
+      <translation>PWM 400 Hz</translation>
     </message>
     <message>
       <source>PWM 50 Hz</source>
-      <translation type="unfinished">PWM 50 Hz</translation>
+      <translation>PWM 50 Hz</translation>
     </message>
     <message>
       <source>Parachute</source>
-      <translation type="unfinished">Parachute</translation>
+      <translation>პარაშუტი</translation>
     </message>
     <message>
       <source>Performance</source>
-      <translation type="unfinished">Performance</translation>
+      <translation>წარმადობა</translation>
     </message>
     <message>
       <source>Peripheral via Actuator Set 1</source>
-      <translation type="unfinished">Peripheral via Actuator Set 1</translation>
+      <translation>პერიფერია Actuator Set 1-ით</translation>
     </message>
     <message>
       <source>Peripheral via Actuator Set 2</source>
-      <translation type="unfinished">Peripheral via Actuator Set 2</translation>
+      <translation>პერიფერია Actuator Set 2-ით</translation>
     </message>
     <message>
       <source>Peripheral via Actuator Set 3</source>
-      <translation type="unfinished">Peripheral via Actuator Set 3</translation>
+      <translation>პერიფერია Actuator Set 3-ით</translation>
     </message>
     <message>
       <source>Peripheral via Actuator Set 4</source>
-      <translation type="unfinished">Peripheral via Actuator Set 4</translation>
+      <translation>პერიფერია Actuator Set 4-ით</translation>
     </message>
     <message>
       <source>Peripheral via Actuator Set 5</source>
-      <translation type="unfinished">Peripheral via Actuator Set 5</translation>
+      <translation>პერიფერია Actuator Set 5-ით</translation>
     </message>
     <message>
       <source>Peripheral via Actuator Set 6</source>
-      <translation type="unfinished">Peripheral via Actuator Set 6</translation>
+      <translation>პერიფერია Actuator Set 6-ით</translation>
     </message>
     <message>
       <source>Pitch</source>
-      <translation type="unfinished">Pitch</translation>
+      <translation>Pitch</translation>
     </message>
     <message>
       <source>Pitch 180°</source>
-      <translation type="unfinished">Pitch 180°</translation>
+      <translation>Pitch 180°</translation>
     </message>
     <message>
       <source>Pitch 180°, Yaw 270°</source>
-      <translation type="unfinished">Pitch 180°, Yaw 270°</translation>
+      <translation>Pitch 180°, Yaw 270°</translation>
     </message>
     <message>
       <source>Pitch 180°, Yaw 90°</source>
-      <translation type="unfinished">Pitch 180°, Yaw 90°</translation>
+      <translation>Pitch 180°, Yaw 90°</translation>
     </message>
     <message>
       <source>Pitch 270°</source>
-      <translation type="unfinished">Pitch 270°</translation>
+      <translation>Pitch 270°</translation>
     </message>
     <message>
       <source>Pitch 315°</source>
-      <translation type="unfinished">Pitch 315°</translation>
+      <translation>Pitch 315°</translation>
     </message>
     <message>
       <source>Pitch 90°</source>
-      <translation type="unfinished">Pitch 90°</translation>
+      <translation>Pitch 90°</translation>
     </message>
     <message>
       <source>PointObstacle</source>
-      <translation type="unfinished">PointObstacle</translation>
+      <translation>წერტილოვანი დაბრკოლება</translation>
     </message>
     <message>
       <source>Position</source>
-      <translation type="unfinished">Position</translation>
+      <translation>Position</translation>
     </message>
     <message>
       <source>Position Control</source>
-      <translation type="unfinished">Position Control</translation>
+      <translation>პოზიციის მართვა</translation>
     </message>
     <message>
       <source>Position Hold mode</source>
-      <translation type="unfinished">Position Hold mode</translation>
+      <translation>Position Hold mode</translation>
     </message>
     <message>
       <source>Position Slow</source>
-      <translation type="unfinished">Position Slow</translation>
+      <translation>Position Slow</translation>
     </message>
     <message>
       <source>Position mode</source>
-      <translation type="unfinished">Position mode</translation>
+      <translation>Position mode</translation>
     </message>
     <message>
       <source>Power Module</source>
-      <translation type="unfinished">Power Module</translation>
+      <translation>ძალის მოდული</translation>
     </message>
     <message>
       <source>Precision Land</source>
-      <translation type="unfinished">Precision Land</translation>
+      <translation>Precision Land</translation>
     </message>
     <message>
       <source>Pro User</source>
-      <translation type="unfinished">Pro User</translation>
+      <translation>პროფესიონალი მომხმარებელი</translation>
     </message>
     <message>
       <source>Pseudo-inverse with output clipping</source>
-      <translation type="unfinished">Pseudo-inverse with output clipping</translation>
+      <translation>Pseudo-inverse გამოსავლის შეზღუდვით</translation>
     </message>
     <message>
       <source>Pseudo-inverse with sequential desaturation technique</source>
-      <translation type="unfinished">Pseudo-inverse with sequential desaturation technique</translation>
+      <translation>Pseudo-inverse თანმიმდევრული desaturation-ით</translation>
     </message>
     <message>
       <source>Publish all magnetometers</source>
-      <translation type="unfinished">Publish all magnetometers</translation>
+      <translation>ყველა მაგნიტომეტრის გამოქვეყნება</translation>
     </message>
     <message>
       <source>Publish primary IMU selection</source>
-      <translation type="unfinished">Publish primary IMU selection</translation>
+      <translation>ძირითადი IMU-ს არჩევანის გამოქვეყნება</translation>
     </message>
     <message>
       <source>Publish primary magnetometer</source>
-      <translation type="unfinished">Publish primary magnetometer</translation>
+      <translation>ძირითადი მაგნიტომეტრის გამოქვეყნება</translation>
     </message>
     <message>
       <source>Quadrotor</source>
-      <translation type="unfinished">Quadrotor</translation>
+      <translation>Quadrotor</translation>
     </message>
     <message>
       <source>RAM (not persistent)</source>
-      <translation type="unfinished">RAM (not persistent)</translation>
+      <translation>RAM (not persistent)</translation>
     </message>
     <message>
       <source>RC</source>
-      <translation type="unfinished">RC</translation>
+      <translation>RC</translation>
     </message>
     <message>
       <source>RC AUX 1</source>
-      <translation type="unfinished">RC AUX 1</translation>
+      <translation>RC AUX 1</translation>
     </message>
     <message>
       <source>RC AUX 2</source>
-      <translation type="unfinished">RC AUX 2</translation>
+      <translation>RC AUX 2</translation>
     </message>
     <message>
       <source>RC AUX 3</source>
-      <translation type="unfinished">RC AUX 3</translation>
+      <translation>RC AUX 3</translation>
     </message>
     <message>
       <source>RC AUX 4</source>
-      <translation type="unfinished">RC AUX 4</translation>
+      <translation>RC AUX 4</translation>
     </message>
     <message>
       <source>RC AUX 5</source>
-      <translation type="unfinished">RC AUX 5</translation>
+      <translation>RC AUX 5</translation>
     </message>
     <message>
       <source>RC AUX 6</source>
-      <translation type="unfinished">RC AUX 6</translation>
+      <translation>RC AUX 6</translation>
     </message>
     <message>
       <source>RC Controlled</source>
-      <translation type="unfinished">RC Controlled</translation>
+      <translation>RC-ით მართვადი</translation>
     </message>
     <message>
       <source>RC Flaps</source>
-      <translation type="unfinished">RC Flaps</translation>
+      <translation>RC ფლაპები</translation>
     </message>
     <message>
       <source>RC Pitch</source>
-      <translation type="unfinished">RC Pitch</translation>
+      <translation>RC Pitch</translation>
     </message>
     <message>
       <source>RC Roll</source>
-      <translation type="unfinished">RC Roll</translation>
+      <translation>RC Roll</translation>
     </message>
     <message>
       <source>RC Throttle</source>
-      <translation type="unfinished">RC Throttle</translation>
+      <translation>RC Throttle</translation>
     </message>
     <message>
       <source>RC Transmitter only</source>
-      <translation type="unfinished">RC Transmitter only</translation>
+      <translation>მხოლოდ RC გადამცემი</translation>
     </message>
     <message>
       <source>RC Yaw</source>
-      <translation type="unfinished">RC Yaw</translation>
+      <translation>RC Yaw</translation>
     </message>
     <message>
       <source>RC and Joystick with fallback</source>
-      <translation type="unfinished">RC and Joystick with fallback</translation>
+      <translation>RC და Joystick fallback-ით</translation>
     </message>
     <message>
       <source>RC or Joystick keep first</source>
-      <translation type="unfinished">RC or Joystick keep first</translation>
+      <translation>RC ან Joystick, პირველი რჩება</translation>
     </message>
     <message>
       <source>RESERVED</source>
-      <translation type="unfinished">RESERVED</translation>
+      <translation>რეზერვირებული</translation>
     </message>
     <message>
       <source>ROTATION_BACKWARD_FACING</source>
-      <translation type="unfinished">ROTATION_BACKWARD_FACING</translation>
+      <translation>ROTATION_BACKWARD_FACING</translation>
     </message>
     <message>
       <source>ROTATION_DOWNWARD_FACING</source>
-      <translation type="unfinished">ROTATION_DOWNWARD_FACING</translation>
+      <translation>ROTATION_DOWNWARD_FACING</translation>
     </message>
     <message>
       <source>ROTATION_FORWARD_FACING</source>
-      <translation type="unfinished">ROTATION_FORWARD_FACING</translation>
+      <translation>ROTATION_FORWARD_FACING</translation>
     </message>
     <message>
       <source>ROTATION_LEFT_FACING</source>
-      <translation type="unfinished">ROTATION_LEFT_FACING</translation>
+      <translation>ROTATION_LEFT_FACING</translation>
     </message>
     <message>
       <source>ROTATION_NONE</source>
-      <translation type="unfinished">ROTATION_NONE</translation>
+      <translation>ROTATION_NONE</translation>
     </message>
     <message>
       <source>ROTATION_PITCH_180</source>
-      <translation type="unfinished">ROTATION_PITCH_180</translation>
+      <translation>ROTATION_PITCH_180</translation>
     </message>
     <message>
       <source>ROTATION_PITCH_180_YAW_270</source>
-      <translation type="unfinished">ROTATION_PITCH_180_YAW_270</translation>
+      <translation>ROTATION_PITCH_180_YAW_270</translation>
     </message>
     <message>
       <source>ROTATION_PITCH_180_YAW_90</source>
-      <translation type="unfinished">ROTATION_PITCH_180_YAW_90</translation>
+      <translation>ROTATION_PITCH_180_YAW_90</translation>
     </message>
     <message>
       <source>ROTATION_PITCH_270</source>
-      <translation type="unfinished">ROTATION_PITCH_270</translation>
+      <translation>ROTATION_PITCH_270</translation>
     </message>
     <message>
       <source>ROTATION_PITCH_315</source>
-      <translation type="unfinished">ROTATION_PITCH_315</translation>
+      <translation>ROTATION_PITCH_315</translation>
     </message>
     <message>
       <source>ROTATION_PITCH_90</source>
-      <translation type="unfinished">ROTATION_PITCH_90</translation>
+      <translation>ROTATION_PITCH_90</translation>
     </message>
     <message>
       <source>ROTATION_RIGHT_FACING</source>
-      <translation type="unfinished">ROTATION_RIGHT_FACING</translation>
+      <translation>ROTATION_RIGHT_FACING</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180</source>
-      <translation type="unfinished">ROTATION_ROLL_180</translation>
+      <translation>ROTATION_ROLL_180</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_PITCH_270</source>
-      <translation type="unfinished">ROTATION_ROLL_180_PITCH_270</translation>
+      <translation>ROTATION_ROLL_180_PITCH_270</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_PITCH_90</source>
-      <translation type="unfinished">ROTATION_ROLL_180_PITCH_90</translation>
+      <translation>ROTATION_ROLL_180_PITCH_90</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_YAW_135</source>
-      <translation type="unfinished">ROTATION_ROLL_180_YAW_135</translation>
+      <translation>ROTATION_ROLL_180_YAW_135</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_YAW_225</source>
-      <translation type="unfinished">ROTATION_ROLL_180_YAW_225</translation>
+      <translation>ROTATION_ROLL_180_YAW_225</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_YAW_270</source>
-      <translation type="unfinished">ROTATION_ROLL_180_YAW_270</translation>
+      <translation>ROTATION_ROLL_180_YAW_270</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_YAW_315</source>
-      <translation type="unfinished">ROTATION_ROLL_180_YAW_315</translation>
+      <translation>ROTATION_ROLL_180_YAW_315</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_YAW_45</source>
-      <translation type="unfinished">ROTATION_ROLL_180_YAW_45</translation>
+      <translation>ROTATION_ROLL_180_YAW_45</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_180_YAW_90</source>
-      <translation type="unfinished">ROTATION_ROLL_180_YAW_90</translation>
+      <translation>ROTATION_ROLL_180_YAW_90</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_270</source>
-      <translation type="unfinished">ROTATION_ROLL_270</translation>
+      <translation>ROTATION_ROLL_270</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_270_PITCH_180</source>
-      <translation type="unfinished">ROTATION_ROLL_270_PITCH_180</translation>
+      <translation>ROTATION_ROLL_270_PITCH_180</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_270_PITCH_270</source>
-      <translation type="unfinished">ROTATION_ROLL_270_PITCH_270</translation>
+      <translation>ROTATION_ROLL_270_PITCH_270</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_270_PITCH_90</source>
-      <translation type="unfinished">ROTATION_ROLL_270_PITCH_90</translation>
+      <translation>ROTATION_ROLL_270_PITCH_90</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_270_YAW_135</source>
-      <translation type="unfinished">ROTATION_ROLL_270_YAW_135</translation>
+      <translation>ROTATION_ROLL_270_YAW_135</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_270_YAW_45</source>
-      <translation type="unfinished">ROTATION_ROLL_270_YAW_45</translation>
+      <translation>ROTATION_ROLL_270_YAW_45</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_270_YAW_90</source>
-      <translation type="unfinished">ROTATION_ROLL_270_YAW_90</translation>
+      <translation>ROTATION_ROLL_270_YAW_90</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90</source>
-      <translation type="unfinished">ROTATION_ROLL_90</translation>
+      <translation>ROTATION_ROLL_90</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_PITCH_180</source>
-      <translation type="unfinished">ROTATION_ROLL_90_PITCH_180</translation>
+      <translation>ROTATION_ROLL_90_PITCH_180</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_PITCH_180_YAW_90</source>
-      <translation type="unfinished">ROTATION_ROLL_90_PITCH_180_YAW_90</translation>
+      <translation>ROTATION_ROLL_90_PITCH_180_YAW_90</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_PITCH_270</source>
-      <translation type="unfinished">ROTATION_ROLL_90_PITCH_270</translation>
+      <translation>ROTATION_ROLL_90_PITCH_270</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_PITCH_315</source>
-      <translation type="unfinished">ROTATION_ROLL_90_PITCH_315</translation>
+      <translation>ROTATION_ROLL_90_PITCH_315</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_PITCH_68_YAW_293</source>
-      <translation type="unfinished">ROTATION_ROLL_90_PITCH_68_YAW_293</translation>
+      <translation>ROTATION_ROLL_90_PITCH_68_YAW_293</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_PITCH_90</source>
-      <translation type="unfinished">ROTATION_ROLL_90_PITCH_90</translation>
+      <translation>ROTATION_ROLL_90_PITCH_90</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_YAW_135</source>
-      <translation type="unfinished">ROTATION_ROLL_90_YAW_135</translation>
+      <translation>ROTATION_ROLL_90_YAW_135</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_YAW_270</source>
-      <translation type="unfinished">ROTATION_ROLL_90_YAW_270</translation>
+      <translation>ROTATION_ROLL_90_YAW_270</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_YAW_45</source>
-      <translation type="unfinished">ROTATION_ROLL_90_YAW_45</translation>
+      <translation>ROTATION_ROLL_90_YAW_45</translation>
     </message>
     <message>
       <source>ROTATION_ROLL_90_YAW_90</source>
-      <translation type="unfinished">ROTATION_ROLL_90_YAW_90</translation>
+      <translation>ROTATION_ROLL_90_YAW_90</translation>
     </message>
     <message>
       <source>ROTATION_UPWARD_FACING</source>
-      <translation type="unfinished">ROTATION_UPWARD_FACING</translation>
+      <translation>ROTATION_UPWARD_FACING</translation>
     </message>
     <message>
       <source>ROTATION_YAW_135</source>
-      <translation type="unfinished">ROTATION_YAW_135</translation>
+      <translation>ROTATION_YAW_135</translation>
     </message>
     <message>
       <source>ROTATION_YAW_180</source>
-      <translation type="unfinished">ROTATION_YAW_180</translation>
+      <translation>ROTATION_YAW_180</translation>
     </message>
     <message>
       <source>ROTATION_YAW_225</source>
-      <translation type="unfinished">ROTATION_YAW_225</translation>
+      <translation>ROTATION_YAW_225</translation>
     </message>
     <message>
       <source>ROTATION_YAW_270</source>
-      <translation type="unfinished">ROTATION_YAW_270</translation>
+      <translation>ROTATION_YAW_270</translation>
     </message>
     <message>
       <source>ROTATION_YAW_315</source>
-      <translation type="unfinished">ROTATION_YAW_315</translation>
+      <translation>ROTATION_YAW_315</translation>
     </message>
     <message>
       <source>ROTATION_YAW_45</source>
-      <translation type="unfinished">ROTATION_YAW_45</translation>
+      <translation>ROTATION_YAW_45</translation>
     </message>
     <message>
       <source>ROTATION_YAW_90</source>
-      <translation type="unfinished">ROTATION_YAW_90</translation>
+      <translation>ROTATION_YAW_90</translation>
     </message>
     <message>
       <source>RTCM output (PPK)</source>
-      <translation type="unfinished">RTCM output (PPK)</translation>
+      <translation>RTCM გამოსავალი (PPK)</translation>
     </message>
     <message>
       <source>Radio Controller</source>
-      <translation type="unfinished">Radio Controller</translation>
+      <translation>რადიო კონტროლერი</translation>
     </message>
     <message>
       <source>Range sensor</source>
-      <translation type="unfinished">Range sensor</translation>
+      <translation>დისტანციის სენსორი</translation>
     </message>
     <message>
       <source>Raw data</source>
-      <translation type="unfinished">Raw data</translation>
+      <translation>ნედლი მონაცემები</translation>
     </message>
     <message>
       <source>Remove first failed motor from effectiveness</source>
-      <translation type="unfinished">Remove first failed motor from effectiveness</translation>
+      <translation>პირველი გაუმართავი მოტორის ეფექტურობიდან ამოღება</translation>
     </message>
     <message>
       <source>Require a landing</source>
-      <translation type="unfinished">Require a landing</translation>
+      <translation>დაშვების მოთხოვნა</translation>
     </message>
     <message>
       <source>Require a takeoff</source>
-      <translation type="unfinished">Require a takeoff</translation>
+      <translation>აფრენის მოთხოვნა</translation>
     </message>
     <message>
       <source>Require a takeoff and a landing</source>
-      <translation type="unfinished">Require a takeoff and a landing</translation>
+      <translation>აფრენისა და დაშვების მოთხოვნა</translation>
     </message>
     <message>
       <source>Require both a takeoff and a landing, or neither</source>
-      <translation type="unfinished">Require both a takeoff and a landing, or neither</translation>
+      <translation>ან აფრენაც და დაშვებაც, ან არცერთი</translation>
     </message>
     <message>
       <source>Required precision landing</source>
-      <translation type="unfinished">Required precision landing</translation>
+      <translation>ზუსტი დაშვება სავალდებულოა</translation>
     </message>
     <message>
       <source>Rescale to hover thrust</source>
-      <translation type="unfinished">Rescale to hover thrust</translation>
+      <translation>Hover thrust-ზე გადამასშტაბირება</translation>
     </message>
     <message>
       <source>Reset parameters to airframe defaults</source>
-      <translation type="unfinished">Reset parameters to airframe defaults</translation>
+      <translation>პარამეტრების დაბრუნება airframe-ის ნაგულისხმევზე</translation>
     </message>
     <message>
       <source>Return</source>
-      <translation type="unfinished">Return</translation>
+      <translation>Return</translation>
     </message>
     <message>
       <source>Return at critical level, land at emergency level</source>
-      <translation type="unfinished">Return at critical level, land at emergency level</translation>
+      <translation>კრიტიკულ დონეზე Return, საგანგებო დონეზე Land</translation>
     </message>
     <message>
       <source>Return mode</source>
-      <translation type="unfinished">Return mode</translation>
+      <translation>Return mode</translation>
     </message>
     <message>
       <source>Return to a planned mission landing, if available, using the mission path, else return to home via the reverse mission path. Do not consider rally points.</source>
-      <translation type="unfinished">Return to a planned mission landing, if available, using the mission path, else return to home via the reverse mission path. Do not consider rally points.</translation>
+      <translation>დაბრუნება დაგეგმილ მისიის დაშვების წერტილზე (თუ არსებობს) მისიის გზით, წინააღმდეგ შემთხვევაში home-ზე მისიის უკუ გზით. Rally წერტილები არ განიხილება.</translation>
     </message>
     <message>
       <source>Return to closest safe point (home or rally point) via direct path.</source>
-      <translation type="unfinished">Return to closest safe point (home or rally point) via direct path.</translation>
+      <translation>დაბრუნება უახლოეს უსაფრთხო წერტილზე (home ან rally) პირდაპირი გზით.</translation>
     </message>
     <message>
       <source>Return to closest safe point other than home (mission landing pattern or rally point), via direct path. If no mission landing or rally points are defined return home via direct path. Always chose closest safe landing point if vehicle is a VTOL in hover mode.</source>
-      <translation type="unfinished">Return to closest safe point other than home (mission landing pattern or rally point), via direct path. If no mission landing or rally points are defined return home via direct path. Always chose closest safe landing point if vehicle is a VTOL in hover mode.</translation>
+      <translation>დაბრუნება უახლოეს უსაფრთხო წერტილზე home-ის გარდა (მისიის დაშვების სქემა ან rally წერტილი) პირდაპირი გზით. თუ ასეთი წერტილები განსაზღვრული არ არის, დაბრუნება home-ზე პირდაპირი გზით. თუ აპარატი VTOL-ია hover რეჟიმში, ყოველთვის უახლოესი უსაფრთხო წერტილი არჩევა.</translation>
     </message>
     <message>
       <source>Return via direct path to closest destination: home, start of mission landing pattern or safe point. If the destination is a mission landing pattern, follow the pattern to land.</source>
-      <translation type="unfinished">Return via direct path to closest destination: home, start of mission landing pattern or safe point. If the destination is a mission landing pattern, follow the pattern to land.</translation>
+      <translation>პირდაპირი გზით დაბრუნება უახლოეს დანიშნულებაზე: home, მისიის დაშვების სქემის დასაწყისი ან უსაფრთხო წერტილი. თუ დანიშნულება დაშვების სქემაა, დაშვებისთვის სქემას მიყევი.</translation>
     </message>
     <message>
       <source>Reverse</source>
-      <translation type="unfinished">Reverse</translation>
+      <translation>უკუ</translation>
     </message>
     <message>
       <source>Right A-tail</source>
-      <translation type="unfinished">Right A-tail</translation>
+      <translation>მარჯვენა A-კუდი</translation>
     </message>
     <message>
       <source>Right Aileron</source>
-      <translation type="unfinished">Right Aileron</translation>
+      <translation>მარჯვენა ელერონი</translation>
     </message>
     <message>
       <source>Right Elevon</source>
-      <translation type="unfinished">Right Elevon</translation>
+      <translation>მარჯვენა ელევონი</translation>
     </message>
     <message>
       <source>Right Flap</source>
-      <translation type="unfinished">Right Flap</translation>
+      <translation>მარჯვენა ფლაპი</translation>
     </message>
     <message>
       <source>Right Spoiler</source>
-      <translation type="unfinished">Right Spoiler</translation>
+      <translation>მარჯვენა სპოილერი</translation>
     </message>
     <message>
       <source>Right V-Tail</source>
-      <translation type="unfinished">Right V-Tail</translation>
+      <translation>მარჯვენა V-კუდი</translation>
     </message>
     <message>
       <source>Rising edge</source>
-      <translation type="unfinished">Rising edge</translation>
+      <translation>ზრდის ფრონტი</translation>
     </message>
     <message>
       <source>Roll 180°</source>
-      <translation type="unfinished">Roll 180°</translation>
+      <translation>Roll 180°</translation>
     </message>
     <message>
       <source>Roll 180°, Pitch 270°</source>
-      <translation type="unfinished">Roll 180°, Pitch 270°</translation>
+      <translation>Roll 180°, Pitch 270°</translation>
     </message>
     <message>
       <source>Roll 180°, Pitch 90°</source>
-      <translation type="unfinished">Roll 180°, Pitch 90°</translation>
+      <translation>Roll 180°, Pitch 90°</translation>
     </message>
     <message>
       <source>Roll 180°, Yaw 135°</source>
-      <translation type="unfinished">Roll 180°, Yaw 135°</translation>
+      <translation>Roll 180°, Yaw 135°</translation>
     </message>
     <message>
       <source>Roll 180°, Yaw 225°</source>
-      <translation type="unfinished">Roll 180°, Yaw 225°</translation>
+      <translation>Roll 180°, Yaw 225°</translation>
     </message>
     <message>
       <source>Roll 180°, Yaw 270°</source>
-      <translation type="unfinished">Roll 180°, Yaw 270°</translation>
+      <translation>Roll 180°, Yaw 270°</translation>
     </message>
     <message>
       <source>Roll 180°, Yaw 315°</source>
-      <translation type="unfinished">Roll 180°, Yaw 315°</translation>
+      <translation>Roll 180°, Yaw 315°</translation>
     </message>
     <message>
       <source>Roll 180°, Yaw 45°</source>
-      <translation type="unfinished">Roll 180°, Yaw 45°</translation>
+      <translation>Roll 180°, Yaw 45°</translation>
     </message>
     <message>
       <source>Roll 180°, Yaw 90°</source>
-      <translation type="unfinished">Roll 180°, Yaw 90°</translation>
+      <translation>Roll 180°, Yaw 90°</translation>
     </message>
     <message>
       <source>Roll 270°</source>
-      <translation type="unfinished">Roll 270°</translation>
+      <translation>Roll 270°</translation>
     </message>
     <message>
       <source>Roll 270°, Pitch 180°</source>
-      <translation type="unfinished">Roll 270°, Pitch 180°</translation>
+      <translation>Roll 270°, Pitch 180°</translation>
     </message>
     <message>
       <source>Roll 270°, Pitch 270°</source>
-      <translation type="unfinished">Roll 270°, Pitch 270°</translation>
+      <translation>Roll 270°, Pitch 270°</translation>
     </message>
     <message>
       <source>Roll 270°, Pitch 90°</source>
-      <translation type="unfinished">Roll 270°, Pitch 90°</translation>
+      <translation>Roll 270°, Pitch 90°</translation>
     </message>
     <message>
       <source>Roll 270°, Yaw 135°</source>
-      <translation type="unfinished">Roll 270°, Yaw 135°</translation>
+      <translation>Roll 270°, Yaw 135°</translation>
     </message>
     <message>
       <source>Roll 270°, Yaw 45°</source>
-      <translation type="unfinished">Roll 270°, Yaw 45°</translation>
+      <translation>Roll 270°, Yaw 45°</translation>
     </message>
     <message>
       <source>Roll 270°, Yaw 90°</source>
-      <translation type="unfinished">Roll 270°, Yaw 90°</translation>
+      <translation>Roll 270°, Yaw 90°</translation>
     </message>
     <message>
       <source>Roll 90°</source>
-      <translation type="unfinished">Roll 90°</translation>
+      <translation>Roll 90°</translation>
     </message>
     <message>
       <source>Roll 90°, Pitch 180°</source>
-      <translation type="unfinished">Roll 90°, Pitch 180°</translation>
+      <translation>Roll 90°, Pitch 180°</translation>
     </message>
     <message>
       <source>Roll 90°, Pitch 180°, Yaw 90°</source>
-      <translation type="unfinished">Roll 90°, Pitch 180°, Yaw 90°</translation>
+      <translation>Roll 90°, Pitch 180°, Yaw 90°</translation>
     </message>
     <message>
       <source>Roll 90°, Pitch 270°</source>
-      <translation type="unfinished">Roll 90°, Pitch 270°</translation>
+      <translation>Roll 90°, Pitch 270°</translation>
     </message>
     <message>
       <source>Roll 90°, Pitch 315°</source>
-      <translation type="unfinished">Roll 90°, Pitch 315°</translation>
+      <translation>Roll 90°, Pitch 315°</translation>
     </message>
     <message>
       <source>Roll 90°, Pitch 68°, Yaw 293°</source>
-      <translation type="unfinished">Roll 90°, Pitch 68°, Yaw 293°</translation>
+      <translation>Roll 90°, Pitch 68°, Yaw 293°</translation>
     </message>
     <message>
       <source>Roll 90°, Pitch 90°</source>
-      <translation type="unfinished">Roll 90°, Pitch 90°</translation>
+      <translation>Roll 90°, Pitch 90°</translation>
     </message>
     <message>
       <source>Roll 90°, Yaw 135°</source>
-      <translation type="unfinished">Roll 90°, Yaw 135°</translation>
+      <translation>Roll 90°, Yaw 135°</translation>
     </message>
     <message>
       <source>Roll 90°, Yaw 270°</source>
-      <translation type="unfinished">Roll 90°, Yaw 270°</translation>
+      <translation>Roll 90°, Yaw 270°</translation>
     </message>
     <message>
       <source>Roll 90°, Yaw 45°</source>
-      <translation type="unfinished">Roll 90°, Yaw 45°</translation>
+      <translation>Roll 90°, Yaw 45°</translation>
     </message>
     <message>
       <source>Roll 90°, Yaw 90°</source>
-      <translation type="unfinished">Roll 90°, Yaw 90°</translation>
+      <translation>Roll 90°, Yaw 90°</translation>
     </message>
     <message>
       <source>Roll/Pitch</source>
-      <translation type="unfinished">Roll/Pitch</translation>
+      <translation>Roll/Pitch</translation>
     </message>
     <message>
       <source>Roll/Pitch/Yaw</source>
-      <translation type="unfinished">Roll/Pitch/Yaw</translation>
+      <translation>Roll/Pitch/Yaw</translation>
     </message>
     <message>
       <source>Rotation backward</source>
-      <translation type="unfinished">Rotation backward</translation>
+      <translation>ბრუნვა უკან</translation>
     </message>
     <message>
       <source>Rotation downward</source>
-      <translation type="unfinished">Rotation downward</translation>
+      <translation>ბრუნვა ქვემოთ</translation>
     </message>
     <message>
       <source>Rotation forward</source>
-      <translation type="unfinished">Rotation forward</translation>
+      <translation>ბრუნვა წინ</translation>
     </message>
     <message>
       <source>Rotation left</source>
-      <translation type="unfinished">Rotation left</translation>
+      <translation>ბრუნვა მარცხნივ</translation>
     </message>
     <message>
       <source>Rotation right</source>
-      <translation type="unfinished">Rotation right</translation>
+      <translation>ბრუნვა მარჯვნივ</translation>
     </message>
     <message>
       <source>Rotation upward</source>
-      <translation type="unfinished">Rotation upward</translation>
+      <translation>ბრუნვა ზემოთ</translation>
     </message>
     <message>
       <source>Rotorcraft</source>
-      <translation type="unfinished">Rotorcraft</translation>
+      <translation>როტორული აპარატი</translation>
     </message>
     <message>
       <source>Rover (Ackermann)</source>
-      <translation type="unfinished">Rover (Ackermann)</translation>
+      <translation>Rover (Ackermann)</translation>
     </message>
     <message>
       <source>Rover (Differential)</source>
-      <translation type="unfinished">Rover (Differential)</translation>
+      <translation>Rover (დიფერენციალური)</translation>
     </message>
     <message>
       <source>Rover (Mecanum)</source>
-      <translation type="unfinished">Rover (Mecanum)</translation>
+      <translation>Rover (Mecanum)</translation>
     </message>
     <message>
       <source>Rover with Static Base on UART2 (similar to Default, except coming in on UART2)</source>
-      <translation type="unfinished">Rover with Static Base on UART2 (similar to Default, except coming in on UART2)</translation>
+      <translation>Rover სტატიკური ბაზით UART2-ზე (ნაგულისხმევის მსგავსი, მხოლოდ UART2-ით)</translation>
     </message>
     <message>
       <source>Rudder</source>
-      <translation type="unfinished">Rudder</translation>
+      <translation>ხელმძღვანელი საჭე</translation>
     </message>
     <message>
       <source>Runway</source>
-      <translation type="unfinished">Runway</translation>
+      <translation>ასაფრენი ბილიკი</translation>
     </message>
     <message>
       <source>SBUS</source>
-      <translation type="unfinished">SBUS</translation>
+      <translation>SBUS</translation>
     </message>
     <message>
       <source>SF/LW20/b</source>
-      <translation type="unfinished">SF/LW20/b</translation>
+      <translation>SF/LW20/b</translation>
     </message>
     <message>
       <source>SF/LW20/c</source>
-      <translation type="unfinished">SF/LW20/c</translation>
+      <translation>SF/LW20/c</translation>
     </message>
     <message>
       <source>SF/LW30/d</source>
-      <translation type="unfinished">SF/LW30/d</translation>
+      <translation>SF/LW30/d</translation>
     </message>
     <message>
       <source>SF02</source>
-      <translation type="unfinished">SF02</translation>
+      <translation>SF02</translation>
     </message>
     <message>
       <source>SF10/a</source>
-      <translation type="unfinished">SF10/a</translation>
+      <translation>SF10/a</translation>
     </message>
     <message>
       <source>SF10/b</source>
-      <translation type="unfinished">SF10/b</translation>
+      <translation>SF10/b</translation>
     </message>
     <message>
       <source>SF10/c</source>
-      <translation type="unfinished">SF10/c</translation>
+      <translation>SF10/c</translation>
     </message>
     <message>
       <source>SF11/c</source>
-      <translation type="unfinished">SF11/c</translation>
+      <translation>SF11/c</translation>
     </message>
     <message>
       <source>SF30/b</source>
-      <translation type="unfinished">SF30/b</translation>
+      <translation>SF30/b</translation>
     </message>
     <message>
       <source>SF30/c</source>
-      <translation type="unfinished">SF30/c</translation>
+      <translation>SF30/c</translation>
     </message>
     <message>
       <source>SIH enabled</source>
-      <translation type="unfinished">SIH enabled</translation>
+      <translation>SIH ჩართულია</translation>
     </message>
     <message>
       <source>ST24</source>
-      <translation type="unfinished">ST24</translation>
+      <translation>ST24</translation>
     </message>
     <message>
       <source>SUMD</source>
-      <translation type="unfinished">SUMD</translation>
+      <translation>SUMD</translation>
     </message>
     <message>
       <source>Safety button</source>
-      <translation type="unfinished">Safety button</translation>
+      <translation>უსაფრთხოების ღილაკი</translation>
     </message>
     <message>
       <source>Same as previous when landed, in-air require landing only if no valid VTOL approach is present</source>
-      <translation type="unfinished">Same as previous when landed, in-air require landing only if no valid VTOL approach is present</translation>
+      <translation>მიწაზე წინას იდენტური; ჰაერში დაშვებას მოითხოვს მხოლოდ თუ ვალიდური VTOL მიდგომა არ არის</translation>
     </message>
     <message>
       <source>Sea</source>
-      <translation type="unfinished">Sea</translation>
+      <translation>ზღვა</translation>
     </message>
     <message>
       <source>Seagull MAP2 (over PWM)</source>
-      <translation type="unfinished">Seagull MAP2 (over PWM)</translation>
+      <translation>Seagull MAP2 (PWM-ით)</translation>
     </message>
     <message>
       <source>Second airspeed sensor</source>
-      <translation type="unfinished">Second airspeed sensor</translation>
+      <translation>მეორე airspeed სენსორი</translation>
     </message>
     <message>
       <source>Send Explicit Arm Command</source>
-      <translation type="unfinished">Send Explicit Arm Command</translation>
+      <translation>ცალსახა Arm ბრძანების გაგზავნა</translation>
     </message>
     <message>
       <source>Send Explicit Disarm</source>
-      <translation type="unfinished">Send Explicit Disarm</translation>
+      <translation>ცალსახა Disarm-ის გაგზავნა</translation>
     </message>
     <message>
       <source>Sensor disabled, when explicitly started treated as AUAV L05D</source>
-      <translation type="unfinished">Sensor disabled, when explicitly started treated as AUAV L05D</translation>
+      <translation>სენსორი გამორთულია; ცალსახად გაშვებისას განიხილება როგორც AUAV L05D</translation>
     </message>
     <message>
       <source>Sensors Automatic Config</source>
-      <translation type="unfinished">Sensors Automatic Config</translation>
+      <translation>სენსორები, ავტომატური კონფიგურაცია</translation>
     </message>
     <message>
       <source>Sensors Manual Config</source>
-      <translation type="unfinished">Sensors Manual Config</translation>
+      <translation>სენსორები, ხელით კონფიგურაცია</translation>
     </message>
     <message>
       <source>Sensors Only (default)</source>
-      <translation type="unfinished">Sensors Only (default)</translation>
+      <translation>მხოლოდ სენსორები (ნაგულისხმევი)</translation>
     </message>
     <message>
       <source>Sensors and Actuators (ESCs) Automatic Config</source>
-      <translation type="unfinished">Sensors and Actuators (ESCs) Automatic Config</translation>
+      <translation>სენსორები და აქტუატორები (ESC-ები), ავტომატური კონფიგურაცია</translation>
     </message>
     <message>
       <source>ServiceSurf</source>
-      <translation type="unfinished">ServiceSurf</translation>
+      <translation>ServiceSurf</translation>
     </message>
     <message>
       <source>Servo</source>
-      <translation type="unfinished">Servo</translation>
+      <translation>Servo</translation>
     </message>
     <message>
       <source>Servo 1</source>
-      <translation type="unfinished">Servo 1</translation>
+      <translation>სერვო 1</translation>
     </message>
     <message>
       <source>Servo 2</source>
-      <translation type="unfinished">Servo 2</translation>
+      <translation>სერვო 2</translation>
     </message>
     <message>
       <source>Servo 3</source>
-      <translation type="unfinished">Servo 3</translation>
+      <translation>სერვო 3</translation>
     </message>
     <message>
       <source>Servo 4</source>
-      <translation type="unfinished">Servo 4</translation>
+      <translation>სერვო 4</translation>
     </message>
     <message>
       <source>Servo 5</source>
-      <translation type="unfinished">Servo 5</translation>
+      <translation>სერვო 5</translation>
     </message>
     <message>
       <source>Servo 6</source>
-      <translation type="unfinished">Servo 6</translation>
+      <translation>სერვო 6</translation>
     </message>
     <message>
       <source>Servo 7</source>
-      <translation type="unfinished">Servo 7</translation>
+      <translation>სერვო 7</translation>
     </message>
     <message>
       <source>Servo 8</source>
-      <translation type="unfinished">Servo 8</translation>
+      <translation>სერვო 8</translation>
     </message>
     <message>
       <source>Set Predefined Velocity Setpoint</source>
-      <translation type="unfinished">Set Predefined Velocity Setpoint</translation>
+      <translation>წინასწარ განსაზღვრული სიჩქარის Setpoint-ის დაყენება</translation>
     </message>
     <message>
       <source>Short Range Mode</source>
-      <translation type="unfinished">Short Range Mode</translation>
+      <translation>მოკლე მანძილის რეჟიმი</translation>
     </message>
     <message>
       <source>Single Channel Aileron</source>
-      <translation type="unfinished">Single Channel Aileron</translation>
+      <translation>ერთარხიანი ელერონი</translation>
     </message>
     <message>
       <source>Six side calibration</source>
-      <translation type="unfinished">Six side calibration</translation>
+      <translation>ექვსმხრივი კალიბრაცია</translation>
     </message>
     <message>
       <source>SizeUnknown</source>
-      <translation type="unfinished">SizeUnknown</translation>
+      <translation>ზომა უცნობია</translation>
     </message>
     <message>
       <source>Small</source>
-      <translation type="unfinished">Small</translation>
+      <translation>პატარა</translation>
     </message>
     <message>
       <source>Space</source>
-      <translation type="unfinished">Space</translation>
+      <translation>Space</translation>
     </message>
     <message>
       <source>Stabilization Mode</source>
-      <translation type="unfinished">Stabilization Mode</translation>
+      <translation>სტაბილიზაციის რეჟიმი</translation>
     </message>
     <message>
       <source>Stabilize all axis</source>
-      <translation type="unfinished">Stabilize all axis</translation>
+      <translation>ყველა ღერძის სტაბილიზაცია</translation>
     </message>
     <message>
       <source>Stabilize yaw for absolute/lock mode.</source>
-      <translation type="unfinished">Stabilize yaw for absolute/lock mode.</translation>
+      <translation>Yaw-ს სტაბილიზაცია absolute/lock რეჟიმისთვის.</translation>
     </message>
     <message>
       <source>Stabilized</source>
-      <translation type="unfinished">Stabilized</translation>
+      <translation>Stabilized</translation>
     </message>
     <message>
       <source>Standard</source>
-      <translation type="unfinished">Standard</translation>
+      <translation>სტანდარტული</translation>
     </message>
     <message>
       <source>Standard VTOL</source>
-      <translation type="unfinished">Standard VTOL</translation>
+      <translation>სტანდარტული VTOL</translation>
     </message>
     <message>
       <source>Standby</source>
-      <translation type="unfinished">Standby</translation>
+      <translation>მოლოდინის რეჟიმი</translation>
     </message>
     <message>
       <source>Start on default I2C addr(BATMON_ADDR_DFLT)</source>
-      <translation type="unfinished">Start on default I2C addr(BATMON_ADDR_DFLT)</translation>
+      <translation>გაშვება ნაგულისხმევ I2C მისამართზე (BATMON_ADDR_DFLT)</translation>
     </message>
     <message>
       <source>Stationary</source>
-      <translation type="unfinished">Stationary</translation>
+      <translation>უძრავი</translation>
     </message>
     <message>
       <source>Steering Wheel</source>
-      <translation type="unfinished">Steering Wheel</translation>
+      <translation>საჭე</translation>
     </message>
     <message>
       <source>Step</source>
-      <translation type="unfinished">Step</translation>
+      <translation>Step</translation>
     </message>
     <message>
       <source>Stick input disabled</source>
-      <translation type="unfinished">Stick input disabled</translation>
+      <translation>Stick-ის შეყვანა გამორთულია</translation>
     </message>
     <message>
       <source>Submarine</source>
-      <translation type="unfinished">Submarine</translation>
+      <translation>წყალქვეშა აპარატი</translation>
     </message>
     <message>
       <source>Supply Voltage Mode</source>
-      <translation type="unfinished">Supply Voltage Mode</translation>
+      <translation>კვების ძაბვის რეჟიმი</translation>
     </message>
     <message>
       <source>Surface vessel, boat, ship</source>
-      <translation type="unfinished">Surface vessel, boat, ship</translation>
+      <translation>ზედაპირული ხომალდი, ნავი, გემი</translation>
     </message>
     <message>
       <source>TELEM 1</source>
-      <translation type="unfinished">TELEM 1</translation>
+      <translation>TELEM 1</translation>
     </message>
     <message>
       <source>TELEM 2</source>
-      <translation type="unfinished">TELEM 2</translation>
+      <translation>TELEM 2</translation>
     </message>
     <message>
       <source>TELEM 3</source>
-      <translation type="unfinished">TELEM 3</translation>
+      <translation>TELEM 3</translation>
     </message>
     <message>
       <source>TELEM/SERIAL 4</source>
-      <translation type="unfinished">TELEM/SERIAL 4</translation>
+      <translation>TELEM/SERIAL 4</translation>
     </message>
     <message>
       <source>TREvo3m</source>
-      <translation type="unfinished">TREvo3m</translation>
+      <translation>TREvo3m</translation>
     </message>
     <message>
       <source>TREvo600Hz</source>
-      <translation type="unfinished">TREvo600Hz</translation>
+      <translation>TREvo600Hz</translation>
     </message>
     <message>
       <source>TREvo60m</source>
-      <translation type="unfinished">TREvo60m</translation>
+      <translation>TREvo60m</translation>
     </message>
     <message>
       <source>TROne</source>
-      <translation type="unfinished">TROne</translation>
+      <translation>TROne</translation>
     </message>
     <message>
       <source>Tailsitter</source>
-      <translation type="unfinished">Tailsitter</translation>
+      <translation>Tailsitter</translation>
     </message>
     <message>
       <source>Tailsitter VTOL</source>
-      <translation type="unfinished">Tailsitter VTOL</translation>
+      <translation>Tailsitter VTOL</translation>
     </message>
     <message>
       <source>Takeoff</source>
-      <translation type="unfinished">Takeoff</translation>
+      <translation>Takeoff</translation>
     </message>
     <message>
       <source>Terminate</source>
-      <translation type="unfinished">Terminate</translation>
+      <translation>Terminate</translation>
     </message>
     <message>
       <source>Terrain following</source>
-      <translation type="unfinished">Terrain following</translation>
+      <translation>რელიეფის მიყოლა</translation>
     </message>
     <message>
       <source>Terrain hold</source>
-      <translation type="unfinished">Terrain hold</translation>
+      <translation>რელიეფზე შენარჩუნება</translation>
     </message>
     <message>
       <source>Thermal control enabled</source>
-      <translation type="unfinished">Thermal control enabled</translation>
+      <translation>თერმული კონტროლი ჩართულია</translation>
     </message>
     <message>
       <source>Thermal control off</source>
-      <translation type="unfinished">Thermal control off</translation>
+      <translation>თერმული კონტროლი გამორთულია</translation>
     </message>
     <message>
       <source>Thermal control unavailable</source>
-      <translation type="unfinished">Thermal control unavailable</translation>
+      <translation>თერმული კონტროლი მიუწვდომელია</translation>
     </message>
     <message>
       <source>Third airspeed sensor</source>
-      <translation type="unfinished">Third airspeed sensor</translation>
+      <translation>მესამე airspeed სენსორი</translation>
     </message>
     <message>
       <source>Three side calibration</source>
-      <translation type="unfinished">Three side calibration</translation>
+      <translation>სამმხრივი კალიბრაცია</translation>
     </message>
     <message>
       <source>Throttle-based compensation</source>
-      <translation type="unfinished">Throttle-based compensation</translation>
+      <translation>Throttle-ზე დაფუძნებული კომპენსაცია</translation>
     </message>
     <message>
       <source>Tilt 1</source>
-      <translation type="unfinished">Tilt 1</translation>
+      <translation>Tilt 1</translation>
     </message>
     <message>
       <source>Tilt 2</source>
-      <translation type="unfinished">Tilt 2</translation>
+      <translation>Tilt 2</translation>
     </message>
     <message>
       <source>Tilt 3</source>
-      <translation type="unfinished">Tilt 3</translation>
+      <translation>Tilt 3</translation>
     </message>
     <message>
       <source>Tilt 4</source>
-      <translation type="unfinished">Tilt 4</translation>
+      <translation>Tilt 4</translation>
     </message>
     <message>
       <source>Tiltrotor</source>
-      <translation type="unfinished">Tiltrotor</translation>
+      <translation>Tiltrotor</translation>
     </message>
     <message>
       <source>Tiltrotor VTOL</source>
-      <translation type="unfinished">Tiltrotor VTOL</translation>
+      <translation>Tiltrotor VTOL</translation>
     </message>
     <message>
       <source>Time based, always on</source>
-      <translation type="unfinished">Time based, always on</translation>
+      <translation>დროზე დაფუძნებული, ყოველთვის ჩართული</translation>
     </message>
     <message>
       <source>Time based, on command</source>
-      <translation type="unfinished">Time based, on command</translation>
+      <translation>დროზე დაფუძნებული, ბრძანებით</translation>
     </message>
     <message>
       <source>To receiver</source>
-      <translation type="unfinished">To receiver</translation>
+      <translation>მიმღებისკენ</translation>
     </message>
     <message>
       <source>Towards Front</source>
-      <translation type="unfinished">Towards Front</translation>
+      <translation>წინისკენ</translation>
     </message>
     <message>
       <source>Towards Right</source>
-      <translation type="unfinished">Towards Right</translation>
+      <translation>მარჯვნივ</translation>
     </message>
     <message>
       <source>Tricopter</source>
-      <translation type="unfinished">Tricopter</translation>
+      <translation>Tricopter</translation>
     </message>
     <message>
       <source>Tube Pressure Drop</source>
-      <translation type="unfinished">Tube Pressure Drop</translation>
+      <translation>მილში წნევის ვარდნა</translation>
     </message>
     <message>
       <source>Two side calibration</source>
-      <translation type="unfinished">Two side calibration</translation>
+      <translation>ორმხრივი კალიბრაცია</translation>
     </message>
     <message>
       <source>UART 6</source>
-      <translation type="unfinished">UART 6</translation>
+      <translation>UART 6</translation>
     </message>
     <message>
       <source>UAV</source>
-      <translation type="unfinished">UAV</translation>
+      <translation>UAV</translation>
     </message>
     <message>
       <source>UltraLight</source>
-      <translation type="unfinished">UltraLight</translation>
+      <translation>UltraLight</translation>
     </message>
     <message>
       <source>Unassigned</source>
-      <translation type="unfinished">Unassigned</translation>
+      <translation>მიუნიჭებელი</translation>
     </message>
     <message>
       <source>Unconfigured</source>
-      <translation type="unfinished">Unconfigured</translation>
+      <translation>დაუკონფიგურირებელი</translation>
     </message>
     <message>
       <source>Uncontrolled</source>
-      <translation type="unfinished">Uncontrolled</translation>
+      <translation>უმართავი</translation>
     </message>
     <message>
       <source>Undefined</source>
-      <translation type="unfinished">Undefined</translation>
+      <translation>განუსაზღვრელი</translation>
     </message>
     <message>
       <source>Uninitialized</source>
-      <translation type="unfinished">Uninitialized</translation>
+      <translation>ინიციალიზებული არ არის</translation>
     </message>
     <message>
       <source>Unknown</source>
-      <translation type="unfinished">Unknown</translation>
+      <translation>უცნობი</translation>
     </message>
     <message>
       <source>UnknownMaxSpeed</source>
-      <translation type="unfinished">UnknownMaxSpeed</translation>
+      <translation>მაქს. სიჩქარე უცნობია</translation>
     </message>
     <message>
       <source>Use Motor Arm Behavior</source>
-      <translation type="unfinished">Use Motor Arm Behavior</translation>
+      <translation>მოტორის Arm ქცევის გამოყენება</translation>
     </message>
     <message>
       <source>Use the terrain estimate to trigger the flare (only)</source>
-      <translation type="unfinished">Use the terrain estimate to trigger the flare (only)</translation>
+      <translation>რელიეფის შეფასების გამოყენება flare-ის გასააქტიურებლად (მხოლოდ)</translation>
     </message>
     <message>
       <source>VTOL Quad-rotor Tailsitter</source>
-      <translation type="unfinished">VTOL Quad-rotor Tailsitter</translation>
+      <translation>VTOL ოთხროტორიანი Tailsitter</translation>
     </message>
     <message>
       <source>VTOL Standard (separate fixed rotors for hover and cruise flight)</source>
-      <translation type="unfinished">VTOL Standard (separate fixed rotors for hover and cruise flight)</translation>
+      <translation>VTOL სტანდარტული (ცალკე ფიქსირებული როტორები hover-ისა და კრუიზისთვის)</translation>
     </message>
     <message>
       <source>VTOL Tailsitter</source>
-      <translation type="unfinished">VTOL Tailsitter</translation>
+      <translation>VTOL Tailsitter</translation>
     </message>
     <message>
       <source>VTOL Tiltrotor</source>
-      <translation type="unfinished">VTOL Tiltrotor</translation>
+      <translation>VTOL Tiltrotor</translation>
     </message>
     <message>
       <source>VTOL Two-rotor Tailsitter</source>
-      <translation type="unfinished">VTOL Two-rotor Tailsitter</translation>
+      <translation>VTOL ორროტორიანი Tailsitter</translation>
     </message>
     <message>
       <source>Velocity</source>
-      <translation type="unfinished">Velocity</translation>
+      <translation>სიჩქარე</translation>
     </message>
     <message>
       <source>Vision</source>
-      <translation type="unfinished">Vision</translation>
+      <translation>ვიზუალური სისტემა</translation>
     </message>
     <message>
       <source>Voltage</source>
-      <translation type="unfinished">Voltage</translation>
+      <translation>ძაბვა</translation>
     </message>
     <message>
       <source>Voltage Limit Mode</source>
-      <translation type="unfinished">Voltage Limit Mode</translation>
+      <translation>ძაბვის ლიმიტის რეჟიმი</translation>
     </message>
     <message>
       <source>WARNING Apply the new gains in air</source>
-      <translation type="unfinished">WARNING Apply the new gains in air</translation>
+      <translation>გაფრთხილება: ახალი gain-ების გამოყენება ჰაერში</translation>
     </message>
     <message>
       <source>Warn only</source>
-      <translation type="unfinished">Warn only</translation>
+      <translation>მხოლოდ გაფრთხილება</translation>
     </message>
     <message>
       <source>Warning</source>
-      <translation type="unfinished">Warning</translation>
+      <translation>გაფრთხილება</translation>
     </message>
     <message>
       <source>Warning only</source>
-      <translation type="unfinished">Warning only</translation>
+      <translation>მხოლოდ გაფრთხილება</translation>
     </message>
     <message>
       <source>When autopilot is armed</source>
-      <translation type="unfinished">When autopilot is armed</translation>
+      <translation>როცა ავტოპილოტი Armed-ია</translation>
     </message>
     <message>
       <source>When autopilot is prearmed</source>
-      <translation type="unfinished">When autopilot is prearmed</translation>
+      <translation>როცა ავტოპილოტი Prearmed-ია</translation>
     </message>
     <message>
       <source>Wifi Port</source>
-      <translation type="unfinished">Wifi Port</translation>
+      <translation>Wifi პორტი</translation>
     </message>
     <message>
       <source>XChaCha20</source>
-      <translation type="unfinished">XChaCha20</translation>
+      <translation>XChaCha20</translation>
     </message>
     <message>
       <source>Yaw</source>
-      <translation type="unfinished">Yaw</translation>
+      <translation>Yaw</translation>
     </message>
     <message>
       <source>Yaw 135°</source>
-      <translation type="unfinished">Yaw 135°</translation>
+      <translation>Yaw 135°</translation>
     </message>
     <message>
       <source>Yaw 180°</source>
-      <translation type="unfinished">Yaw 180°</translation>
+      <translation>Yaw 180°</translation>
     </message>
     <message>
       <source>Yaw 225°</source>
-      <translation type="unfinished">Yaw 225°</translation>
+      <translation>Yaw 225°</translation>
     </message>
     <message>
       <source>Yaw 270°</source>
-      <translation type="unfinished">Yaw 270°</translation>
+      <translation>Yaw 270°</translation>
     </message>
     <message>
       <source>Yaw 315°</source>
-      <translation type="unfinished">Yaw 315°</translation>
+      <translation>Yaw 315°</translation>
     </message>
     <message>
       <source>Yaw 45°</source>
-      <translation type="unfinished">Yaw 45°</translation>
+      <translation>Yaw 45°</translation>
     </message>
     <message>
       <source>Yaw 90°</source>
-      <translation type="unfinished">Yaw 90°</translation>
+      <translation>Yaw 90°</translation>
     </message>
     <message>
       <source>Yaw and Pitch</source>
-      <translation type="unfinished">Yaw and Pitch</translation>
+      <translation>Yaw და Pitch</translation>
     </message>
     <message>
       <source>airborne with &amp;lt;1g acceleration</source>
-      <translation type="unfinished">airborne with &amp;lt;1g acceleration</translation>
+      <translation>ჰაერში &lt;1g აჩქარებით</translation>
     </message>
     <message>
       <source>airborne with &amp;lt;2g acceleration</source>
-      <translation type="unfinished">airborne with &amp;lt;2g acceleration</translation>
+      <translation>ჰაერში &lt;2g აჩქარებით</translation>
     </message>
     <message>
       <source>airborne with &amp;lt;4g acceleration</source>
-      <translation type="unfinished">airborne with &amp;lt;4g acceleration</translation>
+      <translation>ჰაერში &lt;4g აჩქარებით</translation>
     </message>
     <message>
       <source>along trajectory</source>
-      <translation type="unfinished">along trajectory</translation>
+      <translation>ტრაექტორიის გასწვრივ</translation>
     </message>
     <message>
       <source>automotive</source>
-      <translation type="unfinished">automotive</translation>
+      <translation>საავტომობილო</translation>
     </message>
     <message>
       <source>away from home</source>
-      <translation type="unfinished">away from home</translation>
+      <translation>home-იდან მოშორებით</translation>
     </message>
     <message>
       <source>close the loop with gps speed</source>
-      <translation type="unfinished">close the loop with gps speed</translation>
+      <translation>კონტურის დახურვა GPS სიჩქარით</translation>
     </message>
     <message>
       <source>config</source>
-      <translation type="unfinished">config</translation>
+      <translation>კონფიგურაცია</translation>
     </message>
     <message>
       <source>custom</source>
-      <translation type="unfinished">custom</translation>
+      <translation>მორგებული</translation>
     </message>
     <message>
       <source>default (SD card)</source>
-      <translation type="unfinished">default (SD card)</translation>
+      <translation>ნაგულისხმევი (SD ბარათი)</translation>
     </message>
     <message>
       <source>disabled</source>
-      <translation type="unfinished">disabled</translation>
+      <translation>გამორთულია</translation>
     </message>
     <message>
       <source>disables the feature</source>
-      <translation type="unfinished">disables the feature</translation>
+      <translation>ფუნქციას თიშავს</translation>
     </message>
     <message>
       <source>external HITL</source>
-      <translation type="unfinished">external HITL</translation>
+      <translation>გარე HITL</translation>
     </message>
     <message>
       <source>extvision</source>
-      <translation type="unfinished">extvision</translation>
+      <translation>extvision</translation>
     </message>
     <message>
       <source>extvisionmin</source>
-      <translation type="unfinished">extvisionmin</translation>
+      <translation>extvisionmin</translation>
     </message>
     <message>
       <source>from 1st armed until shutdown</source>
-      <translation type="unfinished">from 1st armed until shutdown</translation>
+      <translation>პირველი Arm-იდან გამორთვამდე</translation>
     </message>
     <message>
       <source>from boot until disarm</source>
-      <translation type="unfinished">from boot until disarm</translation>
+      <translation>ჩატვირთვიდან Disarm-მდე</translation>
     </message>
     <message>
       <source>from boot until shutdown</source>
-      <translation type="unfinished">from boot until shutdown</translation>
+      <translation>ჩატვირთვიდან გამორთვამდე</translation>
     </message>
     <message>
       <source>full (3D) solution</source>
-      <translation type="unfinished">full (3D) solution</translation>
+      <translation>სრული (3D) ამონახსნი</translation>
     </message>
     <message>
       <source>gimbal</source>
-      <translation type="unfinished">gimbal</translation>
+      <translation>gimbal</translation>
     </message>
     <message>
       <source>iridium</source>
-      <translation type="unfinished">iridium</translation>
+      <translation>iridium</translation>
     </message>
     <message>
       <source>magic</source>
-      <translation type="unfinished">magic</translation>
+      <translation>magic</translation>
     </message>
     <message>
       <source>minimal</source>
-      <translation type="unfinished">minimal</translation>
+      <translation>მინიმალური</translation>
     </message>
     <message>
       <source>normal</source>
-      <translation type="unfinished">normal</translation>
+      <translation>ნორმალური</translation>
     </message>
     <message>
       <source>onboard</source>
-      <translation type="unfinished">onboard</translation>
+      <translation>onboard</translation>
     </message>
     <message>
       <source>onboard_low_bandwidth</source>
-      <translation type="unfinished">onboard_low_bandwidth</translation>
+      <translation>onboard_low_bandwidth</translation>
     </message>
     <message>
       <source>one arm</source>
-      <translation type="unfinished">one arm</translation>
+      <translation>ერთი ნაბიჯით Arm</translation>
     </message>
     <message>
       <source>open loop control</source>
-      <translation type="unfinished">open loop control</translation>
+      <translation>ღია კონტურით მართვა</translation>
     </message>
     <message>
       <source>osd</source>
-      <translation type="unfinished">osd</translation>
+      <translation>osd</translation>
     </message>
     <message>
       <source>planar (2D) solution</source>
-      <translation type="unfinished">planar (2D) solution</translation>
+      <translation>ბრტყელი (2D) ამონახსნი</translation>
     </message>
     <message>
       <source>skip the controller and feedthrough the setpoints</source>
-      <translation type="unfinished">skip the controller and feedthrough the setpoints</translation>
+      <translation>კონტროლერის გამოტოვება და setpoint-ების პირდაპირ გატარება</translation>
     </message>
     <message>
       <source>stationary</source>
-      <translation type="unfinished">stationary</translation>
+      <translation>უძრავი</translation>
     </message>
     <message>
       <source>time-only solution</source>
-      <translation type="unfinished">time-only solution</translation>
+      <translation>მხოლოდ დროის ამონახსნი</translation>
     </message>
     <message>
       <source>towards home</source>
-      <translation type="unfinished">towards home</translation>
+      <translation>home-ისკენ</translation>
     </message>
     <message>
       <source>towards waypoint</source>
-      <translation type="unfinished">towards waypoint</translation>
+      <translation>waypoint-ისკენ</translation>
     </message>
     <message>
       <source>towards waypoint (yaw first)</source>
-      <translation type="unfinished">towards waypoint (yaw first)</translation>
+      <translation>waypoint-ისკენ (ჯერ yaw)</translation>
     </message>
     <message>
       <source>two step arm</source>
-      <translation type="unfinished">two step arm</translation>
+      <translation>ორნაბიჯიანი Arm</translation>
     </message>
     <message>
       <source>u-blox</source>
-      <translation type="unfinished">u-blox</translation>
+      <translation>u-blox</translation>
     </message>
     <message>
       <source>uAvionix</source>
-      <translation type="unfinished">uAvionix</translation>
+      <translation>uAvionix</translation>
     </message>
     <message>
       <source>uavionix</source>
-      <translation type="unfinished">uavionix</translation>
+      <translation>uavionix</translation>
     </message>
     <message>
       <source>use Attitude Setpoints</source>
-      <translation type="unfinished">use Attitude Setpoints</translation>
+      <translation>Attitude Setpoint-ების გამოყენება</translation>
     </message>
     <message>
       <source>use the module&apos;s controller</source>
-      <translation type="unfinished">use the module&apos;s controller</translation>
+      <translation>მოდულის კონტროლერის გამოყენება</translation>
     </message>
     <message>
       <source>when armed until disarm (default)</source>
-      <translation type="unfinished">when armed until disarm (default)</translation>
+      <translation>Arm-იდან Disarm-მდე (ნაგულისხმევი)</translation>
     </message>
     <message>
       <source>while manual input AUX1 &amp;gt;30%</source>
-      <translation type="unfinished">while manual input AUX1 &amp;gt;30%</translation>
+      <translation>სანამ ხელით შეყვანა AUX1 &gt;30%</translation>
     </message>
     <message>
       <source>yaw fixed</source>
-      <translation type="unfinished">yaw fixed</translation>
+      <translation>yaw ფიქსირებულია</translation>
     </message>
   </context>
 </TS>
