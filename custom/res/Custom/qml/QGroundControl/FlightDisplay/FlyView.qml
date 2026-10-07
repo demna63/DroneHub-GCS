@@ -14,27 +14,21 @@ import QtQuick.Window
 import QtQml.Models
 
 import QGroundControl
-import QGroundControl.Controllers
 import QGroundControl.Controls
-import QGroundControl.FactSystem
-import QGroundControl.FlightDisplay
+import QGroundControl.FlyView
 import QGroundControl.FlightMap
-import QGroundControl.Palette
-import QGroundControl.ScreenTools
-import QGroundControl.Vehicle
-
-// 3D Viewer modules
-import Viewer3D
+import QGroundControl.Toolbar
+import QGroundControl.Viewer3D
 
 Item {
     id: _root
 
+    readonly property bool _is3DMode:       QGCViewer3DManager.displayMode === QGCViewer3DManager.View3D
+    readonly property bool _keepSceneAlive: QGroundControl.settingsManager.viewer3DSettings.keepSceneAlive.rawValue
+
     // These should only be used by MainRootWindow
     property var planController:    _planController
     property var guidedController:  _guidedController
-
-    // Properties of UTM adapter
-    property bool utmspSendActTrigger: false
 
     PlanMasterController {
         id:                     _planController
@@ -56,6 +50,7 @@ Item {
     property rect   _centerViewport:        Qt.rect(0, 0, width, height)
     property real   _rightPanelWidth:       ScreenTools.defaultFontPixelWidth * 30
     property var    _mapControl:            mapControl
+    property real   _widgetMargin:          ScreenTools.defaultFontPixelWidth * 0.75
 
     property real   _fullItemZorder:    0
     property real   _pipItemZorder:     QGroundControl.zOrderWidgets
@@ -71,22 +66,16 @@ Item {
 
     QGCToolInsets {
         id:                     _toolInsets
+        topEdgeLeftInset:       toolbar.height
+        topEdgeCenterInset:     topEdgeLeftInset
+        topEdgeRightInset:      topEdgeLeftInset
         leftEdgeBottomInset:    _pipView.leftEdgeBottomInset
         bottomEdgeLeftInset:    _pipView.bottomEdgeLeftInset
     }
 
-    FlyViewToolBar {
-        id:         toolbar
-        visible:    !QGroundControl.videoManager.fullScreen
-        z:          _fullItemZorder + 1
-    }
-
     Item {
         id:                 mapHolder
-        anchors.top:        parent.top
-        anchors.bottom:     parent.bottom
-        anchors.left:       parent.left
-        anchors.right:      parent.right
+        anchors.fill:       parent
 
         FlyViewMap {
             id:                     mapControl
@@ -96,7 +85,8 @@ Item {
             pipMode:                !_mainWindowIsMap
             toolInsets:             customOverlay.totalToolInsets
             mapName:                "FlightDisplayView"
-            enabled:                !viewer3DWindow.isOpen
+            enabled:                !_is3DMode
+            visible:                !_is3DMode
         }
 
         FlyViewVideo {
@@ -168,12 +158,13 @@ Item {
             anchors.bottom:         parent.bottom
             anchors.left:           parent.left
             anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : parent.right
-            z:                      _fullItemZorder + 2 // we need to add one extra layer for map 3d viewer (normally was 1)
+            anchors.margins:        _widgetMargin
+            anchors.topMargin:      toolbar.height + _widgetMargin
+            z:                      _fullItemZorder + 2
             parentToolInsets:       _toolInsets
             mapControl:             _mapControl
+            viewer3DCameraController: viewer3DLoader.item ? viewer3DLoader.item.cameraController : null
             visible:                !QGroundControl.videoManager.fullScreen
-            utmspActTrigger:        utmspSendActTrigger
-            isViewer3DOpen:         viewer3DWindow.isOpen
         }
 
         FlyViewCustomLayer {
@@ -210,13 +201,35 @@ Item {
             anchors.right:      parent.right
             anchors.top:        parent.top
             anchors.bottom:     parent.bottom
+            anchors.topMargin:  toolbar.height
             z:                  QGroundControl.zOrderTopMost
             visible:            false
         }
 
-        Viewer3D{
-            id:                     viewer3DWindow
-            anchors.fill:           parent
+        Loader {
+            id:           viewer3DLoader
+            z:            1
+            anchors.fill: parent
+            visible:      _is3DMode
         }
+
+        Connections {
+            target: QGCViewer3DManager
+            function onDisplayModeChanged() {
+                if (QGCViewer3DManager.displayMode === QGCViewer3DManager.View3D) {
+                    if (!viewer3DLoader.item) {
+                        viewer3DLoader.setSource("qrc:/qml/QGroundControl/Viewer3D/Models3D/Viewer3DModel.qml")
+                    }
+                } else if (!_keepSceneAlive) {
+                    viewer3DLoader.source = ""
+                }
+            }
+        }
+    }
+
+    FlyViewToolBar {
+        id:                 toolbar
+        guidedValueSlider:  _guidedValueSlider
+        visible:            !QGroundControl.videoManager.fullScreen
     }
 }

@@ -7,9 +7,6 @@ import QtQuick.Layouts
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.MultiVehicleManager
-import QGroundControl.ScreenTools
-import QGroundControl.Palette
 
 Item {
     id:             control
@@ -19,12 +16,12 @@ Item {
 
     property var  _activeVehicle:   QGroundControl.multiVehicleManager.activeVehicle
     property bool _rcDataValid:     _activeVehicle
-                                    && _activeVehicle.rcRSSI > 0
-                                    && _activeVehicle.rcRSSI <= 100
-    property int  _rcPercent:       _rcDataValid ? _activeVehicle.rcRSSI : 0
+                                    && _activeVehicle.rcRSSI.rawValue > 0
+                                    && _activeVehicle.rcRSSI.rawValue <= 100
+    property int  _rcPercent:       _rcDataValid ? _activeVehicle.rcRSSI.rawValue : 0
 
     // Show whenever the autopilot reports RC radio support — even before first RSSI sample.
-    property bool showIndicator:    _activeVehicle && _activeVehicle.supportsRadio
+    property bool showIndicator:    _activeVehicle && _activeVehicle.supports.radio
 
     function _rcColor() {
         if (!_rcDataValid) {
@@ -50,7 +47,7 @@ Item {
 
                 LabelledLabel {
                     label:      qsTr("RSSI")
-                    labelText:  _rcDataValid ? (_activeVehicle.rcRSSI + "%") : qsTr("No data")
+                    labelText:  _rcDataValid ? (_activeVehicle.rcRSSI.rawValue + "%") : qsTr("No data")
                 }
             }
         }
@@ -82,7 +79,7 @@ Item {
         QGCLabel {
             anchors.verticalCenter: parent.verticalCenter
             color:                  _rcColor()
-            text:                   _rcDataValid ? (_activeVehicle.rcRSSI + "%") : "—"
+            text:                   _rcDataValid ? (_activeVehicle.rcRSSI.rawValue + "%") : "—"
         }
     }
 

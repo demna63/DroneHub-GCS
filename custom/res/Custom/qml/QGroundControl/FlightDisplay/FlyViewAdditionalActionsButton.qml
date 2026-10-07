@@ -8,8 +8,7 @@ import QtQuick.Layouts
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.FlightDisplay
-import QGroundControl.Controllers
+import QGroundControl.FlyView
 
 ToolStripAction {
     id:         action

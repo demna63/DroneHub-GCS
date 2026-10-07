@@ -17,8 +17,8 @@ import Qt.labs.settings 1.0
 
 import QGroundControl
 import QGroundControl.Controls
+import QGroundControl.FlyView
 import QGroundControl.FlightMap
-import QGroundControl.ScreenTools
 
 Item {
     id: _root
