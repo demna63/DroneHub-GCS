@@ -114,6 +114,11 @@ Item {
             show:                   QGroundControl.videoManager.hasVideo && !QGroundControl.videoManager.fullScreen &&
                                         (videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
             z:                      _fullItemZorder + 4
+            // Same height as the collapsed HUD dock (16:9), so PiP and HUD sit on one row.
+            // A manual resize via the PiP handle overrides this binding.
+            _pipSize:               customOverlay.hudCompactDockHeight > 0
+                                        ? Math.min(customOverlay.hudCompactDockHeight * 16 / 9, parent.width * 0.4)
+                                        : parent.width * 0.2
 
             property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
             property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
@@ -140,6 +145,7 @@ Item {
             z:                  _fullItemZorder + 2
             parentToolInsets:   widgetLayer.totalToolInsets
             mapControl:         _mapControl
+            dockBottomMargin:   _pipView.anchors.margins
             visible:            !QGroundControl.videoManager.fullScreen
         }
 

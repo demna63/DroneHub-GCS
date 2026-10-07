@@ -27,6 +27,13 @@ Item {
     property var totalToolInsets:   _toolInsets
     property var mapControl
 
+    /// Distance from the layer's bottom edge to the bottom of the HUD dock. FlyView sets
+    /// it to the PiP margin so the dock and the collapsed video/map PiP share a baseline.
+    property real dockBottomMargin: _bottomSafe
+    /// Height of the dock in the collapsed (compact, non-edit) state — FlyView sizes the
+    /// PiP from it so both read as one row. 0 until first layout.
+    property real hudCompactDockHeight: 0
+
     Settings {
         id: _flyViewPrefs
         category: "DroneHub/FlyView"
@@ -1119,7 +1126,9 @@ Item {
     Item {
         id:                     osRoot
         anchors.bottom:         parent.bottom
-        anchors.bottomMargin:   _bottomSafe
+        // Dock padding extends below osColumn — offset so the dock's outer edge sits
+        // exactly dockBottomMargin above the bottom (same baseline as the PiP).
+        anchors.bottomMargin:   dockBottomMargin + hudDock.dockPad
         anchors.horizontalCenter: parent.horizontalCenter
         // Dock and expanded card share this width, so both edges line up. In edit mode
         // the picker row (+ add button) may be wider than the view row — grow to fit.
@@ -1140,15 +1149,23 @@ Item {
         // (0,0) in osRoot, so its children's coordinates are usable directly.
         GlassBackdrop {
             id:             hudDock
-            readonly property real _pad:     _t.spacingUnit * 1.5
+            readonly property real dockPad:  _t.spacingUnit * 1.5
             x:              0
-            y:              instrumentRow.y - _pad
+            y:              instrumentRow.y - dockPad
             width:          osRoot.width
-            height:         (compactContainer.y + compactContainer.height) - instrumentRow.y + _pad * 2
+            height:         (compactContainer.y + compactContainer.height) - instrumentRow.y + dockPad * 2
             z:              -1
             cornerRadius:   _t.radiusLg
             tint:           _t.glassTint
             fallbackTint:   _t.glassDockFallback
+
+            function _publishCompactHeight() {
+                if (!_hudExpanded && !_hudEditMode && height > 0) {
+                    _root.hudCompactDockHeight = height
+                }
+            }
+            onHeightChanged:        _publishCompactHeight()
+            Component.onCompleted:  _publishCompactHeight()
 
             // Hairline between the instrument row and the metric strip
             Rectangle {
