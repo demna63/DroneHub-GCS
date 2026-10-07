@@ -6529,7 +6529,19 @@ Click Ok to start the auto-tuning process.
       <source>Power &amp; Environment</source>
       <translation>კვება და გარემო</translation>
     </message>
-  </context>
+      <message>
+      <source>Done</source>
+      <translation>მზადაა</translation>
+    </message>
+    <message>
+      <source>✕ remove</source>
+      <translation>✕ წაშლა</translation>
+    </message>
+    <message>
+      <source>+ add metric</source>
+      <translation>+ მეტრიკის დამატება</translation>
+    </message>
+</context>
   <context>
     <name>FlyViewMap</name>
     <message>

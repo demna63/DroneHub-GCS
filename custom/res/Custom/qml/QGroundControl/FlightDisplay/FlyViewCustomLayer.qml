@@ -1121,10 +1121,14 @@ Item {
         anchors.bottom:         parent.bottom
         anchors.bottomMargin:   _bottomSafe
         anchors.horizontalCenter: parent.horizontalCenter
-        width:                  _hudExpanded
+        // Dock and expanded card share this width, so both edges line up. In edit mode
+        // the picker row (+ add button) may be wider than the view row — grow to fit.
+        width:                  Math.max(_hudExpanded
                                     ? Math.min(_root.width - _margin * 3,
                                                ScreenTools.defaultFontPixelWidth * _t.hudExpandedMaxWidthEm)
-                                    : Math.min(_hudCompactWidth, _root.width - _margin * 2)
+                                    : Math.min(_hudCompactWidth, _root.width - _margin * 2),
+                                    Math.min(compactRow.width + _t.spacingUnit * 3 + hudEditButton.width * 2,
+                                             _root.width - _margin * 2))
         height:                 osColumn.implicitHeight
         // Show on mobile/touch too — otherwise the stock TelemetryValuesBar is
         // disabled in this fork and the operator gets no telemetry panel at all.
@@ -1137,11 +1141,9 @@ Item {
         GlassBackdrop {
             id:             hudDock
             readonly property real _pad:     _t.spacingUnit * 1.5
-            readonly property real _sideW:   (hudEditButton.width + _t.spacingUnit) * 2
-            readonly property real _content: Math.max(instrumentRow.width, compactRow.width + _sideW)
-            x:              (osRoot.width - width) / 2
+            x:              0
             y:              instrumentRow.y - _pad
-            width:          _content + _pad * 2
+            width:          osRoot.width
             height:         (compactContainer.y + compactContainer.height) - instrumentRow.y + _pad * 2
             z:              -1
             cornerRadius:   _t.radiusLg
@@ -1155,6 +1157,42 @@ Item {
                 height:     1
                 y:          (instrumentRow.y + instrumentRow.height + compactContainer.y) / 2 - hudDock.y
                 color:      _t.glassDivider
+            }
+        }
+
+        // Edit / Done toggle — top-right corner of the dock, so it never pushes the
+        // metric row off-centre or sticks out of the panel.
+        Rectangle {
+            id:                     hudEditButton
+            anchors.right:          hudDock.right
+            anchors.top:            hudDock.top
+            anchors.margins:        _t.spacingUnit
+            z:                      1
+            width:                  editButtonText.implicitWidth + _t.spacingUnit * (_hudEditMode ? 2.5 : 1.5)
+            height:                 _t.spacingUnit * 3.25
+            radius:                 height / 2
+            color:                  _hudEditMode ? "#330A84FF"
+                                                 : (editButtonMouse.containsMouse ? Qt.rgba(1, 1, 1, 0.10) : "transparent")
+            border.width:           _hudEditMode ? 1 : 0
+            border.color:           "#800A84FF"
+            Behavior on color { ColorAnimation { duration: 100 } }
+
+            Text {
+                id:                 editButtonText
+                anchors.centerIn:   parent
+                text:               _hudEditMode ? qsTr("Done") : "✎"
+                color:              _hudEditMode ? _t.telemetryAccent : _t.textSecondary
+                opacity:            _hudEditMode || editButtonMouse.containsMouse ? 1.0 : 0.6
+                font.family:        _t.fontFamily
+                font.pixelSize:     _t.fontCaption
+                font.weight:        _hudEditMode ? Font.DemiBold : Font.Normal
+            }
+            MouseArea {
+                id:             editButtonMouse
+                anchors.fill:   parent
+                hoverEnabled:   true
+                cursorShape:    Qt.PointingHandCursor
+                onClicked:      _root._hudEditMode = !_root._hudEditMode
             }
         }
 
@@ -1277,41 +1315,14 @@ Item {
                         Layout.preferredWidth:  _t.spacingUnit * 4
                         Layout.preferredHeight: _t.spacingUnit * 4
                         radius:                 width / 2
-                        color:                  _t.hudMetricPlate
+                        color:                  Qt.rgba(1, 1, 1, 0.06)
                         border.width:           1
-                        border.color:           _t.hudBorder
-                        Text { anchors.centerIn: parent; text: "+"; color: _t.textPrimary; font.pixelSize: _t.fontBody }
+                        border.color:           _t.glassEdge
+                        Text { anchors.centerIn: parent; text: "+"; color: _t.textSecondary; font.pixelSize: _t.fontBody }
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addCompactSlot() }
                     }
                 }
 
-                // Edit / Done toggle — overlaid at the right so the cells stay
-                // centered; revealed on hover (or while editing) to stay unobtrusive.
-                Rectangle {
-                    id:                     hudEditButton
-                    anchors.left:           compactRow.right
-                    anchors.leftMargin:     _t.spacingUnit
-                    anchors.verticalCenter: compactRow.verticalCenter
-                    opacity:                _hudEditMode ? 1.0 : 0.5
-                    width:                  _hudEditMode ? _t.spacingUnit * 6 : _t.spacingUnit * 3.5
-                    height:                 _t.spacingUnit * 3.5
-                    radius:                 _t.radiusSm
-                    color:                  _hudEditMode ? "#660A84FF" : "transparent"
-                    border.width:           _hudEditMode ? 1 : 0
-                    border.color:           _t.brandPrimary
-                    Text {
-                        anchors.centerIn:   parent
-                        text:               _hudEditMode ? qsTr("Done") : "✎"
-                        color:              _t.textPrimary
-                        font.family:        _t.fontFamily
-                        font.pixelSize:     _hudEditMode ? _t.fontMicro : _t.fontCaption
-                    }
-                    MouseArea {
-                        anchors.fill:   parent
-                        cursorShape:    Qt.PointingHandCursor
-                        onClicked:      _root._hudEditMode = !_root._hudEditMode
-                    }
-                }
             }
 
             Rectangle {
@@ -1319,6 +1330,7 @@ Item {
                 // reachable from the (collapsed-position) pencil button.
                 visible:                _hudExpanded || _hudEditMode
                 Layout.fillWidth:       true
+                Layout.topMargin:       _t.spacingUnit * 1.5   // clear the dock's bottom padding
                 radius:                 _t.radiusLg
                 color:                  "transparent"
                 implicitHeight:         expandedBody.implicitHeight + _t.spacingUnit * 2
