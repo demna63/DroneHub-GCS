@@ -1,0 +1,14 @@
+diff --git a/src/QmlControls/QGCPalette.cc b/src/QmlControls/QGCPalette.cc
+index 9adda85..feb46ce 100644
+--- a/src/QmlControls/QGCPalette.cc
++++ b/src/QmlControls/QGCPalette.cc
+@@ -114,7 +114,8 @@ void QGCPalette::setColorGroupEnabled(bool enabled)
+ 
+ void QGCPalette::setGlobalTheme(Theme newTheme)
+ {
+-    // Mobile build does not have themes
++    Q_UNUSED(newTheme);
++    newTheme = Dark;
+     if (_theme != newTheme) {
+         _theme = newTheme;
+         _signalPaletteChangeToAll();

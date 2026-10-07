@@ -39,7 +39,8 @@ open qgroundcontrol/build/Release/DroneHubGCS.app
 **ყველა ჩვენი ცვლილება `custom/`-შია** (tracked); `qgroundcontrol/` (engine) gitignore-შია და უცვლელია.
 core QGC ფაილს პირდაპირ **არ** ვცვლით — სამი მექანიზმით ვმუშაობთ:
 
-1. **`custom/src/`** — `CustomPlugin` (QGCCorePlugin subclass) + `CustomOptions`. აქ ხდება defaults,
+1. **`custom/src/`** — `CustomPlugin` (QGCCorePlugin subclass) + `CustomOptions` + DHGM ინტეგრაცია
+   (`CotForwarder`, `DhgmSettings`) + `CustomOsmAutoLoader`. აქ ხდება defaults,
    settings-enum თარგმანი (`adjustSettingMetaData`), palette, locale, font, brand.
 2. **custom QML override** (`custom/res/Custom/qml/...`) — ცვლის core QML-ს file-sync-ით
    (`custom/CMakeLists.txt`: `DRONEHUB_*_SRC|DST` → core წყაროებში კოპირდება build-/configure-დროს).
@@ -86,7 +87,9 @@ tool strip — Analyze ყოველთვის, Viewer3D default-on.
 custom `MissionItemEditor`/`SimpleItemEditor`/`MissionSettingsEditor` (დიდი ფონტი, spacing).
 
 **ქცევა/defaults:** PX4 multirotor offline default; Brand Image settings დამალული; multi-vehicle
-list = base default. **dronehub.ge backend ინტეგრაცია — ჯერ არ არსებობს (TODO, თუ დაგეგმილია).**
+list = base default. **DHGM ინტეგრაცია:** `CotForwarder` — ტელემეტრია → CoT (multicast 239.2.3.1:6969 + unicast ATAK SA) და JSON (TCP :14550, newline-delimited, heartbeat + backpressure); ჩართვა Settings → DHGM forwarding. TCP კლიენტები მხოლოდ ლოკალური ქსელიდან (loopback/RFC1918/169.254) — სხვა IP ეგრევე წყდება. **dronehub.ge backend ინტეგრაცია — ჯერ არ არსებობს.**
+
+**Core patch-ები (ყველა `custom/patches/`-შია):** ქართული ენა (`AppSettings-georgian-language`), HUD ვიჯეტების ფერები/ლოგო (`HUD-dark-theme-widgets`), იძულებითი Dark თემა (`QGCPalette-force-dark`) + ძველი patch-ები. MockLink Release-ში გამორთულია (upstream-ის ქცევა). ⚠️ core-ში პირდაპირ არაფერი ისწორება — ყოველი ცვლილება patch-ად.
 
 **პლატფორმები/CI:** macOS · Windows (MSVC) · Linux · Android (arm64) · WASM — GitHub Actions-ით.
 

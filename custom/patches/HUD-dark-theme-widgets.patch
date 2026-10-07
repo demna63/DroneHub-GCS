@@ -1,0 +1,67 @@
+diff --git a/src/FlightMap/Widgets/QGCArtificialHorizon.qml b/src/FlightMap/Widgets/QGCArtificialHorizon.qml
+index a94d8f7..8fa90dc 100644
+--- a/src/FlightMap/Widgets/QGCArtificialHorizon.qml
++++ b/src/FlightMap/Widgets/QGCArtificialHorizon.qml
+@@ -36,8 +36,8 @@ Item {
+             smooth: true
+             antialiasing: true
+             gradient: Gradient {
+-                GradientStop { position: 0.25; color: Qt.hsla(0.6, 1.0, 0.25) }
+-                GradientStop { position: 0.5;  color: Qt.hsla(0.6, 0.5, 0.55) }
++                GradientStop { position: 0.25; color: "#CC151B24" }
++                GradientStop { position: 0.5;  color: "#CC222A36" }
+             }
+         }
+         Rectangle {
+@@ -51,8 +51,8 @@ Item {
+             smooth: true
+             antialiasing: true
+             gradient: Gradient {
+-                GradientStop { position: 0.0;  color: Qt.hsla(0.25,  0.5, 0.45) }
+-                GradientStop { position: 0.25; color: Qt.hsla(0.25, 0.75, 0.25) }
++                GradientStop { position: 0.0;  color: "#CC1A241B" }
++                GradientStop { position: 0.25; color: "#CC0E140F" }
+             }
+         }
+         transform: [
+diff --git a/src/FlightMap/Widgets/QGCAttitudeWidget.qml b/src/FlightMap/Widgets/QGCAttitudeWidget.qml
+index 552feb8..71581ab 100644
+--- a/src/FlightMap/Widgets/QGCAttitudeWidget.qml
++++ b/src/FlightMap/Widgets/QGCAttitudeWidget.qml
+@@ -126,8 +126,8 @@ Item {
+         anchors.fill:   parent
+         radius:         width / 2
+         color:          Qt.rgba(0,0,0,0)
+-        border.color:   qgcPal.text
+-        border.width:   1
++        border.color:   "#40FFFFFF"
++        border.width:   1.5
+     }
+ 
+     QGCLabel {
+diff --git a/src/QmlControls/MainStatusIndicator.qml b/src/QmlControls/MainStatusIndicator.qml
+index bc08eeb..8f229ca 100644
+--- a/src/QmlControls/MainStatusIndicator.qml
++++ b/src/QmlControls/MainStatusIndicator.qml
+@@ -110,7 +110,7 @@ RowLayout {
+                     }
+                 }
+             } else {
+-                _mainStatusBGColor = qgcPal.brandingPurple
++                _mainStatusBGColor = "#0B0E14"
+                 return mainStatusLabel._disconnectedText
+             }
+         }
+diff --git a/src/UI/AppSettings/SettingsPagesModel.qml b/src/UI/AppSettings/SettingsPagesModel.qml
+index 3eab499..1207e9c 100644
+--- a/src/UI/AppSettings/SettingsPagesModel.qml
++++ b/src/UI/AppSettings/SettingsPagesModel.qml
+@@ -16,7 +16,7 @@ ListModel {
+     ListElement {
+         name: qsTr("General")
+         url: "qrc:/qml/QGroundControl/AppSettings/GeneralSettings.qml"
+-        iconUrl: "qrc:/res/QGCLogoWhite.svg"
++        iconUrl: "qrc:/custom/img/logo.png"
+         pageVisible: function() { return true }
+     }
+ 

@@ -1,0 +1,20 @@
+diff --git a/src/Settings/AppSettings.cc b/src/Settings/AppSettings.cc
+index fd93af4..9da791b 100644
+--- a/src/Settings/AppSettings.cc
++++ b/src/Settings/AppSettings.cc
+@@ -27,6 +27,7 @@ QList<QLocale::Language> AppSettings::_rgReleaseLanguages = {
+     QLocale::English,
+     QLocale::Azerbaijani,    
+     QLocale::Chinese,
++    QLocale::Georgian,
+     QLocale::Japanese,
+     QLocale::Korean,
+     QLocale::Portuguese,
+@@ -47,6 +48,7 @@ AppSettings::LanguageInfo_t AppSettings::_rgLanguageInfo[] = {
+     { QLocale::English,         "English" },
+     { QLocale::Finnish,         "Suomi (Finnish)" },
+     { QLocale::French,          "Français (French)" },
++    { QLocale::Georgian,        "ქართული (Georgian)" },
+     { QLocale::German,          "Deutsche (German)" },
+     { QLocale::Greek,           "Ελληνικά (Greek)" },
+     { QLocale::Hebrew,          "עברית (Hebrew)" },
