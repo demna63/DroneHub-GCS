@@ -16,7 +16,7 @@ Item {
     }
 
     readonly property string logoSource:           "qrc:/custom/img/dggcs-logo-original.png"
-    readonly property string videoPlaceholderLogo: "qrc:/custom/img/dhg-logo.png"
+    readonly property string videoPlaceholderLogo: "qrc:/custom/img/dhg-logo-dark.png"
     readonly property string appName:       "DroneHub GCS"
 
     /// Fly View მარცხენა tool strip — ლოგოზე დაჭერით იკეცება/იშლება (persisted).

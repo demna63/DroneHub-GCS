@@ -47,44 +47,85 @@ Item {
 
     property double _thermalHeightFactor: 0.85 //-- TODO
 
+    // Branded "no video" state: transparent light logo on the dark surface (no white
+    // box), a slow breathing pulse while waiting, and a quiet status line with
+    // animated dots instead of a black label chip.
     Item {
         id:             noVideo
         anchors.fill:   parent
         visible:        !QGroundControl.videoManager.decoding
 
+        readonly property bool _waiting: _streamEnabled
+
         Rectangle {
             anchors.fill: parent
-            color:        "#0B0E14"
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#10141C" }
+                GradientStop { position: 1.0; color: "#080A0F" }
+            }
         }
 
         Column {
             anchors.centerIn: parent
-            spacing:          ScreenTools.defaultFontPixelHeight * 0.5
+            spacing:          ScreenTools.defaultFontPixelHeight * (useSmallFont ? 0.6 : 1.1)
 
             Image {
                 id:                       placeholderLogo
-                visible:                  _streamEnabled
-                source:                   "qrc:/custom/img/dhg-logo.png"
-                width:                    Math.min(root.width, root.height) * (useSmallFont ? 0.5 : 0.62)
+                source:                   "qrc:/custom/img/dhg-logo-dark.png"
+                width:                    Math.min(root.width * (useSmallFont ? 0.42 : 0.24),
+                                                   root.height * (useSmallFont ? 0.9 : 0.5) * sourceSize.width / Math.max(1, sourceSize.height))
                 fillMode:                 Image.PreserveAspectFit
+                smooth:                   true
+                mipmap:                   true
                 anchors.horizontalCenter: parent.horizontalCenter
+                opacity:                  noVideo._waiting ? 0.85 : 0.35
+
+                SequentialAnimation on opacity {
+                    running:    noVideo.visible && noVideo._waiting
+                    loops:      Animation.Infinite
+                    NumberAnimation { from: 0.85; to: 0.45; duration: 1600; easing.type: Easing.InOutSine }
+                    NumberAnimation { from: 0.45; to: 0.85; duration: 1600; easing.type: Easing.InOutSine }
+                }
             }
 
-            Rectangle {
+            Row {
                 anchors.horizontalCenter: parent.horizontalCenter
-                width:                    noVideoLabel.contentWidth + ScreenTools.defaultFontPixelHeight
-                height:                   noVideoLabel.contentHeight + ScreenTools.defaultFontPixelHeight * 0.6
-                radius:                   ScreenTools.defaultFontPixelWidth / 2
-                color:                    "black"
-                opacity:                  0.45
+                spacing:                  ScreenTools.defaultFontPixelWidth * 0.8
 
                 QGCLabel {
                     id:                 noVideoLabel
-                    anchors.centerIn:   parent
-                    text:               _streamEnabled ? qsTr("WAITING FOR VIDEO") : qsTr("VIDEO DISABLED")
-                    font.bold:          true
-                    color:              "white"
-                    font.pointSize:     useSmallFont ? ScreenTools.smallFontPointSize : ScreenTools.largeFontPointSize
+                    anchors.verticalCenter: parent.verticalCenter
+                    text:               noVideo._waiting ? qsTr("WAITING FOR VIDEO") : qsTr("VIDEO DISABLED")
+                    color:              "#9AA6B8"
+                    font.letterSpacing: 1.5
+                    font.pointSize:     useSmallFont ? ScreenTools.smallFontPointSize : ScreenTools.defaultFontPointSize
+                }
+
+                // Three pulsing dots — activity cue while waiting for the stream.
+                Row {
+                    anchors.verticalCenter: parent.verticalCenter
+                    visible:                noVideo._waiting
+                    spacing:                ScreenTools.defaultFontPixelWidth * 0.4
+
+                    Repeater {
+                        model: 3
+                        Rectangle {
+                            width:      ScreenTools.defaultFontPixelWidth * 0.6
+                            height:     width
+                            radius:     width / 2
+                            color:      "#20B2AA"
+                            opacity:    0.25
+
+                            SequentialAnimation on opacity {
+                                running:    noVideo.visible && noVideo._waiting
+                                loops:      Animation.Infinite
+                                PauseAnimation  { duration: index * 200 }
+                                NumberAnimation { to: 1.0;  duration: 400; easing.type: Easing.OutQuad }
+                                NumberAnimation { to: 0.25; duration: 400; easing.type: Easing.InQuad }
+                                PauseAnimation  { duration: (2 - index) * 200 }
+                            }
+                        }
+                    }
                 }
             }
         }

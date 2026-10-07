@@ -12,6 +12,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Effects
 import Qt.labs.settings 1.0
 
 import QGroundControl
@@ -25,6 +26,15 @@ Item {
     property var parentToolInsets
     property var totalToolInsets:   _toolInsets
     property var mapControl
+
+    /// Distance from the layer's bottom edge to the bottom of the HUD dock. FlyView sets
+    /// it to the PiP margin so the dock and the collapsed video/map PiP share a baseline.
+    property real dockBottomMargin: _bottomSafe
+    /// Height of the dock in the collapsed (compact, non-edit) state — FlyView sizes the
+    /// PiP from it so both read as one row. 0 until first layout.
+    property real hudCompactDockHeight: 0
+    /// Corner radius of the HUD dock — FlyView rounds the PiP with the same value.
+    readonly property real hudCornerRadius: _t.radiusLg
 
     Settings {
         id: _flyViewPrefs
@@ -49,6 +59,15 @@ Item {
         readonly property color hudBorder:          "#55FFFFFF"
         readonly property color instrumentGlass:    "#18000000"
         readonly property color instrumentBorder:   "#66FFFFFF"
+        // Frosted glass (iOS-style) — tints are lighter than the opaque plates because
+        // the blurred map underneath already provides contrast for the text.
+        readonly property color glassTint:          "#59151820"   // metric plates / instruments
+        readonly property color glassTintStrong:    "#7A151820"   // expanded telemetry card
+        readonly property color glassEdge:          "#40FFFFFF"   // hairline highlight edge
+        readonly property color glassSheen:         "#1FFFFFFF"   // top reflection
+        readonly property real  glassBlurPad:       24            // px sampled outside the plate (no dark blur edges)
+        readonly property color glassDockFallback:  "#B3151820"   // dock over video / no live blur
+        readonly property color glassDivider:       "#26FFFFFF"   // hairlines inside the HUD dock
         readonly property color textPrimary:        "#FFFFFF"
         readonly property color textSecondary:      "#D0D8E4"
         readonly property color textDisabled:       "#9AA6B8"
@@ -661,6 +680,116 @@ Item {
         Component.onCompleted: requestPaint()
     }
 
+    // ---- Frosted glass (iOS-style) -------------------------------------------------
+    /// Live blur is only meaningful when the map is the full-window item; with the video
+    /// swapped to full-window (map in PiP) or on WASM (per-frame blur too costly) the
+    /// plates fall back to their opaque tints.
+    readonly property bool _glassAvailable: Qt.platform.os !== "wasm"
+                                            && !!mapControl && !!mapControl.pipState
+                                            && mapControl.pipState.state === mapControl.pipState.fullState
+
+    /// Frosted-glass backdrop: blurred live snapshot of the map under this item, a tint,
+    /// a hairline edge and a top sheen. Fill the plate with it and keep it at z: -1.
+    component GlassBackdrop: Item {
+        id: glass
+
+        property real  cornerRadius:  _t.radiusLg
+        property color tint:          _t.glassTint
+        property color fallbackTint:  _t.hudGlassStrong
+        property bool  sheen:         true
+
+        readonly property bool _live: _root._glassAvailable && visible && width > 0 && height > 0
+        readonly property real _pad:  _t.glassBlurPad
+
+        // Map snapshot slightly larger than the plate so the blur kernel never samples
+        // empty texture at the edges.
+        ShaderEffectSource {
+            id:         glassSrc
+            x:          -glass._pad
+            y:          -glass._pad
+            width:      glass.width + glass._pad * 2
+            height:     glass.height + glass._pad * 2
+            visible:    false
+            hideSource: false
+            live:       glass._live
+            sourceItem: glass._live ? _root.mapControl : null
+            // mapToItem() is not reactive: reference the geometry it depends on so the rect
+            // is recomputed on HUD expand/collapse, edit mode and window resize.
+            sourceRect: {
+                void(osRoot.x); void(osRoot.y); void(osRoot.width); void(osRoot.height)
+                void(_root.width); void(_root.height)
+                void(glass.x); void(glass.y); void(glass.width); void(glass.height)
+                if (!glass._live) {
+                    return Qt.rect(0, 0, 0, 0)
+                }
+                const p = glass.mapToItem(_root.mapControl, 0, 0)
+                return Qt.rect(p.x - glass._pad, p.y - glass._pad, width, height)
+            }
+        }
+
+        Item {
+            id:             glassMask
+            x:              glassSrc.x
+            y:              glassSrc.y
+            width:          glassSrc.width
+            height:         glassSrc.height
+            visible:        false
+            layer.enabled:  true
+
+            Rectangle {
+                x:              glass._pad
+                y:              glass._pad
+                width:          glass.width
+                height:         glass.height
+                radius:         glass.cornerRadius
+                antialiasing:   true
+            }
+        }
+
+        MultiEffect {
+            x:                  glassSrc.x
+            y:                  glassSrc.y
+            width:              glassSrc.width
+            height:             glassSrc.height
+            visible:            glass._live
+            source:             glassSrc
+            autoPaddingEnabled: false
+            blurEnabled:        true
+            blur:               1.0
+            blurMax:            48
+            blurMultiplier:     0.6
+            saturation:         0.35
+            brightness:         -0.06
+            maskEnabled:        true
+            maskSource:         glassMask
+            maskThresholdMin:   0.5
+            maskSpreadAtMin:    1.0
+        }
+
+        // Tint + hairline edge
+        Rectangle {
+            anchors.fill:   parent
+            radius:         glass.cornerRadius
+            color:          glass._live ? glass.tint : glass.fallbackTint
+            border.width:   1
+            border.color:   _t.glassEdge
+            antialiasing:   true
+        }
+
+        // Top sheen
+        Rectangle {
+            visible:            glass.sheen
+            anchors.fill:       parent
+            anchors.margins:    1
+            radius:             Math.max(0, glass.cornerRadius - 1)
+            antialiasing:       true
+            gradient: Gradient {
+                GradientStop { position: 0.0;  color: _t.glassSheen }
+                GradientStop { position: 0.45; color: "transparent" }
+            }
+        }
+    }
+
     component FloatingMetric: Item {
         property string label: ""
         property string valueText: _t.emptyValue
@@ -668,19 +797,32 @@ Item {
         property real   valueSize: _root._hudExpanded ? _t.fontBody + 6 : _t.fontBody + 4
         property real   cellWidth: _root._metricCellWidth
         property bool   togglesExpand: false
+        /// false when the metric sits inside the shared HUD dock (no separate plate).
+        property bool   plate: true
 
         // Fixed cell width — every metric plate is identical regardless of content
         // length, so the compact row reads as one uniform unit in both HUD states.
         implicitWidth: cellWidth
         implicitHeight: metricCol.implicitHeight + _t.spacingUnit * 1.25
 
+        GlassBackdrop {
+            visible:            plate
+            anchors.fill:       metricCol
+            anchors.margins:    -_t.spacingUnit * 0.6
+            cornerRadius:       _t.radiusMd
+            tint:               _t.glassTint
+            fallbackTint:       _t.hudMetricPlate
+            z:                  -2
+        }
+
+        // Hover highlight (only on cells that toggle the expanded card)
         Rectangle {
-            anchors.fill: metricCol
-            anchors.margins: -_t.spacingUnit * 0.6
-            radius: _t.radiusSm
-            color: togglesExpand && metricMouse.containsMouse
-                    ? Qt.rgba(1, 1, 1, 0.10) : _t.hudMetricPlate
-            z: -1
+            anchors.fill:       metricCol
+            anchors.margins:    -_t.spacingUnit * 0.6
+            radius:             _t.radiusMd
+            color:              togglesExpand && metricMouse.containsMouse
+                                    ? Qt.rgba(1, 1, 1, 0.10) : "transparent"
+            z:                  -1
             Behavior on color { ColorAnimation { duration: 100 } }
         }
 
@@ -748,13 +890,21 @@ Item {
         ColumnLayout {
             spacing: 1
             Layout.alignment: alignRight ? Qt.AlignRight : Qt.AlignLeft
+            // Take the remaining cell width and allow shrinking, so long (Georgian)
+            // labels wrap inside the grid column instead of running out of the card.
+            Layout.fillWidth: true
+            Layout.minimumWidth: 0
             Text {
+                Layout.fillWidth: true
                 text: label
                 color: _t.textSecondary
                 font.pixelSize: _t.fontCaption
                 font.family: _t.fontFamily
                 font.weight: Font.Medium
                 horizontalAlignment: alignRight ? Text.AlignRight : Text.AlignLeft
+                wrapMode: Text.WordWrap
+                maximumLineCount: 2
+                elide: Text.ElideRight
             }
             Text {
                 text: valueText
@@ -837,7 +987,7 @@ Item {
         width:          dialSize
         height:         dialSize
         radius:         width / 2
-        color:          _t.instrumentGlass
+        color:          "transparent"
         border.width:   1.5
         border.color:   _t.instrumentBorder
 
@@ -978,17 +1128,92 @@ Item {
     Item {
         id:                     osRoot
         anchors.bottom:         parent.bottom
-        anchors.bottomMargin:   _bottomSafe
+        // Dock padding extends below osColumn — offset so the dock's outer edge sits
+        // exactly dockBottomMargin above the bottom (same baseline as the PiP).
+        anchors.bottomMargin:   dockBottomMargin + hudDock.dockPad
         anchors.horizontalCenter: parent.horizontalCenter
-        width:                  _hudExpanded
+        // Dock and expanded card share this width, so both edges line up. In edit mode
+        // the picker row (+ add button) may be wider than the view row — grow to fit.
+        width:                  Math.max(_hudExpanded
                                     ? Math.min(_root.width - _margin * 3,
                                                ScreenTools.defaultFontPixelWidth * _t.hudExpandedMaxWidthEm)
-                                    : Math.min(_hudCompactWidth, _root.width - _margin * 2)
+                                    : Math.min(_hudCompactWidth, _root.width - _margin * 2),
+                                    Math.min(compactRow.width + _t.spacingUnit * 3 + hudEditButton.width * 2,
+                                             _root.width - _margin * 2))
         height:                 osColumn.implicitHeight
         // Show on mobile/touch too — otherwise the stock TelemetryValuesBar is
         // disabled in this fork and the operator gets no telemetry panel at all.
         visible:                true
         z:                      QGroundControl.zOrderWidgets + 2
+
+        // One glass dock behind the instruments and the compact metric row, so the
+        // HUD reads as a single unit instead of separate plates. osColumn sits at
+        // (0,0) in osRoot, so its children's coordinates are usable directly.
+        GlassBackdrop {
+            id:             hudDock
+            readonly property real dockPad:  _t.spacingUnit * 1.5
+            x:              0
+            y:              instrumentRow.y - dockPad
+            width:          osRoot.width
+            height:         (compactContainer.y + compactContainer.height) - instrumentRow.y + dockPad * 2
+            z:              -1
+            cornerRadius:   _t.radiusLg
+            tint:           _t.glassTint
+            fallbackTint:   _t.glassDockFallback
+
+            function _publishCompactHeight() {
+                if (!_hudExpanded && !_hudEditMode && height > 0) {
+                    _root.hudCompactDockHeight = height
+                }
+            }
+            onHeightChanged:        _publishCompactHeight()
+            Component.onCompleted:  _publishCompactHeight()
+
+            // Hairline between the instrument row and the metric strip
+            Rectangle {
+                x:          _t.radiusLg
+                width:      parent.width - _t.radiusLg * 2
+                height:     1
+                y:          (instrumentRow.y + instrumentRow.height + compactContainer.y) / 2 - hudDock.y
+                color:      _t.glassDivider
+            }
+        }
+
+        // Edit / Done toggle — top-right corner of the dock, so it never pushes the
+        // metric row off-centre or sticks out of the panel.
+        Rectangle {
+            id:                     hudEditButton
+            anchors.right:          hudDock.right
+            anchors.top:            hudDock.top
+            anchors.margins:        _t.spacingUnit
+            z:                      1
+            width:                  editButtonText.implicitWidth + _t.spacingUnit * (_hudEditMode ? 2.5 : 1.5)
+            height:                 _t.spacingUnit * 3.25
+            radius:                 height / 2
+            color:                  _hudEditMode ? "#330A84FF"
+                                                 : (editButtonMouse.containsMouse ? Qt.rgba(1, 1, 1, 0.10) : "transparent")
+            border.width:           _hudEditMode ? 1 : 0
+            border.color:           "#800A84FF"
+            Behavior on color { ColorAnimation { duration: 100 } }
+
+            Text {
+                id:                 editButtonText
+                anchors.centerIn:   parent
+                text:               _hudEditMode ? qsTr("Done") : "✎"
+                color:              _hudEditMode ? _t.telemetryAccent : _t.textSecondary
+                opacity:            _hudEditMode || editButtonMouse.containsMouse ? 1.0 : 0.6
+                font.family:        _t.fontFamily
+                font.pixelSize:     _t.fontCaption
+                font.weight:        _hudEditMode ? Font.DemiBold : Font.Normal
+            }
+            MouseArea {
+                id:             editButtonMouse
+                anchors.fill:   parent
+                hoverEnabled:   true
+                cursorShape:    Qt.PointingHandCursor
+                onClicked:      _root._hudEditMode = !_root._hudEditMode
+            }
+        }
 
         ColumnLayout {
             id:                 osColumn
@@ -996,6 +1221,7 @@ Item {
             spacing:            _t.spacingUnit
 
             RowLayout {
+                id:                     instrumentRow
                 Layout.alignment:       Qt.AlignHCenter
                 spacing:                _t.spacingUnit * 2
 
@@ -1009,7 +1235,7 @@ Item {
                     Rectangle {
                         anchors.fill:       parent
                         radius:             width / 2
-                        color:              _t.instrumentGlass
+                        color:              "transparent"
                         border.width:       1.5
                         border.color:       _t.instrumentBorder
                     }
@@ -1051,11 +1277,22 @@ Item {
                             implicitWidth:          _metricCellWidth
                             implicitHeight:         _hudEditMode ? editCol.implicitHeight : viewMetric.implicitHeight
 
+                            // Hairline between cells — the row reads as one strip of the dock.
+                            Rectangle {
+                                visible:                cell._idx > 0 && !_hudEditMode
+                                x:                      -_metricColumnGap / 2
+                                anchors.verticalCenter: parent.verticalCenter
+                                width:                  1
+                                height:                 parent.height * 0.6
+                                color:                  _t.glassDivider
+                            }
+
                             FloatingMetric {
                                 id:             viewMetric
                                 width:          parent.width
                                 visible:        !_hudEditMode
                                 togglesExpand:  true
+                                plate:          false
                                 label:          _root._metricLabel(cell._key)
                                 valueText:      _root._metricValue(cell._key)
                                 valueColor:     _root._metricColor(cell._key)
@@ -1097,41 +1334,14 @@ Item {
                         Layout.preferredWidth:  _t.spacingUnit * 4
                         Layout.preferredHeight: _t.spacingUnit * 4
                         radius:                 width / 2
-                        color:                  _t.hudMetricPlate
+                        color:                  Qt.rgba(1, 1, 1, 0.06)
                         border.width:           1
-                        border.color:           _t.hudBorder
-                        Text { anchors.centerIn: parent; text: "+"; color: _t.textPrimary; font.pixelSize: _t.fontBody }
+                        border.color:           _t.glassEdge
+                        Text { anchors.centerIn: parent; text: "+"; color: _t.textSecondary; font.pixelSize: _t.fontBody }
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addCompactSlot() }
                     }
                 }
 
-                // Edit / Done toggle — overlaid at the right so the cells stay
-                // centered; revealed on hover (or while editing) to stay unobtrusive.
-                Rectangle {
-                    id:                     hudEditButton
-                    anchors.left:           compactRow.right
-                    anchors.leftMargin:     _t.spacingUnit
-                    anchors.verticalCenter: compactRow.verticalCenter
-                    opacity:                _hudEditMode ? 1.0 : 0.5
-                    width:                  _hudEditMode ? _t.spacingUnit * 6 : _t.spacingUnit * 3.5
-                    height:                 _t.spacingUnit * 3.5
-                    radius:                 _t.radiusSm
-                    color:                  _hudEditMode ? "#660A84FF" : _t.hudMetricPlate
-                    border.width:           1
-                    border.color:           _hudEditMode ? _t.brandPrimary : _t.hudBorder
-                    Text {
-                        anchors.centerIn:   parent
-                        text:               _hudEditMode ? qsTr("Done") : "✎"
-                        color:              _t.textPrimary
-                        font.family:        _t.fontFamily
-                        font.pixelSize:     _hudEditMode ? _t.fontMicro : _t.fontCaption
-                    }
-                    MouseArea {
-                        anchors.fill:   parent
-                        cursorShape:    Qt.PointingHandCursor
-                        onClicked:      _root._hudEditMode = !_root._hudEditMode
-                    }
-                }
             }
 
             Rectangle {
@@ -1139,12 +1349,19 @@ Item {
                 // reachable from the (collapsed-position) pencil button.
                 visible:                _hudExpanded || _hudEditMode
                 Layout.fillWidth:       true
+                Layout.topMargin:       _t.spacingUnit * 1.5   // clear the dock's bottom padding
                 radius:                 _t.radiusLg
-                color:                  _t.hudGlassStrong
-                border.width:           1
-                border.color:           _t.hudBorder
+                color:                  "transparent"
                 implicitHeight:         expandedBody.implicitHeight + _t.spacingUnit * 2
                 Layout.preferredHeight: implicitHeight
+
+                GlassBackdrop {
+                    anchors.fill:   parent
+                    cornerRadius:   _t.radiusLg
+                    tint:           _t.glassTintStrong
+                    fallbackTint:   _t.hudGlassStrong
+                    z:              -1
+                }
 
                 ColumnLayout {
                     id:                 expandedBody
@@ -1281,13 +1498,19 @@ Item {
                         Repeater {
                             model: _expandedKeys
                             delegate: RowLayout {
+                                id:               expandedSlot
+                                // Slot position in _expandedKeys. Must be captured here:
+                                // inside onActivated `index` is ComboBox.activated's argument
+                                // (catalog index), which shadows the Repeater index.
+                                readonly property int slotIndex: index
                                 Layout.fillWidth: true
                                 spacing:          _t.spacingUnit * 0.5
                                 HudComboBox {
                                     Layout.fillWidth:   true
                                     model:              _root._catalogLabels
                                     currentIndex:       _root._catalogIndexOf(modelData)
-                                    onActivated:        _root._setExpandedKey(index, _root._metricCatalog[currentIndex].key)
+                                    onActivated: (catalogIndex) => _root._setExpandedKey(
+                                        expandedSlot.slotIndex, _root._metricCatalog[catalogIndex].key)
                                 }
                                 Text {
                                     visible:        _root._expandedKeys.length > 1
@@ -1298,7 +1521,7 @@ Item {
                                     MouseArea {
                                         anchors.fill:   parent
                                         cursorShape:    Qt.PointingHandCursor
-                                        onClicked:      _root._removeExpandedSlot(index)
+                                        onClicked:      _root._removeExpandedSlot(expandedSlot.slotIndex)
                                     }
                                 }
                             }
@@ -1333,21 +1556,6 @@ Item {
     // Legacy id for tool insets
     property alias hudPanel: osRoot
 
-    Rectangle {
-        id:                     bottomScrim
-        anchors.horizontalCenter: osRoot.horizontalCenter
-        anchors.bottom:         parent.bottom
-        width:                  osRoot.width + _t.spacingUnit * 8
-        height:                 osRoot.height + _bottomSafe + _t.spacingUnit * 4
-        visible:                osRoot.visible
-        z:                      0
-        gradient: Gradient {
-            orientation: Gradient.Vertical
-            GradientStop { position: 0.0; color: "#00000000" }
-            GradientStop { position: 0.65; color: "#33000000" }
-            GradientStop { position: 1.0; color: "#88000000" }
-        }
-    }
 
     QGCToolInsets {
         id:                     _toolInsets

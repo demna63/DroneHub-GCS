@@ -8,6 +8,7 @@
         <file alias="DroneHubLogo.svg">res/DroneHubLogo.svg</file>
         <file alias="logo.png">res/logo.png</file>
         <file alias="dhg-logo.png">res/dhg-logo.png</file>
+        <file alias="dhg-logo-dark.png">res/dhg-logo-dark.png</file>
         <file alias="dggcs-logo-original.png">res/dggcs-logo-original.png</file>
     </qresource>
 
