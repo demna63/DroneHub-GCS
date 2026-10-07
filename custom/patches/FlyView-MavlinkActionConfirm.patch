@@ -1,0 +1,10 @@
+--- a/src/FlyView/CMakeLists.txt
++++ b/src/FlyView/CMakeLists.txt
+@@ -40,6 +40,7 @@
+         FlyViewVideo.qml
+         FlyViewWidgetLayer.qml
+         GuidedActionConfirm.qml
++        MavlinkActionConfirm.qml
+         GuidedActionLand.qml
+         GuidedActionPause.qml
+         GuidedActionRTL.qml
