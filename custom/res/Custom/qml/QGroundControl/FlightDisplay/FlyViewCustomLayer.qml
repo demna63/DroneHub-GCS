@@ -12,6 +12,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
+import QtQuick.Effects
 import Qt.labs.settings 1.0
 
 import QGroundControl
@@ -49,6 +50,13 @@ Item {
         readonly property color hudBorder:          "#55FFFFFF"
         readonly property color instrumentGlass:    "#18000000"
         readonly property color instrumentBorder:   "#66FFFFFF"
+        // Frosted glass (iOS-style) — tints are lighter than the opaque plates because
+        // the blurred map underneath already provides contrast for the text.
+        readonly property color glassTint:          "#59151820"   // metric plates / instruments
+        readonly property color glassTintStrong:    "#7A151820"   // expanded telemetry card
+        readonly property color glassEdge:          "#40FFFFFF"   // hairline highlight edge
+        readonly property color glassSheen:         "#1FFFFFFF"   // top reflection
+        readonly property real  glassBlurPad:       24            // px sampled outside the plate (no dark blur edges)
         readonly property color textPrimary:        "#FFFFFF"
         readonly property color textSecondary:      "#D0D8E4"
         readonly property color textDisabled:       "#9AA6B8"
@@ -661,6 +669,116 @@ Item {
         Component.onCompleted: requestPaint()
     }
 
+    // ---- Frosted glass (iOS-style) -------------------------------------------------
+    /// Live blur is only meaningful when the map is the full-window item; with the video
+    /// swapped to full-window (map in PiP) or on WASM (per-frame blur too costly) the
+    /// plates fall back to their opaque tints.
+    readonly property bool _glassAvailable: Qt.platform.os !== "wasm"
+                                            && !!mapControl && !!mapControl.pipState
+                                            && mapControl.pipState.state === mapControl.pipState.fullState
+
+    /// Frosted-glass backdrop: blurred live snapshot of the map under this item, a tint,
+    /// a hairline edge and a top sheen. Fill the plate with it and keep it at z: -1.
+    component GlassBackdrop: Item {
+        id: glass
+
+        property real  cornerRadius:  _t.radiusLg
+        property color tint:          _t.glassTint
+        property color fallbackTint:  _t.hudGlassStrong
+        property bool  sheen:         true
+
+        readonly property bool _live: _root._glassAvailable && visible && width > 0 && height > 0
+        readonly property real _pad:  _t.glassBlurPad
+
+        // Map snapshot slightly larger than the plate so the blur kernel never samples
+        // empty texture at the edges.
+        ShaderEffectSource {
+            id:         glassSrc
+            x:          -glass._pad
+            y:          -glass._pad
+            width:      glass.width + glass._pad * 2
+            height:     glass.height + glass._pad * 2
+            visible:    false
+            hideSource: false
+            live:       glass._live
+            sourceItem: glass._live ? _root.mapControl : null
+            // mapToItem() is not reactive: reference the geometry it depends on so the rect
+            // is recomputed on HUD expand/collapse, edit mode and window resize.
+            sourceRect: {
+                void(osRoot.x); void(osRoot.y); void(osRoot.width); void(osRoot.height)
+                void(_root.width); void(_root.height)
+                void(glass.x); void(glass.y); void(glass.width); void(glass.height)
+                if (!glass._live) {
+                    return Qt.rect(0, 0, 0, 0)
+                }
+                const p = glass.mapToItem(_root.mapControl, 0, 0)
+                return Qt.rect(p.x - glass._pad, p.y - glass._pad, width, height)
+            }
+        }
+
+        Item {
+            id:             glassMask
+            x:              glassSrc.x
+            y:              glassSrc.y
+            width:          glassSrc.width
+            height:         glassSrc.height
+            visible:        false
+            layer.enabled:  true
+
+            Rectangle {
+                x:              glass._pad
+                y:              glass._pad
+                width:          glass.width
+                height:         glass.height
+                radius:         glass.cornerRadius
+                antialiasing:   true
+            }
+        }
+
+        MultiEffect {
+            x:                  glassSrc.x
+            y:                  glassSrc.y
+            width:              glassSrc.width
+            height:             glassSrc.height
+            visible:            glass._live
+            source:             glassSrc
+            autoPaddingEnabled: false
+            blurEnabled:        true
+            blur:               1.0
+            blurMax:            48
+            blurMultiplier:     0.6
+            saturation:         0.35
+            brightness:         -0.06
+            maskEnabled:        true
+            maskSource:         glassMask
+            maskThresholdMin:   0.5
+            maskSpreadAtMin:    1.0
+        }
+
+        // Tint + hairline edge
+        Rectangle {
+            anchors.fill:   parent
+            radius:         glass.cornerRadius
+            color:          glass._live ? glass.tint : glass.fallbackTint
+            border.width:   1
+            border.color:   _t.glassEdge
+            antialiasing:   true
+        }
+
+        // Top sheen
+        Rectangle {
+            visible:            glass.sheen
+            anchors.fill:       parent
+            anchors.margins:    1
+            radius:             Math.max(0, glass.cornerRadius - 1)
+            antialiasing:       true
+            gradient: Gradient {
+                GradientStop { position: 0.0;  color: _t.glassSheen }
+                GradientStop { position: 0.45; color: "transparent" }
+            }
+        }
+    }
+
     component FloatingMetric: Item {
         property string label: ""
         property string valueText: _t.emptyValue
@@ -674,13 +792,23 @@ Item {
         implicitWidth: cellWidth
         implicitHeight: metricCol.implicitHeight + _t.spacingUnit * 1.25
 
+        GlassBackdrop {
+            anchors.fill:       metricCol
+            anchors.margins:    -_t.spacingUnit * 0.6
+            cornerRadius:       _t.radiusMd
+            tint:               _t.glassTint
+            fallbackTint:       _t.hudMetricPlate
+            z:                  -2
+        }
+
+        // Hover highlight (only on cells that toggle the expanded card)
         Rectangle {
-            anchors.fill: metricCol
-            anchors.margins: -_t.spacingUnit * 0.6
-            radius: _t.radiusSm
-            color: togglesExpand && metricMouse.containsMouse
-                    ? Qt.rgba(1, 1, 1, 0.10) : _t.hudMetricPlate
-            z: -1
+            anchors.fill:       metricCol
+            anchors.margins:    -_t.spacingUnit * 0.6
+            radius:             _t.radiusMd
+            color:              togglesExpand && metricMouse.containsMouse
+                                    ? Qt.rgba(1, 1, 1, 0.10) : "transparent"
+            z:                  -1
             Behavior on color { ColorAnimation { duration: 100 } }
         }
 
@@ -837,9 +965,17 @@ Item {
         width:          dialSize
         height:         dialSize
         radius:         width / 2
-        color:          _t.instrumentGlass
+        color:          "transparent"
         border.width:   1.5
         border.color:   _t.instrumentBorder
+
+        GlassBackdrop {
+            anchors.fill:   parent
+            cornerRadius:   width / 2
+            tint:           _t.glassTint
+            fallbackTint:   _t.instrumentGlass
+            z:              -1
+        }
 
         Repeater {
             model: 12
@@ -1006,10 +1142,16 @@ Item {
                     Layout.preferredHeight: _instrumentSize
                     Layout.alignment:       Qt.AlignVCenter
 
+                    GlassBackdrop {
+                        anchors.fill:       parent
+                        cornerRadius:       width / 2
+                        tint:               _t.glassTint
+                        fallbackTint:       _t.instrumentGlass
+                    }
                     Rectangle {
                         anchors.fill:       parent
                         radius:             width / 2
-                        color:              _t.instrumentGlass
+                        color:              "transparent"
                         border.width:       1.5
                         border.color:       _t.instrumentBorder
                     }
@@ -1140,11 +1282,17 @@ Item {
                 visible:                _hudExpanded || _hudEditMode
                 Layout.fillWidth:       true
                 radius:                 _t.radiusLg
-                color:                  _t.hudGlassStrong
-                border.width:           1
-                border.color:           _t.hudBorder
+                color:                  "transparent"
                 implicitHeight:         expandedBody.implicitHeight + _t.spacingUnit * 2
                 Layout.preferredHeight: implicitHeight
+
+                GlassBackdrop {
+                    anchors.fill:   parent
+                    cornerRadius:   _t.radiusLg
+                    tint:           _t.glassTintStrong
+                    fallbackTint:   _t.hudGlassStrong
+                    z:              -1
+                }
 
                 ColumnLayout {
                     id:                 expandedBody
