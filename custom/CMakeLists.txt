@@ -1,7 +1,7 @@
-# DroneHub GCS — custom build module (QGC Stable_V5.0 API).
+# DroneHub GCS — custom build module (QGC v5.1.x API).
 #
-# QGC core detects custom/ და აკეთებს add_subdirectory(custom) (CMakeLists.txt:261)
-# და include(CustomOverrides) (CMakeLists.txt:27 ← custom/cmake/CustomOverrides.cmake).
+# QGC core detects custom/ და აკეთებს add_subdirectory(custom) (CMakeLists.txt:279)
+# და include(CustomOverrides) (CMakeLists.txt:53-55 ← custom/cmake/CustomOverrides.cmake).
 #
 # რეგისტრაცია: CUSTOMHEADER/CUSTOMCLASS compile-defs → core ქმნის CustomPlugin singleton-ს.
 # Sources/includes/resources გადაეცემა core target-ს (${CMAKE_PROJECT_NAME}) cache vars-ით
@@ -64,7 +64,7 @@ if(ANDROID)
 endif()
 # ────────────────────────────────────────────────────────────────────────────────
 
-# Upstream Stable_V5.0 patches (e.g. macOS Quit null-guard in QGCApplication::event).
+# Upstream v5.1.x patches (e.g. macOS Quit null-guard in QGCApplication::event).
 # Windows: CMake cannot execute .sh directly — invoke via Git Bash.
 set(_dronehub_patch_script "${CMAKE_CURRENT_SOURCE_DIR}/../tools/apply-qgc-patches.sh")
 if(NOT EXISTS "${_dronehub_patch_script}")
@@ -130,72 +130,68 @@ set(CUSTOM_INCLUDE_DIRECTORIES
     CACHE INTERNAL "" FORCE
 )
 
-# Qt 6 qt_add_qml_module precompiles src/FlightDisplay/FlyViewCustomLayer.qml via qmlcache.
+# Qt 6 qt_add_qml_module precompiles src/FlyView/FlyViewCustomLayer.qml via qmlcache.
 # CustomOverrideInterceptor does not replace module types — copy our layer before each build.
 set(DRONEHUB_FLYVIEW_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyView.qml")
 set(DRONEHUB_FLYVIEW_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyView.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/FlyView.qml")
 set(DRONEHUB_FLYVIEW_LAYER_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml")
 set(DRONEHUB_FLYVIEW_LAYER_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewCustomLayer.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/FlyViewCustomLayer.qml")
 set(DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml")
 set(DRONEHUB_FLYVIEW_WIDGET_LAYER_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewWidgetLayer.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/FlyViewWidgetLayer.qml")
 set(DRONEHUB_VIDEO_VIEW_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml")
 set(DRONEHUB_VIDEO_VIEW_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlightDisplayViewVideo.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/FlightDisplayViewVideo.qml")
 set(DRONEHUB_FLYVIEW_TOOLBAR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml")
 set(DRONEHUB_FLYVIEW_TOOLBAR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/FlyViewToolBar.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/FlyViewToolBar.qml")
 set(DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/FlyViewToolBarIndicators.qml")
 set(DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/FlyViewToolBarIndicators.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/FlyViewToolBarIndicators.qml")
 set(DRONEHUB_RC_RSSI_INDICATOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Toolbar/RCRSSIIndicator.qml")
 set(DRONEHUB_RC_RSSI_INDICATOR_DST
-    "${CMAKE_SOURCE_DIR}/src/UI/toolbar/RCRSSIIndicator.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/RCRSSIIndicator.qml")
 set(DRONEHUB_VIDEO_STATUS_INDICATOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Toolbar/VideoStatusIndicator.qml")
 set(DRONEHUB_VIDEO_STATUS_INDICATOR_DST
-    "${CMAKE_SOURCE_DIR}/src/UI/toolbar/VideoStatusIndicator.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/VideoStatusIndicator.qml")
 set(DRONEHUB_VEHICLE_HEALTH_INDICATOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Toolbar/VehicleHealthIndicator.qml")
 set(DRONEHUB_VEHICLE_HEALTH_INDICATOR_DST
-    "${CMAKE_SOURCE_DIR}/src/UI/toolbar/VehicleHealthIndicator.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/VehicleHealthIndicator.qml")
 set(DRONEHUB_FLIGHT_MODE_INDICATOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/FlightModeIndicator.qml")
 set(DRONEHUB_FLIGHT_MODE_INDICATOR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/FlightModeIndicator.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/FlightModeIndicator.qml")
 set(DRONEHUB_TOOLSTRIP_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml")
 set(DRONEHUB_TOOLSTRIP_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewToolStripActionList.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/FlyViewToolStripActionList.qml")
 set(DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewAdditionalActionsButton.qml")
 set(DRONEHUB_ADDITIONAL_ACTIONS_BTN_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewAdditionalActionsButton.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/FlyViewAdditionalActionsButton.qml")
 set(DRONEHUB_ADDITIONAL_ACTIONS_PANEL_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewAdditionalActionsPanel.qml")
 set(DRONEHUB_ADDITIONAL_ACTIONS_PANEL_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/FlyViewAdditionalActionsPanel.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/FlyViewAdditionalActionsPanel.qml")
 set(DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/MavlinkActionConfirm.qml")
 set(DRONEHUB_MAVLINK_ACTION_CONFIRM_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/MavlinkActionConfirm.qml")
-set(DRONEHUB_GUIDED_GRIPPER_SRC
-    "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionGripper.qml")
-set(DRONEHUB_GUIDED_GRIPPER_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/GuidedActionGripper.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/MavlinkActionConfirm.qml")
 set(DRONEHUB_GUIDED_CONFIRM_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml")
 set(DRONEHUB_GUIDED_CONFIRM_DST
-    "${CMAKE_SOURCE_DIR}/src/FlightDisplay/GuidedActionConfirm.qml")
+    "${CMAKE_SOURCE_DIR}/src/FlyView/GuidedActionConfirm.qml")
 set(DRONEHUB_SLIDER_SWITCH_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/SliderSwitch.qml")
 set(DRONEHUB_SLIDER_SWITCH_DST
@@ -211,11 +207,11 @@ set(DRONEHUB_TOOLSTRIP_BUTTON_DST
 set(DRONEHUB_GPS_INDICATOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml")
 set(DRONEHUB_GPS_INDICATOR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/GPSIndicator.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/GPSIndicator.qml")
 set(DRONEHUB_BATTERY_INDICATOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml")
 set(DRONEHUB_BATTERY_INDICATOR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/BatteryIndicator.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/BatteryIndicator.qml")
 set(DRONEHUB_POPUP_DIALOG_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/QGCPopupDialog.qml")
 set(DRONEHUB_POPUP_DIALOG_DST
@@ -235,23 +231,23 @@ set(DRONEHUB_TOOLSTRIP_DROP_PANEL_DST
 set(DRONEHUB_PLAN_TOOLBAR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml")
 set(DRONEHUB_PLAN_TOOLBAR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/PlanViewToolBar.qml")
+    "${CMAKE_SOURCE_DIR}/src/Toolbar/PlanViewToolBar.qml")
 set(DRONEHUB_PLAN_TOOLBAR_INDICATORS_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/PlanToolBarIndicators.qml")
 set(DRONEHUB_PLAN_TOOLBAR_INDICATORS_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/PlanToolBarIndicators.qml")
+    "${CMAKE_SOURCE_DIR}/src/PlanView/PlanToolBarIndicators.qml")
 set(DRONEHUB_MISSION_ITEM_EDITOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/MissionItemEditor.qml")
 set(DRONEHUB_MISSION_ITEM_EDITOR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/MissionItemEditor.qml")
+    "${CMAKE_SOURCE_DIR}/src/PlanView/MissionItemEditor.qml")
 set(DRONEHUB_SIMPLE_ITEM_EDITOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/SimpleItemEditor.qml")
 set(DRONEHUB_SIMPLE_ITEM_EDITOR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/SimpleItemEditor.qml")
+    "${CMAKE_SOURCE_DIR}/src/PlanView/SimpleItemEditor.qml")
 set(DRONEHUB_MISSION_SETTINGS_EDITOR_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/MissionSettingsEditor.qml")
 set(DRONEHUB_MISSION_SETTINGS_EDITOR_DST
-    "${CMAKE_SOURCE_DIR}/src/QmlControls/MissionSettingsEditor.qml")
+    "${CMAKE_SOURCE_DIR}/src/PlanView/MissionSettingsEditor.qml")
 set(DRONEHUB_APP_SETTINGS_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/Controls/AppSettings.qml")
 set(DRONEHUB_APP_SETTINGS_DST
@@ -263,7 +259,7 @@ set(DRONEHUB_TOOL_INDICATOR_PAGE_DST
 set(DRONEHUB_MAIN_WINDOW_SRC
     "${CMAKE_CURRENT_SOURCE_DIR}/res/Custom/qml/QGroundControl/MainWindow/MainWindow.qml")
 set(DRONEHUB_MAIN_WINDOW_DST
-    "${CMAKE_SOURCE_DIR}/src/UI/MainWindow.qml")
+    "${CMAKE_SOURCE_DIR}/src/MainWindow/MainWindow.qml")
 
 # Configure-time sync for qmlcache-registered files (must exist before qt_add_qml_module generate).
 foreach(_dronehub_cfg_sync IN ITEMS
@@ -320,8 +316,6 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC}" "${DRONEHUB_MAVLINK_ACTION_CONFIRM_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_GUIDED_GRIPPER_SRC}" "${DRONEHUB_GUIDED_GRIPPER_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_GUIDED_CONFIRM_DST}"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_SLIDER_SWITCH_DST}"
@@ -361,7 +355,6 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
             "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_SRC}"
             "${DRONEHUB_VIDEO_STATUS_INDICATOR_SRC}" "${DRONEHUB_VEHICLE_HEALTH_INDICATOR_SRC}" "${DRONEHUB_FLIGHT_MODE_INDICATOR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}"
             "${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_SRC}" "${DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC}"
-            "${DRONEHUB_GUIDED_GRIPPER_SRC}"
             "${DRONEHUB_GUIDED_CONFIRM_SRC}"
             "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_TOOLSTRIP_PANEL_SRC}"
             "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}" "${DRONEHUB_GPS_INDICATOR_SRC}"
@@ -375,8 +368,8 @@ add_custom_target(DroneHubSyncFlyViewLayer ALL
     COMMENT "Sync DroneHub custom QML into QGC qmlcache sources"
     VERBATIM
 )
-if(TARGET FlightDisplayModule)
-    add_dependencies(FlightDisplayModule DroneHubSyncFlyViewLayer)
+if(TARGET FlyViewModule)
+    add_dependencies(FlyViewModule DroneHubSyncFlyViewLayer)
 endif()
 if(TARGET QGroundControlControlsModule)
     add_dependencies(QGroundControlControlsModule DroneHubSyncFlyViewLayer)
@@ -384,8 +377,11 @@ endif()
 if(TARGET ToolbarModule)
     add_dependencies(ToolbarModule DroneHubSyncFlyViewLayer)
 endif()
-if(TARGET MainWindowModule)
-    add_dependencies(MainWindowModule DroneHubSyncFlyViewLayer)
+if(TARGET PlanViewModule)
+    add_dependencies(PlanViewModule DroneHubSyncFlyViewLayer)
+endif()
+if(TARGET QGroundControlModule)
+    add_dependencies(QGroundControlModule DroneHubSyncFlyViewLayer)
 endif()
 if(TARGET ${CMAKE_PROJECT_NAME})
     add_dependencies(${CMAKE_PROJECT_NAME} DroneHubSyncFlyViewLayer)
@@ -407,7 +403,6 @@ set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
     "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_SRC}"
     "${DRONEHUB_VIDEO_STATUS_INDICATOR_SRC}" "${DRONEHUB_VEHICLE_HEALTH_INDICATOR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}"
     "${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_SRC}" "${DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC}"
-    "${DRONEHUB_GUIDED_GRIPPER_SRC}"
     "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_SLIDER_SWITCH_SRC}"
     "${DRONEHUB_TOOLSTRIP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}"
     "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_SRC}"

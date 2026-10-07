@@ -56,8 +56,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  QGC_TAG: Stable_V5.0
-  QT_VERSION: 6.8.3
+  QGC_TAG: v5.1.5
+  QT_VERSION: 6.11.1
 
 jobs:
   desktop:
@@ -100,7 +100,7 @@ jobs:
         # Use $RUNNER_OS env var (always set by GitHub Actions) rather than
         # expression-based `if: runner.os == '...'` conditions which have been
         # observed to be silently skipped on some hosted runner images.
-        # Stable_V5.0 cmake/Install.cmake requires create-dmg on macOS at
+        # v5.1 cmake/Install.cmake requires create-dmg on macOS at
         # configure time, so it must be present before the cmake step runs.
         run: |
           case "$RUNNER_OS" in
@@ -122,7 +122,7 @@ jobs:
           host: ${{ matrix.config.qt_host }}
           target: desktop
           arch: ${{ matrix.config.qt_arch }}
-          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
           cache: true
 
       - name: Set up MSVC (Windows)
