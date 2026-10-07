@@ -19,6 +19,24 @@ namespace {
 constexpr const char* kBridgeVersion = "0.3.0";
 /// ჩეჭდილ კლიენტის ზღვარ: ~1 Hz × ~400 B × N დრონი → 256 KiB = წუთებ ჩეჭდება.
 constexpr qint64 kMaxClientBacklogBytes = 256 * 1024;
+
+/// true მხოლოდ loopback / RFC1918 private / link-local (169.254/16) IPv4-ზე.
+/// IPv4-mapped IPv6 (::ffff:a.b.c.d) ასევე სწორად იკითხება (toIPv4Address).
+bool isLocalNetworkPeer(const QHostAddress& addr)
+{
+    bool ok = false;
+    const quint32 ip = addr.toIPv4Address(&ok);
+    if (!ok) {
+        return false;
+    }
+    const quint8 a = (ip >> 24) & 0xFF;
+    const quint8 b = (ip >> 16) & 0xFF;
+    return a == 127                              // 127.0.0.0/8
+        || a == 10                               // 10.0.0.0/8
+        || (a == 172 && b >= 16 && b <= 31)      // 172.16.0.0/12
+        || (a == 192 && b == 168)                // 192.168.0.0/16
+        || (a == 169 && b == 254);               // 169.254.0.0/16
+}
 }
 
 CotForwarder::CotForwarder(QObject* parent)
@@ -465,6 +483,13 @@ void CotForwarder::_onNewTcpConnection()
 {
     while (_tcpServer.hasPendingConnections()) {
         QTcpSocket* c = _tcpServer.nextPendingConnection();
+        if (!isLocalNetworkPeer(c->peerAddress())) {
+            // telemetry (პოზიცია/სიმაღლე) მხოლოდ ლოკალურ ქსელში — უცხო IP ეგრევე წყდება.
+            qWarning() << "DHGM: TCP კლიენტი უარყოფილია (არა-ლოკალური IP):" << c->peerAddress().toString();
+            c->abort();
+            c->deleteLater();
+            continue;
+        }
         c->setSocketOption(QAbstractSocket::LowDelayOption, 1);
         connect(c, &QTcpSocket::disconnected, this, &CotForwarder::_onTcpDisconnected);
         _tcpClients.append(c);
