@@ -154,7 +154,6 @@ Item {
         FlyViewWidgetLayer {
             id:                     widgetLayer
             anchors.top:            parent.top
-            anchors.topMargin:      toolbar.visible ? toolbar.height : 0
             anchors.bottom:         parent.bottom
             anchors.left:           parent.left
             anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : parent.right
