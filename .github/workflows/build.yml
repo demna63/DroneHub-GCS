@@ -195,6 +195,9 @@ jobs:
             # DMG script never finds staging/DroneHubGCS.app.
             cmake --install build --config Release \
               || echo "::warning::install/DMG step failed on macOS — uploading raw build output instead"
+            # CreateMacDMG.cmake runs in install context where CMAKE_BINARY_DIR is the source dir,
+            # so the DMG lands next to CMakeLists.txt — move it where the upload glob looks.
+            find . -maxdepth 1 -name '*.dmg' -exec mv -v {} build/ \;
           else
             cmake --build build --config Release --target package \
               || echo "::warning::package target failed on $RUNNER_OS — uploading raw build output instead"
