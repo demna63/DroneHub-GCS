@@ -180,10 +180,39 @@ jobs:
         shell: bash
         run: cmake --build build --config Release
 
+      # Unsigned release APKs cannot be installed at all. When no release keystore was used,
+      # sign with a throwaway test key so the artifact is directly installable for testing.
+      # (Not for Play: a real release must use ANDROID_KEYSTORE_BASE64.)
+      - name: Make installable APK
+        working-directory: qgroundcontrol
+        shell: bash
+        run: |
+          set -euo pipefail
+          BT="$(ls -d "$ANDROID_SDK_ROOT"/build-tools/* | sort -V | tail -n1)"
+          SRC="$(find build/android-build -name '*.apk' -path '*release*' | head -n1)"
+          [ -n "$SRC" ] || SRC="$(find build/android-build -name '*.apk' | head -n1)"
+          mkdir -p "$RUNNER_TEMP/apk-out"
+          OUT="$RUNNER_TEMP/apk-out/DroneHubGCS-arm64-v8a.apk"
+          if "$BT/apksigner" verify "$SRC" >/dev/null 2>&1; then
+            cp "$SRC" "$OUT"
+          else
+            keytool -genkeypair -keystore "$RUNNER_TEMP/test.jks" -storepass dronehub -keypass dronehub \
+              -alias dhtest -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=DroneHub Test" >/dev/null
+            "$BT/zipalign" -f -p 4 "$SRC" "$RUNNER_TEMP/aligned.apk"
+            "$BT/apksigner" sign --ks "$RUNNER_TEMP/test.jks" --ks-pass pass:dronehub --key-pass pass:dronehub \
+              --out "$OUT" "$RUNNER_TEMP/aligned.apk"
+            echo "::notice::APK signed with a throwaway TEST key (installable, not for Play)"
+          fi
+          "$BT/apksigner" verify "$OUT"
+          echo "APK_OUT=$OUT" >> "$GITHUB_ENV"
+
+      # Single APK per artifact (the old glob shipped the same APK twice → ~290 MB zip that
+      # Android's Files app failed to extract).
       - name: Upload APK artifact
         if: success()
         uses: actions/upload-artifact@v4
         with:
           name: DroneHubGCS-android-arm64-v8a
-          path: qgroundcontrol/build/android-build/**/*.apk
-          if-no-files-found: warn
+          path: ${{ env.APK_OUT }}
+          compression-level: 0
+          if-no-files-found: error
