@@ -1,14 +1,19 @@
 # DroneHub GCS — ქართული Ground Control Station
 
 QGroundControl-ის (Qt 6 / QML) custom build, ქართული ლოკალიზაციით და დახვეწილი UI/UX-ით.
-Target: **Windows · Linux · macOS · Android · Web (Qt WASM)** — ერთი codebase.
+**ბაზა:** QGC **v5.1.5** · Qt **6.11.1** · app ვერსია **1.0.0**.
+Target: **Windows · Linux · macOS · Android** (+ ექსპერიმენტული Web/WASM) — ერთი codebase.
+
+[![DroneHub Build](https://github.com/demna63/DroneHub-GCS/actions/workflows/build.yml/badge.svg)](https://github.com/demna63/DroneHub-GCS/actions/workflows/build.yml)
+[![DroneHub Android](https://github.com/demna63/DroneHub-GCS/actions/workflows/android.yml/badge.svg)](https://github.com/demna63/DroneHub-GCS/actions/workflows/android.yml)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 
 ---
 
 ## 0. ჩამოტვირთვა / Install
 
 მზა installer-ები (tag release-ის შემდეგ): [**Releases**](../../releases/latest).
-build-ის წყაროდან გასაშენებლად → [§4 Build](#4-build-qt-683).
+build-ის წყაროდან გასაშენებლად → [§4 Build](#4-build-qt-6111-qgc-v515).
 
 > ⚠️ სანამ code-signing სერტიფიკატები დაემატება, installer-ები **ხელმოუწერელია** —
 > ქვემოთ მოცემულია OS-ის გაფრთხილების გვერდის ავლა. იხ. `docs/RELEASE.md`.
@@ -17,8 +22,8 @@ build-ის წყაროდან გასაშენებლად → [
 |----------|-------|---------|
 | **Windows** | `DroneHubGCS-*.exe` | გაუშვი installer. SmartScreen-ზე → **More info → Run anyway**. |
 | **macOS** | `DroneHubGCS-*.dmg` | გახსენი, ჩაათრიე Applications-ში. „unidentified developer" → **System Settings → Privacy & Security → Open Anyway** (ან `xattr -dr com.apple.quarantine /Applications/DroneHubGCS.app`). |
-| **Linux** | `DroneHubGCS-*.AppImage` | `chmod +x DroneHubGCS-*.AppImage && ./DroneHubGCS-*.AppImage` |
-| **Android** | `*.apk` (unsigned) | ჩართე *Install unknown apps* → გახსენი APK. |
+| **Linux** | `DroneHubGCS_*.deb` | `sudo apt install ./DroneHubGCS_*_amd64.deb` |
+| **Android** | `DroneHubGCS-arm64-v8a.apk` | ჩართე *Install unknown apps* → გახსენი APK. სანამ release keystore დაემატება, APK ტესტის გასაღებითაა ხელმოწერილი — სხვა წყაროდან დაყენებული ვერსია ჯერ წაშალე. |
 
 ---
 
@@ -107,11 +112,12 @@ cmake --build build
 | # | ფაზა | სტატუსი | მთავარი deliverable |
 |---|------|---------|---------------------|
 | F0 | Bootstrap | ✅ | fork, plugin compile, ka.ts skeleton, font hook |
-| F1 | Branding/Theme | ✅ | CustomPlugin (V5.0 API), `paletteOverride`, ლოგო, ფონტი+locale, Theme singleton |
+| F1 | Branding/Theme | ✅ | CustomPlugin (5.1 API), `paletteOverride`, ლოგო, ფონტი+locale, Theme singleton |
 | F2 | Fly View HUD | ✅ | `FlyViewCustomLayer` override — ტელემეტრიის overlay |
 | F3 | Plan View | ◑ | offline-plan defaults (PX4/MultiRotor) + theme/ka *(upstream-ს Plan hook არ აქვს)* |
 | F4 | Setup/Params | ◑ | `tools/qgc-lupdate.sh` + SetupView ka seed *(full translation → Crowdin)* |
-| F5 | QA matrix | ◑ | `.github/workflows/build.yml` (Linux/Win/macOS, Qt 6.11.1) |
+| F5 | QA matrix | ✅ | CI: Linux `.deb` · Windows NSIS `.exe` · Android APK (Qt 6.11.1); macOS — ადგილობრივად + release-ზე |
+| F6 | QGC 5.1 მიგრაცია | ✅ | QGC v5.1.5 / Qt 6.11.1 (Stage 1). Stage 2 — Qt 6.12, upstream pin-ის შემდეგ |
 
 ---
 
@@ -126,7 +132,7 @@ cmake --build build
      -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
   && cmake --build build
 ```
-ან **push → GitHub Actions** (`.github/workflows/build.yml`) — 3 desktop platform-ის compile-verification.
+ან **GitHub Actions → DroneHub Build / DroneHub Android → Run workflow** (`workflow_dispatch`, branch-ის არჩევით).
 
 ### SITL smoke test (PX4 / simulator)
 
@@ -138,4 +144,8 @@ Stops any running px4 / DroneHubGCS first (prompts unless `-y`). See `tools/READ
 for `--simulator`, `PX4_DIR`, and `PX4_SITL_TARGET` options.
 
 ### დარჩენილი (გარე დამოკიდებულებები)
-push → CI · full ka translation (Crowdin) · field test (drone hardware).
+code-signing სერტიფიკატები (macOS/Windows/Android release keystore) · field test (drone hardware) · dronehub.ge backend ინტეგრაცია.
+
+## ლიცენზია
+
+GPLv3 — იხ. [LICENSE](LICENSE). QGroundControl-ის upstream კოდი Apache-2.0 / GPLv3 ორმაგი ლიცენზიითაა ([mavlink/qgroundcontrol](https://github.com/mavlink/qgroundcontrol)).
