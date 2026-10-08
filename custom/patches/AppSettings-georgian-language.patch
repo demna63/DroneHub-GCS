@@ -1,16 +1,16 @@
 diff --git a/src/Settings/AppSettings.cc b/src/Settings/AppSettings.cc
-index fd93af4..9da791b 100644
+index acc3598..ff374fa 100644
 --- a/src/Settings/AppSettings.cc
 +++ b/src/Settings/AppSettings.cc
-@@ -27,6 +27,7 @@ QList<QLocale::Language> AppSettings::_rgReleaseLanguages = {
+@@ -23,6 +23,7 @@ QList<QLocale::Language> AppSettings::_rgReleaseLanguages = {
      QLocale::English,
-     QLocale::Azerbaijani,    
+     QLocale::Azerbaijani,
      QLocale::Chinese,
 +    QLocale::Georgian,
      QLocale::Japanese,
      QLocale::Korean,
      QLocale::Portuguese,
-@@ -47,6 +48,7 @@ AppSettings::LanguageInfo_t AppSettings::_rgLanguageInfo[] = {
+@@ -43,6 +44,7 @@ AppSettings::LanguageInfo_t AppSettings::_rgLanguageInfo[] = {
      { QLocale::English,         "English" },
      { QLocale::Finnish,         "Suomi (Finnish)" },
      { QLocale::French,          "Français (French)" },
@@ -18,3 +18,23 @@ index fd93af4..9da791b 100644
      { QLocale::German,          "Deutsche (German)" },
      { QLocale::Greek,           "Ελληνικά (Greek)" },
      { QLocale::Hebrew,          "עברית (Hebrew)" },
+@@ -400,6 +402,19 @@ QLocale::Language AppSettings::_qLocaleLanguageEarlyAccess(void)
+ {
+     QSettings settings;
+ 
++    // DroneHub: default to Georgian once per install, regardless of the host OS locale. Upstream
++    // writes AnyLanguage ("System") whenever the key is missing, so a stored 0 is not proof of a
++    // user choice; a one-time marker separates the migration from a later explicit "System" pick.
++    static const QString kGeorgianDefaultMarker = QStringLiteral("DroneHubGeorgianDefaultApplied");
++    if (!settings.value(kGeorgianDefaultMarker, false).toBool()) {
++        settings.setValue(kGeorgianDefaultMarker, true);
++        const int stored = settings.value(qLocaleLanguageName, static_cast<int>(QLocale::AnyLanguage)).toInt();
++        if (stored == static_cast<int>(QLocale::AnyLanguage)) {
++            settings.setValue(qLocaleLanguageName, static_cast<int>(QLocale::Georgian));
++            return QLocale::Georgian;
++        }
++    }
++
+     // Note that the AppSettings group has no group name
+     QLocale::Language localeLanguage = static_cast<QLocale::Language>(settings.value(qLocaleLanguageName).toInt());
+     for (auto& languageInfo: _rgLanguageInfo) {
