@@ -83,6 +83,7 @@ jobs:
       - name: Install host Qt (linux_gcc_64)
         uses: jurplel/install-qt-action@v4
         with:
+          aqtversion: '==3.3.*'
           version: ${{ env.QT_VERSION }}
           host: linux
           target: desktop
@@ -95,6 +96,7 @@ jobs:
       - name: Install WASM Qt (wasm_multithread)
         uses: jurplel/install-qt-action@v4
         with:
+          aqtversion: '==3.3.*'
           version: ${{ env.QT_VERSION }}
           host: all_os
           target: wasm

@@ -115,6 +115,12 @@ jobs:
               ;;
           esac
 
+      # Runner default Python (3.14) breaks aqtinstall on Windows; pin a known-good one.
+      - name: Set up Python 3.12 (aqtinstall)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
       - name: Install Qt ${{ env.QT_VERSION }}
         uses: jurplel/install-qt-action@v4
         with:
@@ -124,6 +130,8 @@ jobs:
           arch: ${{ matrix.config.qt_arch }}
           modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
           cache: true
+          setup-python: false
+          aqtversion: '==3.3.*'
 
       - name: Set up MSVC (Windows)
         if: runner.os == 'Windows'

@@ -107,6 +107,7 @@ jobs:
       - name: Install host Qt (linux_gcc_64)
         uses: jurplel/install-qt-action@v4
         with:
+          aqtversion: '==3.3.*'
           version: ${{ env.QT_VERSION }}
           host: linux
           target: desktop
@@ -119,8 +120,10 @@ jobs:
       - name: Install Android Qt (arm64_v8a)
         uses: jurplel/install-qt-action@v4
         with:
+          aqtversion: '==3.3.*'
           version: ${{ env.QT_VERSION }}
-          host: linux
+          # Qt >= 6.7 publishes Android packages under the 'all_os' host in the online repo.
+          host: all_os
           target: android
           arch: android_arm64_v8a
           dir: ${{ runner.temp }}
