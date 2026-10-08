@@ -35,6 +35,17 @@ set(QGC_APP_VERSION     "${DRONEHUB_VERSION}")
 set(QGC_APP_VERSION_STR "v${DRONEHUB_VERSION}")
 configure_file("${CMAKE_SOURCE_DIR}/src/qgc_version.h.in" "${CMAKE_BINARY_DIR}/qgc_version.h" @ONLY)
 message(STATUS "DroneHub: pinned app version ${DRONEHUB_VERSION}")
+
+# macOS universal builds (x86_64h;arm64, QGC default): Hardening.cmake passes per-arch flags via
+# -Xarch_<arch>, and clang reports the other arch's flag as "argument unused" -> fatal with
+# QGC_ENABLE_WERROR. Silence only that diagnostic on the app target, after root creates it.
+function(_dronehub_universal_werror_fix)
+    list(LENGTH CMAKE_OSX_ARCHITECTURES _dh_n_archs)
+    if(APPLE AND _dh_n_archs GREATER 1 AND TARGET ${CMAKE_PROJECT_NAME})
+        target_compile_options(${CMAKE_PROJECT_NAME} PRIVATE -Wno-unused-command-line-argument)
+    endif()
+endfunction()
+cmake_language(DEFER DIRECTORY "${CMAKE_SOURCE_DIR}" CALL _dronehub_universal_werror_fix)
 # ────────────────────────────────────────────────────────────────────────────────
 
 # ── Android launcher-icon branding (overlay, not full vendor) ───────────────────
