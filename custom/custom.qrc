@@ -52,7 +52,6 @@
         <file alias="QGroundControl/Controls/ToolStripDropPanel.qml">res/Custom/qml/QGroundControl/Controls/ToolStripDropPanel.qml</file>
         <file alias="QGroundControl/Toolbar/PlanViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml</file>
         <file alias="QGroundControl/Controls/AppSettings.qml">res/Custom/qml/QGroundControl/Controls/AppSettings.qml</file>
-        <file alias="QGroundControl/AppSettings/TelemetrySettings.qml">res/Custom/qml/QGroundControl/AppSettings/TelemetrySettings.qml</file>
         <file alias="QGroundControl/Controls/ToolIndicatorPage.qml">res/Custom/qml/QGroundControl/Controls/ToolIndicatorPage.qml</file>
         <file alias="QGroundControl/MainWindow/MainWindow.qml">res/Custom/qml/QGroundControl/MainWindow/MainWindow.qml</file>
     </qresource>
