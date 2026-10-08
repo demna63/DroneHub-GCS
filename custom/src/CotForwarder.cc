@@ -10,6 +10,7 @@
 #include "VehicleGPSFactGroup.h"
 
 #include <QDateTime>
+#include <QtCore/QTimeZone>
 #include <QDebug>
 #include <QNetworkInterface>
 #include <QGeoCoordinate>
@@ -158,7 +159,7 @@ void CotForwarder::setStaleSeconds(double s) { _staleS = qMax(1.0, s); }
 
 QString CotForwarder::_cotTime(qint64 ms)
 {
-    const QDateTime dt = QDateTime::fromMSecsSinceEpoch(ms, Qt::UTC);
+    const QDateTime dt = QDateTime::fromMSecsSinceEpoch(ms, QTimeZone::UTC);
     return dt.toString(QStringLiteral("yyyy-MM-ddTHH:mm:ss"))
             + QStringLiteral(".%1Z").arg(dt.time().msec() / 10, 2, 10, QChar('0'));
 }
@@ -222,7 +223,10 @@ double CotForwarder::_courseDeg(Vehicle* v)
 
 int CotForwarder::_rssiDbm(Vehicle* v)
 {
-    const int rssi = v->telemetryLRSSI();
+    // QGC 5.1: LRSSI lives in the "radioStatus" FactGroup (Vehicle::telemetryLRSSI() was removed).
+    FactGroup* radio = v ? v->radioStatusFactGroup() : nullptr;
+    Fact* lrssi = radio ? radio->getFact(QStringLiteral("lrssi")) : nullptr;
+    const int rssi = (lrssi && lrssi->rawValue().isValid()) ? lrssi->rawValue().toInt() : 0;
     // QGC: 0 = unknown; plugin-ში dBm ვაჩვენებთ მხოლოდ როცა მოდის
     if (rssi == 0) {
         return INT_MIN;
@@ -233,7 +237,8 @@ int CotForwarder::_rssiDbm(Vehicle* v)
 int CotForwarder::_rcRssiPct(Vehicle* v)
 {
     // QGC: 0..100 % (low-pass filtered), 255 = invalid/unknown
-    const int rc = v ? v->rcRSSI() : 255;
+    // QGC 5.1: rcRSSI is a Fact in the "vehicle" FactGroup (was Vehicle::rcRSSI()).
+    const int rc = static_cast<int>(vfg(v, QStringLiteral("rcRSSI"), 255.0));
     return (rc >= 0 && rc <= 100) ? rc : -1;
 }
 

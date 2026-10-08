@@ -31,13 +31,14 @@
     <!-- QML view overrides. CustomOverrideInterceptor გადაამისამართებს core URL-ებს:
          qrc:/qml/<path>  →  qrc:/Custom/qml/<path> (თუ აქ არსებობს). -->
     <qresource prefix="/Custom/qml">
-        <file alias="QGroundControl/FlightDisplay/FlyViewCustomLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml</file>
-        <file alias="QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml</file>
-        <file alias="QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml</file>
-        <file alias="QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml</file>
-        <file alias="QGroundControl/FlightDisplay/GuidedActionConfirm.qml">res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml</file>
-        <file alias="QGroundControl/Controls/FlyViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml</file>
-        <file alias="QGroundControl/Controls/FlyViewToolBarIndicators.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBarIndicators.qml</file>
+        <file alias="QGroundControl/FlyView/FlyViewCustomLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml</file>
+        <file alias="QGroundControl/FlyView/FlyViewWidgetLayer.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml</file>
+        <file alias="QGroundControl/FlyView/FlightDisplayViewVideo.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml</file>
+        <file alias="QGroundControl/FlyView/FlyViewToolStripActionList.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml</file>
+        <file alias="QGroundControl/FlyView/GuidedActionConfirm.qml">res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml</file>
+        <file alias="QGroundControl/FlyView/MavlinkActionConfirm.qml">res/Custom/qml/QGroundControl/FlightDisplay/MavlinkActionConfirm.qml</file>
+        <file alias="QGroundControl/Toolbar/FlyViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml</file>
+        <file alias="QGroundControl/Toolbar/FlyViewToolBarIndicators.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBarIndicators.qml</file>
         <file alias="QGroundControl/Toolbar/RCRSSIIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/RCRSSIIndicator.qml</file>
         <file alias="QGroundControl/Toolbar/VehicleHealthIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/VehicleHealthIndicator.qml</file>
         <file alias="QGroundControl/Toolbar/VideoStatusIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/VideoStatusIndicator.qml</file>
@@ -47,12 +48,11 @@
         <file alias="QGroundControl/Controls/SliderSwitch.qml">res/Custom/qml/QGroundControl/Controls/SliderSwitch.qml</file>
         <file alias="QGroundControl/Controls/ToolStrip.qml">res/Custom/qml/QGroundControl/Controls/ToolStrip.qml</file>
         <file alias="QGroundControl/Controls/ToolStripHoverButton.qml">res/Custom/qml/QGroundControl/Controls/ToolStripHoverButton.qml</file>
-        <file alias="QGroundControl/Controls/GPSIndicator.qml">res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml</file>
-        <file alias="QGroundControl/Controls/BatteryIndicator.qml">res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml</file>
+        <file alias="QGroundControl/Toolbar/GPSIndicator.qml">res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml</file>
+        <file alias="QGroundControl/Toolbar/BatteryIndicator.qml">res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml</file>
         <file alias="QGroundControl/Controls/ToolStripDropPanel.qml">res/Custom/qml/QGroundControl/Controls/ToolStripDropPanel.qml</file>
-        <file alias="QGroundControl/Controls/PlanViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml</file>
+        <file alias="QGroundControl/Toolbar/PlanViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/PlanViewToolBar.qml</file>
         <file alias="QGroundControl/Controls/AppSettings.qml">res/Custom/qml/QGroundControl/Controls/AppSettings.qml</file>
-        <file alias="QGroundControl/AppSettings/TelemetrySettings.qml">res/Custom/qml/QGroundControl/AppSettings/TelemetrySettings.qml</file>
         <file alias="QGroundControl/Controls/ToolIndicatorPage.qml">res/Custom/qml/QGroundControl/Controls/ToolIndicatorPage.qml</file>
         <file alias="QGroundControl/MainWindow/MainWindow.qml">res/Custom/qml/QGroundControl/MainWindow/MainWindow.qml</file>
     </qresource>

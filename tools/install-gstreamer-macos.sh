@@ -3,7 +3,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-GST_VERSION="${GST_VERSION:-1.24.13}"
+GST_VERSION="${GST_VERSION:-1.28.4}"   # QGC v5.1.x minimum for macOS (.github/build-config.json)
 GST_URL="https://gstreamer.freedesktop.org/data/pkg/osx/${GST_VERSION}"
 GST_PKG="gstreamer-1.0-${GST_VERSION}-universal.pkg"
 GST_DEV_PKG="gstreamer-1.0-devel-${GST_VERSION}-universal.pkg"

@@ -14,14 +14,9 @@ import QtQml.Models
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.Controllers
-import QGroundControl.Controls
-import QGroundControl.FactSystem
-import QGroundControl.FlightDisplay
+import QGroundControl.FlyView
 import QGroundControl.FlightMap
-import QGroundControl.Palette
-import QGroundControl.ScreenTools
-import QGroundControl.Vehicle
+import QGroundControl.Viewer3D
 
 import Custom
 
@@ -32,7 +27,7 @@ Item {
     property var    parentToolInsets
     property var    totalToolInsets:        _totalToolInsets
     property var    mapControl
-    property bool   isViewer3DOpen:         false
+    property var    viewer3DCameraController
 
     property var    _activeVehicle:         QGroundControl.multiVehicleManager.activeVehicle
     property var    _planMasterController:  globals.planMasterControllerFlyView
@@ -44,12 +39,9 @@ Item {
     property real   _toolsMargin:           ScreenTools.defaultFontPixelWidth * 0.75
     property rect   _centerViewport:        Qt.rect(0, 0, width, height)
     property real   _rightPanelWidth:       ScreenTools.defaultFontPixelWidth * 30
-    property alias  _gripperMenu:           gripperOptions
     property real   _layoutMargin:          ScreenTools.defaultFontPixelWidth * 0.75
     property bool   _layoutSpacing:         ScreenTools.defaultFontPixelWidth
     property bool   _showSingleVehicleUI:   true
-
-    property bool utmspActTrigger
 
     QGCToolInsets {
         id:                     _totalToolInsets
@@ -74,9 +66,7 @@ Item {
         id:                     topRightPanel
         anchors.top:            parent.top
         anchors.right:          parent.right
-        anchors.topMargin:      _layoutMargin
-        anchors.rightMargin:    _layoutMargin
-        maximumHeight:          parent.height - (bottomRightRowLayout.height + _margins * 5)
+        maximumHeight:          parent.height - (bottomRightRowLayout.height + _margins * 4)
 
         property real topEdgeRightInset:    height + _layoutMargin
         property real rightEdgeTopInset:    width + _layoutMargin
@@ -85,9 +75,7 @@ Item {
 
     FlyViewTopRightColumnLayout {
         id:                 topRightColumnLayout
-        anchors.margins:    _layoutMargin
         anchors.top:        parent.top
-        anchors.bottom:     bottomRightRowLayout.top
         anchors.right:      parent.right
         spacing:            _layoutSpacing
         visible:            !topRightPanel.visible
@@ -127,14 +115,11 @@ Item {
         rallyPointController:   _rallyPointController
     }
 
-    GuidedActionConfirm {
-        anchors.margins:            _toolsMargin
-        anchors.top:                parent.top
-        anchors.horizontalCenter:   parent.horizontalCenter
-        z:                          QGroundControl.zOrderTopMost
-        guidedController:           _guidedController
-        guidedValueSlider:          _guidedValueSlider
-        utmspSliderTrigger:         utmspActTrigger
+    // Prevent the map's PinchHandler from stealing touch grabs from the joystick pads (issue #13450)
+    Binding {
+        target:   mapControl
+        property: "pinchZoomDisabledByVirtualJoysticks"
+        value:    virtualJoystickMultiTouch.visible && virtualJoystickMultiTouch.item && virtualJoystickMultiTouch.item.stickActive
     }
 
     //-- Virtual Joystick
@@ -147,9 +132,9 @@ Item {
         visible:                    _virtualJoystickEnabled && !QGroundControl.videoManager.fullScreen && !(_activeVehicle ? _activeVehicle.usingHighLatencyLink : false)
         anchors.bottom:             parent.bottom
         anchors.bottomMargin:       bottomLoaderMargin
-        anchors.left:               parent.left   
-        anchors.leftMargin:         ( y > toolStrip.y + toolStrip.height ? toolStrip.width / 2 : toolStrip.width * 1.05 + toolStrip.x) 
-        source:                     "qrc:/qml/QGroundControl/FlightDisplay/VirtualJoystick.qml"
+        anchors.left:               parent.left
+        anchors.leftMargin:         ( y > toolStrip.y + toolStrip.height ? toolStrip.width / 2 : toolStrip.width * 1.05 + toolStrip.x)
+        source:                     "qrc:/qml/QGroundControl/FlyView/VirtualJoystick.qml"
         active:                     _virtualJoystickEnabled && !(_activeVehicle ? _activeVehicle.usingHighLatencyLink : false)
 
         property real bottomEdgeLeftInset:     parent.height-y
@@ -177,7 +162,7 @@ Item {
         //Loader status logic
         onLoaded: {
             if (virtualJoystickMultiTouch.visible) {
-                virtualJoystickMultiTouch.item.calibration = true 
+                virtualJoystickMultiTouch.item.calibration = true
                 virtualJoystickMultiTouch.item.uiTotalWidth = rootWidth
                 virtualJoystickMultiTouch.item.uiRealX = itemX
             } else {
@@ -188,8 +173,6 @@ Item {
 
     FlyViewToolStrip {
         id:                     toolStrip
-        anchors.leftMargin:     _toolsMargin + parentToolInsets.leftEdgeCenterInset
-        anchors.topMargin:      _toolsMargin + parentToolInsets.topEdgeLeftInset
         anchors.left:           parent.left
         anchors.top:            parent.top
         z:                      QGroundControl.zOrderWidgets
@@ -216,10 +199,6 @@ Item {
         property real leftEdgeCenterInset:  leftEdgeTopInset
     }
 
-    GripperMenu {
-        id: gripperOptions
-    }
-
     VehicleWarnings {
         anchors.centerIn:   parent
         z:                  QGroundControl.zOrderTopMost
@@ -227,14 +206,24 @@ Item {
 
     MapScale {
         id:                 mapScale
-        anchors.margins:    _toolsMargin
         anchors.left:       toolStrip.right
+        anchors.leftMargin: _toolsMargin
         anchors.top:        parent.top
         mapControl:         _mapControl
-        buttonsOnLeft:      true
-        visible:            !ScreenTools.isTinyScreen && QGroundControl.corePlugin.options.flyView.showMapScale && !isViewer3DOpen && mapControl.pipState.state === mapControl.pipState.fullState
+        autoHide:           true
+        visible:            !ScreenTools.isTinyScreen && QGroundControl.corePlugin.options.flyView.showMapScale && QGCViewer3DManager.displayMode !== QGCViewer3DManager.View3D && mapControl.pipState.state === mapControl.pipState.fullState
 
         property real topEdgeCenterInset: visible ? y + height : 0
+    }
+
+    Viewer3DScaleBar {
+        objectName:         "viewer3DScaleBar"
+        anchors.left:       toolStrip.right
+        anchors.leftMargin: _toolsMargin
+        anchors.top:        parent.top
+        controller:         _root.viewer3DCameraController
+        autoHide:           true
+        visible:            !ScreenTools.isTinyScreen && QGroundControl.corePlugin.options.flyView.showMapScale && QGCViewer3DManager.displayMode === QGCViewer3DManager.View3D && !!_root.viewer3DCameraController
     }
 
     Loader {

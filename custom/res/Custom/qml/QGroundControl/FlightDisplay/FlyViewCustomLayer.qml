@@ -13,12 +13,12 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import QtQuick.Effects
-import Qt.labs.settings 1.0
+import QtCore
 
 import QGroundControl
 import QGroundControl.Controls
+import QGroundControl.FlyView
 import QGroundControl.FlightMap
-import QGroundControl.ScreenTools
 
 Item {
     id: _root

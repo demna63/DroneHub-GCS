@@ -1,53 +1,39 @@
 /****************************************************************************
- * DroneHub GCS — Fly View left tool strip (Plan / Setup / Analyze / Settings).
+ * DroneHub GCS — Fly View left tool strip (3D / Plan / guided actions / Setup / Analyze / Settings).
+ *
+ * The DroneHub toolbar logo toggles this strip instead of opening QGC's view-select menu,
+ * so the view-navigation actions live here. Upstream v5.1.5 items are kept in order;
+ * DroneHub adds Plan, Setup, Analyze and Settings.
+ *
+ * `import QGroundControl.FlyView` is explicit because CustomOverrideInterceptor serves this
+ * file from qrc:/Custom/qml/..., where implicit same-directory type lookup does not apply.
  ****************************************************************************/
 
 import QtQml.Models
-import QtCore
 
 import QGroundControl
 import QGroundControl.Controls
+import QGroundControl.Viewer3D
+import QGroundControl.FlyView
 
 ToolStripActionList {
     id: _root
 
     signal displayPreFlightChecklist
 
-    // macOS + GStreamer: entire app uses OpenGL 2.1; Viewer3D cannot render (white scene).
-    readonly property bool _viewer3DBlockedByGstMac: Qt.platform.os === "osx"
-                                                       && QGroundControl.videoManager.gstreamerEnabled
+    /// Switch views through MainWindow's guard (blocks while a plan has unsaved validation errors).
+    function _switchView(showFn) {
+        if (mainWindow.allowViewSwitch()) {
+            showFn()
+        }
+    }
 
     model: [
-        ToolStripAction {
-            property bool _is3DViewOpen:            viewer3DWindow.isOpen
-            property bool _viewer3DEnabled:         QGroundControl.settingsManager.viewer3DSettings.enabled.rawValue
-
-            id: view3DIcon
-            visible:            _viewer3DEnabled && !_root._viewer3DBlockedByGstMac
-            text:           qsTr("3D View")
-            iconSource:     "/qmlimages/Viewer3D/City3DMapIcon.svg"
-            onTriggered: {
-                if (_is3DViewOpen === false) {
-                    viewer3DWindow.open()
-                } else {
-                    viewer3DWindow.close()
-                }
-            }
-
-            on_Is3DViewOpenChanged: {
-                if (_is3DViewOpen === true) {
-                    view3DIcon.iconSource = "/qmlimages/PaperPlane.svg"
-                    text = qsTr("Fly")
-                } else {
-                    iconSource = "/qmlimages/Viewer3D/City3DMapIcon.svg"
-                    text = qsTr("3D View")
-                }
-            }
-        },
+        Viewer3DShowAction { },
         ToolStripAction {
             text:           qsTr("Plan")
             iconSource:     "/qmlimages/Plan.svg"
-            onTriggered:    mainWindow.showPlanView()
+            onTriggered:    _root._switchView(function() { mainWindow.showPlanView() })
         },
         PreFlightCheckListShowAction { onTriggered: displayPreFlightChecklist() },
         GuidedActionTakeoff { },
@@ -55,22 +41,21 @@ ToolStripActionList {
         GuidedActionRTL { },
         GuidedActionPause { },
         FlyViewAdditionalActionsButton { },
-        GuidedActionGripper { },
+        FlyViewGripperButton { },
         ToolStripAction {
             text:           qsTr("Setup")
             iconSource:     "/qmlimages/Gears.svg"
-            onTriggered:    mainWindow.showVehicleConfig()
+            onTriggered:    _root._switchView(function() { mainWindow.showVehicleConfig() })
         },
         ToolStripAction {
             text:           qsTr("Analyze")
             iconSource:     "/qmlimages/Analyze.svg"
-            visible:        true   // always available — operators rely on log download, MAVLink console/inspector
-            onTriggered:    mainWindow.showAnalyzeTool()
+            onTriggered:    _root._switchView(function() { mainWindow.showAnalyzeTool() })
         },
         ToolStripAction {
             text:           qsTr("Settings")
             iconSource:     "/qmlimages/CogWheel.svg"
-            onTriggered:    mainWindow.showSettingsTool()
+            onTriggered:    _root._switchView(function() { mainWindow.showSettingsTool() })
         }
     ]
 }

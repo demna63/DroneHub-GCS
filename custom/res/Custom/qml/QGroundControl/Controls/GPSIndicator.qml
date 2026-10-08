@@ -7,9 +7,7 @@ import QtQuick.Layouts
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.MultiVehicleManager
-import QGroundControl.ScreenTools
-import QGroundControl.Palette
+import QGroundControl.Toolbar
 
 Item {
     id:             control
@@ -37,7 +35,7 @@ Item {
 
     function _gpsColor() {
         if (!_activeVehicle) {
-            return qgcPal.textDisabled
+            return Qt.darker(qgcPal.text, 1.8)
         }
         var lock = _gpsLock()
         var count = _satCount()

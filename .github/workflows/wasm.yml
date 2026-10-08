@@ -1,7 +1,9 @@
 # DroneHub GCS — WebAssembly (WASM) custom build CI (F5).
 #
 # აშენებს custom build-ს WebAssembly-სთვის Linux host-ზე Emscripten-ით.
-# გამოიყენება Qt 6.8.3 for WebAssembly და Emscripten 3.1.56 (ოფიციალური თავსებადი ვერსია).
+# Qt ვერსია მოდის env.QT_VERSION-იდან (6.11.1). ⚠️ QGC v5.1 upstream-ს WASM build აღარ აქვს
+# (არც workflow, არც EMSCRIPTEN branch CMake-ში) — ეს job ექსპერიმენტულია და, სავარაუდოდ,
+# configure-ზევე ჩავარდება. EMSDK_VERSION Qt 6.11-ის შესაბამისად გადასამოწმებელია.
 #
 # ბრაუზერის უსაფრთხოების შეზღუდვების გამო:
 # 1. GStreamer ვიდეო სტრიმინგი გათიშულია (-DQGC_ENABLE_GST_VIDEOSTREAMING=OFF).
@@ -34,8 +36,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  QGC_TAG: Stable_V5.0
-  QT_VERSION: 6.8.3
+  QGC_TAG: v5.1.5
+  QT_VERSION: 6.11.1
   EMSDK_VERSION: 3.1.56
 
 jobs:
@@ -86,7 +88,7 @@ jobs:
           target: desktop
           arch: linux_gcc_64
           dir: ${{ runner.temp }}
-          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
           setup-python: false
           cache: true
 
@@ -98,7 +100,7 @@ jobs:
           target: wasm
           arch: wasm_multithread
           dir: ${{ runner.temp }}
-          modules: qtcharts qtspeech qt5compat qtmultimedia qtimageformats qtshadertools qtquick3d
+          modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtimageformats qtshadertools qtquick3d qtsensors qtscxml qtwebsockets
           setup-python: false
           cache: true
 

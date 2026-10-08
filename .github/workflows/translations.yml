@@ -26,8 +26,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  QGC_TAG: Stable_V5.0
-  QT_VERSION: 6.8.3
+  QGC_TAG: v5.1.5
+  QT_VERSION: 6.11.1
 
 jobs:
   lupdate:
@@ -65,7 +65,7 @@ jobs:
           host: linux
           target: desktop
           arch: linux_gcc_64
-          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
           cache: true
 
       - name: Configure (custom build, no compile)

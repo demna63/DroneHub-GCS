@@ -1,12 +1,12 @@
 # DroneHub GCS — custom build CI (F5 foundation).
 #
-# რას აკეთებს: კლონავს QGC-ს (Stable_V5.0), ჩასვამს ჩვენს custom/ + translations/-ს,
+# რას აკეთებს: კლონავს QGC-ს (v5.1.5), ჩასვამს ჩვენს custom/ + translations/-ს,
 # და აეწყობს custom build-ს. ეს არის რეალური compile-verification ჩვენი custom plugin-ისა.
 #
 # მოდელირებულია upstream-ის `custom.yml`-ზე (qgroundcontrol/.github/workflows/custom.yml).
 # ⚠️ პირველ run-ზე დასავალიდირებელია (Qt ვერსია / system deps / kit).
 #
-# Qt 6.8.3 LTS — canonical pin (upstream Stable_V5.0 + DroneHub CI).
+# Qt 6.11.1 — canonical pin (upstream v5.1.x build-config.json + DroneHub CI).
 # Upgrade only when upstream validates a newer LTS/stable Qt and CI/QA pass.
 
 name: DroneHub Build
@@ -56,8 +56,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  QGC_TAG: Stable_V5.0
-  QT_VERSION: 6.8.3
+  QGC_TAG: v5.1.5
+  QT_VERSION: 6.11.1
 
 jobs:
   desktop:
@@ -100,7 +100,7 @@ jobs:
         # Use $RUNNER_OS env var (always set by GitHub Actions) rather than
         # expression-based `if: runner.os == '...'` conditions which have been
         # observed to be silently skipped on some hosted runner images.
-        # Stable_V5.0 cmake/Install.cmake requires create-dmg on macOS at
+        # v5.1 cmake/Install.cmake requires create-dmg on macOS at
         # configure time, so it must be present before the cmake step runs.
         run: |
           case "$RUNNER_OS" in
@@ -122,7 +122,7 @@ jobs:
           host: ${{ matrix.config.qt_host }}
           target: desktop
           arch: ${{ matrix.config.qt_arch }}
-          modules: qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors
+          modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
           cache: true
 
       - name: Set up MSVC (Windows)

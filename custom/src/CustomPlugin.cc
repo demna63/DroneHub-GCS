@@ -5,7 +5,6 @@
 #include "geo/geo_mag_declination.h"
 
 #include "QGCLoggingCategory.h"
-#include "BrandImageSettings.h"
 #include "AppSettings.h"
 #include "QGCMAVLink.h"
 #include "FactMetaData.h"
@@ -96,43 +95,30 @@ void CustomPlugin::init()
         settings.setValue(QStringLiteral("DroneHub/videoDefaultsMigrated"), true);
     }
 
-#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
-    // GStreamer forces QQuickWindow to OpenGL (legacy 2.1 on macOS); QtQuick3D/Viewer3D
-    // needs GL 3.3+ or Metal — white scene if both are offered. Default Viewer3D off and
-    // hide the tool-strip entry (see FlyViewToolStripActionList.qml).
-    if (!settings.value(QStringLiteral("DroneHub/viewer3dMacGstPolicyMigrated"), false).toBool()) {
-        if (SettingsManager* sm = SettingsManager::instance()) {
-            if (Viewer3DSettings* v3 = sm->viewer3DSettings()) {
-                v3->enabled()->setRawValue(false);
-            }
-        }
-        settings.setValue(QStringLiteral("DroneHub/viewer3dMacGstPolicyMigrated"), true);
-    }
-#endif
 }
 
 void CustomPlugin::cleanup()
 {
-    if (_qmlEngine && _selector) {
-        _qmlEngine->removeUrlInterceptor(_selector);
-    }
+    // The engine is already gone here (destroyQmlApplicationEngine ran first), so only the
+    // interceptor object itself is released. Never touch _qmlEngine in this path.
     delete _selector;
     _selector = nullptr;
+}
+
+void CustomPlugin::destroyQmlApplicationEngine(QQmlApplicationEngine* qmlEngine)
+{
+    if (qmlEngine && qmlEngine == _qmlEngine && _selector) {
+        qmlEngine->removeUrlInterceptor(_selector);
+    }
+    if (qmlEngine == _qmlEngine) {
+        _qmlEngine = nullptr;
+    }
+    QGCCorePlugin::destroyQmlApplicationEngine(qmlEngine);
 }
 
 QGCOptions* CustomPlugin::options()
 {
     return _options;
-}
-
-QString CustomPlugin::brandImageIndoor() const
-{
-    return QStringLiteral("/custom/img/dggcs-logo-original.png");
-}
-
-QString CustomPlugin::brandImageOutdoor() const
-{
-    return QStringLiteral("/custom/img/dggcs-logo-original.png");
 }
 
 QString CustomPlugin::showAdvancedUIMessage() const
@@ -143,28 +129,19 @@ QString CustomPlugin::showAdvancedUIMessage() const
 
 bool CustomPlugin::overrideSettingsGroupVisibility(const QString& name)
 {
-    // ჩვენი ბრენდის ლოგო fix-ირებულია — დავმალოთ Brand Image პარამეტრები,
-    // რომ მომხმარებელმა ვერ შეცვალოს.
-    if (name == BrandImageSettings::name) {
-        return false;
-    }
-
-#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
-    // Fly View Settings → "3D View" group (enabled toggle + OSM). GStreamer forces
-    // OpenGL 2.1 on macOS; Viewer3D cannot render alongside video PiP.
-    if (name == Viewer3DSettings::name) {
-        return false;
-    }
-#endif
+    // NOTE: QGC 5.1 removed BrandImageSettings (and brandImageIndoor/Outdoor), so there is
+    // nothing left to hide for the branding logo.
 
     return QGCCorePlugin::overrideSettingsGroupVisibility(name);
 }
 
 // F3: offline Plan-ის default firmware/vehicle — DroneHub PX4 multirotor.
 // ეს განსაზღვრავს, რა აპარატისთვის იქმნება mission, როცა vehicle არ არის მიერთებული.
-bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaData& metaData)
+// QGC 5.1 signature: void + `bool& userVisible` (false = hidden and pinned to the default value,
+// the same semantics the old `return false` had).
+void CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaData& metaData, bool& userVisible)
 {
-    const bool parentResult = QGCCorePlugin::adjustSettingMetaData(settingsGroup, metaData);
+    QGCCorePlugin::adjustSettingMetaData(settingsGroup, metaData, userVisible);
 
     // Localize enum display strings. QGC pulls JSON-metadata enum strings (and a
     // few un-tr()'d C++ ones such as the speed units) around the .ts system, so
@@ -314,10 +291,12 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
     if (settingsGroup == AppSettings::settingsGroup) {
         if (metaData.name() == AppSettings::offlineEditingFirmwareClassName) {
             metaData.setRawDefaultValue(QGCMAVLink::FirmwareClassPX4);
-            return false;
+            userVisible = false;
+            return;
         } else if (metaData.name() == AppSettings::offlineEditingVehicleClassName) {
             metaData.setRawDefaultValue(QGCMAVLink::VehicleClassMultiRotor);
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
@@ -327,43 +306,43 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
     if (settingsGroup == VideoSettings::settingsGroup) {
         if (metaData.name() == VideoSettings::videoSourceName) {
             metaData.setRawDefaultValue(QString::fromUtf8(VideoSettings::videoSourceUDPH264));
-            return false;
+            userVisible = false;
+            return;
         }
         // Don't kill the video stream on disarm — keeps the Fly View PiP visible.
         if (metaData.name() == VideoSettings::disableWhenDisarmedName) {
             metaData.setRawDefaultValue(false);
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
     // 3D View is compiled in (QGC_VIEWER3D=ON). QGC ships it disabled by default, so
     // the Fly View "3D View" tool-strip button (gated on viewer3DSettings.enabled) is
     // hidden out of the box. Default it on so operators get the 3D map without digging
-    // through settings — except macOS GStreamer builds where video forces OpenGL 2.1
-    // and breaks Viewer3D (see init() migration + FlyViewToolStripActionList.qml).
+    // through settings. QGC 5.1 renders video through QVideoSink on any RHI backend
+    // (Metal on macOS), so the old macOS+GStreamer OpenGL 2.1 exception is gone.
     if (settingsGroup == Viewer3DSettings::settingsGroup) {
         if (metaData.name() == Viewer3DSettings::enabledName) {
-#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
-            metaData.setRawDefaultValue(false);
-#else
             metaData.setRawDefaultValue(true);
-#endif
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
     if (settingsGroup == MavlinkActionsSettings::settingsGroup) {
         if (metaData.name() == MavlinkActionsSettings::flyViewActionsFileName) {
             metaData.setRawDefaultValue(QStringLiteral("DroneHub-flyview-actions.json"));
-            return false;
+            userVisible = false;
+            return;
         }
         if (metaData.name() == MavlinkActionsSettings::joystickActionsFileName) {
             metaData.setRawDefaultValue(QStringLiteral("DroneHub-joystick-actions.json"));
-            return false;
+            userVisible = false;
+            return;
         }
     }
 
-    return parentResult;
 }
 
 // DroneHub პალიტრა → QGC palette tokens. ფერები ემთხვევა Custom/Theme.qml-ს

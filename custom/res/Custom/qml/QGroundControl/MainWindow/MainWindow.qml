@@ -1,12 +1,3 @@
-/****************************************************************************
- *
- * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
- *
- * QGroundControl is licensed according to the terms in the file
- * COPYING.md in the root of the source code directory.
- *
- ****************************************************************************/
-
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Dialogs
@@ -14,25 +5,30 @@ import QtQuick.Layouts
 import QtQuick.Window
 
 import QGroundControl
-import QGroundControl.Palette
 import QGroundControl.Controls
 import QGroundControl.FactControls
-import QGroundControl.ScreenTools
-import QGroundControl.FlightDisplay
+import QGroundControl.FlyView
 import QGroundControl.FlightMap
-
-import QGroundControl.UTMSP
+import QGroundControl.PlanView
+import QGroundControl.Toolbar
 
 import Custom
 
 /// @brief Native QML top level window
 /// All properties defined here are visible to all QML pages.
 ApplicationWindow {
-    id:             mainWindow
-    visible:        true
+    id:         mainWindow
+    visible:    true
+    // The special casing for android prevents white bars from showing up on the edges of the screen with newer android versions
+    flags:      Qt.Window | (ScreenTools.isAndroid ? Qt.ExpandedClientAreaHint | Qt.NoTitleBarBackgroundHint : 0)
 
-    property bool   _utmspSendActTrigger
-    property bool   _utmspStartTelemetry
+    // Qt 6.9+ auto-sets ApplicationWindow padding to the display safe-area insets on mobile,
+    // which insets our full-bleed content and leaves a blank strip along the screen edge.
+    // QGC draws edge-to-edge and manages its own insets, so zero the padding.
+    topPadding:    0
+    bottomPadding: 0
+    leftPadding:   0
+    rightPadding:  0
 
     Component.onCompleted: {
         // Start the sequence of first run prompt(s)
@@ -86,7 +82,10 @@ ApplicationWindow {
         readonly property var       guidedControllerFlyView:        flyView.guidedController
 
         // Number of QGCTextField's with validation errors. Used to prevent closing panels with validation errors.
-        property int                validationErrorCount:           0 
+        property int                validationErrorCount:           0
+
+        // Set to a non-empty string to block navigation with a custom reason (e.g. during calibration)
+        property string             navigationBlockedReason:        ""
 
         // Property to manage RemoteID quick access to settings page
         property bool               commingFromRIDIndicator:        false
@@ -109,22 +108,43 @@ ApplicationWindow {
     //-- Global Scope Functions
 
     // This function is used to prevent view switching if there are validation errors
-    function allowViewSwitch(previousValidationErrorCount = 0) {
+    function allowViewSwitch(previousValidationErrorCount = 0, showErrorOnDisallow = true) {
+        // Check for explicit navigation block (e.g. calibration in progress)
+        if (globals.navigationBlockedReason !== "") {
+            if (showErrorOnDisallow) {
+                validationErrorToast.text = globals.navigationBlockedReason
+                if (validationErrorToast.visible) {
+                    validationErrorToast.close()
+                }
+                validationErrorToast.open()
+            }
+            return false
+        }
         // Run validation on active focus control to ensure it is valid before switching views
         if (mainWindow.activeFocusControl instanceof FactTextField) {
             mainWindow.activeFocusControl._onEditingFinished()
         }
-        return globals.validationErrorCount <= previousValidationErrorCount
+        var allowed = globals.validationErrorCount <= previousValidationErrorCount
+        if (!allowed && showErrorOnDisallow) {
+            validationErrorToast.text = qsTr("Please correct the invalid value before continuing")
+            if (validationErrorToast.visible) {
+                validationErrorToast.close()
+            }
+            validationErrorToast.open()
+        }
+        return allowed
     }
 
     function showPlanView() {
         flyView.visible = false
         planView.visible = true
+        toolDrawer.visible = false
     }
 
     function showFlyView() {
         flyView.visible = true
         planView.visible = false
+        toolDrawer.visible = false
     }
 
     function showTool(toolTitle, toolSource, toolIcon) {
@@ -140,7 +160,7 @@ ApplicationWindow {
     }
 
     function showVehicleConfig() {
-        showTool(qsTr("Vehicle Configuration"), "qrc:/qml/QGroundControl/VehicleSetup/SetupView.qml", "/qmlimages/Gears.svg")
+        showTool(qsTr("Vehicle Configuration"), "qrc:/qml/QGroundControl/VehicleSetup/VehicleConfigView.qml", "/qmlimages/Gears.svg")
     }
 
     function showVehicleConfigParametersPage() {
@@ -166,13 +186,35 @@ ApplicationWindow {
     //-------------------------------------------------------------------------
     //-- Global simple message dialog
 
-    function showMessageDialog(dialogTitle, dialogText, buttons = Dialog.Ok, acceptFunction = null, closeFunction = null) {
-        simpleMessageDialogComponent.createObject(mainWindow, { title: dialogTitle, text: dialogText, buttons: buttons, acceptFunction: acceptFunction, closeFunction: closeFunction }).open()
+    function _showMessageDialogWorker(owner, dialogTitle, dialogText, buttons = Dialog.Ok, acceptFunction = null, closeFunction = null, bypassNavigationCheck = false) {
+        let dialog = simpleMessageDialogComponent.createObject(owner, { title: dialogTitle, text: dialogText, buttons: buttons, acceptFunction: acceptFunction, closeFunction: closeFunction, bypassNavigationCheck: bypassNavigationCheck })
+        dialog.open()
     }
 
     // This variant is only meant to be called by QGCApplication
     function _showMessageDialog(dialogTitle, dialogText) {
-        showMessageDialog(dialogTitle, dialogText)
+        _showMessageDialogWorker(mainWindow, dialogTitle, dialogText)
+    }
+
+    // This variant is only meant to be called by QGCApplication. Ok reboots the active vehicle.
+    function _showRebootVehicleDialog(dialogTitle, dialogText) {
+        _showMessageDialogWorker(mainWindow, dialogTitle,
+                                 dialogText + " " + qsTr("Click Ok to reboot the vehicle now."),
+                                 Dialog.Ok | Dialog.Cancel,
+                                 function() {
+                                     const activeVehicle = QGroundControl.multiVehicleManager.activeVehicle
+                                     if (activeVehicle) {
+                                         activeVehicle.rebootVehicle()
+                                     }
+                                 })
+    }
+
+    Connections {
+        target: QGroundControl
+
+        function onShowMessageDialogRequested(owner, title, text, buttons, acceptFunction, closeFunction) {
+            _showMessageDialogWorker(owner, title, text, buttons, acceptFunction, closeFunction)
+        }
     }
 
     Component {
@@ -183,6 +225,7 @@ ApplicationWindow {
     }
 
     property bool _forceClose: false
+    property bool suppressCriticalVehicleMessages: false
 
     function finishCloseProcess() {
         _forceClose = true
@@ -200,6 +243,7 @@ ApplicationWindow {
     readonly property int _skipPendingParameterWritesCheckMask: 0x02
     readonly property int _skipActiveConnectionsCheckMask: 0x04
     property int _closeChecksToSkip: 0
+    property bool _reentrantCloseGuard: false
     function performCloseChecks() {
         if (!(_closeChecksToSkip & _skipUnsavedMissionCheckMask) && !checkForUnsavedMission()) {
             return false
@@ -214,14 +258,21 @@ ApplicationWindow {
         return true
     }
 
-    property string closeDialogTitle: qsTr("Close %1").arg(QGroundControl.appName)
-
     function checkForUnsavedMission() {
-        if (planView._planMasterController.dirty) {
-            showMessageDialog(closeDialogTitle,
-                              qsTr("You have a mission edit in progress which has not been saved/sent. If you close you will lose changes. Are you sure you want to close?"),
+        // Only warn when edits are neither saved to disk nor uploaded to the vehicle.
+        // If either happened the edits are recoverable, so closing loses nothing.
+        // With no active vehicle an upload can't have happened, so treat the plan as
+        // not uploaded regardless of dirtyForUpload.
+        if (planView._planMasterController.dirtyForSave &&
+                (planView._planMasterController.dirtyForUpload || !QGroundControl.multiVehicleManager.activeVehicle)) {
+            let accepted = false
+            _reentrantCloseGuard = true
+            _showMessageDialogWorker(mainWindow, qsTr("Unsaved Mission"),
+                              qsTr("You have a mission edit in progress which has not been saved/uploaded. If you close you will lose changes. Are you sure you want to close?"),
                               Dialog.Yes | Dialog.No,
-                              function() { _closeChecksToSkip |= _skipUnsavedMissionCheckMask; performCloseChecks() })
+                              function() { accepted = true; _closeChecksToSkip |= _skipUnsavedMissionCheckMask; performCloseChecks() },
+                              function() { if (!accepted) _reentrantCloseGuard = false },
+                              true /* bypassNavigationCheck */)
             return false
         } else {
             return true
@@ -231,10 +282,14 @@ ApplicationWindow {
     function checkForPendingParameterWrites() {
         for (var index=0; index<QGroundControl.multiVehicleManager.vehicles.count; index++) {
             if (QGroundControl.multiVehicleManager.vehicles.get(index).parameterManager.pendingWrites) {
-                mainWindow.showMessageDialog(closeDialogTitle,
+                let accepted = false
+                _reentrantCloseGuard = true
+                _showMessageDialogWorker(mainWindow, qsTr("Pending Parameter Updates"),
                     qsTr("You have pending parameter updates to a vehicle. If you close you will lose changes. Are you sure you want to close?"),
                     Dialog.Yes | Dialog.No,
-                    function() { _closeChecksToSkip |= _skipPendingParameterWritesCheckMask; performCloseChecks() })
+                    function() { accepted = true; _closeChecksToSkip |= _skipPendingParameterWritesCheckMask; performCloseChecks() },
+                    function() { if (!accepted) _reentrantCloseGuard = false },
+                    true /* bypassNavigationCheck */)
                 return false
             }
         }
@@ -243,10 +298,14 @@ ApplicationWindow {
 
     function checkForActiveConnections() {
         if (QGroundControl.multiVehicleManager.activeVehicle) {
-            mainWindow.showMessageDialog(closeDialogTitle,
+            let accepted = false
+            _reentrantCloseGuard = true
+            _showMessageDialogWorker(mainWindow, qsTr("Active Vehicle Connections"),
                 qsTr("There are still active connections to vehicles. Are you sure you want to exit?"),
                 Dialog.Yes | Dialog.No,
-                function() { _closeChecksToSkip |= _skipActiveConnectionsCheckMask; performCloseChecks() })
+                function() { accepted = true; _closeChecksToSkip |= _skipActiveConnectionsCheckMask; performCloseChecks() },
+                function() { if (!accepted) _reentrantCloseGuard = false },
+                true /* bypassNavigationCheck */)
             return false
         } else {
             return true
@@ -255,6 +314,10 @@ ApplicationWindow {
 
     onClosing: (close) => {
         if (!_forceClose) {
+            if (_reentrantCloseGuard) {
+                close.accepted = false
+                return
+            }
             _closeChecksToSkip = 0
             close.accepted = performCloseChecks()
         }
@@ -265,14 +328,15 @@ ApplicationWindow {
         color:          QGroundControl.globalPalette.window
     }
 
-    FlyView { 
+    FlyView {
         id:                     flyView
+        objectName:             "mainView_fly"
         anchors.fill:           parent
-        utmspSendActTrigger:    _utmspSendActTrigger
     }
 
     PlanView {
         id:             planView
+        objectName:     "mainView_plan"
         anchors.fill:   parent
         visible:        false
     }
@@ -318,154 +382,36 @@ ApplicationWindow {
         }
     }
 
+    // Toast notification shown when a view switch is blocked by a validation error
+    ToolTip {
+        id:             validationErrorToast
+        x:              (mainWindow.width - width) / 2
+        y:              mainWindow.height - height - ScreenTools.defaultFontPixelHeight * 3
+        timeout:        3000
+        closePolicy:    Popup.NoAutoClose
+        text:           qsTr("Please correct the invalid value before continuing")
+
+        background: Rectangle {
+            color:  qgcPal.alertBackground
+            radius: ScreenTools.defaultFontPixelWidth / 2
+        }
+
+        contentItem: QGCLabel {
+            text:   validationErrorToast.text
+            color:  qgcPal.alertText
+        }
+    }
+
     Component {
         id: toolSelectComponent
 
-        ToolIndicatorPage {
-            id:         toolSelectDialog
-            //title:      qsTr("Select Tool")
-
-            property real _toolButtonHeight:    ScreenTools.defaultFontPixelHeight * 3
-            property real _margins:             ScreenTools.defaultFontPixelWidth
-
-            contentComponent: Component {
-                ColumnLayout {
-                    width:  innerLayout.width + (toolSelectDialog._margins * 2)
-                    height: innerLayout.height + (toolSelectDialog._margins * 2)
-
-                    ColumnLayout {
-                        id:             innerLayout
-                        Layout.margins: toolSelectDialog._margins
-                        spacing:        ScreenTools.defaultFontPixelWidth
-
-                        SubMenuButton {
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Plan Flight")
-                            imageResource:      "/qmlimages/Plan.svg"
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    mainWindow.closeIndicatorDrawer()
-                                    mainWindow.showPlanView()
-                                }
-                            }
-                        }
-
-                        SubMenuButton {
-                            id:                 analyzeButton
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Analyze Tools")
-                            imageResource:      "/qmlimages/Analyze.svg"
-                            visible:            QGroundControl.corePlugin.showAdvancedUI
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    mainWindow.closeIndicatorDrawer()
-                                    mainWindow.showAnalyzeTool()
-                                }
-                            }
-                        }
-
-                        SubMenuButton {
-                            id:                 setupButton
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Vehicle Configuration")
-                            imageResource:      "/qmlimages/Gears.svg"
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    mainWindow.closeIndicatorDrawer()
-                                    mainWindow.showVehicleConfig()
-                                }
-                            }
-                        }
-
-                        SubMenuButton {
-                            id:                 settingsButton
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Application Settings")
-                            imageResource:      "/res/QGCLogoFull.svg"
-                            imageColor:         "transparent"
-                            visible:            !QGroundControl.corePlugin.options.combineSettingsAndSetup
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    drawer.close()
-                                    mainWindow.showSettingsTool()
-                                }
-                            }
-                        }
-
-                        SubMenuButton {
-                            id:                 closeButton
-                            height:             toolSelectDialog._toolButtonHeight
-                            Layout.fillWidth:   true
-                            text:               qsTr("Close %1").arg(QGroundControl.appName)
-                            imageResource:      "/res/cancel.svg"
-                            visible:            mainWindow.visibility === Window.FullScreen
-                            onClicked: {
-                                if (mainWindow.allowViewSwitch()) {
-                                    mainWindow.finishCloseProcess()
-                                }
-                            }
-                        }
-
-                        ColumnLayout {
-                            width:                  innerLayout.width
-                            spacing:                0
-                            Layout.alignment:       Qt.AlignHCenter
-
-                            QGCLabel {
-                                id:                     versionLabel
-                                text:                   qsTr("%1 Version").arg(QGroundControl.appName)
-                                font.pointSize:         ScreenTools.smallFontPointSize
-                                wrapMode:               QGCLabel.WordWrap
-                                Layout.maximumWidth:    parent.width
-                                Layout.alignment:       Qt.AlignHCenter
-                            }
-
-                            QGCLabel {
-                                text:                   QGroundControl.qgcVersion
-                                font.pointSize:         ScreenTools.smallFontPointSize
-                                wrapMode:               QGCLabel.WrapAnywhere
-                                Layout.maximumWidth:    parent.width
-                                Layout.alignment:       Qt.AlignHCenter
-
-                                QGCMouseArea {
-                                    id:                 easterEggMouseArea
-                                    anchors.topMargin:  -versionLabel.height
-                                    anchors.fill:       parent
-
-                                    onClicked: (mouse) => {
-                                        if (mouse.modifiers & Qt.ControlModifier) {
-                                            QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
-                                            showTouchAreasNotification.open()
-                                        } else if (ScreenTools.isMobile || mouse.modifiers & Qt.ShiftModifier) {
-                                            mainWindow.closeIndicatorDrawer()
-                                            if(!QGroundControl.corePlugin.showAdvancedUI) {
-                                                advancedModeOnConfirmation.open()
-                                            } else {
-                                                advancedModeOffConfirmation.open()
-                                            }
-                                        }
-                                    }
-
-                                    // This allows you to change this on mobile
-                                    onPressAndHold: {
-                                        QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
-                                        showTouchAreasNotification.open()
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+        SelectViewDropdown {
         }
     }
 
     Rectangle {
         id:             toolDrawer
+        objectName:     "mainView_toolDrawer"
         anchors.fill:   parent
         visible:        false
         color:          qgcPal.window
@@ -502,20 +448,26 @@ ApplicationWindow {
                 anchors.bottom:     parent.bottom
                 spacing:            ScreenTools.defaultFontPixelWidth
 
+                // DroneHub: explicit "‹ Exit <tool>" back affordance (as in 5.0) instead of the
+                // stock QGC logo, which only opened the view-select menu and read as a dead end.
                 QGCLabel {
+                    objectName:     "toolbar_exitTool"
+                    text:           "‹"
+                    color:          Theme.brandPrimary
                     font.pointSize: ScreenTools.largeFontPointSize
-                    text:           "<"
                 }
 
                 QGCLabel {
                     id:             toolbarDrawerText
                     text:           qsTr("Exit") + " " + toolDrawer.toolTitle
+                    color:          Theme.textPrimary
                     font.pointSize: ScreenTools.largeFontPointSize
                 }
             }
 
             QGCMouseArea {
-                anchors.fill: toolDrawerToolbarLayout
+                anchors.fill:   toolDrawerToolbarLayout
+                cursorShape:    Qt.PointingHandCursor
                 onClicked: {
                     if (mainWindow.allowViewSwitch()) {
                         toolDrawer.visible = false
@@ -530,12 +482,27 @@ ApplicationWindow {
             anchors.right:  parent.right
             anchors.top:    toolDrawerToolbar.bottom
             anchors.bottom: parent.bottom
+        }
+    }
 
-            Connections {
-                target:                 toolDrawerLoader.item
-                ignoreUnknownSignals:   true
-                onPopout:               toolDrawer.visible = false
-            }
+    //-------------------------------------------------------------------------
+    //-- DroneHub: MAVLink action slide-to-confirm
+    // Owned here (not by FlyViewAdditionalActionsPanel) because the panel lives inside a
+    // drop-down that is destroyed as soon as it hides — creating the dialog from the panel's
+    // Component then fails with "Cannot create a component in an invalid context".
+
+    Component {
+        id: dronehubMavlinkActionConfirmComponent
+        MavlinkActionConfirm { }
+    }
+
+    function showMavlinkActionConfirm(mavlinkAction, vehicle) {
+        const dialog = dronehubMavlinkActionConfirmComponent.createObject(mainWindow, {
+            mavlinkAction: mavlinkAction,
+            vehicle:       vehicle
+        })
+        if (dialog) {
+            dialog.open()
         }
     }
 
@@ -543,7 +510,9 @@ ApplicationWindow {
     //-- Critical Vehicle Message Popup
 
     function showCriticalVehicleMessage(message) {
-        closeIndicatorDrawer()
+        if (suppressCriticalVehicleMessages) {
+            return
+        }
         if (criticalVehicleMessagePopup.visible || QGroundControl.videoManager.fullScreen) {
             // We received additional warning message while an older warning message was still displayed.
             // When the user close the older one drop the message indicator tool so they can see the rest of them.
@@ -555,17 +524,29 @@ ApplicationWindow {
         }
     }
 
+    // No focus and no Escape handler: either would steal keys from whatever the user is typing in.
     Popup {
         id:                 criticalVehicleMessagePopup
+        objectName:         "criticalVehicleMessage_popup"
         y:                  ScreenTools.toolbarHeight + ScreenTools.defaultFontPixelHeight
         x:                  Math.round((mainWindow.width - width) * 0.5)
         width:              mainWindow.width  * 0.55
         height:             criticalVehicleMessageText.contentHeight + ScreenTools.defaultFontPixelHeight * 2
         modal:              false
-        focus:              true
+        closePolicy:        Popup.CloseOnPressOutside
 
         property alias  criticalVehicleMessage:             criticalVehicleMessageText.text
         property bool   additionalCriticalMessagesReceived: false
+
+        function acknowledge() {
+            close()
+            if (additionalCriticalMessagesReceived) {
+                additionalCriticalMessagesReceived = false
+                flyView.dropMainStatusIndicatorTool()
+            } else if (QGroundControl.multiVehicleManager.activeVehicle) {
+                QGroundControl.multiVehicleManager.activeVehicle.resetErrorLevelMessages()
+            }
+        }
 
         background: Rectangle {
             anchors.fill:   parent
@@ -625,6 +606,7 @@ ApplicationWindow {
 
         QGCLabel {
             id:                 criticalVehicleMessageText
+            objectName:         "criticalVehicleMessage_text"
             width:              criticalVehicleMessagePopup.width - ScreenTools.defaultFontPixelHeight
             anchors.centerIn:   parent
             wrapMode:           Text.WordWrap
@@ -635,15 +617,7 @@ ApplicationWindow {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                criticalVehicleMessagePopup.close()
-                if (criticalVehicleMessagePopup.additionalCriticalMessagesReceived) {
-                    criticalVehicleMessagePopup.additionalCriticalMessagesReceived = false;
-                    flyView.dropMainStatusIndicatorTool();
-                } else {
-                    QGroundControl.multiVehicleManager.activeVehicle.resetErrorLevelMessages();
-                }
-            }
+            onClicked: criticalVehicleMessagePopup.acknowledge()
         }
     }
 
@@ -711,6 +685,7 @@ ApplicationWindow {
             }
 
             Rectangle {
+                objectName:                 "indicatorDrawerExpandButton"
                 anchors.horizontalCenter:   backgroundRect.right
                 anchors.verticalCenter:     backgroundRect.top
                 width:                      ScreenTools.largeFontPixelHeight
@@ -719,7 +694,7 @@ ApplicationWindow {
                 color:                      Theme.bgElevated
                 border.color:               Theme.toastBorder
                 border.width:               1
-                visible:                    indicatorDrawerLoader.item && indicatorDrawerLoader.item.showExpand && !indicatorDrawer._expanded
+                visible:                    indicatorDrawerLoader.item && indicatorDrawerLoader.item._showExpand && !indicatorDrawer._expanded
 
                 QGCLabel {
                     anchors.centerIn:   parent
@@ -743,7 +718,8 @@ ApplicationWindow {
             contentHeight:  indicatorDrawerLoader.height
 
             Loader {
-                id: indicatorDrawerLoader
+                id:         indicatorDrawerLoader
+                objectName: "indicatorDrawerLoader"
 
                 Binding {
                     target:     indicatorDrawerLoader.item
@@ -760,14 +736,56 @@ ApplicationWindow {
         }
     }
 
-    // We have to create the popup windows for the Analyze pages here so that the creation context is rooted
-    // to mainWindow. Otherwise if they are rooted to the AnalyzeView itself they will die when the analyze viewSwitch
-    // closes.
+    // Analyze page items (both in-panel and popped-out windows) are created with mainWindow as their
+    // QObject parent so their lifetime is not tied to AnalyzeView. This lets a popped-out window
+    // survive AnalyzeView being unloaded from the tool drawer.
 
-    function createrWindowedAnalyzePage(title, source) {
+    // Tracks the analyze page item currently shown inside AnalyzeView's panel (not popped out).
+    // null when no page is loaded or the item has been handed off to a popup window.
+    property var _inPanelAnalyzePage: null
+
+    // Called by AnalyzeView.Component.onDestruction to destroy the in-panel item while
+    // panelContainer is still alive.
+    function destroyInPanelAnalyzePage() {
+        if (_inPanelAnalyzePage) {
+            _inPanelAnalyzePage.destroy()
+            _inPanelAnalyzePage = null
+        }
+    }
+
+    // Called by AnalyzeView to create an analyze page item owned by mainWindow.
+    // The caller sets the visual parent to panelContainer after creation.
+    function createAnalyzePage(source) {
+        if (_inPanelAnalyzePage) {
+            _inPanelAnalyzePage.destroy()
+            _inPanelAnalyzePage = null
+        }
+        var component = Qt.createComponent(source)
+        if (component.status !== Component.Ready) {
+            console.warn("createAnalyzePage failed source:", source, "errorString:", component.errorString())
+            return null
+        }
+        _inPanelAnalyzePage = component.createObject(mainWindow)
+        return _inPanelAnalyzePage
+    }
+
+    // Called by AnalyzeView when the in-panel item is handed off to a popup window.
+    // Clears _inPanelAnalyzePage so destroyInPanelAnalyzePage() does not destroy it
+    // when AnalyzeView is torn down.
+    function analyzePageMovedToPopup() {
+        _inPanelAnalyzePage = null
+    }
+
+    function createWindowedAnalyzePage(title, source, requiresVehicle, existingItem) {
         var windowedPage = windowedAnalyzePage.createObject(mainWindow)
         windowedPage.title = title
-        windowedPage.source = source
+        windowedPage.requiresVehicle = requiresVehicle
+        if (existingItem) {
+            windowedPage.adoptItem(existingItem)
+        } else {
+            windowedPage.source = source
+        }
+        windowedPage.visible = true
     }
 
     Component {
@@ -776,11 +794,31 @@ ApplicationWindow {
         Window {
             width:      ScreenTools.defaultFontPixelWidth  * 100
             height:     ScreenTools.defaultFontPixelHeight * 40
-            visible:    true
+            visible:    false
 
             property alias source: loader.source
+            property bool requiresVehicle: false
+
+            function adoptItem(item) {
+                loader.visible = false
+                loader.source = ""
+                item.parent = contentRect
+                item.anchors.fill = contentRect
+                item.popped = true
+                item.visible = true
+            }
+
+            Connections {
+                target: QGroundControl.multiVehicleManager
+                function onActiveVehicleChanged() {
+                    if (requiresVehicle) {
+                        close()
+                    }
+                }
+            }
 
             Rectangle {
+                id:             contentRect
                 color:          QGroundControl.globalPalette.window
                 anchors.fill:   parent
 
@@ -793,23 +831,16 @@ ApplicationWindow {
 
             onClosing: {
                 visible = false
+                // Destroy any reparented children (not owned by loader)
+                for (var i = contentRect.children.length - 1; i >= 0; i--) {
+                    var child = contentRect.children[i]
+                    if (child !== loader) {
+                        child.destroy()
+                    }
+                }
                 source = ""
+                Qt.callLater(destroy)
             }
         }
-    }
-
-    Connections{
-         target: activationbar
-         function onActivationTriggered(value){
-              _utmspSendActTrigger= value
-         }
-    }
-
-    UTMSPActivationStatusBar{
-         id:                         activationbar
-         activationStartTimestamp:   UTMSPStateStorage.startTimeStamp
-         activationApproval:         UTMSPStateStorage.showActivationTab && QGroundControl.utmspManager.utmspVehicle.vehicleActivation
-         flightID:                   UTMSPStateStorage.flightID
-         anchors.fill:               parent
     }
 }

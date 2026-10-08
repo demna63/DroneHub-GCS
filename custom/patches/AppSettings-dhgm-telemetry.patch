@@ -1,0 +1,35 @@
+--- a/src/AppSettings/CMakeLists.txt
++++ b/src/AppSettings/CMakeLists.txt
+@@ -70,6 +70,7 @@
+         AppLogging.qml
+         BluetoothSettings.qml
+         DebugWindow.qml
++        DhgmSettingsGroup.qml
+         GcsPositionStatus.qml
+         HelpSettings.qml
+         LinkConfigurationManager.qml
+--- a/src/AppSettings/pages/SettingsPages.json
++++ b/src/AppSettings/pages/SettingsPages.json
+@@ -5,7 +5,7 @@
+         {
+             "name": "General",
+             "qml": "GeneralSettings.qml",
+-            "icon": "qrc:/res/QGCLogoWhite.svg",
++            "icon": "qrc:/custom/img/logo.png",
+             "pageDefinition": "General.SettingsUI.json"
+         },
+         {
+--- a/src/AppSettings/pages/Telemetry.SettingsUI.json
++++ b/src/AppSettings/pages/Telemetry.SettingsUI.json
+@@ -31,6 +31,11 @@
+             ]
+         },
+         {
++            "component": "DhgmSettingsGroup",
++            "sectionName": "DHGM",
++            "keywords": ["dhgm", "cot", "atak", "multicast", "forwarding", "plugin"]
++        },
++        {
+             "heading": "Logging",
+             "keywords": ["telemetry log", "tlog", "save log", "recording", "csv"],
+             "controls": [

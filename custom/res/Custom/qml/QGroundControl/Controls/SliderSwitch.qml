@@ -6,8 +6,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import QGroundControl.ScreenTools
-import QGroundControl.Palette
+import QGroundControl
+import QGroundControl.Controls
 
 import Custom
 
@@ -30,6 +30,11 @@ Item {
 
     property real spacing: ScreenTools.defaultFontPixelHeight * 0.35
     property real _border: 4
+
+    /// Return the thumb to the start position (public API used by the confirm dialogs).
+    function reset() {
+        slider.reset()
+    }
 
     Keys.onSpacePressed: (event) => {
         if (visible && event.modifiers === Qt.NoModifier && !sliderDragArea.drag.active) {

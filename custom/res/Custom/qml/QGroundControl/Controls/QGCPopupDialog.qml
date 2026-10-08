@@ -1,5 +1,5 @@
 /****************************************************************************
- * DroneHub GCS — standard dialog shell (toast glass aligned with Theme.qml).
+ * DroneHub GCS — standard dialog shell (toast glass aligned with Theme.qml; 5.1 factory API kept).
  ****************************************************************************/
 
 import QtQuick
@@ -9,19 +9,45 @@ import QtQuick.Dialogs
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.Palette
-import QGroundControl.ScreenTools
 
 import Custom
 
+// Provides the standard dialog mechanism for QGC. Works 99% like Qml Dialog.
+//
+// Example usage:
+//      QGCPopupDialogFactory {
+//          id: myDialogFactory
+//          dialogComponent: myDialogComponent
+//      }
+//
+//      Component {
+//          id: myDialogComponent
+//
+//          QGCPopupDialog {
+//              ...
+//          }
+//      }
+//
+//      onFoo: myDialogFactory.open()
+//      onBar: myDialogFactory.open({ title: "My Title", myProp: someValue })
+//
+// Notes:
+//  * Use QGCPopupDialogFactory to create and open dialogs. The factory handles correct parenting and cleanup of the dialog instances.
+//  * The dialog automatically reparents itself to Overlay.overlay on creation, while tracking the original parent's lifetime to prevent orphaned dialogs.
+// Differences from standard Qml Dialog:
+//  * The QGCPopupDialog object will automatically be destroyed when it closed. You can override this
+//      behaviour by setting destroyOnClose to false if it was not created dynamically.
+//  * Dialog will automatically close after accepted/rejected signal processing. You can prevent this by setting
+//      preventClose = true prior to returning from your signal handlers.
 Popup {
     id:                 root
     width:  mainWindow.width
     height: mainWindow.height
-    parent:             Overlay.overlay
     modal:              true
     focus:              true
     margins:            0
+
+    default property alias dialogContent: dialogContentParent.data
 
     property string title
     property var    buttons:                Dialog.Ok
@@ -30,8 +56,12 @@ Popup {
     property var    dialogProperties
     property bool   destroyOnClose:         true
     property bool   preventClose:           false
+    property bool   bypassNavigationCheck:  false
 
-    readonly property real headerMinWidth: titleLable.implicitWidth + rejectButton.width + acceptButton.width + titleRowLayout.spacing * 2
+    property real maxContentAvailableWidth:    mainWindow.width - _contentMargin * 6
+    property real maxContentAvailableHeight:   mainWindow.height - titleRowLayout.height - _contentMargin * 7
+
+    readonly property real headerMinWidth: titleLabel.implicitWidth + rejectButton.width + acceptButton.width + titleRowLayout.spacing * 2
 
     signal accepted
     signal rejected
@@ -54,8 +84,17 @@ Popup {
         }
     }
 
+    // We use this to track when the original parent of the dialog is destroyed. This allows us to automatically close the dialog when that happens which prevents
+    // orphaned dialogs which cause crashes.
+    Connections {
+        id: originalParentConnections
+        ignoreUnknownSignals: true // Prevents warning from initial connection when parent is null
+        onDestroyed: root.close()
+    }
+
     Component.onCompleted: {
-        contentChildren[contentChildren.length - 1].parent = dialogContentParent
+        originalParentConnections.target = parent
+        parent = Overlay.overlay
     }
 
     onAboutToShow: {
@@ -71,8 +110,10 @@ Popup {
         }
     }
 
+    onButtonsChanged: setupDialogButtons(buttons)
+
     function _accept() {
-        if (_acceptAllowed && mainWindow.allowViewSwitch(_previousValidationErrorCount)) {
+        if (_acceptAllowed && (bypassNavigationCheck || mainWindow.allowViewSwitch(_previousValidationErrorCount))) {
             accepted()
             if (preventClose) {
                 preventClose = false
@@ -83,7 +124,8 @@ Popup {
     }
 
     function _reject() {
-        if (_rejectAllowed && ((buttons & Dialog.Cancel) || mainWindow.allowViewSwitch(_previousValidationErrorCount))) {
+        // Dialogs with cancel button are allowed to close with validation errors
+        if (_rejectAllowed && ((buttons & Dialog.Cancel) || bypassNavigationCheck || mainWindow.allowViewSwitch(_previousValidationErrorCount))) {
             rejected()
             if (preventClose) {
                 preventClose = false
@@ -98,6 +140,7 @@ Popup {
     function setupDialogButtons(buttons) {
         acceptButton.visible = false
         rejectButton.visible = false
+        // Accept role buttons
         if (buttons & Dialog.Ok) {
             acceptButton.text = qsTr("Ok")
             acceptButton.visible = true
@@ -109,9 +152,6 @@ Popup {
             acceptButton.visible = true
         } else if (buttons & Dialog.Apply) {
             acceptButton.text = qsTr("Apply")
-            acceptButton.visible = true
-        } else if (buttons & Dialog.Open) {
-            acceptButton.text = qsTr("Open")
             acceptButton.visible = true
         } else if (buttons & Dialog.SaveAll) {
             acceptButton.text = qsTr("Save All")
@@ -136,6 +176,7 @@ Popup {
             acceptButton.visible = true
         }
 
+        // Reject role buttons
         if (buttons & Dialog.Cancel) {
             rejectButton.text = qsTr("Cancel")
             rejectButton.visible = true
@@ -177,9 +218,9 @@ Popup {
     ColumnLayout {
         id:                 mainLayout
         anchors.centerIn:   parent
-        x:          _contentMargin
-        y:          _contentMargin
-        spacing:    _contentMargin
+        x:                  _contentMargin
+        y:                  _contentMargin
+        spacing:            _contentMargin
 
         RowLayout {
             id:                     titleRowLayout
@@ -187,22 +228,25 @@ Popup {
             spacing:                _contentMargin
 
             QGCLabel {
-                id: titleLable
+                id:                 titleLabel
+                objectName:         "popupDialog_title"
                 Layout.fillWidth:   true
                 text:               root.title
                 font.family:        Theme.fontFamily
                 font.pointSize:     ScreenTools.mediumFontPointSize
-                verticalAlignment:  Text.AlignVCenter
+                verticalAlignment:	Text.AlignVCenter
             }
 
             QGCButton {
                 id:                     rejectButton
+                objectName:             "popupDialog_rejectButton"
                 onClicked:              _reject()
                 Layout.minimumWidth:    height * 1.5
             }
 
             QGCButton {
                 id:                     acceptButton
+                objectName:             "popupDialog_acceptButton"
                 primary:                true
                 onClicked:              _accept()
                 Layout.minimumWidth:    height * 1.5
@@ -215,10 +259,10 @@ Popup {
             Layout.preferredHeight: Math.min(maxAvailableHeight, totalContentHeight)
             color:                  Qt.rgba(0, 0, 0, 0)
 
-            property real maxAvailableWidth:    mainWindow.width - _contentMargin * 4
-            property real maxAvailableHeight:   mainWindow.height - titleRowLayout.height - _contentMargin * 5
             property real totalContentWidth:    dialogContentParent.childrenRect.width + _contentMargin * 2
             property real totalContentHeight:   dialogContentParent.childrenRect.height + _contentMargin * 2
+            property real maxAvailableWidth:    mainWindow.width - _contentMargin * 4
+            property real maxAvailableHeight:   mainWindow.height - titleRowLayout.height - _contentMargin * 5
 
             QGCFlickable {
                 anchors.margins:    _contentMargin

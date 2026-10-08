@@ -35,15 +35,17 @@ public:
     void                    init()                                                          final;
     void                    cleanup()                                                       final;
     QGCOptions*             options()                                                       final;
-    QString                 brandImageIndoor()  const                                       final;
-    QString                 brandImageOutdoor() const                                       final;
     QString                 showAdvancedUIMessage() const                                   final;
     bool                    overrideSettingsGroupVisibility(const QString& name)            final;
-    bool                    adjustSettingMetaData(const QString& settingsGroup,
-                                                  FactMetaData& metaData)                    final;
+    void                    adjustSettingMetaData(const QString& settingsGroup,
+                                                  FactMetaData& metaData,
+                                                  bool& userVisible)                         final;
     void                    paletteOverride(const QString& colorName,
                                             QGCPalette::PaletteColorInfo_t& colorInfo)       final;
     QQmlApplicationEngine*  createQmlApplicationEngine(QObject* parent)                      final;
+    /// Removes the URL interceptor while the engine is still alive (5.1 hook, called from
+    /// QGCApplication::shutdown before cleanup()).
+    void                    destroyQmlApplicationEngine(QQmlApplicationEngine* qmlEngine)    final;
 
     /// WMM declination (degrees, east positive) — PX4 world_magnetic_model lookup, same as FC geo_lookup.
     Q_INVOKABLE double magneticDeclination(double latitude, double longitude) const;

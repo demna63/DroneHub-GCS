@@ -7,8 +7,7 @@ import QtQuick.Layouts
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.ScreenTools
-import QGroundControl.Palette
+import QGroundControl.Toolbar
 
 Item {
     id:             control
@@ -67,7 +66,7 @@ Item {
         case _stateLive:      return qgcPal.colorGreen
         case _stateWaiting:   return qgcPal.colorOrange
         case _stateNoBackend: return qgcPal.colorRed
-        default:              return qgcPal.textDisabled
+        default:              return Qt.darker(qgcPal.text, 1.8)
         }
     }
 

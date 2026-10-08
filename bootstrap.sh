@@ -6,7 +6,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 QGC_DIR="$ROOT/qgroundcontrol"
-QGC_TAG="${QGC_TAG:-Stable_V5.0}"   # pin; override: QGC_TAG=master ./bootstrap.sh
+QGC_TAG="${QGC_TAG:-v5.1.5}"   # pin; override: QGC_TAG=master ./bootstrap.sh
 
 echo "==> DroneHub GCS bootstrap"
 echo "    root: $ROOT"
@@ -55,7 +55,7 @@ ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/GPSIndicator.qml" \
 ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/Controls/BatteryIndicator.qml" \
        "$QGC_DIR/src/QmlControls/BatteryIndicator.qml"
 
-# 3a. Upstream Stable_V5.0 patches (macOS Cmd+Q quit crash, etc.)
+# 3a. Upstream v5.1.x patches (macOS Cmd+Q quit crash, etc.)
 "$ROOT/tools/apply-qgc-patches.sh" "$QGC_DIR"
 
 # 3b. Copy custom application icon into deploy folders
@@ -89,5 +89,5 @@ cat <<EOF
     Canonical app (macOS): qgroundcontrol/build/Release/DroneHubGCS.app
     Run: $ROOT/tools/run-dhgcs.sh
 
-    Qt 6.8.3 LTS (upstream Stable_V5.0 pin). (Android: NDK toolchain; Web: qt-cmake WASM kit.)
+    Qt 6.11.1 (upstream v5.1.x pin), Python >= 3.10, GStreamer 1.28.4. (Android: NDK r27c toolchain.)
 EOF

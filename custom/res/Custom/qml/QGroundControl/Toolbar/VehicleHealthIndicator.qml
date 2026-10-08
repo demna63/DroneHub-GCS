@@ -7,8 +7,7 @@ import QtQuick.Layouts
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.ScreenTools
-import QGroundControl.Palette
+import QGroundControl.Toolbar
 
 Item {
     id:             control
@@ -29,8 +28,8 @@ Item {
     property int  _batteryPct:      (_battery && !isNaN(_battery.percentRemaining.rawValue))
                                     ? Math.round(_battery.percentRemaining.rawValue) : -1
     property bool _rcDataValid:     _activeVehicle
-                                    && _activeVehicle.rcRSSI > 0
-                                    && _activeVehicle.rcRSSI <= 100
+                                    && _activeVehicle.rcRSSI.rawValue > 0
+                                    && _activeVehicle.rcRSSI.rawValue <= 100
     property int  _gpsLock:           (_activeVehicle && _activeVehicle.gps.lock.rawValue !== undefined)
                                     ? _activeVehicle.gps.lock.rawValue : -1
     property int  _gpsCount:          (_activeVehicle && !isNaN(_activeVehicle.gps.count.rawValue))
@@ -62,9 +61,9 @@ Item {
             }
         }
         if (_rcDataValid) {
-            if (_activeVehicle.rcRSSI < 30) {
+            if (_activeVehicle.rcRSSI.rawValue < 30) {
                 level = Math.max(level, _levelCrit)
-            } else if (_activeVehicle.rcRSSI < 60) {
+            } else if (_activeVehicle.rcRSSI.rawValue < 60) {
                 level = Math.max(level, _levelWarn)
             }
         }
@@ -90,7 +89,7 @@ Item {
         case _levelOk:   return qgcPal.colorGreen
         case _levelWarn: return qgcPal.colorOrange
         case _levelCrit: return qgcPal.colorRed
-        default:         return qgcPal.textDisabled
+        default:         return Qt.darker(qgcPal.text, 1.8)
         }
     }
 
@@ -119,10 +118,10 @@ Item {
         if (!_activeVehicle) {
             return qsTr("No vehicle")
         }
-        if (!_activeVehicle.supportsRadio) {
+        if (!_activeVehicle.supports.radio) {
             return qsTr("Not supported")
         }
-        return _rcDataValid ? (_activeVehicle.rcRSSI + "%") : qsTr("No data")
+        return _rcDataValid ? (_activeVehicle.rcRSSI.rawValue + "%") : qsTr("No data")
     }
 
     function _batterySummary() {

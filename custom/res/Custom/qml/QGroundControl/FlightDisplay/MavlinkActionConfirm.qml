@@ -7,9 +7,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 import QGroundControl
-import QGroundControl.ScreenTools
 import QGroundControl.Controls
-import QGroundControl.Palette
 
 import Custom
 
@@ -41,11 +39,12 @@ Rectangle {
     function open() {
         slider.reset()
         visible = true
-        slider.focus = true
+        slider.forceActiveFocus()
     }
 
     function close() {
         visible = false
+        _root.destroy()   // created on demand by MainWindow.showMavlinkActionConfirm
     }
 
     Keys.onEscapePressed: close()

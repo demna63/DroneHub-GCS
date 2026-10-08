@@ -7,7 +7,6 @@ import QtQuick.Layouts
 
 import QGroundControl
 import QGroundControl.Controls
-import QGroundControl.ScreenTools
 
 ColumnLayout {
     property var additionalActions
@@ -70,21 +69,14 @@ ColumnLayout {
         if (!action || !_activeVehicle) {
             return
         }
-        dropPanel.hide()
-        if (action.requiresConfirm) {
-            const dialog = mavlinkActionConfirmComponent.createObject(mainWindow, {
-                mavlinkAction: action,
-                vehicle:       _activeVehicle
-            })
-            dialog.open()
+        const vehicle = _activeVehicle
+        const confirm = action.requiresConfirm
+        dropPanel.hide()   // destroys this panel — only use locals from here on
+        if (confirm) {
+            mainWindow.showMavlinkActionConfirm(action, vehicle)
         } else {
-            action.sendTo(_activeVehicle)
+            action.sendTo(vehicle)
         }
-    }
-
-    Component {
-        id: mavlinkActionConfirmComponent
-        MavlinkActionConfirm { }
     }
 
     // Pre-defined Additional Guided Actions

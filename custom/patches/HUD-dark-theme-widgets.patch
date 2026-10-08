@@ -1,8 +1,6 @@
-diff --git a/src/FlightMap/Widgets/QGCArtificialHorizon.qml b/src/FlightMap/Widgets/QGCArtificialHorizon.qml
-index a94d8f7..8fa90dc 100644
 --- a/src/FlightMap/Widgets/QGCArtificialHorizon.qml
 +++ b/src/FlightMap/Widgets/QGCArtificialHorizon.qml
-@@ -36,8 +36,8 @@ Item {
+@@ -20,8 +20,8 @@
              smooth: true
              antialiasing: true
              gradient: Gradient {
@@ -13,7 +11,7 @@ index a94d8f7..8fa90dc 100644
              }
          }
          Rectangle {
-@@ -51,8 +51,8 @@ Item {
+@@ -35,8 +35,8 @@
              smooth: true
              antialiasing: true
              gradient: Gradient {
@@ -24,11 +22,9 @@ index a94d8f7..8fa90dc 100644
              }
          }
          transform: [
-diff --git a/src/FlightMap/Widgets/QGCAttitudeWidget.qml b/src/FlightMap/Widgets/QGCAttitudeWidget.qml
-index 552feb8..71581ab 100644
 --- a/src/FlightMap/Widgets/QGCAttitudeWidget.qml
 +++ b/src/FlightMap/Widgets/QGCAttitudeWidget.qml
-@@ -126,8 +126,8 @@ Item {
+@@ -108,8 +108,8 @@
          anchors.fill:   parent
          radius:         width / 2
          color:          Qt.rgba(0,0,0,0)
@@ -39,11 +35,9 @@ index 552feb8..71581ab 100644
      }
  
      QGCLabel {
-diff --git a/src/QmlControls/MainStatusIndicator.qml b/src/QmlControls/MainStatusIndicator.qml
-index bc08eeb..8f229ca 100644
---- a/src/QmlControls/MainStatusIndicator.qml
-+++ b/src/QmlControls/MainStatusIndicator.qml
-@@ -110,7 +110,7 @@ RowLayout {
+--- a/src/Toolbar/MainStatusIndicator.qml
++++ b/src/Toolbar/MainStatusIndicator.qml
+@@ -102,7 +102,7 @@
                      }
                  }
              } else {
@@ -52,16 +46,3 @@ index bc08eeb..8f229ca 100644
                  return mainStatusLabel._disconnectedText
              }
          }
-diff --git a/src/UI/AppSettings/SettingsPagesModel.qml b/src/UI/AppSettings/SettingsPagesModel.qml
-index 3eab499..1207e9c 100644
---- a/src/UI/AppSettings/SettingsPagesModel.qml
-+++ b/src/UI/AppSettings/SettingsPagesModel.qml
-@@ -16,7 +16,7 @@ ListModel {
-     ListElement {
-         name: qsTr("General")
-         url: "qrc:/qml/QGroundControl/AppSettings/GeneralSettings.qml"
--        iconUrl: "qrc:/res/QGCLogoWhite.svg"
-+        iconUrl: "qrc:/custom/img/logo.png"
-         pageVisible: function() { return true }
-     }
- 

@@ -2,7 +2,6 @@
  * DroneHub GCS — gripper guided action (tool strip).
  ****************************************************************************/
 
-import QGroundControl.FlightDisplay
 import QGroundControl
 
 GuidedToolStripAction {

@@ -77,7 +77,7 @@ QML resource override-ით ვცვლით view-ებს upstream-ის �
 
 **Design tokens** (იხ. `custom/res/Custom/Theme.qml`) — ერთ წყაროში თავმოყრილი, UI კოდი hardcode-ს არ შეიცავს. ეს ემთხვევა შენს CLAUDE.md-ს: business logic ≠ UI layer.
 
-## 4. Build (Qt 6.8.3)
+## 4. Build (Qt 6.11.1, QGC v5.1.5)
 
 ```bash
 # 1. fork + submodules
@@ -85,22 +85,22 @@ git clone --recursive https://github.com/<you>/qgroundcontrol.git
 cd qgroundcontrol
 git remote add upstream https://github.com/mavlink/qgroundcontrol.git
 
-# 2. custom build (CMake) — Qt 6.8.3 LTS (upstream Stable_V5.0 pin)
+# 2. custom build (CMake) — Qt 6.11.1 (upstream v5.1.x pin); macOS local: arm64-only
 cmake -B build -G Ninja \
-  -DCMAKE_PREFIX_PATH="$HOME/Qt/6.8.3/macos" \
+  -DCMAKE_PREFIX_PATH="$HOME/Qt/6.11.1/macos" \
   -DQGC_CUSTOM_BUILD=ON \
   -DCMAKE_BUILD_TYPE=Release \
-  -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF
+  -DCMAKE_OSX_ARCHITECTURES=arm64
 cmake --build build
 
 # platform targets:
-#   Linux   : -DCMAKE_PREFIX_PATH="$HOME/Qt/6.8.3/gcc_64"
+#   Linux   : -DCMAKE_PREFIX_PATH="$HOME/Qt/6.11.1/gcc_64"
 #   Android : -DCMAKE_TOOLCHAIN_FILE=<android-ndk>
-#   WASM    : qt-cmake (Qt 6.8.3 for WebAssembly kit)
+#   WASM    : upstream 5.1-ში მხარდაჭერილი აღარ არის (ექსპერიმენტული job)
 ```
 
-> **Qt 6.8.3** — canonical ვერსია (upstream + CI + field test). განახლება მხოლოდ upstream-ის
-> ახალი LTS/stable pin-ის შემდეგ, სრული CI/QA GREEN-ით.
+> **Qt 6.11.1** — canonical ვერსია (QGC v5.1.x upstream pin + CI). საჭიროა Python ≥ 3.10 და GStreamer 1.28.4.
+> განახლება მხოლოდ upstream-ის ახალი pin-ის შემდეგ, სრული CI/QA GREEN-ით.
 
 ## 5. Roadmap (სრული GCS MVP)
 
@@ -111,7 +111,7 @@ cmake --build build
 | F2 | Fly View HUD | ✅ | `FlyViewCustomLayer` override — ტელემეტრიის overlay |
 | F3 | Plan View | ◑ | offline-plan defaults (PX4/MultiRotor) + theme/ka *(upstream-ს Plan hook არ აქვს)* |
 | F4 | Setup/Params | ◑ | `tools/qgc-lupdate.sh` + SetupView ka seed *(full translation → Crowdin)* |
-| F5 | QA matrix | ◑ | `.github/workflows/build.yml` (Linux/Win/macOS, Qt 6.8.3) |
+| F5 | QA matrix | ◑ | `.github/workflows/build.yml` (Linux/Win/macOS, Qt 6.11.1) |
 
 ---
 
@@ -121,7 +121,7 @@ cmake --build build
 ```bash
 ./bootstrap.sh && cd qgroundcontrol \
   && cmake -B build -G Ninja \
-     -DCMAKE_PREFIX_PATH="$HOME/Qt/6.8.3/macos" \
+     -DCMAKE_PREFIX_PATH="$HOME/Qt/6.11.1/macos" -DCMAKE_OSX_ARCHITECTURES=arm64 \
      -DQGC_CUSTOM_BUILD=ON -DCMAKE_BUILD_TYPE=Release \
      -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF \
   && cmake --build build
