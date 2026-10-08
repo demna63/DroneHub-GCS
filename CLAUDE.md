@@ -75,7 +75,7 @@ core QGC ფაილს პირდაპირ **არ** ვცვლით 
 - PX4 parameter conventions, flight modes, MAVLink command set ცნობილია — ბაზისური ახსნა არ მჭირდება.
 
 ## რა შეიცვალა upstream-თან შედარებით (DroneHub mods)
-**Branding:** app name `DroneHubGCS`, bundle id `org.dronehub.GCS` (macOS) / `org.dronehub.gcs`
+**Branding (5.1: `QGC_MACOS_ICON_PATH` = .icns ფაილი; Android launcher = `@mipmap/ic_launcher` → custom/CMakeLists ავსებს mipmap-ებს):** app name `DroneHubGCS`, bundle id `org.dronehub.GCS` (macOS) / `org.dronehub.gcs`
 (Android applicationId), org `DroneHub Georgia` / `dronehub.ge`, copyright; macOS `.icns`,
 Windows `.ico`, Android launcher icons (ყველა density); DroneHub logo/splash/video-placeholder;
 pinned version **1.0.0** (`custom/CMakeLists.txt` — PARENT_SCOPE + `qgc_version.h` ხელახლა გენერირდება, რადგან 5.1 მას `include(Git)`-ში წერს).
@@ -96,7 +96,7 @@ tool strip — ლოგო toggle-ავს; ნავიგაცია (Plan/
 custom `MissionItemEditor`/`SimpleItemEditor`/`MissionSettingsEditor` (დიდი ფონტი, spacing).
 
 **ქცევა/defaults:** PX4 multirotor offline default; Brand Image settings დამალული; multi-vehicle
-list = base default. **DHGM ინტეგრაცია:** `CotForwarder` — ტელემეტრია → CoT (multicast 239.2.3.1:6969 + unicast ATAK SA) და JSON (TCP :14550, newline-delimited, heartbeat + backpressure); ჩართვა Settings → DHGM forwarding. TCP კლიენტები მხოლოდ ლოკალური ქსელიდან (loopback/RFC1918/169.254) — სხვა IP ეგრევე წყდება. **dronehub.ge backend ინტეგრაცია — ჯერ არ არსებობს.**
+list = base default. **DHGM ინტეგრაცია:** `CotForwarder` — ტელემეტრია → CoT (multicast 239.2.3.1:6969 + unicast ATAK SA) და JSON (TCP :14550, newline-delimited, heartbeat + backpressure); ჩართვა Settings → Telemetry → DHGM (5.1-ში გვერდი JSON-იდან გენერირდება — DHGM ჯგუფი = `DhgmSettingsGroup.qml` + `AppSettings-dhgm-telemetry.patch`; მთლიანი TelemetrySettings override აღარ არის). TCP კლიენტები მხოლოდ ლოკალური ქსელიდან (loopback/RFC1918/169.254) — სხვა IP ეგრევე წყდება. **dronehub.ge backend ინტეგრაცია — ჯერ არ არსებობს.**
 
 **Core patch-ები (ყველა `custom/patches/`-შია):** ქართული ენა (`AppSettings-georgian-language`), HUD ვიჯეტების ფერები/ლოგო (`HUD-dark-theme-widgets`), იძულებითი Dark თემა (`QGCPalette-force-dark`) + ძველი patch-ები. MockLink Release-ში გამორთულია (upstream-ის ქცევა). ⚠️ core-ში პირდაპირ არაფერი ისწორება — ყოველი ცვლილება patch-ად.
 
