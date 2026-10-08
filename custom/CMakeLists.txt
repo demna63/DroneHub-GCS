@@ -28,6 +28,12 @@ set(CMAKE_PROJECT_VERSION       "${DRONEHUB_VERSION}"   PARENT_SCOPE)
 set(CMAKE_PROJECT_VERSION_MAJOR "${DRONEHUB_VERSION_MAJOR}" PARENT_SCOPE)
 set(CMAKE_PROJECT_VERSION_MINOR "${DRONEHUB_VERSION_MINOR}" PARENT_SCOPE)
 set(CMAKE_PROJECT_VERSION_PATCH "${DRONEHUB_VERSION_PATCH}" PARENT_SCOPE)
+# QGC 5.1 generates qgc_version.h inside include(Git) — before add_subdirectory(custom) —
+# so the PARENT_SCOPE values above come too late for the header. Regenerate it here with the
+# pinned version (template vars such as QGC_APP_NAME / QGC_APP_DATE are inherited from root).
+set(QGC_APP_VERSION     "${DRONEHUB_VERSION}")
+set(QGC_APP_VERSION_STR "v${DRONEHUB_VERSION}")
+configure_file("${CMAKE_SOURCE_DIR}/src/qgc_version.h.in" "${CMAKE_BINARY_DIR}/qgc_version.h" @ONLY)
 message(STATUS "DroneHub: pinned app version ${DRONEHUB_VERSION}")
 # ────────────────────────────────────────────────────────────────────────────────
 
