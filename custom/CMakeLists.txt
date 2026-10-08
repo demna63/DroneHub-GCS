@@ -49,7 +49,7 @@ cmake_language(DEFER DIRECTORY "${CMAKE_SOURCE_DIR}" CALL _dronehub_universal_we
 # ────────────────────────────────────────────────────────────────────────────────
 
 # ── Android launcher-icon branding (overlay, not full vendor) ───────────────────
-# QT_ANDROID_PACKAGE_SOURCE_DIR (core CMakeLists.txt:464, fed by
+# QT_ANDROID_PACKAGE_SOURCE_DIR (core cmake/platform/Android.cmake, fed by
 # QGC_ANDROID_PACKAGE_SOURCE_DIR) *replaces* the stock android/ package tree wholesale.
 # To brand only the launcher icon without vendoring the whole gradle tree (and taking on
 # its upstream-merge burden), assemble a merged tree at configure time: copy the stock
@@ -63,6 +63,18 @@ if(ANDROID)
     file(COPY "${CMAKE_SOURCE_DIR}/android/" DESTINATION "${_dh_android_pkg}")          # stock base
     file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/deploy/android/" DESTINATION "${_dh_android_pkg}")  # DroneHub icon overlay
     set(QGC_ANDROID_PACKAGE_SOURCE_DIR "${_dh_android_pkg}" CACHE PATH "Android Package Path" FORCE)
+    # QGC 5.1 launcher icon = @mipmap/ic_launcher (adaptive vector on API 26+, PNG mipmaps
+    # below). Our overlay ships drawable-*/icon.png, so mirror it into every mipmap density
+    # and drop the adaptive XML — otherwise the stock QGC vector icon wins on modern Android.
+    foreach(_dh_dpi IN ITEMS ldpi mdpi hdpi xhdpi xxhdpi xxxhdpi)
+        set(_dh_icon "${CMAKE_CURRENT_SOURCE_DIR}/deploy/android/res/drawable-${_dh_dpi}/icon.png")
+        if(EXISTS "${_dh_icon}")
+            file(MAKE_DIRECTORY "${_dh_android_pkg}/res/mipmap-${_dh_dpi}")
+            file(COPY_FILE "${_dh_icon}" "${_dh_android_pkg}/res/mipmap-${_dh_dpi}/ic_launcher.png")
+            file(COPY_FILE "${_dh_icon}" "${_dh_android_pkg}/res/mipmap-${_dh_dpi}/icon.png")
+        endif()
+    endforeach()
+    file(REMOVE "${_dh_android_pkg}/res/mipmap-anydpi-v26/ic_launcher.xml")
     # Distinct install identity. QGC hardcodes the gradle `namespace`
     # (android/build.gradle:51), so QGC_ANDROID_PACKAGE_NAME / QT_ANDROID_PACKAGE_NAME
     # do NOT change the applicationId — the stock APK ships as org.mavlink.qgroundcontrol.

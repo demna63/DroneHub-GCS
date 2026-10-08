@@ -35,8 +35,10 @@ set(QGC_APP_COPYRIGHT "Copyright (c) 2026 DroneHub Georgia. All rights reserved.
 if(EXISTS ${CMAKE_SOURCE_DIR}/custom/deploy/windows/WindowsQGC.ico)
     set(QGC_WINDOWS_ICON_PATH "${CMAKE_SOURCE_DIR}/custom/deploy/windows/WindowsQGC.ico" CACHE FILEPATH "Windows Icon Path" FORCE)
 endif()
+# QGC 5.1: QGC_MACOS_ICON_PATH is the .icns FILE (cmake/platform/Apple.cmake derives
+# CFBundleIconFile from its filename and bundles it into Resources/).
 if(EXISTS ${CMAKE_SOURCE_DIR}/custom/res/icons/macx.icns)
-    set(QGC_MACOS_ICON_PATH "${CMAKE_SOURCE_DIR}/custom/res/icons" CACHE PATH "MacOS Icon Path" FORCE)
+    set(QGC_MACOS_ICON_PATH "${CMAKE_SOURCE_DIR}/custom/res/icons/macx.icns" CACHE FILEPATH "macOS application icon path" FORCE)
 endif()
 
 # Android application id. Core defaults QGC_ANDROID_PACKAGE_NAME to QGC_PACKAGE_NAME
@@ -46,10 +48,3 @@ endif()
 # "DroneHubGCS" via QGC_APP_NAME → AndroidManifest %%INSERT_APP_NAME%%. The launcher
 # *icon* is branded via a merged package source dir assembled in custom/CMakeLists.txt.
 set(QGC_ANDROID_PACKAGE_NAME "org.dronehub.gcs" CACHE STRING "Android Package Name" FORCE)
-
-# CFBundleIconFile fix: core sets the MACOSX_BUNDLE_ICON_FILE *target property*
-# (qgroundcontrol/CMakeLists.txt:372) from ${MACOSX_BUNDLE_ICON_FILE} BEFORE it assigns
-# that variable at line 379 — so the plist key is configured empty and macOS falls back
-# to a generic Dock/Finder icon. CustomOverrides is include()'d at line 27, before line 372,
-# so seed the variable here to populate CFBundleIconFile correctly.
-set(MACOSX_BUNDLE_ICON_FILE "macx.icns")
