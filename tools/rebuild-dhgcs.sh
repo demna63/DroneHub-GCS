@@ -27,9 +27,24 @@ if $STABILITY_ONLY; then
   exec "$ROOT/tools/check-dronehub-stability.sh"
 fi
 
-QT_PREFIX="${QT_PREFIX:-$HOME/Qt/6.8.3/macos}"
-if [[ "$(uname -s)" != "Darwin" ]]; then
-  QT_PREFIX="${QT_PREFIX:-$HOME/Qt/6.8.3/gcc_64}"
+QT_VERSION="${QT_VERSION:-6.11.1}"   # QGC v5.1.x pin (.github/build-config.json)
+if [[ -z "${QT_PREFIX:-}" ]]; then
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    QT_PREFIX="$HOME/Qt/${QT_VERSION}/macos"
+  else
+    QT_PREFIX="$HOME/Qt/${QT_VERSION}/gcc_64"
+  fi
+fi
+
+# QGC 5.1 bootstraps qgroundcontrol/.venv and needs Python >= 3.10 (macOS /usr/bin/python3 is 3.9).
+if command -v brew >/dev/null 2>&1 && [[ -d "$(brew --prefix)/opt/python@3.12/libexec/bin" ]]; then
+  export PATH="$(brew --prefix)/opt/python@3.12/libexec/bin:$PATH"
+fi
+
+# Local macOS builds are arm64-only (universal x86_64h;arm64 is for release CI).
+OSX_ARCH_FLAG=()
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  OSX_ARCH_FLAG=(-DCMAKE_OSX_ARCHITECTURES="${DRONEHUB_OSX_ARCHS:-arm64}")
 fi
 
 if $WITH_VIDEO; then
@@ -56,7 +71,8 @@ if $RECONFIGURE || [[ ! -f "$QGC/build/CMakeCache.txt" ]]; then
     -DCMAKE_PREFIX_PATH="$QT_PREFIX" \
     -DCMAKE_BUILD_TYPE=Release \
     -DQGC_CUSTOM_BUILD=ON \
-    -DQGC_ENABLE_GST_VIDEOSTREAMING="${GST_FLAG}"
+    -DQGC_ENABLE_GST_VIDEOSTREAMING="${GST_FLAG}" \
+    "${OSX_ARCH_FLAG[@]}"
 fi
 
 echo "==> Rebuilding DroneHubGCS (Release)"

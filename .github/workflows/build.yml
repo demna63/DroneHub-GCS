@@ -1,12 +1,12 @@
 # DroneHub GCS — custom build CI (F5 foundation).
 #
-# რას აკეთებს: კლონავს QGC-ს (Stable_V5.0), ჩასვამს ჩვენს custom/ + translations/-ს,
+# რას აკეთებს: კლონავს QGC-ს (v5.1.5), ჩასვამს ჩვენს custom/ + translations/-ს,
 # და აეწყობს custom build-ს. ეს არის რეალური compile-verification ჩვენი custom plugin-ისა.
 #
 # მოდელირებულია upstream-ის `custom.yml`-ზე (qgroundcontrol/.github/workflows/custom.yml).
 # ⚠️ პირველ run-ზე დასავალიდირებელია (Qt ვერსია / system deps / kit).
 #
-# Qt 6.8.3 LTS — canonical pin (upstream Stable_V5.0 + DroneHub CI).
+# Qt 6.11.1 — canonical pin (upstream v5.1.x build-config.json + DroneHub CI).
 # Upgrade only when upstream validates a newer LTS/stable Qt and CI/QA pass.
 
 name: DroneHub Build
