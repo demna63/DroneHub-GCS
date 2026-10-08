@@ -12,6 +12,7 @@ import QGroundControl.Controls
 import QGroundControl.PlanView
 
 import Custom
+import QGroundControl.Toolbar
 
 Rectangle {
     id: _root

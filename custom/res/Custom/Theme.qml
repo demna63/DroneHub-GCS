@@ -1,6 +1,6 @@
 pragma Singleton
 import QtQuick
-import Qt.labs.settings 1.0
+import QtCore
 
 /// DroneHub design tokens — ერთადერთი წყარო ფერებისა და spacing-ისთვის.
 /// Item root — QtObject-ს default property არ აქვს; Settings შვილი მხოლოდ Item-ში.

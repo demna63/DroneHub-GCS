@@ -95,28 +95,25 @@ void CustomPlugin::init()
         settings.setValue(QStringLiteral("DroneHub/videoDefaultsMigrated"), true);
     }
 
-#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
-    // GStreamer forces QQuickWindow to OpenGL (legacy 2.1 on macOS); QtQuick3D/Viewer3D
-    // needs GL 3.3+ or Metal — white scene if both are offered. Default Viewer3D off and
-    // hide the tool-strip entry (see FlyViewToolStripActionList.qml).
-    if (!settings.value(QStringLiteral("DroneHub/viewer3dMacGstPolicyMigrated"), false).toBool()) {
-        if (SettingsManager* sm = SettingsManager::instance()) {
-            if (Viewer3DSettings* v3 = sm->viewer3DSettings()) {
-                v3->enabled()->setRawValue(false);
-            }
-        }
-        settings.setValue(QStringLiteral("DroneHub/viewer3dMacGstPolicyMigrated"), true);
-    }
-#endif
 }
 
 void CustomPlugin::cleanup()
 {
-    if (_qmlEngine && _selector) {
-        _qmlEngine->removeUrlInterceptor(_selector);
-    }
+    // The engine is already gone here (destroyQmlApplicationEngine ran first), so only the
+    // interceptor object itself is released. Never touch _qmlEngine in this path.
     delete _selector;
     _selector = nullptr;
+}
+
+void CustomPlugin::destroyQmlApplicationEngine(QQmlApplicationEngine* qmlEngine)
+{
+    if (qmlEngine && qmlEngine == _qmlEngine && _selector) {
+        qmlEngine->removeUrlInterceptor(_selector);
+    }
+    if (qmlEngine == _qmlEngine) {
+        _qmlEngine = nullptr;
+    }
+    QGCCorePlugin::destroyQmlApplicationEngine(qmlEngine);
 }
 
 QGCOptions* CustomPlugin::options()
@@ -134,14 +131,6 @@ bool CustomPlugin::overrideSettingsGroupVisibility(const QString& name)
 {
     // NOTE: QGC 5.1 removed BrandImageSettings (and brandImageIndoor/Outdoor), so there is
     // nothing left to hide for the branding logo.
-
-#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
-    // Fly View Settings → "3D View" group (enabled toggle + OSM). GStreamer forces
-    // OpenGL 2.1 on macOS; Viewer3D cannot render alongside video PiP.
-    if (name == Viewer3DSettings::name) {
-        return false;
-    }
-#endif
 
     return QGCCorePlugin::overrideSettingsGroupVisibility(name);
 }
@@ -331,15 +320,11 @@ void CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
     // 3D View is compiled in (QGC_VIEWER3D=ON). QGC ships it disabled by default, so
     // the Fly View "3D View" tool-strip button (gated on viewer3DSettings.enabled) is
     // hidden out of the box. Default it on so operators get the 3D map without digging
-    // through settings — except macOS GStreamer builds where video forces OpenGL 2.1
-    // and breaks Viewer3D (see init() migration + FlyViewToolStripActionList.qml).
+    // through settings. QGC 5.1 renders video through QVideoSink on any RHI backend
+    // (Metal on macOS), so the old macOS+GStreamer OpenGL 2.1 exception is gone.
     if (settingsGroup == Viewer3DSettings::settingsGroup) {
         if (metaData.name() == Viewer3DSettings::enabledName) {
-#if defined(QGC_GST_STREAMING) && defined(Q_OS_MACOS)
-            metaData.setRawDefaultValue(false);
-#else
             metaData.setRawDefaultValue(true);
-#endif
             userVisible = false;
             return;
         }

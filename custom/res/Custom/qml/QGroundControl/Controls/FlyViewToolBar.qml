@@ -22,6 +22,7 @@ import QGroundControl.Controls
 import QGroundControl.FlyView
 
 import Custom
+import QGroundControl.Toolbar
 
 Item {
     required property var guidedValueSlider

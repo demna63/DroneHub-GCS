@@ -16,6 +16,7 @@ import QtQuick.Layouts
 import QGroundControl
 import QGroundControl.FactControls
 import QGroundControl.Controls
+import QGroundControl.AppSettings
 
 // SettingsPage inline — custom qrc override is outside QGroundControl.AppSettings module.
 Item {

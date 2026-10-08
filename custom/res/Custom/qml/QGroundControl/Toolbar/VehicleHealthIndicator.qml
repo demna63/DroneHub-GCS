@@ -7,6 +7,7 @@ import QtQuick.Layouts
 
 import QGroundControl
 import QGroundControl.Controls
+import QGroundControl.Toolbar
 
 Item {
     id:             control

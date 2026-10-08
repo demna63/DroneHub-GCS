@@ -15,6 +15,7 @@ import QGroundControl
 import QGroundControl.Controls
 
 import Custom
+import QGroundControl.FlyView
 
 Item {
     id:         control
