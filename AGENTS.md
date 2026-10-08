@@ -11,24 +11,24 @@ standard build commands see `README.md` §4 / `.github/workflows/build.yml`.
 ## Cursor Cloud specific instructions
 
 ### Environment layout (already provisioned in the VM snapshot)
-- **Qt 6.8.3** (desktop, gcc_64) is installed at `~/Qt/6.8.3/gcc_64` via `aqtinstall`.
-  Pass it to CMake with `-DCMAKE_PREFIX_PATH="$HOME/Qt/6.8.3/gcc_64"`.
+- **Qt 6.11.1** (desktop, gcc_64) via `aqtinstall` at `~/Qt/6.11.1/gcc_64` (Python ≥ 3.10 required).
+  Pass it to CMake with `-DCMAKE_PREFIX_PATH="$HOME/Qt/6.11.1/gcc_64"`.
 - The upstream QGC tree lives at `qgroundcontrol/` (git-ignored, cloned by `bootstrap.sh`,
-  tag `Stable_V5.0`). `custom/` and `translations/qgc_ka.ts` are **symlinked** into it, so
+  tag `v5.1.5`). `custom/` and `translations/qgc_ka.ts` (also as `qgc_source_ka.ts`) are **symlinked** into it, so
   edits to `custom/` are reflected immediately with no re-wiring needed.
 - The Georgian font `custom/res/fonts/NotoSansGeorgian.ttf` is git-ignored; the update
   script fetches it. Without it the build still works but Georgian glyphs render as boxes.
 
 ### Qt version (canonical)
-- **Qt 6.8.3 LTS** is the project pin — matches upstream `Stable_V5.0`, all CI workflows,
-  and local macOS field tests. Stay on 6.8.3 until upstream QGC validates a newer LTS/stable
-  release and DroneHub CI/QA pass on it. Do not use 6.10.x ad-hoc.
+- **Qt 6.11.1** is the project pin — matches upstream QGC `v5.1.5`, all CI workflows,
+  and local macOS tests. Move to a newer Qt (Stage 2: 6.12) only after upstream pins it
+  and DroneHub CI/QA pass on it.
 
 ### Build / run (after the update script has run)
 ```bash
 cd qgroundcontrol
 cmake -S . -B build -G Ninja \
-  -DCMAKE_PREFIX_PATH="$HOME/Qt/6.8.3/gcc_64" \
+  -DCMAKE_PREFIX_PATH="$HOME/Qt/6.11.1/gcc_64" \
   -DCMAKE_BUILD_TYPE=Release \
   -DQGC_CUSTOM_BUILD=ON \
   -DQGC_ENABLE_GST_VIDEOSTREAMING=OFF

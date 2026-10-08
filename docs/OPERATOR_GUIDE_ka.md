@@ -159,4 +159,4 @@ DroneHub GCS არის QGroundControl-ის ქართული, DroneHub 
 
 ---
 
-*DroneHub GCS · ვერსია upstream QGC Stable_V5.0 · Qt 6.8.3*
+*DroneHub GCS · ვერსია 1.0.0 · upstream QGC v5.1.5 · Qt 6.11.1*

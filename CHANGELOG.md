@@ -9,11 +9,31 @@ matches the pushed tag (`v1.2.3` → the `## [1.2.3]` block) as the GitHub Relea
 
 ## [Unreleased]
 
-### Added
-- Desktop installer artifacts (.dmg / .exe / .AppImage) uploaded by the build workflow.
-- Tag-triggered release pipeline that publishes signed installers to GitHub Releases.
-- Opt-in code signing / notarization for macOS and Windows (activates when signing
-  secrets are present — see `docs/RELEASE.md`).
+## [1.0.0] - 2026-10-08
+
+QGroundControl **v5.1.5** / Qt **6.11.1** migration (Stage 1).
+
+### Changed
+- Engine base QGC `Stable_V5.0` / Qt 6.8.3 → **v5.1.5 / Qt 6.11.1**; QML overrides retargeted to
+  the 5.1 module layout (`FlyView`, `Toolbar`, `MainWindow`, `AppSettings`), patches rebased.
+- Settings → Telemetry: DHGM group is now a generated settings component (`AppSettings-dhgm-telemetry.patch`).
+- Fresh installs start in Georgian regardless of the OS locale (an explicit "System" choice is kept).
+- App version pinned to 1.0.0 everywhere (About, `qgc_version.h`, installer/package names).
+
+### Fixed
+- Shutdown crash (URL interceptor now removed in `destroyQmlApplicationEngine`).
+- `‹ Exit <tool>` navigation back to the map from Settings/Setup.
+- Slide-to-confirm track invisible in the 5.1 toolbar; Space hold-to-confirm focus.
+- MAVLink action confirm dialog (custom override registered; `SliderSwitch.reset()`).
+- macOS app icon, Android launcher icons.
+
+### CI
+- Windows NSIS installer, Linux `.deb`, installable Android APK (test-key signed until a release
+  keystore is configured).
+- Qt 6.11.1 via aqtinstall pinned to a master commit (PyPI 3.3.0 can't read the Qt 6.11 Windows repo);
+  Android Qt host `all_os`; Georgian catalog (`qgc_source_ka`) shipped on every platform.
+- Desktop installer artifacts (.dmg / .exe / .deb) uploaded by the build workflow; tag-triggered
+  release pipeline; opt-in code signing / notarization (see `docs/RELEASE.md`).
 
 ## [0.1.0] - 2026-06-28
 

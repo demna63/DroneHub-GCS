@@ -72,8 +72,8 @@ fi
 
 # Platform hint for Qt path
 case "$(uname -s)" in
-  Darwin) QT_CMAKE_PREFIX='$HOME/Qt/6.8.3/macos' ;;
-  *)      QT_CMAKE_PREFIX='$HOME/Qt/6.8.3/gcc_64' ;;
+  Darwin) QT_CMAKE_PREFIX='$HOME/Qt/6.11.1/macos' ;;
+  *)      QT_CMAKE_PREFIX='$HOME/Qt/6.11.1/gcc_64' ;;
 esac
 
 cat <<EOF
