@@ -75,7 +75,7 @@ jobs:
 
     steps:
       - name: Checkout DroneHub
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || 'master' }}
 
@@ -128,7 +128,7 @@ jobs:
 
       # Runner default Python (3.14) breaks aqtinstall on Windows; pin a known-good one.
       - name: Set up Python 3.12 (aqtinstall)
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
@@ -254,7 +254,7 @@ jobs:
 
       - name: Upload desktop artifact
         if: success()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: DroneHubGCS-${{ matrix.config.os }}
           path: |
