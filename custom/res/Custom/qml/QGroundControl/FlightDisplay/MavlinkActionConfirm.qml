@@ -39,7 +39,7 @@ Rectangle {
     function open() {
         slider.reset()
         visible = true
-        slider.focus = true
+        slider.forceActiveFocus()
     }
 
     function close() {

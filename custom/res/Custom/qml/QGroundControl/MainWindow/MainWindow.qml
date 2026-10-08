@@ -448,19 +448,30 @@ ApplicationWindow {
                 anchors.bottom:     parent.bottom
                 spacing:            ScreenTools.defaultFontPixelWidth
 
-                QGCToolBarButton {
-                    id: qgcButton
-                    objectName: "toolbar_qgcLogo"
-                    height: parent.height
-                    icon.source: "/res/QGCLogoFull.svg"
-                    logo: true
-                    onClicked: mainWindow.showToolSelectDialog()
+                // DroneHub: explicit "‹ Exit <tool>" back affordance (as in 5.0) instead of the
+                // stock QGC logo, which only opened the view-select menu and read as a dead end.
+                QGCLabel {
+                    objectName:     "toolbar_exitTool"
+                    text:           "‹"
+                    color:          Theme.brandPrimary
+                    font.pointSize: ScreenTools.largeFontPointSize
                 }
 
                 QGCLabel {
                     id:             toolbarDrawerText
-                    text:           toolDrawer.toolTitle
+                    text:           qsTr("Exit") + " " + toolDrawer.toolTitle
+                    color:          Theme.textPrimary
                     font.pointSize: ScreenTools.largeFontPointSize
+                }
+            }
+
+            QGCMouseArea {
+                anchors.fill:   toolDrawerToolbarLayout
+                cursorShape:    Qt.PointingHandCursor
+                onClicked: {
+                    if (mainWindow.allowViewSwitch()) {
+                        toolDrawer.visible = false
+                    }
                 }
             }
         }

@@ -49,6 +49,15 @@ Item {
         }
     }
 
+    // 5.1 hosts this control inside the toolbar's Flickable, which is not part of the active
+    // focus chain — a plain `focus: true` never yields activeFocus, so the spacebar
+    // hold-to-confirm (SliderSwitch Keys handlers) did nothing. Grab focus explicitly.
+    onVisibleChanged: {
+        if (visible) {
+            slider.forceActiveFocus()
+        }
+    }
+
     function show(immediate) {
         if (immediate) {
             _reallyShow()
@@ -139,7 +148,6 @@ Item {
             Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 34
             trackHeight:            mainLayout.height
             confirmText:            ""
-            focus:                  control.visible
             onAccept:               control._executeConfirmedAction()
 
             // Emergency stop is rendered in the danger colour so it is never confused with routine actions.
