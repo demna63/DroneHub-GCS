@@ -31,6 +31,11 @@ Item {
     property real spacing: ScreenTools.defaultFontPixelHeight * 0.35
     property real _border: 4
 
+    /// Return the thumb to the start position (public API used by the confirm dialogs).
+    function reset() {
+        slider.reset()
+    }
+
     Keys.onSpacePressed: (event) => {
         if (visible && event.modifiers === Qt.NoModifier && !sliderDragArea.drag.active) {
             event.accepted = true

@@ -486,6 +486,27 @@ ApplicationWindow {
     }
 
     //-------------------------------------------------------------------------
+    //-- DroneHub: MAVLink action slide-to-confirm
+    // Owned here (not by FlyViewAdditionalActionsPanel) because the panel lives inside a
+    // drop-down that is destroyed as soon as it hides — creating the dialog from the panel's
+    // Component then fails with "Cannot create a component in an invalid context".
+
+    Component {
+        id: dronehubMavlinkActionConfirmComponent
+        MavlinkActionConfirm { }
+    }
+
+    function showMavlinkActionConfirm(mavlinkAction, vehicle) {
+        const dialog = dronehubMavlinkActionConfirmComponent.createObject(mainWindow, {
+            mavlinkAction: mavlinkAction,
+            vehicle:       vehicle
+        })
+        if (dialog) {
+            dialog.open()
+        }
+    }
+
+    //-------------------------------------------------------------------------
     //-- Critical Vehicle Message Popup
 
     function showCriticalVehicleMessage(message) {

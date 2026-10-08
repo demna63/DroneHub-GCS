@@ -15923,7 +15923,7 @@ VTOL</translation>
         <source>Additional errors received</source>
         <translation>მიღებულია დამატებითი შეცდომები</translation>
     </message>
-</context>
+<message><source>Exit</source><translation>გასვლა</translation></message></context>
 <context>
     <name>MapProviderSettings</name>
     <message>

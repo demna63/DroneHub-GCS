@@ -36,6 +36,7 @@
         <file alias="QGroundControl/FlyView/FlightDisplayViewVideo.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlightDisplayViewVideo.qml</file>
         <file alias="QGroundControl/FlyView/FlyViewToolStripActionList.qml">res/Custom/qml/QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml</file>
         <file alias="QGroundControl/FlyView/GuidedActionConfirm.qml">res/Custom/qml/QGroundControl/FlightDisplay/GuidedActionConfirm.qml</file>
+        <file alias="QGroundControl/FlyView/MavlinkActionConfirm.qml">res/Custom/qml/QGroundControl/FlightDisplay/MavlinkActionConfirm.qml</file>
         <file alias="QGroundControl/Toolbar/FlyViewToolBar.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBar.qml</file>
         <file alias="QGroundControl/Toolbar/FlyViewToolBarIndicators.qml">res/Custom/qml/QGroundControl/Controls/FlyViewToolBarIndicators.qml</file>
         <file alias="QGroundControl/Toolbar/RCRSSIIndicator.qml">res/Custom/qml/QGroundControl/Toolbar/RCRSSIIndicator.qml</file>

@@ -44,6 +44,7 @@ Rectangle {
 
     function close() {
         visible = false
+        _root.destroy()   // created on demand by MainWindow.showMavlinkActionConfirm
     }
 
     Keys.onEscapePressed: close()

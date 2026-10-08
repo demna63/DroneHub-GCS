@@ -20,6 +20,7 @@ import QGroundControl.FlyView
 Item {
     id:         control
     width:      mainLayout.width
+    implicitHeight: mainLayout.implicitHeight
     visible:    false
 
     property var    guidedController
@@ -128,8 +129,7 @@ Item {
 
     RowLayout {
         id:         mainLayout
-        y:          2
-        height:     parent.height - 4
+        anchors.verticalCenter: parent.verticalCenter
         spacing:    ScreenTools.defaultFontPixelWidth
 
         Text {
@@ -146,7 +146,10 @@ Item {
             id:                     slider
             Layout.alignment:       Qt.AlignVCenter
             Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 34
-            trackHeight:            mainLayout.height
+            // 5.1 toolbar host gives this control no explicit height, so mainLayout.height
+            // collapsed to ~0 and the track/thumb were invisible. Use a fixed track height.
+            Layout.preferredHeight: trackHeight
+            trackHeight:            ScreenTools.defaultFontPixelHeight * 1.8
             confirmText:            ""
             onAccept:               control._executeConfirmedAction()
 
