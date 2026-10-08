@@ -131,7 +131,8 @@ jobs:
           modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
           cache: true
           setup-python: false
-          aqtversion: '==3.3.*'
+          # aqtinstall 3.3.0 (PyPI) can't read Qt >= 6.11 per-arch Windows repos; pin master commit.
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@076e1659807d0b362a3ed684d54c2e9c775eb9c7'
 
       - name: Set up MSVC (Windows)
         if: runner.os == 'Windows'
