@@ -10,6 +10,7 @@
 #include "VehicleGPSFactGroup.h"
 
 #include <QDateTime>
+#include <QtCore/QTimeZone>
 #include <QDebug>
 #include <QNetworkInterface>
 #include <QGeoCoordinate>
@@ -158,7 +159,7 @@ void CotForwarder::setStaleSeconds(double s) { _staleS = qMax(1.0, s); }
 
 QString CotForwarder::_cotTime(qint64 ms)
 {
-    const QDateTime dt = QDateTime::fromMSecsSinceEpoch(ms, Qt::UTC);
+    const QDateTime dt = QDateTime::fromMSecsSinceEpoch(ms, QTimeZone::UTC);
     return dt.toString(QStringLiteral("yyyy-MM-ddTHH:mm:ss"))
             + QStringLiteral(".%1Z").arg(dt.time().msec() / 10, 2, 10, QChar('0'));
 }
