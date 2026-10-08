@@ -551,10 +551,10 @@ CustomOverrideInterceptor::CustomOverrideInterceptor()
 
 QUrl CustomOverrideInterceptor::intercept(const QUrl& url, QQmlAbstractUrlInterceptor::DataType type)
 {
+    // DataType is inherited from QQmlAbstractUrlInterceptor; a local alias trips -Werror=shadow (GCC).
     switch (type) {
-    using DataType = QQmlAbstractUrlInterceptor::DataType;
-    case DataType::QmlFile:
-    case DataType::UrlString:
+    case QQmlAbstractUrlInterceptor::QmlFile:
+    case QQmlAbstractUrlInterceptor::UrlString:
         if (url.scheme() == QStringLiteral("qrc")) {
             const QString overrideRes = QStringLiteral(":/Custom%1").arg(url.path());
             if (QFile::exists(overrideRes)) {

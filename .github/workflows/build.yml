@@ -108,12 +108,27 @@ jobs:
               sudo apt-get update
               sudo apt-get install -y ninja-build libgl1-mesa-dev libxkbcommon-dev \
                 libvulkan-dev libxcb-cursor0 libpulse-dev
+              # CPack .deb (dpkg-shlibdeps) must resolve every deployed Qt plugin's libs —
+              # QtTextToSpeech's speechd/flite plugins need these runtime libraries.
+              sudo apt-get install -y libspeechd2 libflite1 libasound2t64 || \
+                sudo apt-get install -y libspeechd2 libflite1 libasound2
+              ;;
+            Windows)
+              # 5.1 Windows installer = NSIS (cmake/install/CreateWinInstaller.cmake → makensis).
+              command -v makensis || choco install nsis -y --no-progress
+              echo "C:/Program Files (x86)/NSIS" >> "$GITHUB_PATH"
               ;;
             macOS)
               brew install create-dmg
               echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
               ;;
           esac
+
+      # Runner default Python (3.14) breaks aqtinstall on Windows; pin a known-good one.
+      - name: Set up Python 3.12 (aqtinstall)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
       - name: Install Qt ${{ env.QT_VERSION }}
         uses: jurplel/install-qt-action@v4
@@ -124,6 +139,9 @@ jobs:
           arch: ${{ matrix.config.qt_arch }}
           modules: qtgraphs qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d qtsensors qtscxml qtwebsockets qthttpserver
           cache: true
+          setup-python: false
+          # aqtinstall 3.3.0 (PyPI) can't read Qt >= 6.11 per-arch Windows repos; pin master commit.
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@076e1659807d0b362a3ed684d54c2e9c775eb9c7'
 
       - name: Set up MSVC (Windows)
         if: runner.os == 'Windows'

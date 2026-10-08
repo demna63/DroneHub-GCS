@@ -107,6 +107,8 @@ jobs:
       - name: Install host Qt (linux_gcc_64)
         uses: jurplel/install-qt-action@v4
         with:
+          # aqtinstall 3.3.0 (PyPI) can't read Qt >= 6.11 per-arch Windows repos; pin master commit.
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@076e1659807d0b362a3ed684d54c2e9c775eb9c7'
           version: ${{ env.QT_VERSION }}
           host: linux
           target: desktop
@@ -119,8 +121,11 @@ jobs:
       - name: Install Android Qt (arm64_v8a)
         uses: jurplel/install-qt-action@v4
         with:
+          # aqtinstall 3.3.0 (PyPI) can't read Qt >= 6.11 per-arch Windows repos; pin master commit.
+          aqtsource: 'git+https://github.com/miurahr/aqtinstall.git@076e1659807d0b362a3ed684d54c2e9c775eb9c7'
           version: ${{ env.QT_VERSION }}
-          host: linux
+          # Qt >= 6.7 publishes Android packages under the 'all_os' host in the online repo.
+          host: all_os
           target: android
           arch: android_arm64_v8a
           dir: ${{ runner.temp }}

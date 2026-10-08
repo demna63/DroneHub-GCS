@@ -28,6 +28,12 @@ set(CMAKE_PROJECT_VERSION       "${DRONEHUB_VERSION}"   PARENT_SCOPE)
 set(CMAKE_PROJECT_VERSION_MAJOR "${DRONEHUB_VERSION_MAJOR}" PARENT_SCOPE)
 set(CMAKE_PROJECT_VERSION_MINOR "${DRONEHUB_VERSION_MINOR}" PARENT_SCOPE)
 set(CMAKE_PROJECT_VERSION_PATCH "${DRONEHUB_VERSION_PATCH}" PARENT_SCOPE)
+# CPack (cmake/install/CPack/CreateCPackCommon.cmake) reads PROJECT_VERSION_* — without these the
+# Linux .deb was named after the engine tag (DroneHubGCS_5.1.5-...) instead of our 1.0.0.
+set(PROJECT_VERSION             "${DRONEHUB_VERSION}"   PARENT_SCOPE)
+set(PROJECT_VERSION_MAJOR       "${DRONEHUB_VERSION_MAJOR}" PARENT_SCOPE)
+set(PROJECT_VERSION_MINOR       "${DRONEHUB_VERSION_MINOR}" PARENT_SCOPE)
+set(PROJECT_VERSION_PATCH       "${DRONEHUB_VERSION_PATCH}" PARENT_SCOPE)
 # QGC 5.1 generates qgc_version.h inside include(Git) — before add_subdirectory(custom) —
 # so the PARENT_SCOPE values above come too late for the header. Regenerate it here with the
 # pinned version (template vars such as QGC_APP_NAME / QGC_APP_DATE are inherited from root).
