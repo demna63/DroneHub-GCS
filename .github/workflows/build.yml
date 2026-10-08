@@ -189,8 +189,16 @@ jobs:
         working-directory: qgroundcontrol
         shell: bash
         run: |
-          cmake --build build --config Release --target package \
-            || echo "::warning::package target failed on $RUNNER_OS — uploading raw build output instead"
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            # 5.1 macOS DMG comes from `cmake --install` (staging/ → ad-hoc sign → create-dmg →
+            # build/DroneHubGCS.dmg). The CPack `package` target installs elsewhere, so the
+            # DMG script never finds staging/DroneHubGCS.app.
+            cmake --install build --config Release \
+              || echo "::warning::install/DMG step failed on macOS — uploading raw build output instead"
+          else
+            cmake --build build --config Release --target package \
+              || echo "::warning::package target failed on $RUNNER_OS — uploading raw build output instead"
+          fi
           echo "Artifacts produced:"
           find build -maxdepth 2 \( -name '*.dmg' -o -name '*.exe' -o -name '*.AppImage' \
             -o -name '*.zip' -o -name '*.tar.gz' -o -name '*.deb' \) -print 2>/dev/null || true
