@@ -108,8 +108,13 @@ Item {
             // Same height as the collapsed HUD dock (16:9), so PiP and HUD sit on one row.
             // A manual resize via the PiP handle overrides this binding.
             _pipSize:               customOverlay.hudCompactDockHeight > 0
-                                        ? Math.min(customOverlay.hudCompactDockHeight * 16 / 9, parent.width * 0.4)
-                                        : parent.width * 0.2
+                                        ? Math.min(customOverlay.hudCompactDockHeight * 16 / 9, parent.width * 0.4, _pipMaxWidth)
+                                        : Math.min(parent.width * 0.2, _pipMaxWidth)
+            // Manual resize limit (fraction of parent width). Upstream allows 75 % of the width,
+            // which on a short landscape phone is taller than the whole screen and buries the HUD
+            // and tool strip. Also cap by height: at most ~45 % of the view height (16:9 PiP).
+            readonly property real _pipMaxWidth: Math.min(parent.width * 0.75, parent.height * 0.45 * 16 / 9)
+            _maxSize:               parent.width > 0 ? _pipMaxWidth / parent.width : 0.75
 
             property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
             property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
