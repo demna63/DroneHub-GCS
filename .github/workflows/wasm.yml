@@ -32,7 +32,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: wasm-build-${{ github.ref }}-${{ inputs.ref }}
   cancel-in-progress: true
 
 env:

@@ -39,7 +39,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # Unique per workflow file (see build.yml): avoids cancelling sibling jobs under release.yml.
+  group: android-build-${{ github.ref }}-${{ inputs.ref }}
   cancel-in-progress: true
 
 env:
