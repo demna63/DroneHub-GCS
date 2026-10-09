@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout DroneHub
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.inputs.ref }}
 
@@ -99,7 +99,7 @@ jobs:
           grep -c 'type="unfinished"' translations/qgc_ka.ts || true
 
       - name: Upload canonical qgc_ka.ts (full string inventory)
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: qgc_ka-ts-full
           path: qgroundcontrol/translations/qgc_ka.ts

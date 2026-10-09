@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.inputs.ref || 'master' }}
 
@@ -55,7 +55,7 @@ jobs:
           "
 
       - name: Synchronize with Crowdin
-        uses: crowdin/github-action@v2
+        uses: crowdin/github-action@v3
         with:
           config: crowdin.yml
           project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
