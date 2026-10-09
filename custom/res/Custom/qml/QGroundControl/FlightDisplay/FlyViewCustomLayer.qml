@@ -91,8 +91,8 @@ Item {
         readonly property real  radiusMd:           12
         readonly property real  radiusLg:           20
         readonly property real  spacingUnit:        8 * _root._uiScale
-        readonly property real  instrumentSizeCompact:  100 * _root._uiScale
-        readonly property real  instrumentSizeExpanded: 128 * _root._uiScale
+        readonly property real  instrumentSizeCompact:  100 * Math.max(0.72, _root._uiScale)
+        readonly property real  instrumentSizeExpanded: 128 * Math.max(0.72, _root._uiScale)
         // HUD compact row — mirror Custom/Theme.qml (qmlcache cannot import Custom).
         readonly property real  hudMetricCellWidthEm:       12.5
         readonly property real  hudMetricColumnGapUnits:     1.5
@@ -989,6 +989,10 @@ Item {
     component CompassDial: Rectangle {
         id:             compassRoot
         property real  dialSize: _root._instrumentSize
+        // Labels follow the dial size (not the global font scale) so N/E/S/W and the
+        // Mag/True readout never collide when the dial shrinks on phones.
+        readonly property real _labelPx: Math.min(_t.fontCaption, dialSize * 0.12)
+        readonly property real _edge:    Math.max(3, dialSize * 0.08)
 
         // implicit + Layout sizing so the RowLayout gives the compass the SAME
         // diameter as the attitude wrapper (which is sized via Layout.preferredWidth).
@@ -1024,37 +1028,37 @@ Item {
             text: "N"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 8
+            anchors.topMargin: compassRoot._edge
         }
         Text {
             text: "S"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 8
+            anchors.bottomMargin: compassRoot._edge
         }
         Text {
             text: "W"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 8
+            anchors.leftMargin: compassRoot._edge
         }
         Text {
             text: "E"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            anchors.rightMargin: 8
+            anchors.rightMargin: compassRoot._edge
         }
 
         Canvas {
@@ -1110,7 +1114,7 @@ Item {
                 text:               qsTr("Mag") + " " + _root._magneticHeadingLabel()
                 color:              _t.textPrimary
                 font.bold:          true
-                font.pixelSize:     _t.fontCaption
+                font.pixelSize:     compassRoot._labelPx
                 font.family:        _t.fontFamilyNumeric
                 style:              Text.Outline
                 styleColor:         _t.textOutline
@@ -1120,7 +1124,7 @@ Item {
                 text:               qsTr("True") + " " + _root._trueHeadingLabel()
                 color:              _t.telemetryAccent
                 font.bold:          true
-                font.pixelSize:     _t.fontCaption
+                font.pixelSize:     compassRoot._labelPx
                 font.family:        _t.fontFamilyNumeric
                 style:              Text.Outline
                 styleColor:         _t.textOutline
