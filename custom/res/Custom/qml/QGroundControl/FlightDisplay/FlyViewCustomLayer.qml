@@ -1398,10 +1398,11 @@ Item {
                 Layout.topMargin:       _t.spacingUnit * 1.5   // clear the dock's bottom padding
                 radius:                 _t.radiusLg
                 color:                  "transparent"
-                implicitHeight:         expandedBody.implicitHeight + _t.spacingUnit * 2
-                // Capped so the card never runs off the top of a short (phone) screen;
-                // the content scrolls inside expandedFlick instead.
-                Layout.preferredHeight: Math.min(implicitHeight, _root._maxCardHeight)
+                // Capped so the card never runs off a short (phone) screen; the content
+                // scrolls inside expandedFlick instead.
+                implicitHeight:         Math.min(expandedBody.implicitHeight + _t.spacingUnit * 2, _root._maxCardHeight)
+                Layout.preferredHeight: implicitHeight
+                Layout.maximumHeight:   implicitHeight
 
                 GlassBackdrop {
                     anchors.fill:   parent
