@@ -58,7 +58,12 @@ Item {
     readonly property real _fontScale:  Math.max(0.72, _uiScale)
     /// Upper bound for the expanded/edit card so it never runs off the top of the screen.
     readonly property real _maxCardHeight: Math.max(_t.spacingUnit * 12,
-                                                   height - _topChromeInset - (hudCompactDockHeight > 0 ? hudCompactDockHeight : 0) - _margin * 2)
+                                                   height - _topChromeInset - _dockReservedHeight - _margin * 2)
+    /// On short screens the attitude/compass row is hidden while the telemetry card is
+    /// open, so the card gets the vertical space instead of a 60 px scroll window.
+    readonly property bool _hideInstruments: _compactUi && (_hudExpanded || _hudEditMode)
+    readonly property real _dockReservedHeight: compactContainer.height + _t.spacingUnit * 5
+                                                + (_hideInstruments ? 0 : _instrumentSize + _t.spacingUnit * 2)
 
     // Inline tokens — FlyViewCustomLayer compiles into FlightDisplayModule (qmlcache);
     // must not import Custom module (loads before engine import paths are ready).
@@ -1173,9 +1178,10 @@ Item {
             id:             hudDock
             readonly property real dockPad:  _t.spacingUnit * 1.5
             x:              0
-            y:              instrumentRow.y - dockPad
+            readonly property real _topY: _root._hideInstruments ? compactContainer.y : instrumentRow.y
+            y:              _topY - dockPad
             width:          osRoot.width
-            height:         (compactContainer.y + compactContainer.height) - instrumentRow.y + dockPad * 2
+            height:         (compactContainer.y + compactContainer.height) - _topY + dockPad * 2
             z:              -1
             cornerRadius:   _t.radiusLg
             tint:           _t.glassTint
@@ -1195,6 +1201,7 @@ Item {
                 width:      parent.width - _t.radiusLg * 2
                 height:     1
                 y:          (instrumentRow.y + instrumentRow.height + compactContainer.y) / 2 - hudDock.y
+                visible:    !_root._hideInstruments
                 color:      _t.glassDivider
             }
         }
@@ -1255,6 +1262,7 @@ Item {
             RowLayout {
                 id:                     instrumentRow
                 Layout.alignment:       Qt.AlignHCenter
+                visible:                !_root._hideInstruments
                 spacing:                _t.spacingUnit * 2
 
                 Item {
