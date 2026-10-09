@@ -11094,8 +11094,8 @@ VTOL</translation>
     <message>
         <location line="+114" />
         <location filename="../qgroundcontrol/src/FlyView/FlyViewCustomLayer.qml" line="+114" />
-        <source>✕ remove</source>
-        <translation>✕ წაშლა</translation>
+        <source>remove</source>
+        <translation>წაშლა</translation>
     </message>
     <message>
         <location line="+152" />
