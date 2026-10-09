@@ -58,7 +58,10 @@ Item {
     readonly property real _fontScale:  Math.max(0.72, _uiScale)
     /// Upper bound for the expanded/edit card so it never runs off the top of the screen.
     readonly property real _maxCardHeight: Math.max(_t.spacingUnit * 12,
-                                                   height - _topChromeInset - _dockReservedHeight - _margin * 2)
+                                                   height - _cardTopInset - _dockReservedHeight - _margin * 2)
+    /// Only chrome above the *center* column constrains the card (the HUD sits right of the
+    /// PiP/tool strip, so their left-edge insets don't apply).
+    readonly property real _cardTopInset: parentToolInsets ? Math.max(parentToolInsets.topEdgeCenterInset, _margin) : _margin
     /// On short screens the attitude/compass row is hidden while the telemetry card is
     /// open, so the card gets the vertical space instead of a 60 px scroll window.
     readonly property bool _hideInstruments: _compactUi && (_hudExpanded || _hudEditMode)
@@ -124,11 +127,6 @@ Item {
     property bool _hudExpanded:     _flyViewPrefs.flyHudExpanded
     property real _margin:          ScreenTools.defaultFontPixelHeight
     property real _bottomSafe:      _margin + (Qt.platform.os === "osx" ? _margin * 0.75 : 0)
-    property real _topChromeInset:  parentToolInsets
-                                        ? Math.max(parentToolInsets.topEdgeLeftInset,
-                                                   parentToolInsets.topEdgeCenterInset,
-                                                   parentToolInsets.topEdgeRightInset)
-                                        : _margin
     property real _metricCellWidth: ScreenTools.defaultFontPixelWidth * _t.hudMetricCellWidthEm * _fontScale
     property real _metricColumnGap: _t.spacingUnit * _t.hudMetricColumnGapUnits
     property real _instrumentSize:  _hudExpanded ? _t.instrumentSizeExpanded : _t.instrumentSizeCompact
@@ -1420,7 +1418,7 @@ Item {
                     contentHeight:      expandedBody.implicitHeight
                     interactive:        contentHeight > height
                     boundsBehavior:     Flickable.StopAtBounds
-                    clip:               interactive
+                    clip:               true
                     ScrollBar.vertical: ScrollBar { policy: expandedFlick.interactive ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff }
 
                 ColumnLayout {
