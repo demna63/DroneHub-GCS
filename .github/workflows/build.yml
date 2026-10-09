@@ -52,7 +52,9 @@ permissions:
 
 # Manual-only workflow — concurrent runs on the same ref cancel in progress (CI minutes).
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # Unique per workflow file: when called from release.yml, github.workflow is "DroneHub Release"
+  # for every called workflow, so a shared group made build/android cancel each other.
+  group: desktop-build-${{ github.ref }}-${{ inputs.ref }}
   cancel-in-progress: true
 
 env:
