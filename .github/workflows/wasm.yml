@@ -66,6 +66,7 @@ jobs:
           cp -R custom qgroundcontrol/custom
           cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_ka.ts
           cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_source_ka.ts
+          cp translations/qgc_json_ka.ts qgroundcontrol/translations/qgc_json_ka.ts
           if [ ! -f qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf ]; then
             curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf" \
               -o qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf
