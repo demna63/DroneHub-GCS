@@ -34,6 +34,7 @@ ln -s "$ROOT/custom" "$QGC_DIR/custom"
 ln -sf "$ROOT/translations/qgc_ka.ts" "$QGC_DIR/translations/qgc_ka.ts"
 # cmake cache / older wiring may reference qgc_source_ka.ts — same canonical file
 ln -sf "$ROOT/translations/qgc_ka.ts" "$QGC_DIR/translations/qgc_source_ka.ts"
+ln -sf "$ROOT/translations/qgc_json_ka.ts" "$QGC_DIR/translations/qgc_json_ka.ts"
 
 # Qt 6 qmlcache compiles custom QML from QGC src paths — sync before build.
 ln -sf "$ROOT/custom/res/Custom/qml/QGroundControl/FlightDisplay/FlyViewCustomLayer.qml" \
