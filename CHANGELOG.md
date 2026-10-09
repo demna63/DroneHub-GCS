@@ -9,6 +9,16 @@ matches the pushed tag (`v1.2.3` → the `## [1.2.3]` block) as the GitHub Relea
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-10-09
+
+### Added
+- Georgian translation of JSON-sourced strings (`translations/qgc_json_ka.ts`, 1821 messages):
+  Settings labels/descriptions, Fact metadata, mission-command parameter fields, camera/survey settings.
+
+### Fixed
+- Release workflow: build/android/wasm no longer cancel each other (unique concurrency groups).
+- macOS DMG built via `cmake --install` and uploaded with the release.
+
 ## [1.0.0] - 2026-10-08
 
 QGroundControl **v5.1.5** / Qt **6.11.1** migration (Stage 1).
