@@ -12,7 +12,6 @@ Item {
         category: "DroneHub/FlyView"
         property bool flyToolStripExpanded:     true
         property bool flyCameraPanelExpanded:   true
-        property bool flyHudExpanded:           false
     }
 
     readonly property string logoSource:           "qrc:/custom/img/dggcs-logo-original.png"
@@ -24,9 +23,6 @@ Item {
 
     /// Fly View მარჯვენა კამერის პანელი — ზედა პანელის კამერის ხატულაზე დაჭერით (persisted).
     property alias flyCameraPanelExpanded:   _flyViewUi.flyCameraPanelExpanded
-
-    /// Fly View HUD secondary metrics — ცენტრალურ მეტრიკაზე დაჭერით (persisted).
-    property alias flyHudExpanded:           _flyViewUi.flyHudExpanded
 
     /// Toolbar ლოგო — master artwork-ის ცარიელი ველის კომპენსაცია (წაკითხვადობა).
     readonly property real toolbarLogoVisualScale: 1.32
