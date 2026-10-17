@@ -80,7 +80,8 @@ Item {
 
                 SequentialAnimation on opacity {
                     running:    noVideo.visible && noVideo._waiting
-                    loops:      Animation.Infinite
+                    // Three breaths, then rest at 0.85 — an endless pulse pulls the eye away from flying.
+                    loops:      3
                     NumberAnimation { from: 0.85; to: 0.45; duration: 1600; easing.type: Easing.InOutSine }
                     NumberAnimation { from: 0.45; to: 0.85; duration: 1600; easing.type: Easing.InOutSine }
                 }

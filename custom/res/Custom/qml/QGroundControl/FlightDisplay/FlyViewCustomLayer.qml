@@ -79,10 +79,10 @@ Item {
         readonly property color hudBorder:          "#55FFFFFF"
         readonly property color instrumentGlass:    "#18000000"
         readonly property color instrumentBorder:   "#66FFFFFF"
-        // Frosted glass (iOS-style) — tints are lighter than the opaque plates because
-        // the blurred map underneath already provides contrast for the text.
-        readonly property color glassTint:          "#59151820"   // metric plates / instruments
-        readonly property color glassTintStrong:    "#7A151820"   // expanded telemetry card
+        // Frosted glass (iOS-style). The tint alpha is set so that secondary text stays
+        // ≥ 4.5:1 over a light OSM map (measured: 0x59 gave 1.7:1 for textSecondary).
+        readonly property color glassTint:          "#C8151820"   // metric plates / instruments
+        readonly property color glassTintStrong:    "#D9151820"   // expanded telemetry card
         readonly property color glassEdge:          "#40FFFFFF"   // hairline highlight edge
         readonly property color glassSheen:         "#1FFFFFFF"   // top reflection
         readonly property real  glassBlurPad:       24            // px sampled outside the plate (no dark blur edges)
@@ -97,7 +97,7 @@ Item {
         readonly property color textOutline:        "#CC000000"
         readonly property real  radiusSm:           6
         readonly property real  radiusMd:           12
-        readonly property real  radiusLg:           20
+        readonly property real  radiusLg:           18
         readonly property real  spacingUnit:        8 * _root._uiScale
         readonly property real  instrumentSizeCompact:  100 * Math.max(0.72, _root._uiScale)
         readonly property real  instrumentSizeExpanded: 128 * Math.max(0.72, _root._uiScale)
@@ -110,10 +110,11 @@ Item {
         readonly property real  hudMetricLabelLineHeight:  1.05
         readonly property string fontFamily:        "Noto Sans Georgian"
         readonly property string fontFamilyNumeric: ScreenTools.normalFontFamily
-        readonly property real  fontHero:           28 * _root._fontScale
-        readonly property real  fontBody:           18 * _root._fontScale
-        readonly property real  fontCaption:        13 * _root._fontScale
-        readonly property real  fontMicro:          11 * _root._fontScale
+        // Floors keep labels legible on phones (12 px ≈ 7.9 px before the clamp).
+        readonly property real  fontHero:           Math.max(24, 24 * _root._fontScale)
+        readonly property real  fontBody:           Math.max(17, 17 * _root._fontScale)
+        readonly property real  fontCaption:        Math.max(12, 13 * _root._fontScale)
+        readonly property real  fontMicro:          Math.max(12, 12 * _root._fontScale)
         readonly property string emptyValue:        "—"
     }
 
@@ -125,6 +126,8 @@ Item {
                                         : null
     property bool _hasVehicle:      _activeVehicle !== null
     property bool _hudExpanded:     _flyViewPrefs.flyHudExpanded
+    /// Minimum touch hit-area (px). Visuals may be smaller on phones; the tappable area is not.
+    readonly property real _minTouchSize: 44
     property real _margin:          ScreenTools.defaultFontPixelHeight
     property real _bottomSafe:      _margin + (Qt.platform.os === "osx" ? _margin * 0.75 : 0)
     property real _metricCellWidth: ScreenTools.defaultFontPixelWidth * _t.hudMetricCellWidthEm * _fontScale
@@ -978,6 +981,8 @@ Item {
         property string title: ""
 
         text: title
+        style: Text.Outline
+        styleColor: _t.textOutline
         color: _t.textSecondary
         font.pixelSize: _t.fontMicro
         font.family: _t.fontFamily
@@ -1135,12 +1140,17 @@ Item {
         }
     }
 
-    // Tap outside HUD to collapse expanded details.
+    // Tap outside HUD to collapse expanded details. Passive: the press is handed on to
+    // the map underneath, so a tap collapses the card AND still reaches the map.
     MouseArea {
-        anchors.fill:   parent
-        visible:        _hudExpanded && osRoot.visible
-        z:              QGroundControl.zOrderWidgets + 1
-        onClicked:      _flyViewPrefs.flyHudExpanded = false
+        anchors.fill:               parent
+        visible:                    _hudExpanded && osRoot.visible
+        z:                          QGroundControl.zOrderWidgets + 1
+        propagateComposedEvents:    true
+        onPressed: (mouse) => {
+            _flyViewPrefs.flyHudExpanded = false
+            mouse.accepted = false
+        }
     }
 
     // ---- Central HUD panel (screenshot reference layout) ----
@@ -1245,7 +1255,9 @@ Item {
             }
             MouseArea {
                 id:             editButtonMouse
-                anchors.fill:   parent
+                anchors.centerIn: parent
+                width:          Math.max(parent.width, _root._minTouchSize)
+                height:         Math.max(parent.height, _root._minTouchSize)
                 hoverEnabled:   true
                 cursorShape:    Qt.PointingHandCursor
                 onClicked:      _root._hudEditMode = !_root._hudEditMode
@@ -1352,6 +1364,8 @@ Item {
                                     Layout.alignment:   Qt.AlignHCenter
                                     visible:            _root._compactKeys.length > 1
                                     spacing:            _t.spacingUnit * 0.4
+                                    Layout.minimumHeight: _root._minTouchSize
+                                    Layout.minimumWidth:  _root._minTouchSize * 2
                                     QGCColoredImage {
                                         Layout.preferredWidth:  _t.fontMicro
                                         Layout.preferredHeight: _t.fontMicro
@@ -1375,8 +1389,8 @@ Item {
                     Rectangle {
                         visible:                _hudEditMode && _root._compactKeys.length < 6
                         Layout.alignment:       Qt.AlignVCenter
-                        Layout.preferredWidth:  _t.spacingUnit * 4
-                        Layout.preferredHeight: _t.spacingUnit * 4
+                        Layout.preferredWidth:  Math.max(_t.spacingUnit * 4, _root._minTouchSize)
+                        Layout.preferredHeight: Math.max(_t.spacingUnit * 4, _root._minTouchSize)
                         radius:                 width / 2
                         color:                  Qt.rgba(1, 1, 1, 0.06)
                         border.width:           1
