@@ -14,7 +14,9 @@ Item {
         property bool flyCameraPanelExpanded:   true
     }
 
-    readonly property string logoSource:           "qrc:/custom/img/dggcs-logo-original.png"
+    /// Toolbar brand mark (DHG, tight-cropped, transparent) — shown next to appName.
+    readonly property string logoSource:           "qrc:/custom/img/dhg-logo-dark.png"
+    readonly property real   logoAspectRatio:      849 / 317   // dhg-logo-dark.png width / height
     readonly property string videoPlaceholderLogo: "qrc:/custom/img/dhg-logo-dark.png"
     readonly property string appName:       "DroneHub GCS"
 
@@ -24,8 +26,6 @@ Item {
     /// Fly View მარჯვენა კამერის პანელი — ზედა პანელის კამერის ხატულაზე დაჭერით (persisted).
     property alias flyCameraPanelExpanded:   _flyViewUi.flyCameraPanelExpanded
 
-    /// Toolbar ლოგო — master artwork-ის ცარიელი ველის კომპენსაცია (წაკითხვადობა).
-    readonly property real toolbarLogoVisualScale: 1.32
 
     readonly property color brandPrimary:   "#0A84FF"
     readonly property color brandAccent:    "#30D158"

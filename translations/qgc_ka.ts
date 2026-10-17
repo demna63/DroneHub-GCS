@@ -110,7 +110,7 @@
     <message>
         <location line="+1" />
         <source> To change this configuration, select the desired frame class below and then reboot the vehicle.</source>
-        <translation>ამ კონფიგურაციის შესაცვლელად აირჩიეთ სასურველი ჩარჩო კლასი ქვემოთ და შემდეგ გადატვირთეთ მანქანა.</translation>
+        <translation>ამ კონფიგურაციის შესაცვლელად აირჩიეთ სასურველი ჩარჩო კლასი ქვემოთ და შემდეგ გადატვირთეთ აპარატი.</translation>
     </message>
     <message>
         <location line="+92" />
@@ -485,7 +485,7 @@
     <message>
         <location line="+4" />
         <source>Vehicle current:</source>
-        <translation>მანქანის დენი:</translation>
+        <translation>აპარატის დენი:</translation>
     </message>
     <message>
         <location line="+8" />
@@ -523,7 +523,7 @@
     <message>
         <location line="+4" />
         <source>Vehicle voltage:</source>
-        <translation>მანქანის ძაბვა:</translation>
+        <translation>აპარატის ძაბვა:</translation>
     </message>
     <message>
         <location line="+8" />
@@ -1465,7 +1465,7 @@
     <message>
         <location filename="../qgroundcontrol/src/AutoPilotPlugins/APM/APMESCComponent.qml" line="+52" />
         <source>Requires vehicle reboot</source>
-        <translation>საჭიროებს მანქანის გადატვირთვას</translation>
+        <translation>საჭიროებს აპარატის გადატვირთვას</translation>
     </message>
     <message>
         <location line="+7" />
@@ -1520,7 +1520,7 @@
     <message>
         <location line="+7" />
         <source>WARNING: Remove props prior to calibration!</source>
-        <translation>გაფრთხილება: ამოიღეთ საყრდენები დაკალიბრებამდე!</translation>
+        <translation>გაფრთხილება: ამოიღეთ პროპელერები დაკალიბრებამდე!</translation>
     </message>
     <message>
         <location line="+8" />
@@ -1550,7 +1550,7 @@
     <message>
         <location line="+1" />
         <source>- The arming tone will be played (if the vehicle has a buzzer attached)</source>
-        <translation>- დაიკვრება შეიარაღების ტონი (თუ მანქანას დართული აქვს ზუმერი)</translation>
+        <translation>- დაიკვრება შეიარაღების ტონი (თუ აპარატს დართული აქვს ზუმერი)</translation>
     </message>
     <message>
         <location line="+1" />
@@ -2077,7 +2077,7 @@
     <message>
         <location line="+15" />
         <source>Warning: Turning off arming checks can lead to loss of Vehicle control.</source>
-        <translation>გაფრთხილება: აფრენისწინა შემოწმების გამორთვამ შეიძლება გამოიწვიოს ავტომობილის კონტროლის დაკარგვა.</translation>
+        <translation>გაფრთხილება: აფრენისწინა შემოწმების გამორთვამ შეიძლება გამოიწვიოს აპარატის კონტროლის დაკარგვა.</translation>
     </message>
 </context>
 <context>
@@ -3108,22 +3108,22 @@
     <message>
         <location line="+2" />
         <source>For Compass calibration you will need to rotate your vehicle through a number of positions.</source>
-        <translation>კომპასის კალიბრაციისთვის მოგიწევთ თქვენი მანქანის როტაცია რამდენიმე პოზიციით.</translation>
+        <translation>კომპასის კალიბრაციისთვის მოგიწევთ თქვენი აპარატის როტაცია რამდენიმე პოზიციით.</translation>
     </message>
     <message>
         <location line="+1" />
         <source>For Gyroscope calibration you will need to place your vehicle on a surface and leave it still.</source>
-        <translation>გიროსკოპის კალიბრაციისთვის მოგიწევთ თქვენი ავტომობილი დააყენოთ ზედაპირზე და დატოვოთ იგი.</translation>
+        <translation>გიროსკოპის კალიბრაციისთვის მოგიწევთ თქვენი აპარატი დააყენოთ ზედაპირზე და დატოვოთ იგი.</translation>
     </message>
     <message>
         <location line="+1" />
         <source>For Accelerometer calibration you will need to place your vehicle on all six sides on a perfectly level surface and hold it still in each orientation for a few seconds.</source>
-        <translation>აქსელერომეტრის დაკალიბრებისთვის, თქვენ უნდა მოათავსოთ თქვენი მანქანა ექვსივე მხრიდან იდეალურად გასწორებულ ზედაპირზე და გააჩეროთ იგი თითოეულ ორიენტაციაზე რამდენიმე წამის განმავლობაში.</translation>
+        <translation>აქსელერომეტრის დაკალიბრებისთვის, თქვენ უნდა მოათავსოთ თქვენი აპარატი ექვსივე მხრიდან იდეალურად გასწორებულ ზედაპირზე და გააჩეროთ იგი თითოეულ ორიენტაციაზე რამდენიმე წამის განმავლობაში.</translation>
     </message>
     <message>
         <location line="+1" />
         <source>To level the horizon you need to place the vehicle in its level flight position and press OK.</source>
-        <translation>ჰორიზონტის გასათანაბრებლად თქვენ უნდა მოათავსოთ მანქანა მის დონეზე ფრენის მდგომარეობაში და დააჭირეთ OK.</translation>
+        <translation>ჰორიზონტის გასათანაბრებლად თქვენ უნდა მოათავსოთ აპარატი მის დონეზე ფრენის მდგომარეობაში და დააჭირეთ OK.</translation>
     </message>
     <message>
         <location line="+2" />
@@ -3138,7 +3138,7 @@
     <message>
         <location line="+1" />
         <source>Check the compass position within your vehicle and re-do the calibration.</source>
-        <translation>შეამოწმეთ კომპასის პოზიცია თქვენს მანქანაში და ხელახლა გააკეთეთ კალიბრაცია.</translation>
+        <translation>შეამოწმეთ კომპასის პოზიცია თქვენს აპარატში და ხელახლა გააკეთეთ კალიბრაცია.</translation>
     </message>
     <message>
         <location line="+41" />
@@ -3200,7 +3200,7 @@
     <message>
         <location line="+1" />
         <source>Waiting for Vehicle to response to Cancel. This may take a few seconds.</source>
-        <translation>ელოდება ავტომობილის პასუხს გაუქმებაზე. ამას შეიძლება რამდენიმე წამი დასჭირდეს.</translation>
+        <translation>ელოდება აპარატის პასუხს გაუქმებაზე. ამას შეიძლება რამდენიმე წამი დასჭირდეს.</translation>
     </message>
     <message>
         <location line="+89" />
@@ -3238,13 +3238,13 @@
         <location line="+1" />
         <location line="+36" />
         <source>YOU MUST REBOOT YOUR VEHICLE AFTER EACH CALIBRATION.</source>
-        <translation>თქვენ უნდა გადატვირთოთ თქვენი მანქანა ყოველი კალიბრაციის შემდეგ.</translation>
+        <translation>თქვენ უნდა გადატვირთოთ თქვენი აპარატი ყოველი კალიბრაციის შემდეგ.</translation>
     </message>
     <message>
         <location line="-32" />
         <location line="+36" />
         <source>Reboot Vehicle</source>
-        <translation>გადატვირთეთ მანქანა</translation>
+        <translation>გადატვირთეთ აპარატი</translation>
     </message>
     <message>
         <location line="+35" />
@@ -3284,7 +3284,7 @@
     <message>
         <location line="+17" />
         <source>Simple accelerometer calibration is less precise but allows calibrating without rotating the vehicle. Check this if you have a large/heavy vehicle.</source>
-        <translation>მარტივი ამაჩქარებლის კალიბრაცია ნაკლებად ზუსტია, მაგრამ საშუალებას იძლევა კალიბრაცია მანქანის ბრუნვის გარეშე. შეამოწმეთ ეს თუ გაქვთ დიდი/მძიმე მანქანა.</translation>
+        <translation>მარტივი ამაჩქარებლის კალიბრაცია ნაკლებად ზუსტია, მაგრამ საშუალებას იძლევა კალიბრაცია აპარატის ბრუნვის გარეშე. შეამოწმეთ ეს თუ გაქვთ დიდი/მძიმე აპარატი.</translation>
     </message>
     <message>
         <location line="+18" />
@@ -3299,7 +3299,7 @@
     <message>
         <location line="+22" />
         <source>Fast compass calibration given vehicle position and yaw. This </source>
-        <translation>სწრაფი კომპასის დაკალიბრება ავტომობილის პოზიციისა და გადახრის გათვალისწინებით. ეს</translation>
+        <translation>სწრაფი კომპასის დაკალიბრება აპარატის პოზიციისა და გადახრის გათვალისწინებით. ეს</translation>
     </message>
     <message>
         <location line="+1" />
@@ -3309,17 +3309,17 @@
     <message>
         <location line="+1" />
         <source>suitable for vehicles where the field is close to spherical. It is </source>
-        <translation>შესაფერისია მანქანებისთვის, სადაც ველი ახლოსაა სფერულთან. ეს არის</translation>
+        <translation>შესაფერისია აპარატებისთვის, სადაც ველი ახლოსაა სფერულთან. ეს არის</translation>
     </message>
     <message>
         <location line="+1" />
         <source>useful for large vehicles where moving the vehicle to calibrate it </source>
-        <translation>გამოსადეგია დიდი მანქანებისთვის, სადაც მოძრაობს მანქანა მისი დაკალიბრებისთვის</translation>
+        <translation>გამოსადეგია დიდი აპარატებისთვის, სადაც მოძრაობს აპარატი მისი დაკალიბრებისთვის</translation>
     </message>
     <message>
         <location line="+1" />
         <source>is difficult. Point the vehicle North before using it.</source>
-        <translation>რთულია. გამოყენებამდე მიმართეთ მანქანას ჩრდილოეთით.</translation>
+        <translation>რთულია. გამოყენებამდე მიმართეთ აპარატს ჩრდილოეთით.</translation>
     </message>
     <message>
         <location line="+13" />
@@ -3329,7 +3329,7 @@
     <message>
         <location line="+8" />
         <source>Vehicle has no Valid positon, please provide it</source>
-        <translation>მანქანას არ აქვს მოქმედი პოზიცია, გთხოვთ მიაწოდოთ იგი</translation>
+        <translation>აპარატს არ აქვს მოქმედი პოზიცია, გთხოვთ მიაწოდოთ იგი</translation>
     </message>
     <message>
         <location line="+6" />
@@ -3354,7 +3354,7 @@
     <message>
         <location line="+13" />
         <source>This is recommended for vehicles that have only an internal compass and on vehicles where there is significant interference on the compass from the motors, power wires, etc. </source>
-        <translation>ეს რეკომენდირებულია მანქანებისთვის, რომლებსაც აქვთ მხოლოდ შიდა კომპასი და იმ მანქანებზე, სადაც კომპასზე მნიშვნელოვანი ჩარევაა ძრავებიდან, დენის მავთულებიდან და ა.შ.</translation>
+        <translation>ეს რეკომენდირებულია აპარატებისთვის, რომლებსაც აქვთ მხოლოდ შიდა კომპასი და იმ აპარატებზე, სადაც კომპასზე მნიშვნელოვანი ჩარევაა ძრავებიდან, დენის მავთულებიდან და ა.შ.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -3369,7 +3369,7 @@
     <message>
         <location line="+7" />
         <source>Disconnect your props, flip them over and rotate them one position around the frame. </source>
-        <translation>გათიშეთ თქვენი საყრდენები, გადააბრუნეთ ისინი და გადაატრიალეთ ერთი პოზიცია ჩარჩოს გარშემო.</translation>
+        <translation>გათიშეთ თქვენი პროპელერები, გადააბრუნეთ ისინი და გადაატრიალეთ ერთი პოზიცია ჩარჩოს გარშემო.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -3419,7 +3419,7 @@
     <message>
         <location line="+3" />
         <source>To level the horizon you need to place the vehicle in its level flight position and press Ok.</source>
-        <translation>ჰორიზონტის გასათანაბრებლად, თქვენ უნდა მოათავსოთ მანქანა მისი დონის ფრენის პოზიციაზე და დააჭირეთ Ok.</translation>
+        <translation>ჰორიზონტის გასათანაბრებლად, თქვენ უნდა მოათავსოთ აპარატი მისი დონის ფრენის პოზიციაზე და დააჭირეთ Ok.</translation>
     </message>
     <message>
         <location line="+9" />
@@ -3436,7 +3436,7 @@
         <source>For Gyroscope calibration you will need to place your vehicle on a surface and leave it still.
 
 Click Ok to start calibration.</source>
-        <translation>გიროსკოპის კალიბრაციისთვის მოგიწევთ თქვენი ავტომობილი დააყენოთ ზედაპირზე და დატოვოთ იგი.
+        <translation>გიროსკოპის კალიბრაციისთვის მოგიწევთ თქვენი აპარატი დააყენოთ ზედაპირზე და დატოვოთ იგი.
 
 დააწკაპუნეთ OK კალიბრაციის დასაწყებად.</translation>
     </message>
@@ -3558,7 +3558,7 @@ Click Ok to start calibration.</source>
     <message>
         <location line="+45" />
         <source>Raise the throttle slowly to between 50% ~ 75% (the props will spin!) for 5 ~ 10 seconds.</source>
-        <translation>აწიეთ დროსელი ნელა 50%-75%-მდე (საყრდენი ტრიალებს!) 5-10 წამის განმავლობაში.</translation>
+        <translation>აწიეთ დროსელი ნელა 50%-75%-მდე (პროპელერი ტრიალებს!) 5-10 წამის განმავლობაში.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -3573,7 +3573,7 @@ Click Ok to start calibration.</source>
     <message>
         <location line="+9" />
         <source>Hold the vehicle in its level flight position.</source>
-        <translation>გააჩერეთ მანქანა მისი დონის ფრენის მდგომარეობაში.</translation>
+        <translation>გააჩერეთ აპარატი მისი დონის ფრენის მდგომარეობაში.</translation>
     </message>
     <message>
         <location line="+9" />
@@ -3608,7 +3608,7 @@ Click Ok to start calibration.</source>
     <message>
         <location line="+1" />
         <source>YOU MUST REBOOT YOUR VEHICLE NOW FOR NEW SETTINGS TO TAKE AFFECT</source>
-        <translation>თქვენ უნდა გადატვირთოთ თქვენი მანქანა ახლავე, რომ ახალი პარამეტრები იმოქმედონ</translation>
+        <translation>თქვენ უნდა გადატვირთოთ თქვენი აპარატი ახლავე, რომ ახალი პარამეტრები იმოქმედონ</translation>
     </message>
     <message>
         <location line="+3" />
@@ -3618,7 +3618,7 @@ Click Ok to start calibration.</source>
     <message>
         <location line="+1" />
         <source>YOU MUST REBOOT YOUR VEHICLE NOW AND RETRY COMPASS CALIBRATION PRIOR TO FLIGHT</source>
-        <translation>თქვენ უნდა გადატვირთოთ თქვენი მანქანა ახლავე და ხელახლა სცადოთ კომპასის დაკალიბრება ფრენამდე</translation>
+        <translation>თქვენ უნდა გადატვირთოთ თქვენი აპარატი ახლავე და ხელახლა სცადოთ კომპასის დაკალიბრება ფრენამდე</translation>
     </message>
     <message>
         <location line="+4" />
@@ -3844,7 +3844,7 @@ Click Ok to start calibration.</source>
     <message>
         <location filename="../qgroundcontrol/src/AutoPilotPlugins/APM/APMSubMotorComponent.qml" line="+104" />
         <source>Reverse Motor Direction</source>
-        <translation>საავტომობილო მიმართულება</translation>
+        <translation>ძრავის მიმართულების შებრუნება</translation>
     </message>
     <message>
         <location line="+47" />
@@ -3863,7 +3863,7 @@ Blue Robotics thrusters ზეთოვანია წყლით და ა�
     <message>
         <location line="+1" />
         <source>Slide this switch to arm the vehicle and enable the motor test (CAUTION!)</source>
-        <translation>გაასრიალეთ ეს გადამრთველი მანქანის დასაქოქად და ძრავის გამოცდის ჩასართავად (CAUTION!)</translation>
+        <translation>გაასრიალეთ ეს გადამრთველი აპარატის დასაქოქად და ძრავის გამოცდის ჩასართავად (CAUTION!)</translation>
     </message>
     <message>
         <location line="+10" />
@@ -3875,7 +3875,7 @@ Blue Robotics thrusters ზეთოვანია წყლით და ა�
         <source>This will attempt to automatically detect the direction (normal/reversed) of your thrusters.
 Please place your vehicle in water, click the button, and wait. Note that the thrusters still need to be connected to the correct outputs (thrusters 2 and 3 can't be swapped, for example).</source>
         <translation>ეს შეეცდება ავტომატურად გამოავლინოს თქვენი მამოძრავებელის მიმართულება (ნორმალური/შებრუნებული).
-გთხოვთ, მოათავსოთ თქვენი მანქანა წყალში, დააჭიროთ ღილაკს და დაელოდოთ. გაითვალისწინეთ, რომ მამოძრავებელი მექანიზმები კვლავ უნდა იყოს დაკავშირებული სწორ გამოსავალთან (მაგალითად, 2 და 3 წამყვანები არ შეიცვლება).</translation>
+გთხოვთ, მოათავსოთ თქვენი აპარატი წყალში, დააჭიროთ ღილაკს და დაელოდოთ. გაითვალისწინეთ, რომ მამოძრავებელი მექანიზმები კვლავ უნდა იყოს დაკავშირებული სწორ გამოსავალთან (მაგალითად, 2 და 3 წამყვანები არ შეიცვლება).</translation>
     </message>
 </context>
 <context>
@@ -3985,7 +3985,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location line="+16" />
         <source>Motor Order Identification and Assignment</source>
-        <translation>საავტომობილო შეკვეთის იდენტიფიკაცია და მინიჭება</translation>
+        <translation>ძრავების რიგის იდენტიფიკაცია და მინიჭება</translation>
     </message>
     <message>
         <location line="+15" />
@@ -4049,7 +4049,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../qgroundcontrol/src/AutoPilotPlugins/PX4/AirframeComponent.qml" line="+31" />
         <source>Your vehicle is using a custom airframe configuration. </source>
-        <translation>თქვენი მანქანა იყენებს საჰაერო ჩარჩოს მორგებულ კონფიგურაციას.</translation>
+        <translation>თქვენი აპარატი იყენებს საჰაერო ჩარჩოს მორგებულ კონფიგურაციას.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -4092,7 +4092,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location line="+1" />
         <source>Clicking 'Apply' will save the changes you have made to your airframe configuration.&lt;br&gt;&lt;br&gt;                                                                        All vehicle parameters other than Radio Calibration will be reset.&lt;br&gt;&lt;br&gt;                                                                        Your vehicle will also be restarted in order to complete the process.</source>
-        <translation>'Apply'-ზე დაწკაპუნებით შეინახავს თქვენს მიერ განხორციელებულ ცვლილებებს თქვენი საჰაერო ჩარჩოს კონფიგურაციაში.&lt;br&gt;&lt;br&gt; მანქანის ყველა პარამეტრი, გარდა რადიოს კალიბრაციისა, აღდგება.&lt;br&gt;&lt;br&gt; თქვენი მანქანა ასევე გადაიტვირთება პროცესის დასასრულებლად.</translation>
+        <translation>'Apply'-ზე დაწკაპუნებით შეინახავს თქვენს მიერ განხორციელებულ ცვლილებებს თქვენი საჰაერო ჩარჩოს კონფიგურაციაში.&lt;br&gt;&lt;br&gt; აპარატის ყველა პარამეტრი, გარდა რადიოს კალიბრაციისა, აღდგება.&lt;br&gt;&lt;br&gt; თქვენი აპარატი ასევე გადაიტვირთება პროცესის დასასრულებლად.</translation>
     </message>
     <message>
         <location filename="../qgroundcontrol/src/AutoPilotPlugins/PX4/AirframeComponent.cc" line="+7" />
@@ -4110,7 +4110,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
         <location filename="../qgroundcontrol/src/AutoPilotPlugins/PX4/AirframeComponentController.cc" line="+76" />
         <source>You cannot change airframe configuration while connected to multiple vehicles.</source>
-        <translation>თქვენ არ შეგიძლიათ შეცვალოთ საჰაერო ჩარჩოს კონფიგურაცია, როდესაც ხართ დაკავშირებული რამდენიმე მანქანასთან.</translation>
+        <translation>თქვენ არ შეგიძლიათ შეცვალოთ საჰაერო ჩარჩოს კონფიგურაცია, როდესაც ხართ დაკავშირებული რამდენიმე აპარატთან.</translation>
     </message>
 </context>
 <context>
@@ -4621,7 +4621,7 @@ Click Ok to start the auto-tuning process.
         <location line="+16" />
         <location filename="../qgroundcontrol/src/Toolbar/BatteryIndicator.qml" line="+16" />
         <source>Vehicle Power</source>
-        <translation>ავტომობილის სიმძლავრე</translation>
+        <translation>აპარატის სიმძლავრე</translation>
     </message>
     <message>
         <location line="+1" />
@@ -5387,7 +5387,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+3" />
         <source>Vehicle current:</source>
-        <translation>მანქანის დენი:</translation>
+        <translation>აპარატის დენი:</translation>
     </message>
     <message>
         <location line="+3" />
@@ -5420,7 +5420,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+3" />
         <source>Vehicle voltage:</source>
-        <translation>მანქანის ძაბვა:</translation>
+        <translation>აპარატის ძაბვა:</translation>
     </message>
     <message>
         <location line="+3" />
@@ -5590,7 +5590,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+12" />
         <source>Follow Vehicle</source>
-        <translation>მიჰყევით მანქანას</translation>
+        <translation>მიჰყევით აპარატს</translation>
     </message>
 </context>
 <context>
@@ -5890,12 +5890,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+1" />
         <source>Props mounted? Wings secured? Tail secured?</source>
-        <translation>საყრდენები დამონტაჟებულია? ფრთები უზრუნველყოფილია? კუდი დაცულია?</translation>
+        <translation>პროპელერები დამონტაჟებულია? ფრთები უზრუნველყოფილია? კუდი დაცულია?</translation>
     </message>
     <message>
         <location line="+21" />
         <source>Please arm the vehicle here</source>
-        <translation>გთხოვთ დაქოქოთ მანქანა აქ</translation>
+        <translation>გთხოვთ დაქოქოთ აპარატი აქ</translation>
     </message>
     <message>
         <location line="+3" />
@@ -5915,7 +5915,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+1" />
         <source>Propellers free? Then throttle up gently. Working properly?</source>
-        <translation>პროპელერები თავისუფალია? შემდეგ ნაზად აწიეთ დრო. მუშაობს გამართულად?</translation>
+        <translation>პროპელერები თავისუფალია? შემდეგ ნელა აწიეთ დროსელი. მუშაობს გამართულად?</translation>
     </message>
     <message>
         <location line="+4" />
@@ -5996,7 +5996,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+5" />
         <source>WARNING: Props must be removed from vehicle prior to performing ESC calibration.</source>
-        <translation>გაფრთხილება: საყრდენები უნდა მოიხსნას ავტომობილიდან ESC კალიბრაციის განხორციელებამდე.</translation>
+        <translation>გაფრთხილება: პროპელერები უნდა მოიხსნას აპარატიდან ESC კალიბრაციის განხორციელებამდე.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -6229,7 +6229,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="-1" />
         <source>Vehicle Position</source>
-        <translation>ავტომობილის პოზიცია</translation>
+        <translation>აპარატის პოზიცია</translation>
     </message>
     <message>
         <location line="+5" />
@@ -6543,12 +6543,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location filename="../qgroundcontrol/src/PlanView/FWLandingPatternEditor.qml" line="+26" />
         <source>Set to vehicle heading</source>
-        <translation>დაყენებულია მანქანის მიმართულებაზე</translation>
+        <translation>დაყენებულია აპარატის მიმართულებაზე</translation>
     </message>
     <message>
         <location line="+1" />
         <source>Set to vehicle location</source>
-        <translation>მანქანის მდებარეობაზე დაყენება</translation>
+        <translation>აპარატის მდებარეობაზე დაყენება</translation>
     </message>
     <message>
         <location line="+16" />
@@ -6691,7 +6691,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+533" />
         <source>Reboot vehicle for changes to take effect.</source>
-        <translation>გადატვირთეთ მანქანა ცვლილებების ძალაში შესვლისთვის.</translation>
+        <translation>გადატვირთეთ აპარატი ცვლილებების ძალაში შესვლისთვის.</translation>
     </message>
     <message>
         <location line="+2" />
@@ -10467,7 +10467,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+1" />
         <source>Press Ok to upgrade your vehicle.</source>
-        <translation>დააჭირეთ ღილაკს OK თქვენი მანქანის განახლებისთვის.</translation>
+        <translation>დააჭირეთ ღილაკს OK თქვენი აპარატის განახლებისთვის.</translation>
     </message>
     <message>
         <location line="+30" />
@@ -10537,7 +10537,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+1" />
         <source>Run bench tests without props first. </source>
-        <translation>ჯერ ჩაატარეთ სკამების ტესტები საყრდენის გარეშე.</translation>
+        <translation>ჯერ ჩაატარეთ სტენდური ტესტები პროპელერების გარეშე. </translation>
     </message>
     <message>
         <location line="+1" />
@@ -10673,12 +10673,12 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+1" />
         <source>Props mounted? Wings secured? Tail secured?</source>
-        <translation>საყრდენები დამონტაჟებულია? ფრთები უზრუნველყოფილია? კუდი დაცულია?</translation>
+        <translation>პროპელერები დამონტაჟებულია? ფრთები უზრუნველყოფილია? კუდი დაცულია?</translation>
     </message>
     <message>
         <location line="+21" />
         <source>Please arm the vehicle here</source>
-        <translation>გთხოვთ დაქოქოთ მანქანა აქ</translation>
+        <translation>გთხოვთ დაქოქოთ აპარატი აქ</translation>
     </message>
     <message>
         <location line="+3" />
@@ -10698,7 +10698,7 @@ Click Ok to start the auto-tuning process.
     <message>
         <location line="+1" />
         <source>Propellers free? Then throttle up gently. Working properly?</source>
-        <translation>პროპელერები თავისუფალია? შემდეგ ნაზად აწიეთ დრო. მუშაობს გამართულად?</translation>
+        <translation>პროპელერები თავისუფალია? შემდეგ ნელა აწიეთ დროსელი. მუშაობს გამართულად?</translation>
     </message>
     <message>
         <location line="+4" />
@@ -11253,12 +11253,12 @@ VTOL</translation>
     <message>
         <location line="+7" />
         <source>Remove plan from vehicle</source>
-        <translation>ამოიღეთ გეგმა მანქანიდან</translation>
+        <translation>ამოიღეთ გეგმა აპარატიდან</translation>
     </message>
     <message>
         <location line="+11" />
         <source>Leave plan on vehicle</source>
-        <translation>გეგმის დატოვება მანქანაზე</translation>
+        <translation>გეგმის დატოვება აპარატზე</translation>
     </message>
     <message>
         <location line="+19" />
@@ -11268,12 +11268,12 @@ VTOL</translation>
     <message>
         <location line="+11" />
         <source>Resume Mission will rebuild the current mission from the last flown waypoint and upload it to the vehicle for the next flight.</source>
-        <translation>Resume Mission აღადგენს მიმდინარე მისიას ბოლო გაფრენილი პუნქტიდან და ატვირთავს მას მანქანაში შემდეგი ფრენისთვის.</translation>
+        <translation>Resume Mission აღადგენს მიმდინარე მისიას ბოლო გაფრენილი პუნქტიდან და ატვირთავს მას აპარატში შემდეგი ფრენისთვის.</translation>
     </message>
     <message>
         <location line="+8" />
         <source>If you are changing batteries for Resume Mission do not disconnect from the vehicle.</source>
-        <translation>თუ თქვენ ცვლით ბატარეებს Resume Mission-ისთვის, არ გათიშოთ მანქანა.</translation>
+        <translation>თუ თქვენ ცვლით ბატარეებს Resume Mission-ისთვის, არ გათიშოთ აპარატი.</translation>
     </message>
 </context>
 <context>
@@ -11556,7 +11556,7 @@ VTOL</translation>
     <message>
         <location line="+9" />
         <source>Vehicle GPS Status</source>
-        <translation>მანქანის GPS სტატუსი</translation>
+        <translation>აპარატის GPS სტატუსი</translation>
     </message>
     <message>
         <location line="+4" />
@@ -11793,7 +11793,7 @@ VTOL</translation>
     <message>
         <location line="+1" />
         <source>This vehicle does not support GeoFence.</source>
-        <translation>ეს მანქანა არ უჭერს მხარს GeoFence-ს.</translation>
+        <translation>ეს აპარატი არ უჭერს მხარს GeoFence-ს.</translation>
     </message>
     <message>
         <location line="+50" />
@@ -12674,7 +12674,7 @@ VTOL</translation>
     <message>
         <location line="+2" />
         <source>Arm the vehicle.</source>
-        <translation>დაქოქე მანქანა.</translation>
+        <translation>დაქოქე აპარატი.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -12689,17 +12689,17 @@ VTOL</translation>
     <message>
         <location line="+1" />
         <source>Disarm the vehicle</source>
-        <translation>გათიშე მანქანა</translation>
+        <translation>გათიშე აპარატი</translation>
     </message>
     <message>
         <location line="+1" />
         <source>Disarm selected vehicles.</source>
-        <translation>არჩეული მანქანების გათიშვა.</translation>
+        <translation>არჩეული აპარატების გათიშვა.</translation>
     </message>
     <message>
         <location line="+1" />
         <source>WARNING: THIS WILL STOP ALL MOTORS. IF VEHICLE IS CURRENTLY IN THE AIR IT WILL CRASH.</source>
-        <translation>გაფრთხილება: ეს გააჩერებს ყველა ძრავას. თუ მანქანა ამჟამად ჰაერშია, ის დაეჯახა.</translation>
+        <translation>გაფრთხილება: ეს გააჩერებს ყველა ძრავას. თუ აპარატი ამჟამად ჰაერშია, ის დაეჯახა.</translation>
     </message>
     <message>
         <location line="+5" />
@@ -12709,12 +12709,12 @@ VTOL</translation>
     <message>
         <location line="+14" />
         <source>Set vehicle home as the specified location. This will affect Return to Home position</source>
-        <translation>დააყენეთ მანქანის სახლი მითითებულ ადგილას. ეს გავლენას მოახდენს სახლში დაბრუნების პოზიციაზე</translation>
+        <translation>დააყენეთ აპარატის სახლი მითითებულ ადგილას. ეს გავლენას მოახდენს სახლში დაბრუნების პოზიციაზე</translation>
     </message>
     <message>
         <location line="+2" />
         <source>Set the vehicle flight mode to %1</source>
-        <translation>დააყენეთ მანქანის ფრენის რეჟიმი %1</translation>
+        <translation>დააყენეთ აპარატის ფრენის რეჟიმი %1</translation>
     </message>
     <message>
         <location line="+130" />
@@ -12904,7 +12904,7 @@ VTOL</translation>
     <message>
         <location line="+16" />
         <source>Valuec requires a connected vehicle for setup.</source>
-        <translation>Valuec საჭიროებს დაკავშირებულ მანქანას დასაყენებლად.</translation>
+        <translation>Valuec საჭიროებს დაკავშირებულ აპარატს დასაყენებლად.</translation>
     </message>
     <message>
         <location line="+14" />
@@ -15232,7 +15232,7 @@ VTOL</translation>
     <message>
         <location filename="../qgroundcontrol/src/AnalyzeView/MAVLinkConsole/MAVLinkConsolePage.qml" line="+11" />
         <source>Provides a connection to the vehicle's system shell.</source>
-        <translation>უზრუნველყოფს კავშირს მანქანის სისტემის გარსთან.</translation>
+        <translation>უზრუნველყოფს კავშირს აპარატის სისტემის გარსთან.</translation>
     </message>
     <message>
         <location line="+226" />
@@ -15891,7 +15891,7 @@ VTOL</translation>
         <location line="+1" />
         <location filename="../qgroundcontrol/src/MainWindow/MainWindow.qml" line="+1" />
         <source>You have pending parameter updates to a vehicle. If you close you will lose changes. Are you sure you want to close?</source>
-        <translation>თქვენ გაქვთ მანქანის პარამეტრების განახლებები. თუ დახურავთ ცვლილებებს დაკარგავთ. დარწმუნებული ხართ, რომ გსურთ დახურვა?</translation>
+        <translation>თქვენ გაქვთ აპარატის პარამეტრების განახლებები. თუ დახურავთ ცვლილებებს დაკარგავთ. დარწმუნებული ხართ, რომ გსურთ დახურვა?</translation>
     </message>
     <message>
         <location line="+15" />
@@ -15903,7 +15903,7 @@ VTOL</translation>
         <location line="+1" />
         <location filename="../qgroundcontrol/src/MainWindow/MainWindow.qml" line="+1" />
         <source>There are still active connections to vehicles. Are you sure you want to exit?</source>
-        <translation>ჯერ კიდევ არის აქტიური კავშირები მანქანებთან. დარწმუნებული ხართ, რომ გსურთ გასვლა?</translation>
+        <translation>ჯერ კიდევ არის აქტიური კავშირები აპარატებთან. დარწმუნებული ხართ, რომ გსურთ გასვლა?</translation>
     </message>
     <message>
         <location line="+46" />
@@ -16015,7 +16015,7 @@ VTOL</translation>
     <message>
         <location line="+60" />
         <source>Vehicle did not respond to command: %1</source>
-        <translation>მანქანამ არ უპასუხა ბრძანებას: %1</translation>
+        <translation>აპარატმა არ უპასუხა ბრძანებას: %1</translation>
     </message>
     <message>
         <location line="+100" />
@@ -16702,7 +16702,7 @@ VTOL</translation>
         <location line="+101" />
         <location filename="../qgroundcontrol/src/PlanView/MissionItemEditor.qml" line="+101" />
         <source>Move to vehicle position</source>
-        <translation>გადადით მანქანის პოზიციაზე</translation>
+        <translation>გადადით აპარატის პოზიციაზე</translation>
     </message>
     <message>
         <location line="+13" />
@@ -16935,12 +16935,12 @@ VTOL</translation>
     <message>
         <location line="+11" />
         <source>Vehicle Type</source>
-        <translation>ავტომობილის ტიპი</translation>
+        <translation>აპარატის ტიპი</translation>
     </message>
     <message>
         <location line="+7" />
         <source>PX4 Vehicle</source>
-        <translation>PX4 მანქანა</translation>
+        <translation>PX4 აპარატი</translation>
     </message>
     <message>
         <location line="+3" />
@@ -17063,7 +17063,7 @@ VTOL</translation>
     <message>
         <location line="+11" />
         <source>Vehicle Type</source>
-        <translation>ავტომობილის ტიპი</translation>
+        <translation>აპარატის ტიპი</translation>
     </message>
     <message>
         <location line="+1" />
@@ -17200,7 +17200,7 @@ Do you wish to proceed?</source>
     <message>
         <location line="+8" />
         <source>Make sure you remove all props.</source>
-        <translation>დარწმუნდით, რომ ამოიღეთ ყველა საყრდენი.</translation>
+        <translation>დარწმუნდით, რომ ამოიღეთ ყველა პროპელერი.</translation>
     </message>
     <message>
         <location line="+24" />
@@ -17248,12 +17248,12 @@ Do you wish to proceed?</source>
     <message>
         <location line="+1" />
         <source>Props mounted and secured?</source>
-        <translation>საყრდენები დამონტაჟებული და დაცული?</translation>
+        <translation>პროპელერები დამონტაჟებული და დაცული?</translation>
     </message>
     <message>
         <location line="+21" />
         <source>Please arm the vehicle here</source>
-        <translation>გთხოვთ შეიარაღოთ მანქანა აქ</translation>
+        <translation>გთხოვთ შეიარაღოთ აპარატი აქ</translation>
     </message>
     <message>
         <location line="+3" />
@@ -17263,7 +17263,7 @@ Do you wish to proceed?</source>
     <message>
         <location line="+1" />
         <source>Propellers free? Then throttle up gently. Working properly?</source>
-        <translation>პროპელერები თავისუფალია? შემდეგ ნაზად აწიეთ დრო. მუშაობს გამართულად?</translation>
+        <translation>პროპელერები თავისუფალია? შემდეგ ნელა აწიეთ დროსელი. მუშაობს გამართულად?</translation>
     </message>
     <message>
         <location line="+4" />
@@ -17329,12 +17329,12 @@ Do you wish to proceed?</source>
     <message>
         <location filename="../qgroundcontrol/src/Vehicle/MultiVehicleManager.cc" line="+113" />
         <source>Warning: A vehicle is using the same system id as %1: %2</source>
-        <translation>გაფრთხილება: მანქანა იყენებს იგივე სისტემის ID-ს, როგორც %1: %2</translation>
+        <translation>გაფრთხილება: აპარატი იყენებს იგივე სისტემის ID-ს, როგორც %1: %2</translation>
     </message>
     <message>
         <location line="+17" />
         <source>Connected to Vehicle %1</source>
-        <translation>დაკავშირებულია მანქანასთან %1</translation>
+        <translation>დაკავშირებულია აპარატთან %1</translation>
     </message>
 </context>
 <context>
@@ -18192,7 +18192,7 @@ Is this really what you want?</source>
     <message>
         <location filename="../qgroundcontrol/src/AutoPilotPlugins/PX4/PX4AutoPilotPlugin.cc" line="+167" />
         <source>Warning: Hardware In The Loop (HITL) simulation is enabled for this vehicle.</source>
-        <translation>გაფრთხილება: Hardware In The Loop (HITL) სიმულაცია ჩართულია ამ მანქანისთვის.</translation>
+        <translation>გაფრთხილება: Hardware In The Loop (HITL) სიმულაცია ჩართულია ამ აპარატისთვის.</translation>
     </message>
 </context>
 <context>
@@ -18452,12 +18452,12 @@ Is this really what you want?</source>
     <message>
         <location line="+1" />
         <source>A higher value makes the vehicle react faster. Be aware that this affects braking as well, and a combination of slow responsiveness with high maximum velocity will lead to long braking distances.</source>
-        <translation>უფრო მაღალი მნიშვნელობა აიძულებს მანქანას უფრო სწრაფად რეაგირებდეს. გაითვალისწინეთ, რომ ეს გავლენას ახდენს დამუხრუჭებაზეც და ნელი რეაგირების კომბინაცია მაღალ მაქსიმალურ სიჩქარესთან ერთად გამოიწვევს დამუხრუჭების დიდ დისტანციას.</translation>
+        <translation>უფრო მაღალი მნიშვნელობა აიძულებს აპარატს უფრო სწრაფად რეაგირებდეს. გაითვალისწინეთ, რომ ეს გავლენას ახდენს დამუხრუჭებაზეც და ნელი რეაგირების კომბინაცია მაღალ მაქსიმალურ სიჩქარესთან ერთად გამოიწვევს დამუხრუჭების დიდ დისტანციას.</translation>
     </message>
     <message>
         <location line="+36" />
         <source>Warning: a high responsiveness requires a vehicle with large thrust-to-weight ratio. The vehicle might lose altitude otherwise.</source>
-        <translation>გაფრთხილება: მაღალი რეაქციისთვის საჭიროა ავტომობილი დიდი ბიძგი-წონის თანაფარდობით. წინააღმდეგ შემთხვევაში მანქანამ შეიძლება დაკარგოს სიმაღლე.</translation>
+        <translation>გაფრთხილება: მაღალი რეაქციისთვის საჭიროა აპარატი დიდი ბიძგი-წონის თანაფარდობით. წინააღმდეგ შემთხვევაში აპარატმა შეიძლება დაკარგოს სიმაღლე.</translation>
     </message>
     <message>
         <location line="+39" />
@@ -19763,17 +19763,17 @@ Is this really what you want?</source>
 Note that this will also completely reset everything, including UAVCAN nodes, all vehicle settings, setup and calibrations.</source>
         <translation>აირჩიეთ გადატვირთვა ყველა პარამეტრის ნაგულისხმევად დასაბრუნებლად.
 
-გაითვალისწინეთ, რომ ეს ასევე სრულად აღადგენს ყველაფერს, მათ შორის UAVCAN კვანძებს, მანქანის ყველა პარამეტრს, დაყენებას და კალიბრაციას.</translation>
+გაითვალისწინეთ, რომ ეს ასევე სრულად აღადგენს ყველაფერს, მათ შორის UAVCAN კვანძებს, აპარატის ყველა პარამეტრს, დაყენებას და კალიბრაციას.</translation>
     </message>
     <message>
         <location line="+5" />
         <source>Reset to vehicle's configuration defaults</source>
-        <translation>გადააყენეთ მანქანის კონფიგურაციის ნაგულისხმევი პარამეტრები</translation>
+        <translation>გადააყენეთ აპარატის კონფიგურაციის ნაგულისხმევი პარამეტრები</translation>
     </message>
     <message>
         <location line="+3" />
         <source>Select Reset to reset all parameters to the vehicle's configuration defaults.</source>
-        <translation>აირჩიეთ გადატვირთვა ყველა პარამეტრის მანქანის კონფიგურაციის ნაგულისხმევად დასაბრუნებლად.</translation>
+        <translation>აირჩიეთ გადატვირთვა ყველა პარამეტრის აპარატის კონფიგურაციის ნაგულისხმევად დასაბრუნებლად.</translation>
     </message>
     <message>
         <location line="+7" />
@@ -19809,12 +19809,12 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
         <location line="+6" />
         <location line="+1" />
         <source>Reboot Vehicle</source>
-        <translation>გადატვირთეთ მანქანა</translation>
+        <translation>გადატვირთეთ აპარატი</translation>
     </message>
     <message>
         <location line="+1" />
         <source>Select Ok to reboot vehicle.</source>
-        <translation>აირჩიეთ კარგი მანქანის გადატვირთვისთვის.</translation>
+        <translation>აირჩიეთ კარგი აპარატის გადატვირთვისთვის.</translation>
     </message>
     <message>
         <location line="+10" />
@@ -19930,7 +19930,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+7" />
         <source>Vehicle reboot required after change</source>
-        <translation>ცვლილების შემდეგ საჭიროა მანქანის გადატვირთვა</translation>
+        <translation>ცვლილების შემდეგ საჭიროა აპარატის გადატვირთვა</translation>
     </message>
     <message>
         <location line="+5" />
@@ -19940,7 +19940,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+6" />
         <source>Warning: Modifying values while vehicle is in flight can lead to vehicle instability and possible vehicle loss. </source>
-        <translation>გაფრთხილება: ავტომობილის ფრენისას მნიშვნელობების შეცვლამ შეიძლება გამოიწვიოს მანქანის არასტაბილურობა და მანქანის შესაძლო დაკარგვა.</translation>
+        <translation>გაფრთხილება: აპარატის ფრენისას მნიშვნელობების შეცვლამ შეიძლება გამოიწვიოს აპარატის არასტაბილურობა და აპარატის შესაძლო დაკარგვა.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -19983,12 +19983,12 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+157" />
         <source>%1 was unable to retrieve the full set of parameters from vehicle %2. This will cause %1 to be unable to display its full user interface. If you are using modified firmware, you may need to resolve any vehicle startup errors to resolve the issue. If you are using standard firmware, you may need to upgrade to a newer version to resolve the issue.</source>
-        <translation>%1-მა ვერ შეძლო პარამეტრების სრული ნაკრების აღდგენა მანქანიდან %2. ეს გამოიწვევს %1-ს, რომ ვერ აჩვენოს მისი სრული მომხმარებლის ინტერფეისი. თუ თქვენ იყენებთ შეცვლილ პროგრამულ უზრუნველყოფას, შეიძლება დაგჭირდეთ მანქანის გაშვების ნებისმიერი შეცდომის გადაჭრა პრობლემის მოსაგვარებლად. თუ იყენებთ სტანდარტულ პროგრამულ უზრუნველყოფას, პრობლემის გადასაჭრელად შეიძლება დაგჭირდეთ განახლება უფრო ახალ ვერსიაზე.</translation>
+        <translation>%1-მა ვერ შეძლო პარამეტრების სრული ნაკრების აღდგენა აპარატიდან %2. ეს გამოიწვევს %1-ს, რომ ვერ აჩვენოს მისი სრული მომხმარებლის ინტერფეისი. თუ თქვენ იყენებთ შეცვლილ პროგრამულ უზრუნველყოფას, შეიძლება დაგჭირდეთ აპარატის გაშვების ნებისმიერი შეცდომის გადაჭრა პრობლემის მოსაგვარებლად. თუ იყენებთ სტანდარტულ პროგრამულ უზრუნველყოფას, პრობლემის გადასაჭრელად შეიძლება დაგჭირდეთ განახლება უფრო ახალ ვერსიაზე.</translation>
     </message>
     <message>
         <location line="+52" />
         <source>Vehicle %1 did not respond to request for parameters. This will cause %2 to be unable to display its full user interface.</source>
-        <translation>ავტომობილმა %1 არ უპასუხა პარამეტრების მოთხოვნას. ეს გამოიწვევს %2-ს, რომ ვერ აჩვენოს მისი სრული მომხმარებლის ინტერფეისი.</translation>
+        <translation>აპარატმა %1 არ უპასუხა პარამეტრების მოთხოვნას. ეს გამოიწვევს %2-ს, რომ ვერ აჩვენოს მისი სრული მომხმარებლის ინტერფეისი.</translation>
     </message>
 </context>
 <context>
@@ -20195,7 +20195,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+8" />
         <source>Vehicle Info</source>
-        <translation>ავტომობილის ინფორმაცია</translation>
+        <translation>აპარატის ინფორმაცია</translation>
     </message>
     <message>
         <location line="+42" />
@@ -20258,7 +20258,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+8" />
         <source>Mission write failed, vehicle failed to send final ack.</source>
-        <translation>მისიის ჩაწერა ვერ მოხერხდა, მანქანამ ვერ გაიგზავნა საბოლოო ანგარიში.</translation>
+        <translation>მისიის ჩაწერა ვერ მოხერხდა, აპარატმა ვერ გაიგზავნა საბოლოო ანგარიში.</translation>
     </message>
     <message>
         <location line="+5" />
@@ -20268,7 +20268,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+9" />
         <source>Vehicle did not request all items from ground station: %1</source>
-        <translation>მანქანამ არ მოითხოვა ყველა ელემენტი მიწისქვეშა სადგურიდან: %1</translation>
+        <translation>აპარატმა არ მოითხოვა ყველა ელემენტი მიწისქვეშა სადგურიდან: %1</translation>
     </message>
     <message>
         <location line="+8" />
@@ -20283,7 +20283,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+7" />
         <source>Vehicle did not respond to mission item communication: %1</source>
-        <translation>მანქანა არ უპასუხა მისიის პუნქტის კომუნიკაციას: %1</translation>
+        <translation>აპარატი არ უპასუხა მისიის პუნქტის კომუნიკაციას: %1</translation>
     </message>
     <message>
         <location line="+117" />
@@ -20293,17 +20293,17 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+158" />
         <source>Vehicle requested item outside range, count:request %1:%2. Send to Vehicle failed.</source>
-        <translation>ავტომობილმა მოითხოვა ელემენტი დიაპაზონის გარეთ, რაოდენობა: მოთხოვნა %1:%2. მანქანაში გაგზავნა ვერ მოხერხდა.</translation>
+        <translation>აპარატმა მოითხოვა ელემენტი დიაპაზონის გარეთ, რაოდენობა: მოთხოვნა %1:%2. აპარატში გაგზავნა ვერ მოხერხდა.</translation>
     </message>
     <message>
         <location line="+114" />
         <source>Vehicle remove all failed. Error: %1</source>
-        <translation>მანქანის ყველა ამოღება ვერ მოხერხდა. შეცდომა: %1</translation>
+        <translation>აპარატის ყველა ამოღება ვერ მოხერხდა. შეცდომა: %1</translation>
     </message>
     <message>
         <location line="+11" />
         <source>Vehicle returned error: %1. %2Vehicle did not accept guided item.</source>
-        <translation>მანქანამ დააბრუნა შეცდომა: %1. %2მანქანამ არ მიიღო მართვადი ნივთი.</translation>
+        <translation>აპარატმა დააბრუნა შეცდომა: %1. %2აპარატმა არ მიიღო მართვადი ნივთი.</translation>
     </message>
     <message>
         <location line="+64" />
@@ -20561,22 +20561,22 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+343" />
         <source>Plan View - Vehicle Disconnected</source>
-        <translation>გეგმის ხედი - ავტომობილი გათიშულია</translation>
+        <translation>გეგმის ხედი - აპარატი გათიშულია</translation>
     </message>
     <message>
         <location line="+0" />
         <source>Plan View - Vehicle Changed</source>
-        <translation>გეგმის ხედი - ავტომობილი შეიცვალა</translation>
+        <translation>გეგმის ხედი - აპარატი შეიცვალა</translation>
     </message>
     <message>
         <location line="+8" />
         <source>The vehicle associated with the plan in the Plan View is no longer available. What would you like to do with that plan?</source>
-        <translation>გეგმასთან დაკავშირებული ავტომობილი გეგმის ხედში აღარ არის ხელმისაწვდომი. რის გაკეთებას ისურვებდით ამ გეგმით?</translation>
+        <translation>გეგმასთან დაკავშირებული აპარატი გეგმის ხედში აღარ არის ხელმისაწვდომი. რის გაკეთებას ისურვებდით ამ გეგმით?</translation>
     </message>
     <message>
         <location line="+0" />
         <source>The plan being worked on in the Plan View is not from the current vehicle. What would you like to do with that plan?</source>
-        <translation>გეგმა, რომელზეც მუშავდება გეგმის ხედში, არ არის მიმდინარე ავტომობილიდან. რის გაკეთებას ისურვებდით ამ გეგმით?</translation>
+        <translation>გეგმა, რომელზეც მუშავდება გეგმის ხედში, არ არის მიმდინარე აპარატიდან. რის გაკეთებას ისურვებდით ამ გეგმით?</translation>
     </message>
     <message>
         <location line="+7" />
@@ -20586,7 +20586,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+0" />
         <source>Discard Unsaved Changes, Load New Plan From Vehicle</source>
-        <translation>გააუქმეთ შენახული ცვლილებები, ჩატვირთეთ ახალი გეგმა მანქანიდან</translation>
+        <translation>გააუქმეთ შენახული ცვლილებები, ჩატვირთეთ ახალი გეგმა აპარატიდან</translation>
     </message>
     <message>
         <location line="+0" />
@@ -20601,7 +20601,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
     <message>
         <location line="+0" />
         <source>Keep Current Plan, Don't Update From Vehicle</source>
-        <translation>შეინახეთ მიმდინარე გეგმა, არ განაახლოთ მანქანიდან</translation>
+        <translation>შეინახეთ მიმდინარე გეგმა, არ განაახლოთ აპარატიდან</translation>
     </message>
     <message>
         <location line="-757" />
@@ -20651,7 +20651,7 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
         <source>This Plan was created for a different firmware or vehicle type than the firmware/vehicle type of vehicle you are uploading to. This can lead to errors or incorrect behavior. It is recommended to recreate the Plan for the correct firmware/vehicle type.
 
 Click 'Ok' to upload the Plan anyway.</source>
-        <translation>ეს გეგმა შეიქმნა სხვა პროგრამული უზრუნველყოფის ან მანქანის ტიპისთვის, ვიდრე იმ მანქანის firmware/სატრანსპორტო ტიპი, რომელშიც ატვირთავთ. ამან შეიძლება გამოიწვიოს შეცდომები ან არასწორი ქცევა. რეკომენდირებულია გეგმის ხელახლა შექმნა firmware/სატრანსპორტო საშუალების სწორი ტიპისთვის.
+        <translation>ეს გეგმა შეიქმნა სხვა პროგრამული უზრუნველყოფის ან აპარატის ტიპისთვის, ვიდრე იმ აპარატის firmware/სატრანსპორტო ტიპი, რომელშიც ატვირთავთ. ამან შეიძლება გამოიწვიოს შეცდომები ან არასწორი ქცევა. რეკომენდირებულია გეგმის ხელახლა შექმნა firmware/სატრანსპორტო საშუალების სწორი ტიპისთვის.
 
 დააწკაპუნეთ „OK“ გეგმის ატვირთვისთვის მაინც.</translation>
     </message>
@@ -21055,7 +21055,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+62" />
         <source>WARNING: You are about to enter Advanced Mode. If used incorrectly, this may cause your vehicle to malfunction thus voiding your warranty. You should do so only if instructed by customer support. Are you sure you want to enable Advanced Mode?</source>
-        <translation>გაფრთხილება: თქვენ აპირებთ გაფართოებულ რეჟიმში გადასვლას. არასწორად გამოყენების შემთხვევაში, ამან შეიძლება გამოიწვიოს თქვენი ავტომობილის გაუმართაობა, რაც გააუქმებს თქვენს გარანტიას. თქვენ უნდა გააკეთოთ ეს მხოლოდ იმ შემთხვევაში, თუ ინსტრუქცია გაქვთ მომხმარებელთა მხარდაჭერის მიერ. დარწმუნებული ხართ, რომ გსურთ გაფართოებული რეჟიმის ჩართვა?</translation>
+        <translation>გაფრთხილება: თქვენ აპირებთ გაფართოებულ რეჟიმში გადასვლას. არასწორად გამოყენების შემთხვევაში, ამან შეიძლება გამოიწვიოს თქვენი აპარატის გაუმართაობა, რაც გააუქმებს თქვენს გარანტიას. თქვენ უნდა გააკეთოთ ეს მხოლოდ იმ შემთხვევაში, თუ ინსტრუქცია გაქვთ მომხმარებელთა მხარდაჭერის მიერ. დარწმუნებული ხართ, რომ გსურთ გაფართოებული რეჟიმის ჩართვა?</translation>
     </message>
 </context>
 <context>
@@ -21476,7 +21476,7 @@ Click 'Ok' to upload the Plan anyway.</source>
         <location filename="../qgroundcontrol/src/FirmwarePlugin/FirmwarePlugin.cc" line="-333" />
         <location filename="../qgroundcontrol/src/Vehicle/Vehicle.cc" line="+98" />
         <source>Guided mode not supported by Vehicle.</source>
-        <translation>მართვადი რეჟიმი არ არის მხარდაჭერილი ავტომობილის მიერ.</translation>
+        <translation>მართვადი რეჟიმი არ არის მხარდაჭერილი აპარატის მიერ.</translation>
     </message>
     </context>
 <context>
@@ -21641,7 +21641,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+6" />
         <source>Waiting on parameter update from Vehicle.</source>
-        <translation>ველოდებით პარამეტრის განახლებას ავტომობილიდან.</translation>
+        <translation>ველოდებით პარამეტრის განახლებას აპარატიდან.</translation>
     </message>
     <message>
         <location line="+11" />
@@ -21940,7 +21940,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+1" />
         <source>Please ensure all motor power is disconnected AND all props are removed from the vehicle.</source>
-        <translation>გთხოვთ, დარწმუნდეთ, რომ ძრავის მთელი სიმძლავრე გამორთულია და ყველა საყრდენი ამოღებულია მანქანიდან.</translation>
+        <translation>გთხოვთ, დარწმუნდეთ, რომ ძრავის მთელი სიმძლავრე გამორთულია და ყველა პროპელერი ამოღებულია აპარატიდან.</translation>
     </message>
 </context>
 <context>
@@ -22311,7 +22311,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+21" />
         <source>Please arm the vehicle here</source>
-        <translation>გთხოვთ დაქოქოთ მანქანა აქ</translation>
+        <translation>გთხოვთ დაქოქოთ აპარატი აქ</translation>
     </message>
     <message>
         <location line="+3" />
@@ -22659,12 +22659,12 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+20" />
         <source>Place your vehicle into one of the Incomplete orientations shown below and hold it still</source>
-        <translation>მოათავსეთ თქვენი მანქანა ქვემოთ ნაჩვენები ერთ-ერთ არასრულ ორიენტაციაზე და გააჩერეთ იგი</translation>
+        <translation>მოათავსეთ თქვენი აპარატი ქვემოთ ნაჩვენები ერთ-ერთ არასრულ ორიენტაციაზე და გააჩერეთ იგი</translation>
     </message>
     <message>
         <location line="+66" />
         <source>Rotate the vehicle continuously as shown in the diagram until marked as Completed</source>
-        <translation>ატრიალეთ მანქანა განუწყვეტლივ, როგორც ეს ნაჩვენებია დიაგრამაზე, სანამ არ მოინიშნება როგორც დასრულებული</translation>
+        <translation>ატრიალეთ აპარატი განუწყვეტლივ, როგორც ეს ნაჩვენებია დიაგრამაზე, სანამ არ მოინიშნება როგორც დასრულებული</translation>
     </message>
     <message>
         <location line="+2" />
@@ -22674,12 +22674,12 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+25" />
         <source>Place you vehicle into one of the orientations shown below and hold it still</source>
-        <translation>მოათავსეთ თქვენი მანქანა ქვემოთ მოცემულ ერთ-ერთ ორიენტაციაზე და გააჩერეთ იგი</translation>
+        <translation>მოათავსეთ თქვენი აპარატი ქვემოთ მოცემულ ერთ-ერთ ორიენტაციაზე და გააჩერეთ იგი</translation>
     </message>
     <message>
         <location line="+7" />
         <source>Orientation already completed, place you vehicle into one of the incomplete orientations shown below and hold it still</source>
-        <translation>ორიენტაცია უკვე დასრულებულია, მოათავსეთ თქვენი მანქანა ქვემოთ მოცემულ არასრულ ორიენტაციაზე და გააჩერეთ იგი</translation>
+        <translation>ორიენტაცია უკვე დასრულებულია, მოათავსეთ თქვენი აპარატი ქვემოთ მოცემულ არასრულ ორიენტაციაზე და გააჩერეთ იგი</translation>
     </message>
     <message>
         <location line="+54" />
@@ -22786,22 +22786,22 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+2" />
         <source>For Compass calibration you will need to rotate your vehicle through a number of positions.</source>
-        <translation>კომპასის კალიბრაციისთვის მოგიწევთ თქვენი მანქანის როტაცია რამდენიმე პოზიციით.</translation>
+        <translation>კომპასის კალიბრაციისთვის მოგიწევთ თქვენი აპარატის როტაცია რამდენიმე პოზიციით.</translation>
     </message>
     <message>
         <location line="+1" />
         <source>For Gyroscope calibration you will need to place your vehicle on a surface and leave it still.</source>
-        <translation>გიროსკოპის კალიბრაციისთვის მოგიწევთ თქვენი ავტომობილი დააყენოთ ზედაპირზე და დატოვოთ იგი.</translation>
+        <translation>გიროსკოპის კალიბრაციისთვის მოგიწევთ თქვენი აპარატი დააყენოთ ზედაპირზე და დატოვოთ იგი.</translation>
     </message>
     <message>
         <location line="+1" />
         <source>For Accelerometer calibration you will need to place your vehicle on all six sides on a perfectly level surface and hold it still in each orientation for a few seconds.</source>
-        <translation>აქსელერომეტრის დაკალიბრებისთვის, თქვენ უნდა მოათავსოთ თქვენი მანქანა ექვსივე მხრიდან იდეალურად გასწორებულ ზედაპირზე და გააჩეროთ იგი თითოეულ ორიენტაციაზე რამდენიმე წამის განმავლობაში.</translation>
+        <translation>აქსელერომეტრის დაკალიბრებისთვის, თქვენ უნდა მოათავსოთ თქვენი აპარატი ექვსივე მხრიდან იდეალურად გასწორებულ ზედაპირზე და გააჩეროთ იგი თითოეულ ორიენტაციაზე რამდენიმე წამის განმავლობაში.</translation>
     </message>
     <message>
         <location line="+1" />
         <source>To level the horizon you need to place the vehicle in its level flight position and leave still.</source>
-        <translation>ჰორიზონტის გასათანაბრებლად, თქვენ უნდა მოათავსოთ მანქანა მისი დონის ფრენის მდგომარეობაში და დატოვოთ უძრავი.</translation>
+        <translation>ჰორიზონტის გასათანაბრებლად, თქვენ უნდა მოათავსოთ აპარატი მისი დონის ფრენის მდგომარეობაში და დატოვოთ უძრავი.</translation>
     </message>
     <message>
         <location line="+1" />
@@ -22831,7 +22831,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+1" />
         <source>Waiting for Vehicle to response to Cancel. This may take a few seconds.</source>
-        <translation>ელოდება ავტომობილის პასუხს გაუქმებაზე. ამას შეიძლება რამდენიმე წამი დასჭირდეს.</translation>
+        <translation>ელოდება აპარატის პასუხს გაუქმებაზე. ამას შეიძლება რამდენიმე წამი დასჭირდეს.</translation>
     </message>
     <message>
         <location line="+59" />
@@ -22857,12 +22857,12 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
         <location line="+27" />
         <source>Reboot the vehicle prior to flight.</source>
-        <translation>გადატვირთეთ მანქანა ფრენის წინ.</translation>
+        <translation>გადატვირთეთ აპარატი ფრენის წინ.</translation>
     </message>
     <message>
         <location line="+5" />
         <source>Reboot Vehicle</source>
-        <translation>გადატვირთეთ მანქანა</translation>
+        <translation>გადატვირთეთ აპარატი</translation>
     </message>
     <message>
         <location line="+6" />
@@ -23603,7 +23603,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+10" />
         <source>Note: Polygon respresents structure surface not vehicle flight path.</source>
-        <translation>შენიშვნა: მრავალკუთხედი წარმოადგენს სტრუქტურის ზედაპირს და არა მანქანის ფრენის გზას.</translation>
+        <translation>შენიშვნა: მრავალკუთხედი წარმოადგენს სტრუქტურის ზედაპირს და არა აპარატის ფრენის გზას.</translation>
     </message>
     <message>
         <location line="+7" />
@@ -23723,7 +23723,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+21" />
         <source>Please arm the vehicle here</source>
-        <translation>გთხოვთ დაქოქოთ მანქანა აქ</translation>
+        <translation>გთხოვთ დაქოქოთ აპარატი აქ</translation>
     </message>
     <message>
         <location line="+3" />
@@ -23743,7 +23743,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+1" />
         <source>Propellers free? Then throttle up gently. Working properly?</source>
-        <translation>პროპელერები თავისუფალია? შემდეგ ნაზად აწიეთ დრო. მუშაობს გამართულად?</translation>
+        <translation>პროპელერები თავისუფალია? შემდეგ ნელა აწიეთ დროსელი. მუშაობს გამართულად?</translation>
     </message>
     <message>
         <location line="+4" />
@@ -24080,7 +24080,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+1" />
         <source>Signing keys should only be sent to the vehicle over secure links.</source>
-        <translation>ხელმოწერის გასაღებები უნდა გაიგზავნოს მანქანას მხოლოდ უსაფრთხო ბმულებით.</translation>
+        <translation>ხელმოწერის გასაღებები უნდა გაიგზავნოს აპარატს მხოლოდ უსაფრთხო ბმულებით.</translation>
     </message>
     <message>
         <location line="+16" />
@@ -24090,12 +24090,12 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+5" />
         <source>Send to Vehicle</source>
-        <translation>გაგზავნეთ მანქანაში</translation>
+        <translation>გაგზავნეთ აპარატში</translation>
     </message>
     <message>
         <location line="+13" />
         <source>Signing key has changed. Don't forget to send to Vehicle(s) if needed.</source>
-        <translation>ხელმოწერის გასაღები შეიცვალა. საჭიროების შემთხვევაში არ დაგავიწყდეთ მანქანა(ებ)ისთვის გაგზავნა.</translation>
+        <translation>ხელმოწერის გასაღები შეიცვალა. საჭიროების შემთხვევაში არ დაგავიწყდეთ აპარატი(ებ)ისთვის გაგზავნა.</translation>
     </message>
     <message>
         <location line="+7" />
@@ -24155,7 +24155,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+8" />
         <source>Save logs even if vehicle was not armed</source>
-        <translation>შეინახეთ ჟურნალები მაშინაც კი, თუ მანქანა არ იყო დაქოქილი</translation>
+        <translation>შეინახეთ ჟურნალები მაშინაც კი, თუ აპარატი არ იყო დაქოქილი</translation>
     </message>
     <message>
         <location line="+9" />
@@ -24170,7 +24170,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+6" />
         <source>Controlled By vehicle</source>
-        <translation>კონტროლდება მანქანით</translation>
+        <translation>კონტროლდება აპარატით</translation>
     </message>
     <message>
         <location line="+7" />
@@ -24210,7 +24210,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+9" />
         <source>Link Status (Current Vehicle))</source>
-        <translation>ბმულის სტატუსი (მიმდინარე მანქანა))</translation>
+        <translation>ბმულის სტატუსი (მიმდინარე აპარატი))</translation>
     </message>
     <message>
         <location line="+4" />
@@ -24829,12 +24829,12 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+1" />
         <source>Props mounted? Wings secured? Tail secured?</source>
-        <translation>საყრდენები დამონტაჟებულია? ფრთები უზრუნველყოფილია? კუდი დაცულია?</translation>
+        <translation>პროპელერები დამონტაჟებულია? ფრთები უზრუნველყოფილია? კუდი დაცულია?</translation>
     </message>
     <message>
         <location line="+21" />
         <source>Please arm the vehicle here</source>
-        <translation>გთხოვთ დაქოქოთ მანქანა აქ</translation>
+        <translation>გთხოვთ დაქოქოთ აპარატი აქ</translation>
     </message>
     <message>
         <location line="+3" />
@@ -24854,7 +24854,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+1" />
         <source>Propellers free? Then throttle up gently. Working properly?</source>
-        <translation>პროპელერები თავისუფალია? შემდეგ ნაზად აწიეთ დრო. მუშაობს გამართულად?</translation>
+        <translation>პროპელერები თავისუფალია? შემდეგ ნელა აწიეთ დროსელი. მუშაობს გამართულად?</translation>
     </message>
     <message>
         <location line="+4" />
@@ -24920,12 +24920,12 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location filename="../qgroundcontrol/src/PlanView/VTOLLandingPatternEditor.qml" line="+26" />
         <source>Set to vehicle heading</source>
-        <translation>დაყენებულია მანქანის მიმართულებაზე</translation>
+        <translation>დაყენებულია აპარატის მიმართულებაზე</translation>
     </message>
     <message>
         <location line="+1" />
         <source>Set to vehicle location</source>
-        <translation>მანქანის მდებარეობაზე დაყენება</translation>
+        <translation>აპარატის მდებარეობაზე დაყენება</translation>
     </message>
     <message>
         <location line="+16" />
@@ -25082,7 +25082,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+170" />
         <source>Vehicle %1 </source>
-        <translation>მანქანა %1</translation>
+        <translation>აპარატი %1</translation>
     </message>
     <message>
         <location line="+10" />
@@ -25102,7 +25102,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+241" />
         <source>Change Heading not supported by Vehicle.</source>
-        <translation>სათაურის შეცვლა არ არის მხარდაჭერილი ავტომობილის მიერ.</translation>
+        <translation>სათაურის შეცვლა არ არის მხარდაჭერილი აპარატის მიერ.</translation>
     </message>
     <message>
         <location line="+1427" />
@@ -25117,7 +25117,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location line="+70" />
         <source>Vehicle reboot failed.</source>
-        <translation>მანქანის გადატვირთვა ვერ მოხერხდა.</translation>
+        <translation>აპარატის გადატვირთვა ვერ მოხერხდა.</translation>
     </message>
     <message>
         <location line="+571" />
@@ -25211,7 +25211,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location filename="../qgroundcontrol/src/Vehicle/VehicleSetup/VehicleConfigView.qml" line="+26" />
         <source>This operation cannot be performed while the vehicle is armed.</source>
-        <translation>ამ ოპერაციის შესრულება შეუძლებელია, სანამ მანქანა დაქოქილია.</translation>
+        <translation>ამ ოპერაციის შესრულება შეუძლებელია, სანამ აპარატი დაქოქილია.</translation>
     </message>
     <message>
         <location line="+4" />
@@ -25502,7 +25502,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location filename="../qgroundcontrol/src/FlightMap/MapItems/VehicleMapItem.qml" line="+112" />
         <source>Vehicle %1</source>
-        <translation>მანქანა %1</translation>
+        <translation>აპარატი %1</translation>
     </message>
 </context>
 <context>
@@ -25567,7 +25567,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location filename="../qgroundcontrol/src/FlyView/VehicleWarnings.qml" line="+27" />
         <source>No GPS Lock for Vehicle</source>
-        <translation>არ არის GPS საკეტი ავტომობილისთვის</translation>
+        <translation>არ არის GPS საკეტი აპარატისთვის</translation>
     </message>
     <message>
         <location line="+19" />
@@ -25580,7 +25580,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
         <location filename="../qgroundcontrol/src/AnalyzeView/Vibration/VibrationPage.qml" line="+13" />
         <source>Analyze vibration associated with your vehicle.</source>
-        <translation>გაანალიზეთ თქვენს მანქანასთან დაკავშირებული ვიბრაცია.</translation>
+        <translation>გაანალიზეთ თქვენს აპარატთან დაკავშირებული ვიბრაცია.</translation>
     </message>
     <message>
         <location line="+72" />

@@ -5151,7 +5151,7 @@
         <message>
             <extracomment>.QGC.MetaData.Facts[telemetrySaveNotArmed].label</extracomment>
             <source>Save logs even if vehicle was not armed</source>
-            <translation>შეინახეთ ჟურნალები მაშინაც კი, თუ მანქანა არ იყო დაქოქილი</translation>
+            <translation>შეინახეთ ჟურნალები მაშინაც კი, თუ აპარატი არ იყო დაქოქილი</translation>
         </message>
         <message>
             <extracomment>.QGC.MetaData.Facts[telemetrySaveNotArmed].keywords</extracomment>
