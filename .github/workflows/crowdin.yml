@@ -3,8 +3,9 @@
 # Requires repository secrets: CROWDIN_PROJECT_ID, CROWDIN_PERSONAL_TOKEN
 # Setup: tools/CROWDIN.md
 #
-# upload_translations: false — do not overwrite Crowdin with stale local copies.
-# Seed existing repo translations once via: crowdin upload translations (local CLI).
+# upload_translations is off for scheduled runs — Crowdin stays the source of truth.
+# After fixing translations in the repo, run this workflow manually with push_translations=true
+# so the fixes reach Crowdin and the next weekly download does not revert them.
 
 name: DroneHub Crowdin Sync
 
@@ -19,6 +20,11 @@ on:
         description: 'Branch to sync with Crowdin'
         required: false
         default: 'master'
+      push_translations:
+        description: 'Also upload repo translations to Crowdin and approve them (one-off, after fixing translations in the repo)'
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -61,7 +67,12 @@ jobs:
           project_id: ${{ secrets.CROWDIN_PROJECT_ID }}
           token: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
           upload_sources: true
-          upload_translations: false
+          # Normally false so Crowdin is the source of truth. The manual push_translations run
+          # sends repo fixes (e.g. #51 terminology) up and approves them, so the next download
+          # does not revert them. Identical translations are skipped by Crowdin.
+          upload_translations: ${{ github.event.inputs.push_translations == 'true' }}
+          auto_approve_imported: ${{ github.event.inputs.push_translations == 'true' }}
+          import_eq_suggestions: false
           download_translations: true
           localization_branch_name: l10n/crowdin-ka
           create_pull_request: true

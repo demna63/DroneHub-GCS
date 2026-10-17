@@ -1,8 +1,9 @@
 # DroneHub GCS — fast source checks (no Qt, no QGC clone).
 #
 # Builds are manual/release-only, so nothing else runs on PRs. These checks catch
-# HUD token drift (Theme.qml ↔ FlyViewCustomLayer) and broken Georgian translations
-# in seconds. check-qml-override-drift.py needs a configured QGC tree, so it stays local.
+# HUD token drift (Theme.qml ↔ FlyViewCustomLayer), broken Georgian translations and
+# drone terminology regressions (e.g. from a Crowdin sync) in seconds.
+# check-qml-override-drift.py needs a configured QGC tree, so it stays local.
 
 name: DroneHub Checks
 
@@ -34,3 +35,7 @@ jobs:
 
       - name: Translation stats
         run: python3 tools/check-translation-stats.py
+
+      # Fails a Crowdin sync PR that brings back "vehicle = car" / "props = supports".
+      - name: Georgian terminology
+        run: python3 tools/check-ka-terminology.py
