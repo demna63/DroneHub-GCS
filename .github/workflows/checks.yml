@@ -1,0 +1,36 @@
+# DroneHub GCS — fast source checks (no Qt, no QGC clone).
+#
+# Builds are manual/release-only, so nothing else runs on PRs. These checks catch
+# HUD token drift (Theme.qml ↔ FlyViewCustomLayer) and broken Georgian translations
+# in seconds. check-qml-override-drift.py needs a configured QGC tree, so it stays local.
+
+name: DroneHub Checks
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-checks:
+    name: HUD tokens + translations
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: HUD token check
+        run: python3 tools/check-hud-tokens.py
+
+      - name: Translation stats
+        run: python3 tools/check-translation-stats.py
