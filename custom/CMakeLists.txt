@@ -19,7 +19,7 @@ message(STATUS "QGC: Adding DroneHub Custom Plugin")
 # @369-375, the QGC_APP_VERSION_STR compile-def @493, and the digit validation
 # @427-434). Re-assigning into PARENT_SCOPE therefore wins for all of them.
 set(DRONEHUB_VERSION_MAJOR 1)
-set(DRONEHUB_VERSION_MINOR 0)
+set(DRONEHUB_VERSION_MINOR 1)
 set(DRONEHUB_VERSION_PATCH 0)
 set(DRONEHUB_VERSION "${DRONEHUB_VERSION_MAJOR}.${DRONEHUB_VERSION_MINOR}.${DRONEHUB_VERSION_PATCH}")
 set(QGC_APP_VERSION             "${DRONEHUB_VERSION}"   PARENT_SCOPE)

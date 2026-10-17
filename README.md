@@ -1,7 +1,7 @@
 # DroneHub GCS — ქართული Ground Control Station
 
 QGroundControl-ის (Qt 6 / QML) custom build, ქართული ლოკალიზაციით და დახვეწილი UI/UX-ით.
-**ბაზა:** QGC **v5.1.5** · Qt **6.11.1** · app ვერსია **1.0.0**.
+**ბაზა:** QGC **v5.1.5** · Qt **6.11.1** · app ვერსია **1.1.0**.
 Target: **Windows · Linux · macOS · Android** (+ ექსპერიმენტული Web/WASM) — ერთი codebase.
 
 [![DroneHub Build](https://github.com/demna63/DroneHub-GCS/actions/workflows/build.yml/badge.svg)](https://github.com/demna63/DroneHub-GCS/actions/workflows/build.yml)
