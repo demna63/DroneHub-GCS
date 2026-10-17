@@ -809,9 +809,14 @@ Item {
     }
 
     component FloatingMetric: Item {
+        id: metricCell
         property string label: ""
         property string valueText: _t.emptyValue
         property color  valueColor: valueText === _t.emptyValue ? _t.textDisabled : _t.textPrimary
+        /// Critical state — drawn as a shaped badge, so it is not carried by colour alone.
+        property bool   alert: false
+        /// Keyboard reachable only when the cell toggles the expanded card.
+        activeFocusOnTab: togglesExpand
         property real   valueSize: _root._hudExpanded ? _t.fontBody + 6 : _t.fontBody + 4
         property real   cellWidth: _root._metricCellWidth
         property bool   togglesExpand: false
@@ -840,8 +845,32 @@ Item {
             radius:             _t.radiusMd
             color:              togglesExpand && metricMouse.containsMouse
                                     ? Qt.rgba(1, 1, 1, 0.10) : "transparent"
+            border.width:       metricCell.activeFocus ? 2 : 0
+            border.color:       _t.telemetryAccent
             z:                  -1
             Behavior on color { ColorAnimation { duration: 100 } }
+        }
+
+        // Critical-state badge: shape + "!" so the alarm reads without colour.
+        Rectangle {
+            visible:            metricCell.alert
+            z:                  2
+            anchors.top:        parent.top
+            anchors.right:      parent.right
+            anchors.margins:    -_t.spacingUnit * 0.6
+            width:              _t.fontCaption * 1.4
+            height:             width
+            radius:             width / 2
+            color:              _t.safeCrit
+
+            Text {
+                anchors.centerIn:   parent
+                text:               "!"
+                color:              _t.textPrimary
+                font.family:        _t.fontFamilyNumeric
+                font.pixelSize:     _t.fontCaption
+                font.bold:          true
+            }
         }
 
         ColumnLayout {
@@ -878,6 +907,15 @@ Item {
             }
         }
 
+        function _toggleExpanded() {
+            if (togglesExpand) {
+                _flyViewPrefs.flyHudExpanded = !_flyViewPrefs.flyHudExpanded
+            }
+        }
+
+        Keys.onReturnPressed:   _toggleExpanded()
+        Keys.onSpacePressed:    _toggleExpanded()
+
         MouseArea {
             id:                 metricMouse
             anchors.fill:       parent
@@ -885,7 +923,7 @@ Item {
             hoverEnabled:       togglesExpand
             cursorShape:        togglesExpand ? Qt.PointingHandCursor : Qt.ArrowCursor
             preventStealing:    true
-            onClicked:          _flyViewPrefs.flyHudExpanded = !_flyViewPrefs.flyHudExpanded
+            onClicked:          metricCell._toggleExpanded()
         }
     }
 
@@ -1227,8 +1265,11 @@ Item {
             radius:                 height / 2
             color:                  _hudEditMode ? "#330A84FF"
                                                  : (editButtonMouse.containsMouse ? Qt.rgba(1, 1, 1, 0.10) : "transparent")
-            border.width:           _hudEditMode ? 1 : 0
-            border.color:           "#800A84FF"
+            border.width:           activeFocus ? 2 : (_hudEditMode ? 1 : 0)
+            border.color:           activeFocus ? _t.telemetryAccent : "#800A84FF"
+            activeFocusOnTab:       true
+            Keys.onReturnPressed:   _root._hudEditMode = !_root._hudEditMode
+            Keys.onSpacePressed:    _root._hudEditMode = !_root._hudEditMode
             Behavior on color { ColorAnimation { duration: 100 } }
 
             Text {
@@ -1346,6 +1387,7 @@ Item {
                                 label:          _root._metricLabel(cell._key)
                                 valueText:      _root._metricValue(cell._key)
                                 valueColor:     _root._metricColor(cell._key)
+                                alert:          _root._metricColor(cell._key) == _t.safeCrit
                             }
 
                             ColumnLayout {
@@ -1393,8 +1435,11 @@ Item {
                         Layout.preferredHeight: Math.max(_t.spacingUnit * 4, _root._minTouchSize)
                         radius:                 width / 2
                         color:                  Qt.rgba(1, 1, 1, 0.06)
-                        border.width:           1
-                        border.color:           _t.glassEdge
+                        border.width:           activeFocus ? 2 : 1
+                        border.color:           activeFocus ? _t.telemetryAccent : _t.glassEdge
+                        activeFocusOnTab:       true
+                        Keys.onReturnPressed:   _root._addCompactSlot()
+                        Keys.onSpacePressed:    _root._addCompactSlot()
                         Text { anchors.centerIn: parent; text: "+"; color: _t.textSecondary; font.pixelSize: _t.fontBody }
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addCompactSlot() }
                     }
