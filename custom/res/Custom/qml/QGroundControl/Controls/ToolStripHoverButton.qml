@@ -40,9 +40,25 @@ Button {
 
     signal dropped(int index)
 
-    ToolTip.visible: hovered && control.text !== ""
+    // Icon-only buttons: hover shows the name on desktop; on touch screens (no hover)
+    // press-and-hold shows it instead. A connected pressAndHold suppresses clicked, so
+    // a long press reveals the label without switching views.
+    property bool _labelHint: false
+
+    ToolTip.visible: (hovered || _labelHint) && control.text !== ""
     ToolTip.text: control.text
-    ToolTip.delay: 400
+    ToolTip.delay: _labelHint ? 0 : 400
+
+    onPressAndHold: {
+        _labelHint = true
+        labelHintTimer.restart()
+    }
+
+    Timer {
+        id:         labelHintTimer
+        interval:   1500
+        onTriggered: control._labelHint = false
+    }
 
     // Icon-only buttons carry no visible label — expose name/role to assistive tech.
     Accessible.role:        Accessible.Button

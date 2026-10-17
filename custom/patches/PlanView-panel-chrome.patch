@@ -1,6 +1,8 @@
+diff --git a/src/PlanView/PlanViewRightPanel.qml b/src/PlanView/PlanViewRightPanel.qml
+index 5136776..0973b42 100644
 --- a/src/PlanView/PlanViewRightPanel.qml
 +++ b/src/PlanView/PlanViewRightPanel.qml
-@@ -31,8 +31,8 @@
+@@ -31,11 +31,16 @@ Item {
      Rectangle {
          id:             rightPanelBackground
          anchors.fill:   parent
@@ -11,3 +13,24 @@
      }
  
  
++    /// Visible width of the open/close tab left of the panel (PlanView reserves it on narrow screens).
++    readonly property real toggleTabWidth: panelOpenCloseButton.width
++    /// True while the panel is slid in (open).
++    readonly property bool expanded: panelOpenCloseButton._expanded
++
+     // Open/Close panel
+     Item {
+         id:                     panelOpenCloseButton
+@@ -49,8 +54,10 @@ Item {
+ 
+         Rectangle {
+             id:             toggleButtonRect
+-            width:          ScreenTools.defaultFontPixelWidth * 2.25
+-            height:         width * 3
++            // DroneHub: at least a minimum touch target wide on touch screens (was 2.25 em ≈ 18 px).
++            width:          ScreenTools.isMobile ? Math.max(ScreenTools.defaultFontPixelWidth * 2.25, ScreenTools.minTouchPixels)
++                                                 : ScreenTools.defaultFontPixelWidth * 2.25
++            height:         Math.max(width * 3, ScreenTools.defaultFontPixelHeight * 3)
+             radius:         ScreenTools.defaultBorderRadius
+             color:          rightPanelBackground.color
+             opacity:        rightPanelBackground.opacity

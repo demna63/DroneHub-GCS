@@ -44,7 +44,8 @@ ToolStripActionList {
         FlyViewGripperButton { },
         ToolStripAction {
             text:           qsTr("Setup")
-            iconSource:     "/qmlimages/Gears.svg"
+            // Wrench, not gears: Gears read as a second "Settings" next to the CogWheel below.
+            iconSource:     "/InstrumentValueIcons/wrench.svg"
             onTriggered:    _root._switchView(function() { mainWindow.showVehicleConfig() })
         },
         ToolStripAction {
