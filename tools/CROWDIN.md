@@ -148,6 +148,23 @@ print(f'messages={len(msgs)} finished={done} unfinished={unfinished} language={r
 
 Expected: `language=ka_GE`, `sourcelanguage=en` in the file header.
 
+## 8. Terminology guard (CI)
+
+`tools/check-ka-terminology.py` runs in **DroneHub Checks** on every PR, including the
+Crowdin sync PR. It fails when:
+
+- "vehicle" is translated as a car (მანქანა / ავტომობილი) — use **აპარატი**;
+- "props" as supports (საყრდენ…) — use **პროპელერები**; "motor" as საავტომობილო — use **ძრავა**;
+- a string listed in `translations/ka-keep-english.json` is translated. The list holds
+  `[file, context, source]` entries that stay English on purpose: axis names (Roll/Pitch/Yaw),
+  flight modes, compass letters, frame names, units, protocol and log names;
+- a DroneHub string whose source is already Georgian is changed.
+
+A red Crowdin PR means the download brought machine translations back: fix them in Crowdin
+(or close the PR) rather than merging. To translate a protected string on purpose, translate
+it in the repo, run `python3 tools/check-ka-terminology.py --update-keep-list`, commit both
+files, then run **DroneHub Crowdin Sync** with `push_translations` so Crowdin gets the change.
+
 ## Reference
 
 - Repo config: `crowdin.yml`
