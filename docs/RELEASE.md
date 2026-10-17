@@ -7,8 +7,10 @@ publishes them to a GitHub Release.
 
 1. Update `CHANGELOG.md`: move items from `## [Unreleased]` into a new
    `## [X.Y.Z] - YYYY-MM-DD` section (this exact heading is what the workflow reads).
-2. Commit on `master`.
-3. Tag and push:
+2. Bump `DRONEHUB_VERSION_MAJOR/MINOR/PATCH` in `custom/CMakeLists.txt` to `X.Y.Z` — it is the
+   version shown in About and used for installer/package names; the tag does not set it.
+3. Commit on `master`.
+4. Tag and push:
 
    ```bash
    git tag vX.Y.Z

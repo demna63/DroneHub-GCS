@@ -9,6 +9,32 @@ matches the pushed tag (`v1.2.3` → the `## [1.2.3]` block) as the GitHub Relea
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-17
+
+### Added
+- Fly View HUD keyboard navigation: the Edit button, the edit-mode "+" slot and the metric cells
+  that open the telemetry card are reachable with Tab; Return/Space activates them; focused
+  controls show a 2 px accent ring.
+- Critical battery/GPS metrics show a red "!" badge, so the alarm no longer relies on colour alone.
+
+### Changed
+- HUD glass plates are more opaque: secondary text stays ≥ 4.5:1 contrast over a light OSM map
+  (was 1.7:1); section labels get the same text outline as values.
+- HUD design tokens resynced with `Custom/Theme.qml` — on desktop the large HUD values are 24 px
+  (were 28 px).
+- The video placeholder logo pulses three times and then rests instead of looping forever.
+
+### Fixed
+- Phones and short windows: the HUD scales with the available height, the PiP is capped, the
+  telemetry card scrolls instead of running off-screen, and the ✎/✕ glyphs (missing from Android
+  fonts) are SVG icons.
+- Collapsed PiP no longer leaves an empty frame; the HUD re-centres.
+- HUD touch targets (Edit, remove, "+") are at least 44 px; captions never drop below 12 px.
+- With the telemetry card open, a tap on the map closes the card and also reaches the map.
+- The app reports its real version — 1.0.1 builds still identified themselves as 1.0.0.
+- Georgian: `qgc_ka.ts` realigned with the QGC 5.1 catalogue; "Logging" → "ლოგირება",
+  "Heading" → "კურსი".
+
 ## [1.0.1] - 2026-10-09
 
 ### Added
