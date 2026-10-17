@@ -113,8 +113,8 @@ Item {
         // Floors keep labels legible on phones (12 px ≈ 7.9 px before the clamp).
         readonly property real  fontHero:           Math.max(24, 24 * _root._fontScale)
         readonly property real  fontBody:           Math.max(17, 17 * _root._fontScale)
-        readonly property real  fontCaption:        Math.max(12, 13 * _root._fontScale)
-        readonly property real  fontMicro:          Math.max(12, 12 * _root._fontScale)
+        readonly property real  fontCaption:        Math.max(13, 13 * _root._fontScale)
+        readonly property real  fontMicro:          Math.max(13, 13 * _root._fontScale)
         readonly property string emptyValue:        "—"
     }
 
@@ -822,6 +822,9 @@ Item {
         property bool   togglesExpand: false
         /// false when the metric sits inside the shared HUD dock (no separate plate).
         property bool   plate: true
+        Accessible.role:        togglesExpand ? Accessible.Button : Accessible.StaticText
+        Accessible.name:        label + ": " + (valueText === _t.emptyValue ? qsTr("no data") : valueText)
+        Accessible.onPressAction: { if (togglesExpand) metricCell._toggleExpanded() }
 
         // Fixed cell width — every metric plate is identical regardless of content
         // length, so the compact row reads as one uniform unit in both HUD states.
@@ -1037,7 +1040,7 @@ Item {
         property real  dialSize: _root._instrumentSize
         // Labels follow the dial size (not the global font scale) so N/E/S/W and the
         // Mag/True readout never collide when the dial shrinks on phones.
-        readonly property real _labelPx: Math.min(_t.fontCaption, dialSize * 0.12)
+        readonly property real _labelPx: Math.max(_t.fontMicro, Math.min(_t.fontCaption, dialSize * 0.16))
         readonly property real _edge:    Math.max(3, dialSize * 0.08)
 
         // implicit + Layout sizing so the RowLayout gives the compass the SAME
@@ -1180,6 +1183,16 @@ Item {
 
     // Tap outside HUD to collapse expanded details. Passive: the press is handed on to
     // the map underneath, so a tap collapses the card AND still reaches the map.
+    // Keyboard users cannot tap outside to dismiss the card; Escape does the same.
+    Shortcut {
+        sequence:   "Escape"
+        enabled:    _hudExpanded || _hudEditMode
+        onActivated: {
+            _flyViewPrefs.flyHudExpanded = false
+            _root._hudEditMode = false
+        }
+    }
+
     MouseArea {
         anchors.fill:               parent
         visible:                    _hudExpanded && osRoot.visible
@@ -1256,6 +1269,9 @@ Item {
         // metric row off-centre or sticks out of the panel.
         Rectangle {
             id:                     hudEditButton
+            Accessible.role:        Accessible.Button
+            Accessible.name:        _root._hudEditMode ? qsTr("Done") : qsTr("Edit telemetry")
+            Accessible.onPressAction: _root._hudEditMode = !_root._hudEditMode
             anchors.right:          hudDock.right
             anchors.top:            hudDock.top
             anchors.margins:        _t.spacingUnit
@@ -1292,7 +1308,7 @@ Item {
                 sourceSize.height:  height
                 source:             "/InstrumentValueIcons/edit-pencil.svg"
                 color:              _t.textSecondary
-                opacity:            editButtonMouse.containsMouse ? 1.0 : 0.6
+                opacity:            1.0
             }
             MouseArea {
                 id:             editButtonMouse
@@ -1421,6 +1437,9 @@ Item {
                                         font.family:        _t.fontFamily
                                         font.pixelSize:     _t.fontMicro
                                     }
+                                    Accessible.role:        Accessible.Button
+                                    Accessible.name:        qsTr("remove")
+                                    Accessible.onPressAction: _root._removeCompactSlot(cell._idx)
                                     TapHandler { onTapped: _root._removeCompactSlot(cell._idx) }
                                 }
                             }
@@ -1440,6 +1459,9 @@ Item {
                         activeFocusOnTab:       true
                         Keys.onReturnPressed:   _root._addCompactSlot()
                         Keys.onSpacePressed:    _root._addCompactSlot()
+                        Accessible.role:        Accessible.Button
+                        Accessible.name:        qsTr("add metric")
+                        Accessible.onPressAction: _root._addCompactSlot()
                         Text { anchors.centerIn: parent; text: "+"; color: _t.textSecondary; font.pixelSize: _t.fontBody }
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addCompactSlot() }
                     }
@@ -1450,7 +1472,9 @@ Item {
             Rectangle {
                 // Also shown while editing so the expanded-metric pickers are
                 // reachable from the (collapsed-position) pencil button.
-                visible:                _hudExpanded || _hudEditMode
+                visible:                _hudExpanded || _hudEditMode || opacity > 0
+                opacity:                (_hudExpanded || _hudEditMode) ? 1.0 : 0.0
+                Behavior on opacity { NumberAnimation { duration: 150; easing.type: Easing.OutCubic } }
                 Layout.fillWidth:       true
                 Layout.topMargin:       _t.spacingUnit * 1.5   // clear the dock's bottom padding
                 radius:                 _t.radiusLg
@@ -1626,16 +1650,24 @@ Item {
                                     onActivated: (catalogIndex) => _root._setExpandedKey(
                                         expandedSlot.slotIndex, _root._metricCatalog[catalogIndex].key)
                                 }
-                                QGCColoredImage {
+                                Item {
                                     visible:                _root._expandedKeys.length > 1
-                                    Layout.preferredWidth:  _t.fontBody
-                                    Layout.preferredHeight: _t.fontBody
-                                    sourceSize.height:      height
-                                    source:                 "/res/XDelete.svg"
-                                    color:                  _t.safeCrit
+                                    Layout.preferredWidth:  _root._minTouchSize
+                                    Layout.preferredHeight: _root._minTouchSize
+                                    Layout.alignment:       Qt.AlignVCenter
+                                    Accessible.role:        Accessible.Button
+                                    Accessible.name:        qsTr("remove")
+                                    Accessible.onPressAction: _root._removeExpandedSlot(expandedSlot.slotIndex)
+                                    QGCColoredImage {
+                                        anchors.centerIn:   parent
+                                        width:              _t.fontBody
+                                        height:             _t.fontBody
+                                        sourceSize.height:  height
+                                        source:             "/res/XDelete.svg"
+                                        color:              _t.safeCrit
+                                    }
                                     MouseArea {
                                         anchors.fill:       parent
-                                        anchors.margins:    -_t.spacingUnit * 0.5   // larger touch target
                                         cursorShape:        Qt.PointingHandCursor
                                         onClicked:          _root._removeExpandedSlot(expandedSlot.slotIndex)
                                     }
@@ -1662,6 +1694,9 @@ Item {
                             font.family:        _t.fontFamily
                             font.pixelSize:     _t.fontMicro
                         }
+                        Accessible.role:        Accessible.Button
+                        Accessible.name:        qsTr("add metric")
+                        Accessible.onPressAction: _root._addExpandedSlot()
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addExpandedSlot() }
                     }
                 }

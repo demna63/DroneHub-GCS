@@ -11109,6 +11109,26 @@ VTOL</translation>
         <source>+ add metric</source>
         <translation>+ მეტრიკის დამატება</translation>
     </message>
+    <message>
+        <location filename="../qgroundcontrol/src/FlyView/FlyViewCustomLayer.qml" />
+        <source>remove</source>
+        <translation>წაშლა</translation>
+    </message>
+    <message>
+        <location filename="../qgroundcontrol/src/FlyView/FlyViewCustomLayer.qml" />
+        <source>add metric</source>
+        <translation>ლიანდაგის დამატება</translation>
+    </message>
+    <message>
+        <location filename="../qgroundcontrol/src/FlyView/FlyViewCustomLayer.qml" />
+        <source>Edit telemetry</source>
+        <translation>ტელემეტრიის რედაქტირება</translation>
+    </message>
+    <message>
+        <location filename="../qgroundcontrol/src/FlyView/FlyViewCustomLayer.qml" />
+        <source>no data</source>
+        <translation>მონაცემი არ არის</translation>
+    </message>
 </context>
 <context>
     <name>FlyViewGripperButton</name>
