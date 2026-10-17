@@ -48,6 +48,26 @@ Item {
 
     property bool _hudEditMode: false
 
+    /// Phones / short landscape windows: the desktop-sized HUD (fixed 100–128 px dials,
+    /// 28 px values) took half the screen height on a phone. Scale the whole HUD by the
+    /// available height; desktop windows taller than 640 px stay at 1.0 (unchanged).
+    /// Test on desktop with `--fake-mobile` and a ~900×410 window.
+    readonly property bool _compactUi:  ScreenTools.isMobile || ScreenTools.isFakeMobile || height < 560
+    readonly property real _uiScale:    _compactUi ? Math.max(0.55, Math.min(1.0, height / 640)) : 1.0
+    /// Text shrinks less than geometry so labels stay readable.
+    readonly property real _fontScale:  Math.max(0.72, _uiScale)
+    /// Upper bound for the expanded/edit card so it never runs off the top of the screen.
+    readonly property real _maxCardHeight: Math.max(_t.spacingUnit * 12,
+                                                   height - _cardTopInset - _dockReservedHeight - _margin * 2)
+    /// Only chrome above the *center* column constrains the card (the HUD sits right of the
+    /// PiP/tool strip, so their left-edge insets don't apply).
+    readonly property real _cardTopInset: parentToolInsets ? Math.max(parentToolInsets.topEdgeCenterInset, _margin) : _margin
+    /// On short screens the attitude/compass row is hidden while the telemetry card is
+    /// open, so the card gets the vertical space instead of a 60 px scroll window.
+    readonly property bool _hideInstruments: _compactUi && (_hudExpanded || _hudEditMode)
+    readonly property real _dockReservedHeight: compactContainer.height + _t.spacingUnit * 5
+                                                + (_hideInstruments ? 0 : _instrumentSize + _t.spacingUnit * 2)
+
     // Inline tokens — FlyViewCustomLayer compiles into FlightDisplayModule (qmlcache);
     // must not import Custom module (loads before engine import paths are ready).
     readonly property QtObject _t: QtObject {
@@ -78,9 +98,9 @@ Item {
         readonly property real  radiusSm:           6
         readonly property real  radiusMd:           12
         readonly property real  radiusLg:           20
-        readonly property real  spacingUnit:        8
-        readonly property real  instrumentSizeCompact:  100
-        readonly property real  instrumentSizeExpanded: 128
+        readonly property real  spacingUnit:        8 * _root._uiScale
+        readonly property real  instrumentSizeCompact:  100 * Math.max(0.72, _root._uiScale)
+        readonly property real  instrumentSizeExpanded: 128 * Math.max(0.72, _root._uiScale)
         // HUD compact row — mirror Custom/Theme.qml (qmlcache cannot import Custom).
         readonly property real  hudMetricCellWidthEm:       12.5
         readonly property real  hudMetricColumnGapUnits:     1.5
@@ -90,10 +110,10 @@ Item {
         readonly property real  hudMetricLabelLineHeight:  1.05
         readonly property string fontFamily:        "Noto Sans Georgian"
         readonly property string fontFamilyNumeric: ScreenTools.normalFontFamily
-        readonly property real  fontHero:           28
-        readonly property real  fontBody:           18
-        readonly property real  fontCaption:        13
-        readonly property real  fontMicro:          11
+        readonly property real  fontHero:           28 * _root._fontScale
+        readonly property real  fontBody:           18 * _root._fontScale
+        readonly property real  fontCaption:        13 * _root._fontScale
+        readonly property real  fontMicro:          11 * _root._fontScale
         readonly property string emptyValue:        "—"
     }
 
@@ -107,12 +127,7 @@ Item {
     property bool _hudExpanded:     _flyViewPrefs.flyHudExpanded
     property real _margin:          ScreenTools.defaultFontPixelHeight
     property real _bottomSafe:      _margin + (Qt.platform.os === "osx" ? _margin * 0.75 : 0)
-    property real _topChromeInset:  parentToolInsets
-                                        ? Math.max(parentToolInsets.topEdgeLeftInset,
-                                                   parentToolInsets.topEdgeCenterInset,
-                                                   parentToolInsets.topEdgeRightInset)
-                                        : _margin
-    property real _metricCellWidth: ScreenTools.defaultFontPixelWidth * _t.hudMetricCellWidthEm
+    property real _metricCellWidth: ScreenTools.defaultFontPixelWidth * _t.hudMetricCellWidthEm * _fontScale
     property real _metricColumnGap: _t.spacingUnit * _t.hudMetricColumnGapUnits
     property real _instrumentSize:  _hudExpanded ? _t.instrumentSizeExpanded : _t.instrumentSizeCompact
     property real _hudCompactWidth: Math.max(
@@ -977,6 +992,10 @@ Item {
     component CompassDial: Rectangle {
         id:             compassRoot
         property real  dialSize: _root._instrumentSize
+        // Labels follow the dial size (not the global font scale) so N/E/S/W and the
+        // Mag/True readout never collide when the dial shrinks on phones.
+        readonly property real _labelPx: Math.min(_t.fontCaption, dialSize * 0.12)
+        readonly property real _edge:    Math.max(3, dialSize * 0.08)
 
         // implicit + Layout sizing so the RowLayout gives the compass the SAME
         // diameter as the attitude wrapper (which is sized via Layout.preferredWidth).
@@ -1012,37 +1031,37 @@ Item {
             text: "N"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
-            anchors.topMargin: 8
+            anchors.topMargin: compassRoot._edge
         }
         Text {
             text: "S"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 8
+            anchors.bottomMargin: compassRoot._edge
         }
         Text {
             text: "W"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            anchors.leftMargin: 8
+            anchors.leftMargin: compassRoot._edge
         }
         Text {
             text: "E"
             color: _t.textPrimary
             font.bold: true
-            font.pixelSize: _t.fontCaption
+            font.pixelSize: compassRoot._labelPx
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.right
-            anchors.rightMargin: 8
+            anchors.rightMargin: compassRoot._edge
         }
 
         Canvas {
@@ -1098,7 +1117,7 @@ Item {
                 text:               qsTr("Mag") + " " + _root._magneticHeadingLabel()
                 color:              _t.textPrimary
                 font.bold:          true
-                font.pixelSize:     _t.fontCaption
+                font.pixelSize:     compassRoot._labelPx
                 font.family:        _t.fontFamilyNumeric
                 style:              Text.Outline
                 styleColor:         _t.textOutline
@@ -1108,7 +1127,7 @@ Item {
                 text:               qsTr("True") + " " + _root._trueHeadingLabel()
                 color:              _t.telemetryAccent
                 font.bold:          true
-                font.pixelSize:     _t.fontCaption
+                font.pixelSize:     compassRoot._labelPx
                 font.family:        _t.fontFamilyNumeric
                 style:              Text.Outline
                 styleColor:         _t.textOutline
@@ -1131,7 +1150,11 @@ Item {
         // Dock padding extends below osColumn — offset so the dock's outer edge sits
         // exactly dockBottomMargin above the bottom (same baseline as the PiP).
         anchors.bottomMargin:   dockBottomMargin + hudDock.dockPad
-        anchors.horizontalCenter: parent.horizontalCenter
+        // Centered, but pushed right of anything docked on the bottom-left (the video/map
+        // PiP) so the two never overlap on narrow screens. Desktop: usually just centered.
+        readonly property real _leftClear: (parentToolInsets ? parentToolInsets.leftEdgeBottomInset : 0) + _margin * 0.5
+        x:                      Math.max(Math.min((_root.width - width) / 2, _root.width - width - _margin * 0.5),
+                                         Math.min(_leftClear, Math.max(0, _root.width - width)))
         // Dock and expanded card share this width, so both edges line up. In edit mode
         // the picker row (+ add button) may be wider than the view row — grow to fit.
         width:                  Math.max(_hudExpanded
@@ -1153,9 +1176,10 @@ Item {
             id:             hudDock
             readonly property real dockPad:  _t.spacingUnit * 1.5
             x:              0
-            y:              instrumentRow.y - dockPad
+            readonly property real _topY: _root._hideInstruments ? compactContainer.y : instrumentRow.y
+            y:              _topY - dockPad
             width:          osRoot.width
-            height:         (compactContainer.y + compactContainer.height) - instrumentRow.y + dockPad * 2
+            height:         (compactContainer.y + compactContainer.height) - _topY + dockPad * 2
             z:              -1
             cornerRadius:   _t.radiusLg
             tint:           _t.glassTint
@@ -1175,6 +1199,7 @@ Item {
                 width:      parent.width - _t.radiusLg * 2
                 height:     1
                 y:          (instrumentRow.y + instrumentRow.height + compactContainer.y) / 2 - hudDock.y
+                visible:    !_root._hideInstruments
                 color:      _t.glassDivider
             }
         }
@@ -1187,7 +1212,7 @@ Item {
             anchors.top:            hudDock.top
             anchors.margins:        _t.spacingUnit
             z:                      1
-            width:                  editButtonText.implicitWidth + _t.spacingUnit * (_hudEditMode ? 2.5 : 1.5)
+            width:                  _hudEditMode ? editButtonText.implicitWidth + _t.spacingUnit * 2.5 : height
             height:                 _t.spacingUnit * 3.25
             radius:                 height / 2
             color:                  _hudEditMode ? "#330A84FF"
@@ -1199,12 +1224,24 @@ Item {
             Text {
                 id:                 editButtonText
                 anchors.centerIn:   parent
-                text:               _hudEditMode ? qsTr("Done") : "✎"
+                visible:            _hudEditMode
+                text:               qsTr("Done")
                 color:              _hudEditMode ? _t.telemetryAccent : _t.textSecondary
                 opacity:            _hudEditMode || editButtonMouse.containsMouse ? 1.0 : 0.6
                 font.family:        _t.fontFamily
                 font.pixelSize:     _t.fontCaption
                 font.weight:        _hudEditMode ? Font.DemiBold : Font.Normal
+            }
+            // Pencil as an SVG — "✎" is missing from the Android system fonts (rendered "▯").
+            QGCColoredImage {
+                anchors.centerIn:   parent
+                visible:            !_hudEditMode
+                width:              _t.fontCaption * 1.2
+                height:             width
+                sourceSize.height:  height
+                source:             "/InstrumentValueIcons/edit-pencil.svg"
+                color:              _t.textSecondary
+                opacity:            editButtonMouse.containsMouse ? 1.0 : 0.6
             }
             MouseArea {
                 id:             editButtonMouse
@@ -1223,6 +1260,7 @@ Item {
             RowLayout {
                 id:                     instrumentRow
                 Layout.alignment:       Qt.AlignHCenter
+                visible:                !_root._hideInstruments
                 spacing:                _t.spacingUnit * 2
 
                 Item {
@@ -1310,18 +1348,24 @@ Item {
                                     currentIndex:       _root._catalogIndexOf(cell._key)
                                     onActivated:        _root._setCompactKey(cell._idx, _root._metricCatalog[currentIndex].key)
                                 }
-                                Text {
+                                RowLayout {
                                     Layout.alignment:   Qt.AlignHCenter
                                     visible:            _root._compactKeys.length > 1
-                                    text:               qsTr("✕ remove")
-                                    color:              _t.safeCrit
-                                    font.family:        _t.fontFamily
-                                    font.pixelSize:     _t.fontMicro
-                                    MouseArea {
-                                        anchors.fill:   parent
-                                        cursorShape:    Qt.PointingHandCursor
-                                        onClicked:      _root._removeCompactSlot(cell._idx)
+                                    spacing:            _t.spacingUnit * 0.4
+                                    QGCColoredImage {
+                                        Layout.preferredWidth:  _t.fontMicro
+                                        Layout.preferredHeight: _t.fontMicro
+                                        sourceSize.height:      height
+                                        source:                 "/res/XDelete.svg"
+                                        color:                  _t.safeCrit
                                     }
+                                    Text {
+                                        text:               qsTr("remove")
+                                        color:              _t.safeCrit
+                                        font.family:        _t.fontFamily
+                                        font.pixelSize:     _t.fontMicro
+                                    }
+                                    TapHandler { onTapped: _root._removeCompactSlot(cell._idx) }
                                 }
                             }
                         }
@@ -1352,8 +1396,11 @@ Item {
                 Layout.topMargin:       _t.spacingUnit * 1.5   // clear the dock's bottom padding
                 radius:                 _t.radiusLg
                 color:                  "transparent"
-                implicitHeight:         expandedBody.implicitHeight + _t.spacingUnit * 2
+                // Capped so the card never runs off a short (phone) screen; the content
+                // scrolls inside expandedFlick instead.
+                implicitHeight:         Math.min(expandedBody.implicitHeight + _t.spacingUnit * 2, _root._maxCardHeight)
                 Layout.preferredHeight: implicitHeight
+                Layout.maximumHeight:   implicitHeight
 
                 GlassBackdrop {
                     anchors.fill:   parent
@@ -1363,12 +1410,20 @@ Item {
                     z:              -1
                 }
 
+                Flickable {
+                    id:                 expandedFlick
+                    anchors.fill:       parent
+                    anchors.margins:    _t.spacingUnit
+                    contentWidth:       width
+                    contentHeight:      expandedBody.implicitHeight
+                    interactive:        contentHeight > height
+                    boundsBehavior:     Flickable.StopAtBounds
+                    clip:               true
+                    ScrollBar.vertical: ScrollBar { policy: expandedFlick.interactive ? ScrollBar.AsNeeded : ScrollBar.AlwaysOff }
+
                 ColumnLayout {
                     id:                 expandedBody
-                    anchors.left:       parent.left
-                    anchors.right:      parent.right
-                    anchors.top:        parent.top
-                    anchors.margins:    _t.spacingUnit
+                    width:              expandedFlick.width
                     spacing:            _t.spacingUnit
 
                     RowLayout {
@@ -1512,16 +1567,18 @@ Item {
                                     onActivated: (catalogIndex) => _root._setExpandedKey(
                                         expandedSlot.slotIndex, _root._metricCatalog[catalogIndex].key)
                                 }
-                                Text {
-                                    visible:        _root._expandedKeys.length > 1
-                                    text:           "✕"
-                                    color:          _t.safeCrit
-                                    font.family:    _t.fontFamily
-                                    font.pixelSize: _t.fontBody
+                                QGCColoredImage {
+                                    visible:                _root._expandedKeys.length > 1
+                                    Layout.preferredWidth:  _t.fontBody
+                                    Layout.preferredHeight: _t.fontBody
+                                    sourceSize.height:      height
+                                    source:                 "/res/XDelete.svg"
+                                    color:                  _t.safeCrit
                                     MouseArea {
-                                        anchors.fill:   parent
-                                        cursorShape:    Qt.PointingHandCursor
-                                        onClicked:      _root._removeExpandedSlot(expandedSlot.slotIndex)
+                                        anchors.fill:       parent
+                                        anchors.margins:    -_t.spacingUnit * 0.5   // larger touch target
+                                        cursorShape:        Qt.PointingHandCursor
+                                        onClicked:          _root._removeExpandedSlot(expandedSlot.slotIndex)
                                     }
                                 }
                             }
@@ -1549,6 +1606,7 @@ Item {
                         MouseArea { anchors.fill: parent; cursorShape: Qt.PointingHandCursor; onClicked: _root._addExpandedSlot() }
                     }
                 }
+                }   // Flickable
             }
         }
     }

@@ -15,7 +15,7 @@ class CotForwarder;
 
 Q_DECLARE_LOGGING_CATEGORY(CustomPluginLog)
 
-/// DroneHub GCS core plugin (QGC Stable_V5.0 API).
+/// DroneHub GCS core plugin (QGC v5.1 API).
 ///
 /// რეგისტრაცია ხდება CMake compile-defs-ით (CUSTOMHEADER/CUSTOMCLASS) —
 /// QGC core თვითონ ქმნის singleton-ს instance()-ით.

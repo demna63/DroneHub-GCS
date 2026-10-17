@@ -1,0 +1,14 @@
+name: იდეა / Feature request
+description: ახალი ფუნქცია ან გაუმჯობესება
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: რა პრობლემას წყვეტს
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: შემოთავაზება

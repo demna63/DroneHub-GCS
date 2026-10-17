@@ -32,7 +32,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: wasm-build-${{ github.ref }}-${{ inputs.ref }}
   cancel-in-progress: true
 
 env:
@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout DroneHub
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || 'master' }}
 
@@ -65,13 +65,15 @@ jobs:
           rm -rf qgroundcontrol/custom
           cp -R custom qgroundcontrol/custom
           cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_ka.ts
+          cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_source_ka.ts
+          cp translations/qgc_json_ka.ts qgroundcontrol/translations/qgc_json_ka.ts
           if [ ! -f qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf ]; then
             curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf" \
               -o qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf
           fi
 
       - name: Setup Emscripten SDK (${{ env.EMSDK_VERSION }})
-        uses: emscripten-core/setup-emsdk@v11
+        uses: emscripten-core/setup-emsdk@v16
         with:
           version: ${{ env.EMSDK_VERSION }}
           no-cache: true
@@ -129,7 +131,7 @@ jobs:
 
       - name: Upload WASM artifact
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: DroneHubGCS-WASM
           path: qgroundcontrol/build/**/*

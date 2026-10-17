@@ -1,0 +1,36 @@
+name: ბაგის შეტყობინება / Bug report
+description: რაღაც არ მუშაობს DroneHub GCS-ში
+labels: [bug]
+body:
+  - type: dropdown
+    id: platform
+    attributes:
+      label: პლატფორმა
+      options: [macOS, Windows, Linux, Android]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: ვერსია
+      description: Settings → About (მაგ. v1.0.0) ან CI run-ის ნომერი
+    validations:
+      required: true
+  - type: dropdown
+    id: autopilot
+    attributes:
+      label: ავტოპილოტი
+      options: [PX4, ArduPilot, SITL / სიმულატორი, არ არის დაკავშირებული]
+  - type: textarea
+    id: what
+    attributes:
+      label: რა მოხდა და რას ელოდი
+      description: ნაბიჯები რეპროდუქციისთვის; screenshot სასურველია
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: ლოგი
+      description: "macOS: ~/Documents/DroneHubGCS*/Logs · Android: adb logcat | grep -i qgc"
+      render: text

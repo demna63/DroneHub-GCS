@@ -52,7 +52,9 @@ permissions:
 
 # Manual-only workflow — concurrent runs on the same ref cancel in progress (CI minutes).
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  # Unique per workflow file: when called from release.yml, github.workflow is "DroneHub Release"
+  # for every called workflow, so a shared group made build/android cancel each other.
+  group: desktop-build-${{ github.ref }}-${{ inputs.ref }}
   cancel-in-progress: true
 
 env:
@@ -75,7 +77,7 @@ jobs:
 
     steps:
       - name: Checkout DroneHub
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || 'master' }}
 
@@ -88,6 +90,9 @@ jobs:
           rm -rf qgroundcontrol/custom
           cp -R custom qgroundcontrol/custom
           cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_ka.ts
+          # 5.1 QGCApplication::setLanguage() loads :/i18n/qgc_source_<locale>.qm — needs this name too.
+          cp translations/qgc_ka.ts qgroundcontrol/translations/qgc_source_ka.ts
+          cp translations/qgc_json_ka.ts qgroundcontrol/translations/qgc_json_ka.ts
           if [ ! -f qgroundcontrol/custom/res/fonts/NotoSansGeorgian.ttf ]; then
             echo "::group::Fetch Georgian font (OFL)"
             curl -fsSL "https://raw.githubusercontent.com/google/fonts/main/ofl/notosansgeorgian/NotoSansGeorgian%5Bwdth%2Cwght%5D.ttf" \
@@ -126,7 +131,7 @@ jobs:
 
       # Runner default Python (3.14) breaks aqtinstall on Windows; pin a known-good one.
       - name: Set up Python 3.12 (aqtinstall)
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
@@ -187,8 +192,19 @@ jobs:
         working-directory: qgroundcontrol
         shell: bash
         run: |
-          cmake --build build --config Release --target package \
-            || echo "::warning::package target failed on $RUNNER_OS — uploading raw build output instead"
+          if [ "$RUNNER_OS" = "macOS" ]; then
+            # 5.1 macOS DMG comes from `cmake --install` (staging/ → ad-hoc sign → create-dmg →
+            # build/DroneHubGCS.dmg). The CPack `package` target installs elsewhere, so the
+            # DMG script never finds staging/DroneHubGCS.app.
+            cmake --install build --config Release \
+              || echo "::warning::install/DMG step failed on macOS — uploading raw build output instead"
+            # CreateMacDMG.cmake runs in install context where CMAKE_BINARY_DIR is the source dir,
+            # so the DMG lands next to CMakeLists.txt — move it where the upload glob looks.
+            find . -maxdepth 1 -name '*.dmg' -exec mv -v {} build/ \;
+          else
+            cmake --build build --config Release --target package \
+              || echo "::warning::package target failed on $RUNNER_OS — uploading raw build output instead"
+          fi
           echo "Artifacts produced:"
           find build -maxdepth 2 \( -name '*.dmg' -o -name '*.exe' -o -name '*.AppImage' \
             -o -name '*.zip' -o -name '*.tar.gz' -o -name '*.deb' \) -print 2>/dev/null || true
@@ -252,7 +268,7 @@ jobs:
 
       - name: Upload desktop artifact
         if: success()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: DroneHubGCS-${{ matrix.config.os }}
           path: |

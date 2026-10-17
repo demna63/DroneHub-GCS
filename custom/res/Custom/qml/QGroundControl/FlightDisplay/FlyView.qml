@@ -108,11 +108,20 @@ Item {
             // Same height as the collapsed HUD dock (16:9), so PiP and HUD sit on one row.
             // A manual resize via the PiP handle overrides this binding.
             _pipSize:               customOverlay.hudCompactDockHeight > 0
-                                        ? Math.min(customOverlay.hudCompactDockHeight * 16 / 9, parent.width * 0.4)
-                                        : parent.width * 0.2
+                                        ? Math.min(customOverlay.hudCompactDockHeight * 16 / 9, parent.width * 0.4, _pipMaxWidth)
+                                        : Math.min(parent.width * 0.2, _pipMaxWidth)
+            // Manual resize limit (fraction of parent width). Upstream allows 75 % of the width,
+            // which on a short landscape phone is taller than the whole screen and buries the HUD
+            // and tool strip. Also cap by height: at most ~45 % of the view height (16:9 PiP).
+            readonly property real _pipMaxWidth: Math.min(parent.width * 0.75, parent.height * 0.45 * 16 / 9)
+            _maxSize:               parent.width > 0 ? _pipMaxWidth / parent.width : 0.75
 
-            property real leftEdgeBottomInset: visible ? width + anchors.margins : 0
-            property real bottomEdgeLeftInset: visible ? height + anchors.margins : 0
+            // Collapsed PiP leaves only the small "show" button (2 × font height) — don't
+            // reserve the full PiP footprint, so the HUD can re-centre.
+            readonly property real _visibleWidth:  _isExpanded ? width  : ScreenTools.defaultFontPixelHeight * 2
+            readonly property real _visibleHeight: _isExpanded ? height : ScreenTools.defaultFontPixelHeight * 2
+            property real leftEdgeBottomInset: visible ? _visibleWidth + anchors.margins : 0
+            property real bottomEdgeLeftInset: visible ? _visibleHeight + anchors.margins : 0
 
             // Rounded corners matching the HUD dock: render the PiP (video or map) through
             // a rounded-rect alpha mask. Interaction is unaffected (layer is render-only).
@@ -142,7 +151,7 @@ Item {
         // Hairline edge — same glass edge as the HUD dock.
         Rectangle {
             anchors.fill:   _pipView
-            visible:        _pipView.visible
+            visible:        _pipView.visible && _pipView._isExpanded   // no empty frame when collapsed
             z:              _pipView.z + 1
             radius:         customOverlay.hudCornerRadius
             color:          "transparent"

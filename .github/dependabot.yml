@@ -1,0 +1,12 @@
+# Keeps GitHub Actions pinned to current major versions (e.g. the Node 20 → 24 runner move).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    commit-message:
+      prefix: ci
+    groups:
+      actions:
+        patterns: ["*"]
