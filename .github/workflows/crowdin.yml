@@ -69,10 +69,12 @@ jobs:
           upload_sources: true
           # Normally false so Crowdin is the source of truth. The manual push_translations run
           # sends repo fixes (e.g. #51 terminology) up and approves them, so the next download
-          # does not revert them. Identical translations are skipped by Crowdin.
+          # does not revert them.
           upload_translations: ${{ github.event.inputs.push_translations == 'true' }}
           auto_approve_imported: ${{ github.event.inputs.push_translations == 'true' }}
-          import_eq_suggestions: false
+          # Strings that stay English on purpose have translation == source; without this
+          # Crowdin skips them on upload and keeps its machine translation (Crowdin PR #56).
+          import_eq_suggestions: ${{ github.event.inputs.push_translations == 'true' }}
           download_translations: true
           localization_branch_name: l10n/crowdin-ka
           create_pull_request: true
