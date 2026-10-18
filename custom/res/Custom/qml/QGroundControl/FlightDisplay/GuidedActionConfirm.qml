@@ -178,18 +178,29 @@ Item {
             visible:            text !== ""
         }
 
-        QGCColoredImage {
-            id:                 closeButton
-            Layout.alignment:   Qt.AlignVCenter
-            width:              height
-            height:             ScreenTools.defaultFontPixelHeight * 0.7
-            source:             "/res/XDelete.svg"
-            fillMode:           Image.PreserveAspectFit
-            color:              qgcPal.text
+        // Cancel: the icon stays small, but the whole toolbar-height cell is clickable —
+        // cancelling a pending guided action has to be easy to hit in the field.
+        Item {
+            id:                     closeButton
+            Layout.alignment:       Qt.AlignVCenter
+            Layout.fillHeight:      true
+            Layout.preferredWidth:  Math.max(ScreenTools.minTouchPixels, ScreenTools.defaultFontPixelHeight * 2)
+            Accessible.role:        Accessible.Button
+            Accessible.name:        qsTr("Cancel")
+            Accessible.onPressAction: confirmCancelled()
+
+            QGCColoredImage {
+                anchors.centerIn:   parent
+                width:              height
+                height:             ScreenTools.defaultFontPixelHeight * 0.9
+                source:             "/res/XDelete.svg"
+                fillMode:           Image.PreserveAspectFit
+                color:              qgcPal.text
+            }
 
             QGCMouseArea {
-                fillItem:   parent
-                onClicked:  confirmCancelled()
+                anchors.fill:   parent
+                onClicked:      confirmCancelled()
             }
         }
     }

@@ -119,11 +119,16 @@ Item {
                         }
 
                         MouseArea {
+                            id:                 brandMouse
                             anchors.fill:       parent
                             cursorShape:        Qt.PointingHandCursor
                             hoverEnabled:       true
                             onClicked:          Theme.flyToolStripExpanded = !Theme.flyToolStripExpanded
                         }
+
+                        ToolTip.visible:    brandMouse.containsMouse
+                        ToolTip.delay:      400
+                        ToolTip.text:       Theme.flyToolStripExpanded ? qsTr("Hide tools") : qsTr("Show tools")
                     }
 
                     Rectangle {
@@ -231,6 +236,14 @@ Item {
                         id:                     cameraToggleButton
                         Layout.fillHeight:      true
                         Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 5.5
+                        Accessible.role:        Accessible.Button
+                        Accessible.name:        qsTr("Camera panel")
+                        Accessible.checkable:   true
+                        Accessible.checked:     Theme.flyCameraPanelExpanded
+                        Accessible.onPressAction: Theme.flyCameraPanelExpanded = !Theme.flyCameraPanelExpanded
+                        ToolTip.visible:        cameraMouse.containsMouse
+                        ToolTip.delay:          400
+                        ToolTip.text:           Theme.flyCameraPanelExpanded ? qsTr("Hide camera panel") : qsTr("Show camera panel")
 
                         Image {
                             source:             "/qmlimages/camera_video.svg"
@@ -240,6 +253,7 @@ Item {
                         }
 
                         MouseArea {
+                            id:                 cameraMouse
                             anchors.fill:       parent
                             cursorShape:        Qt.PointingHandCursor
                             hoverEnabled:       true

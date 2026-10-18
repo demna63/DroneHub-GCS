@@ -11117,7 +11117,7 @@ VTOL</translation>
     <message>
       <location filename="../qgroundcontrol/src/FlyView/FlyViewCustomLayer.qml"/>
       <source>add metric</source>
-      <translation>ლიანდაგის დამატება</translation>
+      <translation>მეტრიკის დამატება</translation>
     </message>
     <message>
       <location filename="../qgroundcontrol/src/FlyView/FlyViewCustomLayer.qml"/>
@@ -11291,6 +11291,30 @@ VTOL</translation>
       <location filename="../qgroundcontrol/src/Toolbar/FlyViewToolBar.qml" line="+127"/>
       <source>Disconnect</source>
       <translation>გათიშვა</translation>
+    </message>
+    <message>
+      <source>Show or hide the tool strip</source>
+      <translation>ხელსაწყოების ზოლის ჩვენება ან დამალვა</translation>
+    </message>
+    <message>
+      <source>Hide tools</source>
+      <translation>ხელსაწყოების დამალვა</translation>
+    </message>
+    <message>
+      <source>Show tools</source>
+      <translation>ხელსაწყოების ჩვენება</translation>
+    </message>
+    <message>
+      <source>Camera panel</source>
+      <translation>კამერის პანელი</translation>
+    </message>
+    <message>
+      <source>Hide camera panel</source>
+      <translation>კამერის პანელის დამალვა</translation>
+    </message>
+    <message>
+      <source>Show camera panel</source>
+      <translation>კამერის პანელის ჩვენება</translation>
     </message>
   </context>
   <context>
@@ -12427,6 +12451,10 @@ VTOL</translation>
       <location filename="../qgroundcontrol/src/FlyView/GuidedActionConfirm.qml" line="+1"/>
       <source>Slide or hold spacebar</source>
       <translation>გაასრიალეთ ან გააჩერეთ spacebar</translation>
+    </message>
+    <message>
+      <source>Cancel</source>
+      <translation>გაუქმება</translation>
     </message>
   </context>
   <context>
@@ -15946,6 +15974,10 @@ VTOL</translation>
     <message>
       <source>Exit</source>
       <translation>გასვლა</translation>
+    </message>
+    <message>
+      <source>Exit %1</source>
+      <translation>გასვლა: %1</translation>
     </message>
   </context>
   <context>
@@ -25806,6 +25838,10 @@ If a vehicle still has this key configured, you will no longer be able to commun
       <location filename="../qgroundcontrol/src/Toolbar/VideoStatusIndicator.qml" line="+3"/>
       <source>State</source>
       <translation>მდგომარეობა</translation>
+    </message>
+    <message>
+      <source>No video source</source>
+      <translation>ვიდეო წყარო არ არის</translation>
     </message>
   </context>
   <context>

@@ -86,8 +86,10 @@ Item {
                     labelText:  _streamEnabled ? qsTr("Enabled") : qsTr("Disabled")
                 }
                 LabelledLabel {
+                    // QGC 5.1 dropped VideoManager.gstreamerEnabled (it read as undefined, so this
+                    // always said "Not compiled"); report whether a video source is configured.
                     label:      qsTr("Backend")
-                    labelText:  _videoManager.gstreamerEnabled ? qsTr("Available") : qsTr("Not compiled")
+                    labelText:  _hasBackend ? qsTr("Available") : qsTr("No video source")
                 }
                 LabelledLabel {
                     label:      qsTr("State")

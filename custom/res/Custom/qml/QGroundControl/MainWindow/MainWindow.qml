@@ -459,7 +459,8 @@ ApplicationWindow {
 
                 QGCLabel {
                     id:             toolbarDrawerText
-                    text:           qsTr("Exit") + " " + toolDrawer.toolTitle
+                    //: Back button of a full-screen tool; %1 is the tool title (e.g. Application Settings)
+                    text:           qsTr("Exit %1").arg(toolDrawer.toolTitle)
                     color:          Theme.textPrimary
                     font.pointSize: ScreenTools.largeFontPointSize
                 }

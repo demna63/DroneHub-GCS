@@ -63,7 +63,7 @@ Item {
             horizontalAlignment:    Text.AlignHCenter
             color:                  _hintText
             font.family:            Theme.fontFamily
-            font.pixelSize:         ScreenTools.defaultFontPointSize * 0.9
+            font.pointSize:         ScreenTools.defaultFontPointSize * 0.9
             font.weight:            Font.Medium
             style:                  Text.Outline
             styleColor:             "#88000000"
