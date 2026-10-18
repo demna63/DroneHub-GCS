@@ -18,6 +18,8 @@ Item {
     readonly property string logoSource:           "qrc:/custom/img/dhg-logo-dark.png"
     readonly property real   logoAspectRatio:      849 / 317   // dhg-logo-dark.png width / height
     readonly property string videoPlaceholderLogo: "qrc:/custom/img/dhg-logo-dark.png"
+    /// Teal of the DHG mark; only for brand artwork companions (video placeholder dots).
+    readonly property color  brandLogoAccent:      "#20B2AA"
     readonly property string appName:       "DroneHub GCS"
 
     /// Fly View მარცხენა tool strip — ლოგოზე დაჭერით იკეცება/იშლება (persisted).

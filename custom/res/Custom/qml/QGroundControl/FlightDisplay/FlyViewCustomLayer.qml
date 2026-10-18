@@ -508,7 +508,8 @@ Item {
         id: combo
         font.family:    _t.fontFamily
         font.pixelSize: _t.fontCaption
-        implicitHeight: _t.spacingUnit * 4
+        // spacingUnit shrinks with _uiScale on phones (down to ~18 px); keep a touch-size floor.
+        implicitHeight: Math.max(_t.spacingUnit * 4, ScreenTools.isMobile ? _root._minTouchSize : 0)
 
         background: Rectangle {
             radius:       _t.radiusSm
@@ -571,7 +572,7 @@ Item {
 
         delegate: ItemDelegate {
             width:          ListView.view ? ListView.view.width : combo.width
-            height:         _t.spacingUnit * 3.5
+            height:         Math.max(_t.spacingUnit * 3.5, ScreenTools.isMobile ? _root._minTouchSize : 0)
             highlighted:    combo.highlightedIndex === index
             contentItem: Text {
                 text:               modelData
@@ -1681,13 +1682,18 @@ Item {
                         visible:                _hudEditMode && _root._expandedKeys.length < 12
                         Layout.alignment:       Qt.AlignHCenter
                         Layout.topMargin:       _t.spacingUnit * 0.3
-                        Layout.preferredWidth:  _t.spacingUnit * 11
-                        Layout.preferredHeight: _t.spacingUnit * 3.5
+                        // Sized to the (longer) Georgian label; touch-height on every screen.
+                        Layout.preferredWidth:  addExpandedText.implicitWidth + _t.spacingUnit * 3
+                        Layout.preferredHeight: Math.max(_t.spacingUnit * 3.5, _root._minTouchSize)
                         radius:                 _t.radiusSm
                         color:                  _t.hudMetricPlate
-                        border.width:           1
-                        border.color:           _t.hudBorder
+                        border.width:           activeFocus ? 2 : 1
+                        border.color:           activeFocus ? _t.telemetryAccent : _t.hudBorder
+                        activeFocusOnTab:       true
+                        Keys.onReturnPressed:   _root._addExpandedSlot()
+                        Keys.onSpacePressed:    _root._addExpandedSlot()
                         Text {
+                            id:                 addExpandedText
                             anchors.centerIn:   parent
                             text:               qsTr("+ add metric")
                             color:              _t.textPrimary

@@ -121,7 +121,7 @@ Rectangle {
             height:                 width
             border.width:           1.5
             border.color:           Theme.warning
-            color:                  "white"
+            color:                  Theme.bgElevated   // warning-on-bgElevated ≈ 7.5:1 (was orange on white ≈ 2.1:1)
             radius:                 width / 2
             visible:                !_readyForSave
 

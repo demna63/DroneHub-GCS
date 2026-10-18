@@ -90,7 +90,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  _textPrimary
                 font.family:            _fontFamily
-                font.pixelSize:         ScreenTools.defaultFontPointSize * 1.2
+                font.pointSize:         ScreenTools.defaultFontPointSize * 1.2
                 font.bold:              true
                 style:                  Text.Outline
                 styleColor:             "#99000000"
@@ -103,7 +103,7 @@ Rectangle {
                 wrapMode:               Text.WordWrap
                 color:                  _textSecondary
                 font.family:            _fontFamily
-                font.pixelSize:         ScreenTools.defaultFontPointSize
+                font.pointSize:         ScreenTools.defaultFontPointSize
                 lineHeight:             1.3
                 style:                  Text.Outline
                 styleColor:             "#88000000"
@@ -117,7 +117,7 @@ Rectangle {
                 horizontalAlignment:    Text.AlignHCenter
                 color:                  _textSecondary
                 font.family:            _fontFamily
-                font.pixelSize:         ScreenTools.defaultFontPointSize * 0.95
+                font.pointSize:         ScreenTools.defaultFontPointSize * 0.95
                 style:                  Text.Outline
                 styleColor:             "#88000000"
             }

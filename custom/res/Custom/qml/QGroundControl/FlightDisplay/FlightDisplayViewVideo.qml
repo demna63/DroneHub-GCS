@@ -10,6 +10,8 @@ import QGroundControl.FlyView
 import QGroundControl.FlightMap
 import QGroundControl.Controls
 
+import Custom
+
 Item {
     id:     root
     clip:   true
@@ -112,7 +114,7 @@ Item {
                             width:      ScreenTools.defaultFontPixelWidth * 0.6
                             height:     width
                             radius:     width / 2
-                            color:      "#20B2AA"
+                            color:      Theme.brandLogoAccent
                             opacity:    0.25
 
                             SequentialAnimation on opacity {
