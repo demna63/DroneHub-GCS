@@ -78,7 +78,7 @@ core QGC ფაილს პირდაპირ **არ** ვცვლით 
 **Branding (5.1: `QGC_MACOS_ICON_PATH` = .icns ფაილი; Android launcher = `@mipmap/ic_launcher` → custom/CMakeLists ავსებს mipmap-ებს):** app name `DroneHubGCS`, bundle id `org.dronehub.GCS` (macOS) / `org.dronehub.gcs`
 (Android applicationId), org `DroneHub Georgia` / `dronehub.ge`, copyright; macOS `.icns`,
 Windows `.ico`, Android launcher icons (ყველა density); DroneHub logo/splash/video-placeholder;
-pinned version **1.1.0** (`custom/CMakeLists.txt` — PARENT_SCOPE + `qgc_version.h` ხელახლა გენერირდება, რადგან 5.1 მას `include(Git)`-ში წერს).
+pinned version **1.1.1** (`custom/CMakeLists.txt` — PARENT_SCOPE + `qgc_version.h` ხელახლა გენერირდება, რადგან 5.1 მას `include(Git)`-ში წერს).
 
 **ქართული ლოკალიზაცია (სრული):** `translations/qgc_ka.ts` (~5000 string, 5.1-ზე 0 unfinished; ახალი batch: `tools/apply-ka-batch-json.py`); Noto Sans Georgian + `ka` locale;
 settings enums → `CustomPlugin::adjustSettingMetaData`; **ყველა** fact/param enum →

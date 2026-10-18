@@ -9,6 +9,43 @@ matches the pushed tag (`v1.2.3` → the `## [1.2.3]` block) as the GitHub Relea
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-10-18
+
+### Added
+- Tool strip: item names show on press-and-hold on touch screens (hover on desktop). Toolbar
+  brand and camera-panel buttons have tooltips and screen-reader names.
+- HUD: Escape closes the telemetry card / leaves edit mode; HUD controls and metric cells expose
+  screen-reader names; the telemetry card fades in and out.
+- CI: `DroneHub Checks` runs on every PR and on `master` (HUD tokens, translation stats, Georgian
+  terminology). A Crowdin sync that machine-translates protected strings or brings back wrong
+  drone terms now fails.
+
+### Changed
+- Toolbar shows the DHG mark and "DroneHub GCS" (name hidden on phones) instead of the DGGCS artwork.
+- Setup uses a wrench icon, so it no longer looks like a second Settings cog.
+- Plan view on narrow (phone) screens: the editor panel takes the full width and its open/close
+  tab slides it away to reveal the map; the tab is touch-sized.
+- Full-screen tool titles read "გასვლა: …" (one translatable string) instead of a concatenation.
+- HUD caption and compass labels never drop below 13 px.
+
+### Fixed
+- Georgian terminology: "vehicle" was translated as a car (მანქანა / ავტომობილი) in 129 strings —
+  now "აპარატი"; "props" as supports, including the remove-props safety warnings — now
+  "პროპელერები"; motor, throttle and bench-test strings corrected; "add metric" no longer reads
+  "ლიანდაგის დამატება".
+- 47 strings that stay English on purpose (Pitch/Yaw, flight modes, compass letters, …) were
+  machine-translated by a Crowdin sync; restored, and the Crowdin push now keeps them.
+- Guided-action confirm: the cancel ✕ has a toolbar-height touch area (was a ~0.7 em icon).
+- MAVLink action confirm and slide-to-confirm hint used point sizes as pixel sizes (tiny text);
+  fixed.
+- "+ add metric" in the telemetry card fits its Georgian label, is touch-height and keyboard
+  reachable; HUD metric pickers keep a 44 px height on phones.
+- Video status "Backend" always read "Not compiled" (API removed in QGC 5.1); it now reports the
+  configured video source.
+- Plan item "?" badge contrast (orange on white ≈ 2.1:1 → ≈ 7.5:1).
+- `tools/check-hud-tokens.py` accepts the HUD's mobile scaling, so `tools/rebuild-dhgcs.sh` no
+  longer stops before building.
+
 ## [1.1.0] - 2026-10-17
 
 ### Added
