@@ -355,7 +355,7 @@
       <location line="+6"/>
       <location line="+6"/>
       <source>N/A</source>
-      <translation>N/A</translation>
+      <translation>მიუწვდომელია</translation>
     </message>
     <message>
       <location line="-13"/>
@@ -2052,7 +2052,7 @@
     <message>
       <location line="+13"/>
       <source>Timeout</source>
-      <translation>Timeout</translation>
+      <translation>ტაიმაუტი</translation>
     </message>
     <message>
       <location line="+9"/>
@@ -2118,7 +2118,7 @@
     <message>
       <location line="+3"/>
       <source>Circle</source>
-      <translation>Circle</translation>
+      <translation>წრიული</translation>
     </message>
     <message>
       <location line="+2"/>
@@ -2388,7 +2388,7 @@
       <location line="+50"/>
       <location line="+79"/>
       <source>Pitch</source>
-      <translation>Pitch</translation>
+      <translation>მოედანი</translation>
     </message>
     <message>
       <location line="-173"/>
@@ -2397,7 +2397,7 @@
       <location line="+46"/>
       <location line="+79"/>
       <source>Yaw</source>
-      <translation>Yaw</translation>
+      <translation>უი</translation>
     </message>
     <message>
       <location line="-168"/>
@@ -4246,7 +4246,7 @@ Please place your vehicle in water, click the button, and wait. Note that the th
     <message>
       <location line="+0"/>
       <source>Fatal</source>
-      <translation>Fatal</translation>
+      <translation>ფატალური</translation>
     </message>
     <message>
       <location line="+12"/>
@@ -4952,7 +4952,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location line="+5"/>
       <source>Bluetooth Low Energy</source>
-      <translation>Bluetooth Low Energy</translation>
+      <translation>Bluetooth დაბალი ენერგია</translation>
     </message>
     <message>
       <location line="+0"/>
@@ -5062,7 +5062,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location line="+3"/>
       <source>N/A</source>
-      <translation>N/A</translation>
+      <translation>მიუწვდომელია</translation>
     </message>
     <message>
       <location line="+5"/>
@@ -6323,13 +6323,13 @@ Click Ok to start the auto-tuning process.
       <location filename="../qgroundcontrol/src/Toolbar/EscIndicatorPage.qml" line="+13"/>
       <source>N/A</source>
       <comment>No data to display</comment>
-      <translation>N/A</translation>
+      <translation>მიუწვდომელია</translation>
     </message>
     <message>
       <location line="+1"/>
       <source>–</source>
       <comment>No data to display</comment>
-      <translation>–</translation>
+      <translation>-</translation>
     </message>
     <message>
       <location line="+18"/>
@@ -6354,7 +6354,7 @@ Click Ok to start the auto-tuning process.
     <message>
       <location line="+0"/>
       <source>- OFFLINE</source>
-      <translation>- OFFLINE</translation>
+      <translation>- ოფლაინ</translation>
     </message>
     <message>
       <location line="+12"/>
@@ -11153,7 +11153,7 @@ VTOL</translation>
     <message>
       <location line="+0"/>
       <source>Hold</source>
-      <translation>Hold</translation>
+      <translation>დაყოვნება</translation>
     </message>
   </context>
   <context>
@@ -11747,7 +11747,7 @@ VTOL</translation>
       <location line="+6"/>
       <location line="+6"/>
       <source>N/A</source>
-      <translation>N/A</translation>
+      <translation>მიუწვდომელია</translation>
     </message>
     <message>
       <location line="-7"/>
@@ -12152,7 +12152,7 @@ VTOL</translation>
     <message>
       <location line="+0"/>
       <source>ULog (*.ulg)</source>
-      <translation>ULog (*.ulg)</translation>
+      <translation>ULlog (*.ulg)</translation>
     </message>
     <message>
       <location line="+0"/>
@@ -12996,7 +12996,7 @@ VTOL</translation>
     <message>
       <location filename="../qgroundcontrol/src/QmlControls/InstrumentValueValue.qml" line="+35"/>
       <source>–</source>
-      <translation>–</translation>
+      <translation>-</translation>
     </message>
   </context>
   <context>
@@ -13360,7 +13360,7 @@ VTOL</translation>
     <message>
       <location line="+9"/>
       <source>Pitch</source>
-      <translation>Pitch</translation>
+      <translation>მოედანი</translation>
     </message>
     <message>
       <location line="+7"/>
@@ -14914,7 +14914,7 @@ VTOL</translation>
     <message>
       <location line="+10"/>
       <source>N/A</source>
-      <translation>N/A</translation>
+      <translation>მიუწვდომელია</translation>
     </message>
     <message>
       <location line="+5"/>
@@ -14992,7 +14992,7 @@ VTOL</translation>
     <message>
       <location line="+31"/>
       <source>N/A</source>
-      <translation>N/A</translation>
+      <translation>მიუწვდომელია</translation>
     </message>
     <message>
       <location line="+40"/>
@@ -15524,7 +15524,7 @@ VTOL</translation>
     <message>
       <location line="+1"/>
       <source>Quadrotor</source>
-      <translation>Quadrotor</translation>
+      <translation>კვადროტორი</translation>
     </message>
     <message>
       <location line="+1"/>
@@ -15584,12 +15584,12 @@ VTOL</translation>
     <message>
       <location line="+1"/>
       <source>Hexarotor</source>
-      <translation>Hexarotor</translation>
+      <translation>ჰექსაროტორი</translation>
     </message>
     <message>
       <location line="+1"/>
       <source>Octorotor</source>
-      <translation>Octorotor</translation>
+      <translation>ოქტოროტორი</translation>
     </message>
     <message>
       <location line="+1"/>
@@ -16775,7 +16775,7 @@ VTOL</translation>
     <message>
       <location filename="../qgroundcontrol/src/MissionManager/MissionSettingsItem.cc" line="+237"/>
       <source>H</source>
-      <translation>H</translation>
+      <translation>ჰ</translation>
     </message>
     <message>
       <location line="+0"/>
@@ -16800,7 +16800,7 @@ VTOL</translation>
       <location line="+5"/>
       <location line="+1"/>
       <source>N/A</source>
-      <translation>N/A</translation>
+      <translation>მიუწვდომელია</translation>
     </message>
     <message>
       <location line="+37"/>
@@ -17375,7 +17375,7 @@ Do you wish to proceed?</source>
     <message>
       <location line="+9"/>
       <source>Mountpoint</source>
-      <translation>Mountpoint</translation>
+      <translation>მთის წერტილი</translation>
     </message>
     <message>
       <location line="+7"/>
@@ -17653,7 +17653,7 @@ Do you wish to proceed?</source>
     <message>
       <location filename="../qgroundcontrol/src/AppSettings/NtripMountpointBrowser.qml" line="+14"/>
       <source>Mountpoint</source>
-      <translation>Mountpoint</translation>
+      <translation>მთის წერტილი</translation>
     </message>
     <message>
       <location line="+26"/>
@@ -18317,17 +18317,17 @@ Is this really what you want?</source>
     <message>
       <location line="+1"/>
       <source>Position Slow</source>
-      <translation>Position Slow</translation>
+      <translation>პოზიცია ნელი</translation>
     </message>
     <message>
       <location line="+1"/>
       <source>Altitude Cruise</source>
-      <translation>Altitude Cruise</translation>
+      <translation>კრუიზი სიმაღლეზე</translation>
     </message>
     <message>
       <location line="+1"/>
       <source>Termination</source>
-      <translation>Termination</translation>
+      <translation>შეწყვეტა</translation>
     </message>
     <message>
       <location line="+1"/>
@@ -18337,7 +18337,7 @@ Is this really what you want?</source>
     <message>
       <location line="+1"/>
       <source>Guided Course</source>
-      <translation>Guided Course</translation>
+      <translation>მართვადი კურსი</translation>
     </message>
     <message>
       <location line="+90"/>
@@ -19384,7 +19384,7 @@ Is this really what you want?</source>
     <message>
       <location line="-8"/>
       <source>Pitch</source>
-      <translation>Pitch</translation>
+      <translation>მოედანი</translation>
     </message>
     <message>
       <location line="+7"/>
@@ -19394,7 +19394,7 @@ Is this really what you want?</source>
     <message>
       <location line="+10"/>
       <source>Yaw</source>
-      <translation>Yaw</translation>
+      <translation>უი</translation>
     </message>
     <message>
       <location line="+7"/>
@@ -19512,7 +19512,7 @@ Is this really what you want?</source>
     <message>
       <location line="-57"/>
       <source>Pitch</source>
-      <translation>Pitch</translation>
+      <translation>მოედანი</translation>
     </message>
     <message>
       <location line="+7"/>
@@ -19532,7 +19532,7 @@ Is this really what you want?</source>
     <message>
       <location line="+10"/>
       <source>Yaw</source>
-      <translation>Yaw</translation>
+      <translation>უი</translation>
     </message>
     <message>
       <location line="+7"/>
@@ -21803,7 +21803,7 @@ Click 'Ok' to upload the Plan anyway.</source>
       <location line="+4"/>
       <location line="+34"/>
       <source>Pitch</source>
-      <translation>Pitch</translation>
+      <translation>მოედანი</translation>
     </message>
     <message>
       <location line="-33"/>
@@ -21814,7 +21814,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
       <location line="-33"/>
       <source>Yaw</source>
-      <translation>Yaw</translation>
+      <translation>უი</translation>
     </message>
     <message>
       <location line="+1"/>
@@ -21834,7 +21834,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
       <location line="+7"/>
       <source>Aux 1</source>
-      <translation>Aux 1</translation>
+      <translation>დამხმარე 1</translation>
     </message>
     <message>
       <location line="+1"/>
@@ -22040,7 +22040,7 @@ Click 'Ok' to upload the Plan anyway.</source>
       <location line="+329"/>
       <location line="+1038"/>
       <source>Pitch</source>
-      <translation>Pitch</translation>
+      <translation>მოედანი</translation>
     </message>
     <message>
       <location line="-1037"/>
@@ -22051,7 +22051,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
       <location line="-1034"/>
       <source>Aux 1</source>
-      <translation>Aux 1</translation>
+      <translation>დამხმარე 1</translation>
     </message>
     <message>
       <location line="+1"/>
@@ -22097,7 +22097,7 @@ Click 'Ok' to upload the Plan anyway.</source>
     <message>
       <location line="+528"/>
       <source>Yaw</source>
-      <translation>Yaw</translation>
+      <translation>უი</translation>
     </message>
     <message>
       <location line="+2"/>
@@ -24124,7 +24124,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="+1"/>
       <source>ტელემეტრია პირდაპირ GCS-იდან → DHGM რუკა (CoT) + plugin პანელი (JSON). Python bridge აღარ სჭირდება.</source>
-      <translation>ტელემეტრია პირდაპირ GCS-იდან → DHGM რუკა (CoT) + plugin პანელი (JSON). Python bridge აღარ სჭირდება.</translation>
+      <translation>ტელემეტრია ერთი GCS-დან → DHGM რუკა (CoT) + მოდული პანელი (JSON). პითონის ხიდი აღარ არის საჭირო.</translation>
     </message>
     <message>
       <location line="+5"/>
@@ -24139,7 +24139,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="+8"/>
       <source>Plugin TCP პორტი</source>
-      <translation>Plugin TCP პორტი</translation>
+      <translation>Plugin TCP ვერსია</translation>
     </message>
     <message>
       <location line="+8"/>
@@ -25865,7 +25865,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="-2"/>
       <source>W</source>
-      <translation>W</translation>
+      <translation>ვ</translation>
     </message>
     <message>
       <location line="+4"/>
@@ -25919,7 +25919,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="+1"/>
       <source>rules</source>
-      <translation>rules</translation>
+      <translation>წესები</translation>
     </message>
     <message>
       <location line="+5"/>
@@ -25939,7 +25939,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="+1"/>
       <source>filter</source>
-      <translation>filter</translation>
+      <translation>ფილტრი</translation>
     </message>
     <message>
       <location line="+5"/>
@@ -25949,7 +25949,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="+1"/>
       <source>count</source>
-      <translation>count</translation>
+      <translation>ითვლიან</translation>
     </message>
     <message>
       <location line="+5"/>
@@ -25959,7 +25959,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="+1"/>
       <source>file</source>
-      <translation>file</translation>
+      <translation>ფაილი</translation>
     </message>
     <message>
       <location line="+5"/>
@@ -25969,7 +25969,7 @@ If a vehicle still has this key configured, you will no longer be able to commun
     <message>
       <location line="+1"/>
       <source>labels</source>
-      <translation>labels</translation>
+      <translation>ეტიკეტები</translation>
     </message>
     <message>
       <location line="+5"/>
