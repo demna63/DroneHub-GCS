@@ -8,10 +8,12 @@
 #include "QGCOptions.h"
 #include "QGCPalette.h"
 #include "DhgmSettings.h"
+#include "DroneHubCloudSettings.h"
 
 class CustomOptions;
 class QQmlApplicationEngine;
 class CotForwarder;
+class DroneHubCloudForwarder;
 
 Q_DECLARE_LOGGING_CATEGORY(CustomPluginLog)
 
@@ -52,11 +54,15 @@ public:
 
     /// DHGM forwarding პარამეტრები (Settings → Telemetry).
     Q_PROPERTY(DhgmSettings* dhgmSettings READ dhgmSettings CONSTANT)
+    /// dronehub.ge Cloud სინქრონიზაცია (Settings → Telemetry / Cloud).
+    Q_PROPERTY(DroneHubCloudSettings* droneHubCloudSettings READ droneHubCloudSettings CONSTANT)
 
     DhgmSettings* dhgmSettings() { return _dhgmSettings; }
+    DroneHubCloudSettings* droneHubCloudSettings() { return _droneHubCloudSettings; }
 
 private:
     void _wireDhgmForwarding();
+    void _wireDroneHubCloudForwarding();
     /// არეგისტრირებს bundled ქართულ ფონტს და pin-ავს default locale-ს ka-ზე.
     void _applyGeorgianLocaleAndFont();
 
@@ -70,6 +76,10 @@ private:
     /// DHGM ინტეგრაცია — ვეჰიკლების ტელემეტრია → CoT/JSON (DHGM plugin).
     class CotForwarder*             _cotForwarder = nullptr;
     DhgmSettings*                   _dhgmSettings = nullptr;
+
+    /// dronehub.ge Cloud backend forwarding.
+    class DroneHubCloudForwarder*   _cloudForwarder = nullptr;
+    DroneHubCloudSettings*          _droneHubCloudSettings = nullptr;
 };
 
 /*===========================================================================*/

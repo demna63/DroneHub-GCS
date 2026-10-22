@@ -145,10 +145,15 @@ set(QGC_RESOURCES ${QGC_RESOURCES} ${CUSTOM_RESOURCES} CACHE STRING "Paths to .q
 # custom plugin sources → core target.
 set(CUSTOM_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/GeorgianMetadataMap.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CotForwarder.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CotForwarder.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/DhgmSettings.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/DhgmSettings.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DroneHubCloudSettings.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DroneHubCloudSettings.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DroneHubCloudForwarder.cc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/DroneHubCloudForwarder.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomPlugin.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.cc
     ${CMAKE_CURRENT_SOURCE_DIR}/src/CustomOptions.h
@@ -302,6 +307,9 @@ set(DRONEHUB_MAIN_WINDOW_DST
 # runs. A build-time-only copy (DroneHubSyncFlyViewLayer below) loses that race and leaves stale
 # core copies (this was the cause of "override changes don't show up" until a second build).
 get_cmake_property(_dronehub_all_vars VARIABLES)
+list(SORT _dronehub_all_vars)
+set(_dronehub_sync_commands "")
+set(_dronehub_all_srcs "")
 foreach(_dronehub_var IN LISTS _dronehub_all_vars)
     if(_dronehub_var MATCHES "^DRONEHUB_(.+)_SRC$")
         set(_dronehub_key "${CMAKE_MATCH_1}")
@@ -312,89 +320,15 @@ foreach(_dronehub_var IN LISTS _dronehub_all_vars)
                 COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_cfg_src}" "${_cfg_dst}"
                 COMMAND_ERROR_IS_FATAL ANY
             )
+            list(APPEND _dronehub_all_srcs "${_cfg_src}")
+            list(APPEND _dronehub_sync_commands COMMAND ${CMAKE_COMMAND} -E copy_if_different "${_cfg_src}" "${_cfg_dst}")
         endif()
     endif()
 endforeach()
 
 add_custom_target(DroneHubSyncFlyViewLayer ALL
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_FLYVIEW_SRC}" "${DRONEHUB_FLYVIEW_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_LAYER_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC}" "${DRONEHUB_FLYVIEW_WIDGET_LAYER_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_VIDEO_VIEW_SRC}" "${DRONEHUB_VIDEO_VIEW_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_RC_RSSI_INDICATOR_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_VIDEO_STATUS_INDICATOR_SRC}" "${DRONEHUB_VIDEO_STATUS_INDICATOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_VEHICLE_HEALTH_INDICATOR_SRC}" "${DRONEHUB_VEHICLE_HEALTH_INDICATOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_FLIGHT_MODE_INDICATOR_SRC}" "${DRONEHUB_FLIGHT_MODE_INDICATOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_TOOLSTRIP_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC}" "${DRONEHUB_MAVLINK_ACTION_CONFIRM_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_GUIDED_CONFIRM_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_SLIDER_SWITCH_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_TOOLSTRIP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_PANEL_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}" "${DRONEHUB_TOOLSTRIP_BUTTON_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_GPS_INDICATOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_BATTERY_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_POPUP_DIALOG_SRC}" "${DRONEHUB_POPUP_DIALOG_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_DROP_PANEL_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_SETTINGS_GROUP_SRC}" "${DRONEHUB_SETTINGS_GROUP_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_DROP_PANEL_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_PLAN_TOOLBAR_SRC}" "${DRONEHUB_PLAN_TOOLBAR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_DHGM_SETTINGS_GROUP_SRC}" "${DRONEHUB_DHGM_SETTINGS_GROUP_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_MISSION_ITEM_EDITOR_SRC}" "${DRONEHUB_MISSION_ITEM_EDITOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_SIMPLE_ITEM_EDITOR_SRC}" "${DRONEHUB_SIMPLE_ITEM_EDITOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_MISSION_SETTINGS_EDITOR_SRC}" "${DRONEHUB_MISSION_SETTINGS_EDITOR_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_APP_SETTINGS_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_DST}"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            "${DRONEHUB_MAIN_WINDOW_SRC}" "${DRONEHUB_MAIN_WINDOW_DST}"
-    DEPENDS "${DRONEHUB_FLYVIEW_SRC}" "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC}" "${DRONEHUB_VIDEO_VIEW_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
-            "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_SRC}"
-            "${DRONEHUB_VIDEO_STATUS_INDICATOR_SRC}" "${DRONEHUB_VEHICLE_HEALTH_INDICATOR_SRC}" "${DRONEHUB_FLIGHT_MODE_INDICATOR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}"
-            "${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_SRC}" "${DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC}"
-            "${DRONEHUB_GUIDED_CONFIRM_SRC}"
-            "${DRONEHUB_SLIDER_SWITCH_SRC}" "${DRONEHUB_TOOLSTRIP_PANEL_SRC}"
-            "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}" "${DRONEHUB_GPS_INDICATOR_SRC}"
-            "${DRONEHUB_BATTERY_INDICATOR_SRC}" "${DRONEHUB_POPUP_DIALOG_SRC}"
-            "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_SETTINGS_GROUP_SRC}"
-            "${DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC}" "${DRONEHUB_PLAN_TOOLBAR_SRC}" "${DRONEHUB_DHGM_SETTINGS_GROUP_SRC}"
-            "${DRONEHUB_MISSION_ITEM_EDITOR_SRC}"
-            "${DRONEHUB_SIMPLE_ITEM_EDITOR_SRC}" "${DRONEHUB_MISSION_SETTINGS_EDITOR_SRC}"
-            "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}"
-            "${DRONEHUB_MAIN_WINDOW_SRC}"
+    ${_dronehub_sync_commands}
+    DEPENDS ${_dronehub_all_srcs}
     COMMENT "Sync DroneHub custom QML into QGC qmlcache sources"
     VERBATIM
 )
@@ -428,17 +362,7 @@ if(APPLE)
         add_dependencies(DroneHubSyncAppBundle ${CMAKE_PROJECT_NAME})
     endif()
 endif()
-set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
-    "${DRONEHUB_FLYVIEW_LAYER_SRC}" "${DRONEHUB_FLYVIEW_WIDGET_LAYER_SRC}" "${DRONEHUB_VIDEO_VIEW_SRC}" "${DRONEHUB_FLYVIEW_TOOLBAR_SRC}"
-    "${DRONEHUB_FLYVIEW_TOOLBAR_INDICATORS_SRC}" "${DRONEHUB_RC_RSSI_INDICATOR_SRC}"
-    "${DRONEHUB_VIDEO_STATUS_INDICATOR_SRC}" "${DRONEHUB_VEHICLE_HEALTH_INDICATOR_SRC}" "${DRONEHUB_TOOLSTRIP_SRC}" "${DRONEHUB_ADDITIONAL_ACTIONS_BTN_SRC}"
-    "${DRONEHUB_ADDITIONAL_ACTIONS_PANEL_SRC}" "${DRONEHUB_MAVLINK_ACTION_CONFIRM_SRC}"
-    "${DRONEHUB_GUIDED_CONFIRM_SRC}" "${DRONEHUB_SLIDER_SWITCH_SRC}"
-    "${DRONEHUB_TOOLSTRIP_PANEL_SRC}" "${DRONEHUB_TOOLSTRIP_BUTTON_SRC}"
-    "${DRONEHUB_GPS_INDICATOR_SRC}" "${DRONEHUB_BATTERY_INDICATOR_SRC}"
-    "${DRONEHUB_POPUP_DIALOG_SRC}" "${DRONEHUB_DROP_PANEL_SRC}" "${DRONEHUB_SETTINGS_GROUP_SRC}"
-    "${DRONEHUB_TOOLSTRIP_DROP_PANEL_SRC}" "${DRONEHUB_PLAN_TOOLBAR_SRC}" "${DRONEHUB_DHGM_SETTINGS_GROUP_SRC}"
-    "${DRONEHUB_APP_SETTINGS_SRC}" "${DRONEHUB_TOOL_INDICATOR_PAGE_SRC}" "${DRONEHUB_MAIN_WINDOW_SRC}")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${_dronehub_all_srcs})
 
 # ქართული თარგმანი (qgc_ka.ts) — core ავტომატურად glob-ავს translations/qgc_*.ts-ს
 # (core CMakeLists.txt:531). bootstrap.sh symlink-ავს ჩვენს qgc_ka.ts-ს იქ. აქ wiring საჭირო არ არის.

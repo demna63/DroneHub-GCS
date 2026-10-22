@@ -134,6 +134,12 @@ Item {
             }
         }
 
+        Shortcut {
+            sequence:   "V"
+            enabled:    _pipView.show
+            onActivated: _pipView._swapPip()
+        }
+
         Item {
             id:             pipCornerMask
             width:          _pipView.width

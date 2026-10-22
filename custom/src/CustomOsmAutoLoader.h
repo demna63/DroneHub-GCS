@@ -28,6 +28,7 @@ class CustomOsmAutoLoader : public QObject
 
 public:
     static CustomOsmAutoLoader* instance();
+    ~CustomOsmAutoLoader() override;
 
     /// Auto-download OSM buildings around `center` if appropriate (online, no manual
     /// file chosen, not already downloading, area moved since the last fetch). No-op
@@ -40,9 +41,12 @@ private slots:
 private:
     explicit CustomOsmAutoLoader(QObject* parent = nullptr);
     bool _shouldAutoLoad(const QGeoCoordinate& center) const;
+    void _cleanupTempFiles(const QString& keepFile);
 
     QNetworkAccessManager* _nam    = nullptr;
     QNetworkReply*         _reply  = nullptr;
     bool                   _busy   = false;
+    QGeoCoordinate         _pendingCenter;
     QGeoCoordinate         _lastCenter;
+    QString                _currentTempFile;
 };

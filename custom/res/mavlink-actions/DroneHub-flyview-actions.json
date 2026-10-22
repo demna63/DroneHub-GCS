@@ -1,7 +1,7 @@
 {
     "version": 1,
     "fileType": "MavlinkActions",
-    "bundleVersion": 2,
+    "bundleVersion": 3,
     "actions": [
         {
             "label": "შეიარაღება",
@@ -114,6 +114,12 @@
             "description": "ტვირთი · გიმბალი 45° ქვემოთ (MAV_CMD_DO_MOUNT_CONTROL)",
             "mavCmd": 205,
             "param2": -45
+        },
+        {
+            "label": "გიმბალი — ქვემოთ 90° (Nadir)",
+            "description": "ტვირთი · გიმბალი 90° ქვემოთ / ნადირი (MAV_CMD_DO_MOUNT_CONTROL)",
+            "mavCmd": 205,
+            "param2": -90
         },
         {
             "label": "გრიპერი — დაჭერა",

@@ -40,6 +40,8 @@ Item {
         id: _flyViewPrefs
         category: "DroneHub/FlyView"
         property bool   flyHudExpanded: false
+        property bool   flyToolStripExpanded: true
+        property bool   flyCameraPanelExpanded: true
         // Operator-configurable HUD metrics — comma-separated keys (see
         // _metricCatalog). Edited in-place via the HUD pencil button.
         property string compactMetricKeys:  "altitude,groundSpeed,battery,satellites"
@@ -395,7 +397,9 @@ Item {
         { key: "temperature",    label: qsTr("Temperature"),    icon: "temp" },
         { key: "wind",           label: qsTr("Wind"),           icon: "radar" },
         { key: "satellites",     label: qsTr("Satellites"),     icon: "satellite" },
-        { key: "hdop",           label: qsTr("HDOP"),           icon: "satellite" }
+        { key: "hdop",           label: qsTr("HDOP"),           icon: "satellite" },
+        { key: "rcRssi",         label: qsTr("RC RSSI"),        icon: "radar" },
+        { key: "telemetryRssi",  label: qsTr("Telemetry"),      icon: "radar" }
     ]
     readonly property var _catalogLabels: _metricCatalog.map(function(m) { return m.label })
 
@@ -439,6 +443,16 @@ Item {
         case "wind":           return _windText()
         case "satellites":     return _factValue(v ? v.gps.count : null)
         case "hdop":           return _hdopText()
+        case "rcRssi": {
+            if (!_activeVehicle || _activeVehicle.rcRSSI.rawValue === undefined) return _t.emptyValue
+            var rc = _activeVehicle.rcRSSI.rawValue
+            return (rc >= 0 && rc <= 100) ? rc + "%" : _t.emptyValue
+        }
+        case "telemetryRssi": {
+            if (!_activeVehicle || !_activeVehicle.radioStatus || !_activeVehicle.radioStatus.lrssi) return _t.emptyValue
+            var dbm = _activeVehicle.radioStatus.lrssi.rawValue
+            return (dbm !== undefined && !isNaN(dbm) && dbm !== 0) ? dbm + " dBm" : _t.emptyValue
+        }
         }
         return _t.emptyValue
     }
@@ -452,6 +466,22 @@ Item {
         case "satellites":
         case "hdop":
             return _gpsColor()
+        case "rcRssi": {
+            if (!_activeVehicle || _activeVehicle.rcRSSI.rawValue === undefined) return _t.textDisabled
+            var rc = _activeVehicle.rcRSSI.rawValue
+            if (rc < 0 || rc > 100) return _t.textDisabled
+            if (rc < 30) return _t.safeCrit
+            if (rc < 60) return _t.safeWarn
+            return _t.safeOk
+        }
+        case "telemetryRssi": {
+            if (!_activeVehicle || !_activeVehicle.radioStatus || !_activeVehicle.radioStatus.lrssi) return _t.textDisabled
+            var dbm = _activeVehicle.radioStatus.lrssi.rawValue
+            if (dbm === undefined || isNaN(dbm) || dbm === 0) return _t.textDisabled
+            if (dbm < -95) return _t.safeCrit
+            if (dbm < -85) return _t.safeWarn
+            return _t.safeOk
+        }
         case "temperature":
             return (_hasVehicle && _battery && _battery.temperature.rawValue !== undefined)
                     ? _t.telemetryAccent : _t.textDisabled
@@ -990,9 +1020,12 @@ Item {
     readonly property real _gpsLabelColWidth: ScreenTools.defaultFontPixelWidth * 8
 
     component GpsDataRow: RowLayout {
+        id: gpsRow
         property string label: ""
         property string valueText: _t.emptyValue
         property color  valueColor: _t.telemetryAccent
+        property bool   copyable: true
+        property bool   _copied: false
 
         Layout.fillWidth: true
         spacing: _t.spacingUnit
@@ -1006,8 +1039,8 @@ Item {
             Layout.preferredWidth: _root._gpsLabelColWidth
         }
         Text {
-            text: valueText
-            color: valueColor
+            text: gpsRow._copied ? qsTr("Copied") : valueText
+            color: gpsRow._copied ? _t.safeOk : valueColor
             font.pixelSize: _t.fontBody
             font.bold: true
             font.family: _t.fontFamilyNumeric
@@ -1016,7 +1049,30 @@ Item {
             style: Text.Outline
             styleColor: _t.textOutline
         }
+        Text {
+            visible: copyable && !gpsRow._copied && valueText !== _t.emptyValue
+            text: "📋"
+            font.pixelSize: _t.fontMicro
+            opacity: 0.5
+        }
         Item { Layout.fillWidth: true }   // absorb slack — keep label+value grouped left
+
+        Timer {
+            id: copyResetTimer
+            interval: 1500
+            onTriggered: gpsRow._copied = false
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            enabled: gpsRow.copyable && gpsRow.valueText !== _t.emptyValue
+            cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+            onClicked: {
+                QGroundControl.copyToClipboard(gpsRow.valueText)
+                gpsRow._copied = true
+                copyResetTimer.restart()
+            }
+        }
     }
 
     component HudSectionLabel: Text {
@@ -1192,6 +1248,21 @@ Item {
             _flyViewPrefs.flyHudExpanded = false
             _root._hudEditMode = false
         }
+    }
+
+    Shortcut {
+        sequence:   "H"
+        onActivated: _flyViewPrefs.flyHudExpanded = !_flyViewPrefs.flyHudExpanded
+    }
+
+    Shortcut {
+        sequence:   "T"
+        onActivated: _flyViewPrefs.flyToolStripExpanded = !_flyViewPrefs.flyToolStripExpanded
+    }
+
+    Shortcut {
+        sequence:   "C"
+        onActivated: _flyViewPrefs.flyCameraPanelExpanded = !_flyViewPrefs.flyCameraPanelExpanded
     }
 
     MouseArea {
@@ -1540,8 +1611,16 @@ Item {
                             valueText:  _root._mgrsText()
                         }
                         RowLayout {
+                            id: latLonRow
                             Layout.fillWidth: true
                             spacing:        _t.spacingUnit
+                            property bool   _copied: false
+
+                            Timer {
+                                id: latLonCopyTimer
+                                interval: 1500
+                                onTriggered: latLonRow._copied = false
+                            }
 
                             // Lat group (left half) — label column + value grouped together.
                             RowLayout {
@@ -1557,9 +1636,9 @@ Item {
                                     Layout.preferredWidth: _root._gpsLabelColWidth
                                 }
                                 Text {
-                                    text: _root._coordText(
+                                    text: latLonRow._copied ? qsTr("Copied") : _root._coordText(
                                         _activeVehicle ? _activeVehicle.gps.lat : null, 5)
-                                    color: _t.telemetryAccent
+                                    color: latLonRow._copied ? _t.safeOk : _t.telemetryAccent
                                     font.pixelSize: _t.fontBody
                                     font.bold: true
                                     font.family: _t.fontFamilyNumeric
@@ -1584,9 +1663,9 @@ Item {
                                     Layout.preferredWidth: _root._gpsLabelColWidth
                                 }
                                 Text {
-                                    text: _root._coordText(
+                                    text: latLonRow._copied ? "" : _root._coordText(
                                         _activeVehicle ? _activeVehicle.gps.lon : null, 5)
-                                    color: _t.telemetryAccent
+                                    color: latLonRow._copied ? _t.safeOk : _t.telemetryAccent
                                     font.pixelSize: _t.fontBody
                                     font.bold: true
                                     font.family: _t.fontFamilyNumeric
@@ -1594,13 +1673,35 @@ Item {
                                     style: Text.Outline
                                     styleColor: _t.textOutline
                                 }
+                                Text {
+                                    visible: !latLonRow._copied && _activeVehicle && _activeVehicle.gps.lat.value !== 0
+                                    text: "📋"
+                                    font.pixelSize: _t.fontMicro
+                                    opacity: 0.5
+                                }
                                 Item { Layout.fillWidth: true }
+                            }
+
+                            MouseArea {
+                                anchors.fill: parent
+                                enabled: _activeVehicle && _activeVehicle.gps.lat.rawValue !== undefined && _activeVehicle.gps.lat.value !== 0
+                                cursorShape: enabled ? Qt.PointingHandCursor : Qt.ArrowCursor
+                                onClicked: {
+                                    if (_activeVehicle && _activeVehicle.gps.lat.rawValue !== undefined && _activeVehicle.gps.lon.rawValue !== undefined) {
+                                        var latStr = _activeVehicle.gps.lat.rawValue.toFixed(6)
+                                        var lonStr = _activeVehicle.gps.lon.rawValue.toFixed(6)
+                                        QGroundControl.copyToClipboard(latStr + ", " + lonStr)
+                                        latLonRow._copied = true
+                                        latLonCopyTimer.restart()
+                                    }
+                                }
                             }
                         }
                         GpsDataRow {
                             label:      qsTr("HDOP")
                             valueText:  _root._hdopText()
                             valueColor: _root._gpsColor()
+                            copyable:   false
                         }
                     }
 

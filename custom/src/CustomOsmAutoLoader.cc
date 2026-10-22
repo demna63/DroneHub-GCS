@@ -41,6 +41,16 @@ CustomOsmAutoLoader::CustomOsmAutoLoader(QObject* parent)
     _nam = new QNetworkAccessManager(this);
 }
 
+CustomOsmAutoLoader::~CustomOsmAutoLoader()
+{
+    if (_reply) {
+        _reply->disconnect(this);
+        _reply->abort();
+        _reply->deleteLater();
+        _reply = nullptr;
+    }
+}
+
 bool CustomOsmAutoLoader::_shouldAutoLoad(const QGeoCoordinate& center) const
 {
     if (_busy || !center.isValid()) {
@@ -88,10 +98,23 @@ void CustomOsmAutoLoader::autoLoad(const QGeoCoordinate& center)
     req.setHeader(QNetworkRequest::UserAgentHeader, QStringLiteral("DroneHubGCS/1.0 (Viewer3D)"));
 
     _busy = true;
-    _lastCenter = center;
+    _pendingCenter = center;
     _reply = _nam->post(req, QByteArray("data=") + QUrl::toPercentEncoding(query));
     connect(_reply, &QNetworkReply::finished, this, &CustomOsmAutoLoader::_onReplyFinished);
     qInfo() << "DroneHub Viewer3D: auto-downloading OSM buildings around" << lat << lon;
+}
+
+void CustomOsmAutoLoader::_cleanupTempFiles(const QString& keepFile)
+{
+    const QString dir = QStandardPaths::writableLocation(QStandardPaths::TempLocation);
+    const QDir tempDir(dir);
+    const QStringList files = tempDir.entryList(QStringList() << (kTempPrefix + QStringLiteral("*.osm")), QDir::Files);
+    for (const QString& f : files) {
+        const QString fullPath = tempDir.filePath(f);
+        if (fullPath != keepFile) {
+            QFile::remove(fullPath);
+        }
+    }
 }
 
 void CustomOsmAutoLoader::_onReplyFinished()
@@ -127,6 +150,11 @@ void CustomOsmAutoLoader::_onReplyFinished()
     }
     f.write(data);
     f.close();
+
+    _lastCenter = _pendingCenter;
+    _currentTempFile = file;
+
+    _cleanupTempFiles(file);
 
     // Hand off to the stock loader (CityMapGeometry watches this fact).
     SettingsManager::instance()->viewer3DSettings()->osmFilePath()->setRawValue(file);

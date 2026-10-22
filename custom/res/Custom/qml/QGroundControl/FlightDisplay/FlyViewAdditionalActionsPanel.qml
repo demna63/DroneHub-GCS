@@ -47,9 +47,13 @@ ColumnLayout {
             return []
         }
         const items = []
+        const isPx4 = _activeVehicle && _activeVehicle.px4Firmware
         for (let i = 0; i < mavlinkActions.count; i++) {
             const action = mavlinkActions.get(i)
             if (action) {
+                if (!isPx4 && action.label && action.label.indexOf("PX4 —") === 0) {
+                    continue
+                }
                 items.push(action)
             }
         }

@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "fileType": "FactMetaData",
+    "QGC.MetaData.Facts": [
+        {
+            "name": "enabled",
+            "shortDesc": "dronehub.ge Cloud სინქრონიზაცია",
+            "longDesc": "ცოცხალი ტელემეტრიის HTTPS/REST გადაცემა dronehub.ge პლატფორმაზე.",
+            "type": "bool",
+            "default": false,
+            "label": "Cloud სინქრონიზაცია"
+        },
+        {
+            "name": "serverUrl",
+            "shortDesc": "სერვერის URL",
+            "longDesc": "dronehub.ge API endpoint (HTTPS)",
+            "type": "string",
+            "default": "https://api.dronehub.ge/v1/telemetry",
+            "label": "სერვერის URL"
+        },
+        {
+            "name": "apiKey",
+            "shortDesc": "API Token",
+            "longDesc": "ავტორიზაციის Bearer token",
+            "type": "string",
+            "default": "",
+            "label": "API Token"
+        },
+        {
+            "name": "rateHz",
+            "shortDesc": "გადაცემის სიხშირე (Hz)",
+            "longDesc": "ტელემეტრიის გაგზავნის პერიოდულობა წამში (1.0 = 1 წამში ერთხელ)",
+            "type": "double",
+            "default": 1.0,
+            "label": "გადაცემის სიხშირე (Hz)"
+        }
+    ]
+}
