@@ -20,7 +20,7 @@ Item {
     readonly property string videoPlaceholderLogo: "qrc:/custom/img/dhg-logo-dark.png"
     /// Teal of the DHG mark; only for brand artwork companions (video placeholder dots).
     readonly property color  brandLogoAccent:      "#20B2AA"
-    readonly property string appName:       "DroneHub GCS"
+    readonly property string appName:       "DRONEHUB GCS"
 
     /// Fly View მარცხენა tool strip — ლოგოზე დაჭერით იკეცება/იშლება (persisted).
     property alias flyToolStripExpanded:     _flyViewUi.flyToolStripExpanded

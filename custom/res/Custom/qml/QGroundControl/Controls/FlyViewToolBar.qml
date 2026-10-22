@@ -78,44 +78,27 @@ Item {
                     height:             parent.height - 1   // keep clear of the bottom hairline
                     spacing:            ScreenTools.defaultFontPixelWidth / 2
 
-                    // Brand: DHG mark + "DroneHub GCS". The name is dropped on phones to keep
-                    // the indicators on screen. Tapping the brand toggles the Fly View tool strip.
+                    // Brand: "DRONEHUB GCS". Tapping the brand toggles the Fly View tool strip.
                     Item {
                         id:                     currentButton
                         objectName:             "toolbar_dhgLogo"
                         Layout.preferredHeight: leftPanelLayout.height
-                        Layout.preferredWidth:  brandRow.implicitWidth
+                        Layout.preferredWidth:  brandLabel.implicitWidth + ScreenTools.defaultFontPixelWidth
                         Accessible.role:        Accessible.Button
                         Accessible.name:        Theme.appName
                         Accessible.description: qsTr("Show or hide the tool strip")
                         Accessible.onPressAction: Theme.flyToolStripExpanded = !Theme.flyToolStripExpanded
 
-                        Row {
-                            id:                     brandRow
+                        QGCLabel {
+                            id:                     brandLabel
                             anchors.verticalCenter: parent.verticalCenter
-                            spacing:                ScreenTools.defaultFontPixelWidth * 0.75
-
-                            Image {
-                                id:                     toolbarLogo
-                                source:                 Theme.logoSource
-                                anchors.verticalCenter: parent.verticalCenter
-                                height:                 Math.round(currentButton.height * 0.5)
-                                width:                  Math.round(height * Theme.logoAspectRatio)
-                                sourceSize.height:      height * 2   // crisp on HiDPI
-                                fillMode:               Image.PreserveAspectFit
-                                mipmap:                 true
-                                smooth:                 true
-                            }
-
-                            QGCLabel {
-                                anchors.verticalCenter: parent.verticalCenter
-                                visible:                !ScreenTools.isMobile
-                                text:                   Theme.appName
-                                color:                  Theme.textPrimary
-                                font.family:            Theme.fontFamily
-                                font.bold:              true
-                                font.pointSize:         ScreenTools.mediumFontPointSize
-                            }
+                            anchors.left:           parent.left
+                            anchors.leftMargin:     ScreenTools.defaultFontPixelWidth / 2
+                            text:                   Theme.appName
+                            color:                  Theme.textPrimary
+                            font.family:            Theme.fontFamily
+                            font.bold:              true
+                            font.pointSize:         ScreenTools.mediumFontPointSize
                         }
 
                         MouseArea {

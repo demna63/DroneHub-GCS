@@ -1,0 +1,1 @@
+qgroundcontrol/build/Release/DroneHubGCS.app
