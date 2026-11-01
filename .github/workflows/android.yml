@@ -212,7 +212,7 @@ jobs:
       # Android's Files app failed to extract).
       - name: Upload APK artifact
         if: success()
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: DroneHubGCS-android-arm64-v8a
           path: ${{ env.APK_OUT }}
