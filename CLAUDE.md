@@ -1,7 +1,5 @@
 # CLAUDE.md — DroneHub GCS
 
-> Place this file at the root of the `DroneHub-GCS/` repo (next to the `qgroundcontrol/` folder).
-
 ## რა არის ეს პროექტი
 Desktop **Ground Control Station** (DroneHubGCS) — **QGroundControl-ის fork**.
 Bundle ID: `org.dronehub.GCS`. macOS build output:
@@ -90,19 +88,19 @@ context, 87 სახელი); flight-mode menu → custom `FlightModeIndicato
 **Fly view UI:** DroneHub `Theme` (მუქი palette); `FlyViewCustomLayer` — კონფიგურირებადი HUD
 (compact + expanded metrics); custom toolbar (logo, indicators, mission clock, video-status);
 video PiP ყოველთვის-ჩართული + GStreamer (`disableWhenDisarmed=false`, UDP h264 default);
-tool strip — ლოგო toggle-ავს; ნავიგაცია (Plan/Setup/Analyze/Settings) tool strip-შია (`FlyViewToolStripActionList.qml`); Viewer3D default-on (5.1 = Metal RHI, ძველი macOS+GStreamer გამონაკლისი მოხსნილია).
+tool strip — ლოგო toggle-ავს; ნავიგაცია (Plan/Setup/Analyze/Settings) tool strip-შია (`FlyViewToolStripActionList.qml`); Viewer3D default-on (5.1 = Metal RHI, macOS+GStreamer-ზეც).
 
-**Plan view restyle (HUD-style):** ფართო editor panel + glass chrome (`PlanView-panel-*.patch`); Plan toolbar = upstream 5.1 (ძველი stats override ჩამოშორდა);
+**Plan view restyle (HUD-style):** ფართო editor panel + glass chrome (`PlanView-panel-*.patch`); Plan toolbar = upstream 5.1 (override-ის გარეშე);
 custom `MissionItemEditor`/`SimpleItemEditor`/`MissionSettingsEditor` (დიდი ფონტი, spacing).
 
 **ქცევა/defaults:** PX4 multirotor offline default; Brand Image settings დამალული; multi-vehicle
-list = base default. **DHGM ინტეგრაცია:** `CotForwarder` — ტელემეტრია → CoT (multicast 239.2.3.1:6969 + unicast ATAK SA) და JSON (TCP :14550, newline-delimited, heartbeat + backpressure); ჩართვა Settings → Telemetry → DHGM (5.1-ში გვერდი JSON-იდან გენერირდება — DHGM ჯგუფი = `DhgmSettingsGroup.qml` + `AppSettings-dhgm-telemetry.patch`; მთლიანი TelemetrySettings override აღარ არის). TCP კლიენტები მხოლოდ ლოკალური ქსელიდან (loopback/RFC1918/169.254) — სხვა IP ეგრევე წყდება. **dronehub.ge backend ინტეგრაცია — ჯერ არ არსებობს.**
+list = base default. **DHGM ინტეგრაცია:** `CotForwarder` — ტელემეტრია → CoT (multicast 239.2.3.1:6969 + unicast ATAK SA) და JSON (TCP :14550, newline-delimited, heartbeat + backpressure); ჩართვა Settings → Telemetry → DHGM (5.1-ში გვერდი JSON-იდან გენერირდება — DHGM ჯგუფი = `DhgmSettingsGroup.qml` + `AppSettings-dhgm-telemetry.patch`; TelemetrySettings override არ გვაქვს). TCP კლიენტები მხოლოდ ლოკალური ქსელიდან (loopback/RFC1918/169.254) — სხვა IP ეგრევე წყდება. **dronehub.ge backend ინტეგრაცია — ჯერ არ არსებობს.**
 
 **Core patch-ები (ყველა `custom/patches/`-შია):** ქართული ენა (`AppSettings-georgian-language`), HUD ვიჯეტების ფერები/ლოგო (`HUD-dark-theme-widgets`), იძულებითი Dark თემა (`QGCPalette-force-dark`) + ძველი patch-ები. MockLink Release-ში გამორთულია (upstream-ის ქცევა). ⚠️ core-ში პირდაპირ არაფერი ისწორება — ყოველი ცვლილება patch-ად.
 
 **პლატფორმები/CI:** macOS · Windows (MSVC) · Linux · Android (arm64, SDK 36 / NDK r27c / Java 21) — GitHub Actions-ით; WASM ექსპერიმენტული.
 
-**5.1 API შენიშვნები:** `adjustSettingMetaData(..., bool& userVisible)` (void; false = დამალული + default-ზე pinned); URL interceptor იხსნება `destroyQmlApplicationEngine`-ში (არა `cleanup()`-ში — engine უკვე წაშლილია); `VideoManager.gstreamerEnabled`, BrandImageSettings, `wifiReliableForCalibration`, `Vehicle::telemetryLRSSI/rcRSSI` აღარ არსებობს (→ `radioStatus` FactGroup / `rcRSSI` Fact); `QDateTime(..., Qt::UTC)` → `QTimeZone::UTC`; `Qt.labs.settings` → `QtCore`.
+**5.1 API:** `adjustSettingMetaData(..., bool& userVisible)` (void; false = დამალული + default-ზე pinned); URL interceptor იხსნება `destroyQmlApplicationEngine`-ში (არა `cleanup()`-ში — engine უკვე წაშლილია); RSSI = `radioStatus` FactGroup / `rcRSSI` Fact; დრო — `QDateTime(..., QTimeZone::UTC)`; settings — `QtCore` (არა `Qt.labs.settings`). არ არსებობს: `VideoManager.gstreamerEnabled`, BrandImageSettings, `wifiReliableForCalibration`, `Vehicle::telemetryLRSSI`.
 
 ## სამუშაო წესი
 - კოდი ჯერ, ახსნა მერე; ახსნა მოკლე
